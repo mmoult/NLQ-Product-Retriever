@@ -133,4 +133,4 @@ dmypy.json
 .pyre/
 
 # We don't want to save the database
-.db
+*.db
