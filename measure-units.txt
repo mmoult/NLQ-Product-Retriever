@@ -1,0 +1,173 @@
+acres
+angstroms
+ares
+astronomical units
+atmospheres
+barleycorns
+barrels
+bars
+british thermal units
+btu
+bushels
+calories
+calories per hour etc.
+carats, metric
+celsius
+centigrade
+centigrade heat units
+centilitres
+centimetres
+centimetres of mercury or water
+centimetres per minute etc.
+chains 
+circular inches
+cubic 
+cubic measures per area
+cubits
+decilitres
+denier
+drex
+dynes
+Zlls 
+ems 
+ergs 
+ergs 
+Fahrenheit
+fathoms
+feet
+feet of water
+feet per hour etc.
+fluid ounces
+foot pounds-force
+foot pounds-force per minute etc.
+foot poundals
+furlongs
+gallons
+gallons per area
+gigajoules
+gigawatts
+grains
+grains per gallon
+grams
+gram-force centimetres
+grams per area
+grams per cm
+grams per 
+hands
+hectares
+hides
+horsepower
+horsepower hours
+hundredweights
+inches
+inches of mercury or water
+inches of rain 
+inches of rain 
+inches per minute etc.
+joules
+joules per hour etc.
+kelvin
+kilocalories
+kilocalories per hour etc.
+kilograms-force
+kilogram-force metres 
+kilogram-force metres 
+kilogram-force metres per hour etc.
+kilogram-force per area
+kilograms
+kilograms per area
+kilograms per metre
+kilograms per volume
+kilojoules
+kilojoules per hour etc.
+kilometres
+kilometres per hour etc.
+kilometres per litre
+kilonewton per square metre
+kilonewtons
+kilopascals
+kilowatts
+kilowatt hours
+kips 
+kips per square inch
+knots
+leagues
+light years
+links 
+litres
+litres per area
+mach number
+megajoules
+meganewtons
+meganewtons per square metre
+megawatts
+metres
+metres of water
+metres per second etc.
+microns 
+miles
+miles per gallon
+miles per hour etc.
+millibars
+milligrams per cm
+milligrams per 
+millilitres
+millimetres of mercury or water
+millimetres of rain 
+millimetres of rain 
+newton metres 
+newton metres 
+newtons 
+newtons 
+newtons 
+ounces
+ounces per inch
+ounces per area
+ounces per volume
+parsecs
+pascals
+perch 
+picas
+pints
+points 
+poundals
+poundals per square foot
+pounds
+pounds per area
+pounds per foot
+pounds per volume
+pounds-force
+pound-force inches
+pounds-force per area
+quarts
+rankine
+reaumur
+roods
+slugs 
+stones
+square 
+squares 
+sthenes
+tex
+therms
+tonnes
+ton-force metres
+tonnes-force
+tonnes-force per area
+tonnes per hectare
+tonnes per km
+tonnes per volume
+ton-force feet
+tons
+tons-force
+tons-force per area
+tons per acre
+tons per mile
+tons per volume
+townships
+troy ounce
+watt second
+watt hours
+watts
+yards
+yards per hour etc.
