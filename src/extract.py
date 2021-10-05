@@ -9,9 +9,24 @@ class DataExtractor(object):
     Extracts different type of data from the text
     '''
 
-    typeI = None
-    typeII = None
-    typeIII = None
+    def __init__(self):
+        self.typeI = None
+        self.typeII = None
+        self.typeIII = None
+        
+        placeFile = open("../place-names.txt")
+        wholeList = placeFile.read()
+        self.placeNames = wholeList.split('\n')
+        for name in self.placeNames:
+            name = name.lower()
+        placeFile.close()
+        
+        measureFile = open("../measure-units.txt")
+        allMeasure = measureFile.read()
+        self.measureUnits = allMeasure.split('\n')
+        for name in self.measureUnits:
+            name = name.lower()
+        measureFile.close()
     
     def extract(self, text: string):
         # running the Stanford POS Tagger from NLTK
@@ -47,7 +62,7 @@ class DataExtractor(object):
     
     def __isMeasurement(self, token) -> bool:
         # https://hobbyprojects.com/dictionary_of_units.html
-        pass
+        return token[0].lower() in self.measureUnits
     
     def __isAlphaNumeric(self, token) -> bool:
         import functools
@@ -56,9 +71,10 @@ class DataExtractor(object):
         return alpha and numeric
     
     def __isLocation(self, token) -> bool:
-        # https://en.wikipedia.org/wiki/Lists_of_populated_places_in_the_United_States
-        pass
+        # https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
+        return token[0].lower() in self.placeNames
     
     def __isAcronym(self, token) -> bool:
+        # TODO come back to this with common abbreviations for the different categories
         pass
         
