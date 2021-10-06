@@ -1,0 +1,23 @@
+JEWELRY
+
+
+HOUSING
+
+
+MOTORCYCLES
+mpg
+mi
+cc
+cyc
+vin
+
+DATA JOBS
+
+
+FURNITURE
+diy
+
+VEHICLES
+mpg
+mi
+vin
