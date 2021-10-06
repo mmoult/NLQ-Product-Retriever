@@ -1,0 +1,45 @@
+VEHICLE
+honda sedan less than 200,000 miles and under $15,000
+green car 2020 or newer
+toyota used under 5000
+used toyota corolla under 5000
+luther toyota corolla under 10k
+used cars under 5000 toyota
+kool toyota used under 12 000
+used cars toyota under $5000
+honda sedan 2006
+2014 honda civic sedan mileage
+used honda odyssey for sale by private owner
+used ford silver paint after 2012
+
+DATA SCIENCE JOBS
+job data science bachelors with 10 years professional experience
+data programmer $114K
+senior data scientist $74K alabama
+
+FURNITURE
+new kitchen bar stool brown
+wood table black legs
+black wooden dining table chairs
+california king bed frame for adjustable bed
+
+HOUSING
+bentleigh apt 8000 per month single bed
+preston melbourne 2 bedrooms 2 bath
+melbourne apartment close to city center built after 1980
+
+JEWELRY
+necklace gold 14k
+wedding rings cheap white gold
+wedding rings less than $1000
+anniversary bracelet for her silver $100
+agrafe necklace 1.5 carats diamonds
+
+MOTORCYCLES
+honda motorcycle 500cc
+used motorcycle under 2000
+bajaj dominar 2017 less than 130000 sale
+harley-davidson motorcycles az
+yamaha motorcycle less than 20000 km
+
+

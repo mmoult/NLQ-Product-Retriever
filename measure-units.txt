@@ -1,0 +1,136 @@
+acres
+angstroms
+ares
+astronomical units
+atmospheres
+barleycorns
+barrels
+bars
+british thermal units
+btu
+bushels
+calories
+carats
+celsius
+centigrade
+centigrade heat units
+centiliters
+centimeters
+chains 
+circular inches
+cubic 
+cubic measures per area
+cubits
+deciliters
+denier
+drex
+dynes
+Zlls 
+ems
+ergs
+ergs
+Fahrenheit
+fathoms
+feet
+feet of water
+fluid ounces
+foot pounds-force
+foot poundals
+furlongs
+gallons
+gigajoules
+gigawatts
+grains
+grains per gallon
+grams
+gram-force centimeters
+grams per cm
+hands
+hectares
+hides
+horsepower
+horsepower hours
+hundredweights
+inches
+inches of rain
+joules
+kelvin
+kilocalories
+kilograms-force
+kilogram-force meters
+kilogram-force per area
+kilograms
+kilograms per meter
+kilograms per volume
+kilojoules
+kilometers
+kilometers per liter
+kilonewton per square meter
+kilonewtons
+kilopascals
+kilowatts
+kilowatt hours
+kips 
+kips per square inch
+knots
+leagues
+light years
+links 
+liters
+mach number
+megajoules
+meganewtons
+megawatts
+meters
+meters of water
+microns 
+miles
+millibars
+milligrams per cm
+milliliters
+millimeters of mercury or water
+millimeters of rain 
+newton meters 
+newtons 
+ounces
+ounces per inch
+ounces per area
+ounces per volume
+parsecs
+pascals
+perch 
+picas
+pints
+points 
+poundals
+poundals per square foot
+pounds
+pounds per foot
+pounds per volume
+pounds-force
+pound-force inches
+quarts
+rankine
+reaumur
+roods
+slugs 
+stones
+square 
+squares 
+sthenes
+tex
+therms
+ton-force meters
+tons per km
+ton-force feet
+tons
+tons-force
+tons-force per area
+tons per acre
+tons per mile
+townships
+troy ounce
+watt second
+watt hours
+watts
+yards
