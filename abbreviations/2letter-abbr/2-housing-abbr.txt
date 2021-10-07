@@ -2,14 +2,10 @@ Av
 Cl
 Cr
 Ct
-DE
-De
 Dr
-El
 Fe
 Gr
 LN
-La
 Ln
 Mt
 NE
@@ -24,5 +20,3 @@ Sq
 St
 VB
 Wy
-at
-of

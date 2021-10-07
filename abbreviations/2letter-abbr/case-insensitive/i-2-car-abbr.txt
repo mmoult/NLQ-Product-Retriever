@@ -3,7 +3,6 @@ ac
 ah
 ai
 AM
-an
 AT
 au
 aw
@@ -24,13 +23,10 @@ CT
 cu
 cx
 da
-de
 di
-do
 dr
 dv
 dx
-El
 es
 ev
 ex
@@ -55,7 +51,6 @@ gx
 ha
 HB
 HD
-he
 hi
 hk
 HM
@@ -84,7 +79,6 @@ la
 lb
 lc
 ld
-Le
 lj
 ll
 ln
@@ -109,7 +103,6 @@ mv
 mx
 NC
 NJ
-no
 NV
 NX
 ny

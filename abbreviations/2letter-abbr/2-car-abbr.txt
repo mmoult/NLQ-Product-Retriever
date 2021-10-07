@@ -7,7 +7,6 @@ CH
 CO
 CT
 Co
-El
 FJ
 FL
 FT
@@ -84,9 +83,6 @@ aa
 ac
 ah
 ai
-am
-an
-at
 au
 aw
 bf
@@ -112,7 +108,6 @@ do
 dr
 dv
 dx
-el
 es
 ev
 ex
@@ -134,7 +129,6 @@ gx
 ha
 hb
 hd
-he
 hi
 hk
 ho
@@ -147,9 +141,7 @@ iM
 ia
 ii
 im
-in
 iq
-is
 iv
 ix
 jk
@@ -180,9 +172,6 @@ no
 nv
 nx
 ny
-of
-on
-or
 ow
 pk
 pl
@@ -224,7 +213,6 @@ tr
 tt
 tx
 ud
-up
 ux
 ve
 vi
