@@ -22,4 +22,6 @@ TR
 VX
 XL
 ZR
+cc
 ct
+mi

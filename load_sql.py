@@ -15,6 +15,15 @@ class Table(object):
         self.dat = args
 
 
+motorcyles = Table("Motorcycles", None,
+    ["name", "TEXT"],
+    ["price", "INTEGER"],
+    ["year", "INTEGER"],
+    ["seller", "TEXT"],
+    ["owner", "TEXT"],
+    ["km_driven", "INTEGER"],
+    ["show_price", "INTEGER"]
+)
 jewelry = Table("Jewelry", 0,
     ["ref", "TEXT NOT NULL UNIQUE"],
     ["category", "TEXT"],
@@ -23,6 +32,39 @@ jewelry = Table("Jewelry", 0,
     ["tags", "TEXT"],
     ["description", "TEXT"],
     ["image", "TEXT"]
+)
+jobs = Table("Jobs", 0,
+    ["id", "INTEGER NOT NULL UNIQUE"],
+    ["title", "TEXT NOT NULL"],
+    ["salary", "TEXT"],
+    ["description", "TEXT"],
+    ["rating", "NUMERIC"], # [0,5], -1
+    ["company", "TEXT"],
+    ["location", "TEXT"],
+    ["hq", "TEXT"],
+    ["size", "TEXT"],
+    ["founded", "INTEGER"], # year
+    ["owner", "TEXT"], # Company, Government
+    ["industry", "TEXT"],
+    ["sector", "TEXT"],
+    ["revenue", "TEXT"],
+    ["competitors", "TEXT"],
+    ["easy_apply", "TEXT"] # TRUE, FALSE, -1
+)
+furniture = Table("Furniture", 0,
+    ["id", "INTEGER NOT NULL UNIQUE"],
+    ["name", "TEXT"],
+    ["category", "TEXT"],
+    ["price", "NUMERIC NOT NULL"],
+    ["old_price", "TEXT"],
+    ["sellable", "TEXT"], # TRUE, FALSE
+    ["link", "TEXT"],
+    ["other_colors", "TEXT"], # Yes, No
+    ["description", "TEXT"],
+    ["designer", "TEXT"],
+    ["depth", "INTEGER"],
+    ["height", "INTEGER"],
+    ["width", "INTEGER"]
 )
 housing = Table("Housing", None,
     ["suburb", "TEXT"],
@@ -45,6 +87,25 @@ housing = Table("Housing", None,
     ["longitude", "NUMERIC"],
     ["region", "TEXT"],
     ["property_count", "INTEGER"]
+)
+cars = Table("Cars", 0,
+    ["id", "INTEGER NOT NULL UNIQUE"],
+    ["region", "TEXT NOT NULL"],
+    ["price", "INTEGER NOT NULL"],
+    ["year", "INTEGER"],
+    ["manufacturer", "TEXT"],
+    ["model", "TEXT"],
+    ["condition", "TEXT"],
+    ["cylinders", "TEXT"], # 4 cylinders, 6 cylinders, 8 cylinders, 10 cylinders, other
+    ["fuel", "TEXT"], # gas, diesel, hybrid, electric
+    ["odometer", "INTEGER"],
+    ["title_status", "TEXT"], # clean, rebuilt, salvage
+    ["transmission", "TEXT"], # manual, automatic
+    ["drive", "TEXT"],
+    ["size", "TEXT"],
+    ["type", "TEXT"],
+    ["paint_color", "TEXT"],
+    ["state", "TEXT"]
 )
 
 
@@ -73,8 +134,11 @@ def buildCreate(table:Table):
 
 
 def buildTables(cursor):
-    cursor.execute(buildCreate(jewelry))
-    cursor.execute(buildCreate(housing))
+    dropCommand = 'DROP TABLE IF EXISTS '
+    allTables = [motorcyles, jewelry, jobs, furniture, housing, cars]
+    for table in allTables:
+        cursor.execute(dropCommand + table.name)
+        cursor.execute(buildCreate(table))
 
 ##################################################################################### Populate tables
 
@@ -132,16 +196,20 @@ def unfinishedString(line:string) -> bool:
 
 
 def loadTable(cursor, loc:string, table:Table):
-    file = open(loc)
+    file = open(loc, encoding='utf-8')
     title = False   
     sumLine = '' # this is what we will use when an entry spans several lines
     unfinished = False
-    lineNo = -1
+    entry = 0
+    lineNo = 1
     for line in file:
-        lineNo += 1
         if not title:
             title = True
             continue
+        lineNo += 1
+        # We are going to trim the file to only load the first 800 entries
+        if entry > 800:
+            break
         
         sumLine += line
         # If there are an even number of non-escaped ", then we know that the line is done
@@ -174,6 +242,7 @@ def loadTable(cursor, loc:string, table:Table):
         #print(sqlString)
         try:
             cursor.execute(sqlString)
+            entry += 1
         except sqlite3.Error:
             import traceback
             traceback.print_exc()
@@ -184,8 +253,13 @@ def loadTable(cursor, loc:string, table:Table):
 
 
 def loadTables(cursor):
-    loadTable(cursor, 'Datasets/cartier_catalog.csv', jewelry)
-    loadTable(cursor, 'Datasets/melb_data.csv', housing)
+    dataRoot = 'Datasets/'
+    loadTable(cursor, dataRoot+'BIKE DETAILS.csv', motorcyles)
+    loadTable(cursor, dataRoot+'cartier_catalog.csv', jewelry)
+    loadTable(cursor, dataRoot+'DataScientist.csv', jobs)
+    loadTable(cursor, dataRoot+'IKEA_Furniture.csv', furniture)
+    loadTable(cursor, dataRoot+'melb_data.csv', housing)
+    loadTable(cursor, dataRoot+'vehicles4.csv', cars)
 
 ##################################################################################### Main Entry
 

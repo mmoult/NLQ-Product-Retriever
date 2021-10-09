@@ -28,7 +28,8 @@ class DataExtractor(object):
             name = name.lower()
         measureFile.close()
     
-    def extract(self, text: string):
+    
+    def classify(self, text: string):
         # running the Stanford POS Tagger from NLTK
         import nltk
         ''' Needed NLTK downloads to run the rest:

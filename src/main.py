@@ -11,10 +11,8 @@ if __name__ == '__main__':
     
     # now we want to pull some data out (Type I, II, III)
     extractor = DataExtractor()
-    extractor.extract(query)
-    print(extractor.typeI)
-    print(extractor.typeII)
-    print(extractor.typeIII)
+    extractor.classify(query)
+    
     
     
     

@@ -16,4 +16,7 @@ Xcd
 YBR
 YZF
 ZMR
+cyc
+mpg
 pro
+vin
