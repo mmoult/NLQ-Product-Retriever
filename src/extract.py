@@ -12,9 +12,7 @@ class DataExtractor(object):
     '''
 
     def __init__(self):
-        self.typeI = None
-        self.typeII = None
-        self.typeIII = None
+        self.typed = []
         
         placeFile = open(Path(__file__).parent / "../place-names.txt")
         wholeList = placeFile.read()
@@ -31,7 +29,7 @@ class DataExtractor(object):
         measureFile.close()
     
     
-    def classify(self, text: string):
+    def classify(self, text: string, category : string):
         # running the Stanford POS Tagger from NLTK
         ''' Needed NLTK downloads to run the rest:
         nltk.download('punkt')
@@ -48,7 +46,8 @@ class DataExtractor(object):
         for token in pos_tagged:
             print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token))
             # Here we should be identifying the types that each token is and place it correctly
-    
+            # TODO here
+            
     
     def userTag(self, queryFile: string):
         queryF = open(queryFile)
@@ -133,5 +132,6 @@ class DataExtractor(object):
     
     def __isAcronym(self, token) -> bool:
         # TODO come back to this with common abbreviations for the different categories
+        
         pass
         
