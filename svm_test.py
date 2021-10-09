@@ -1,5 +1,6 @@
 
 if __name__ == '__main__':
+    # https://www.datacamp.com/community/tutorials/svm-classification-scikit-learn-python
     # pip install sklearn
     from sklearn import datasets
     cancer = datasets.load_breast_cancer()

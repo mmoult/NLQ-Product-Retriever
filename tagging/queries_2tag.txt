@@ -1,0 +1,636 @@
+=CAR=
+BMW sedan less than 100,000 miles and under $25000
+MW used under 10000
+BMW used from at least 2005 in blue for less than 100,000
+Chevy new Washington
+Black Toyota Corolla less then 100,000 for 10,000$
+MW used under 20000 miles
+Ford Mustang less than 150,000 miles and cost $10,000
+Mustang 2006 V4 blue
+Ford SUV under $50,000 but under 150,000 miles
+Honda used under 10000
+Ford sedan less than 150,000 miles and under $20000
+Ford used under 4000
+HERO SEDAN LESS THAN 200,500 MILES AND UNDER $20000
+Honda sedan less than 200,000 miles and under $15000
+Honda sedan less than 300,000 miles and under $20000
+Jeep USV new less than 10,000 miles under $ 10000
+New Subaru SUV under 40,000 dollars with eyesight
+Tata Nano Mumbai area less than 55,000 km red color
+Toyota, 50000k, 2021, new, blue, 4 cylinders
+Used 100,000 honda 4000
+Used Honda Sedan, Los Angeles, Automatic Transmission, Clean title, less than 200,000 miles
+Used petrol Citroen city car, manual transmission and under  £5000
+lack honda civic less than 5 years old, for around £12,000
+mw less than 200,000miles and under $20000
+cylinders, fuel, odometer, transmission, type, paint_color, state
+honda car with black color and milage 300,000 price $55000 with petrol fuel
+honda sedan less than 200,000 miles and under $15000
+honda, 200,000 miles
+jeep less than 300,000 miles under $20000
+new Audi Q7, 2021 model, diesel, red
+spaghetti, wal-mart, Costco
+toyota sedan less than 300,000 miles and under $20000
+$70000 in the 1990s but can be had for less than $90 a month now
+1992 silver toyota tacoma 4x4 truck
+2011 Ford Fiesta used grey automatic transmission
+2015 Honda Pilot Silver or Grey with leather seats
+Beand new honda 340000
+Black Ford Mustang in GA
+El dorado 1970 black under 300000 miles
+Honda Sedan
+Honda
+Kia sedan new under $36k
+Mercedes 2021 SUV brand new in red paint job
+One owner SUV used well-maintained blue no damage
+SUBARU 200K MILES OR LESS HATCHBACK MAUAL TRANSMISSION UNDER $6000
+The price of model 2017 blue toyota was $20000 in TX.
+The transmission and the type is too expensive and the cylinder works so perfect
+Toyota Prius black used Florida under $10000
+Toyota SUV 6 cylinders and under $20000
+Toyota truck 2002 white used
+Used Ford F-350 diesel truck with long bed and 4-wheel drive
+What is the pay for the job?
+black jeep cherokee 2017 under $20000
+bmw less than 300000 miles under $20000
+can get hond sedan
+ferarri red cabrio less than 100000 miles and under $20000
+ford ram 250 100000 miles 2 door 4 cylinders
+ford v8 truck tow package spray in bedliner
+honda 200k miles <15000k
+honda 200k miles under $15000
+mazda miada t-top under $10000 red or green
+new bmw 4 wheel drive v6 engine under 35000
+nissan leaf 2007 new battery used under $10000
+toyato less than 29000  miles amd under $15000
+toyota SUV less than 5000 miles and under $50000
+toyota hatchback 2 seater under 3500
+used 2019 white lincoln aviator with cream leather interior and air conditioned seats
+what type of music system in this model
+HONDA USED UNDER 6000
+toyota used under 5000
+toyota used under 6000
+toyota used under 7000
+Jeep USV new under $10000
+New SUV under 50,000 dollars
+Red Scorpio 2012 model
+Mazda, 5000k, used, red
+Used honda 7000
+Used Honda, California, clean title
+Used black Vauxhall Corsa
+4 cylinder red mustang
+toyota used under 5000
+price, year, condition,region
+price of the first toyota car
+toyata used under 5000
+toyota used under 5000
+toyota
+used cadillac under 10000
+Peugeot 306 new
+car
+Honda used under 6000
+$5,000 
+yellow truck
+Used Ford truck $12,000
+Nissan Sentra under 80,000 miles
+Honda used 3000
+mustang 2005 400 miles
+Colorado new toyota prius
+Used Toyota
+Subaru used under 7000
+Kia new under 25000
+nissan new under 10000
+Honda Pilot used
+USED CAMRY CLEAN TITLE
+The price of black Honda sedan was $30000
+The model is updated
+Honda new 2021
+Honda used year 2018
+citroen used under 2000
+New white Subaru Ascent
+How do you get a job at HUD?
+jeep cherokee 2017
+audi is under 1000000
+used car
+bmw new manual under 10000
+virginia ford 2door $3400
+ford f150 low miles
+toyota 5k
+toyota 5000
+fiat convertible low miles
+used toyota 2002 good condition
+honda new over 10000
+Honda used under 2000
+audi new 2022 blue
+ford 100K under 2000
+new lincoln aviator
+what is price of 1st model
+
+=JOBS=
+Analyst, 50k-70k, four year degree, one years experience, New York,, medium sized company, Social Sevices
+Data science manager, private company , $45K, New York, engines
+Senior Data Scientist Job, Private Company, Masters Degree, 90k or 100k in Arizona
+computer science = "Consultant" and salary > 20000€
+data science, private, 80-90k
+scientist job location is NY, salary range is $100,000-$150,000, founded in 2002
+usiness analyst $45k per year computer science bachelor Navi mumbai
+California Data Science Job
+Can the company offer a 401k?
+DATA ENTRY MANAGER
+DATA MANAGER JOB PRIVATE COMPANY $60K OR $ 80K IN NEW YORK
+Dallas data analyst $85k MBA required has 401k
+Data Scientist Manager Master's degree in Southern California Healthcare
+Data science 60k
+Data scientist manager job private company $100
+Job title (Data Science) Salary Estimate yearly 102K Qualifications (bachelor's Degree 3-5 Year's experience Company name Code3 Sacramento California global employees 225 founded in 2010
+Master degrees IBM New York Data Scientist $150K
+Nurse with 4 year degree $60k to $80k salary in colorado
+Privately owned prison $50K Iowa no degree Part time
+Programmer analyst 10 years experience starting at $81K minimum MSc with 15 years experience in Washington
+SYSTEMS ADMINISTRATOR JOB 75K REMOTE OR IN OHIO PATH TO ADVANCEMENT
+Salary estimate
+Senior management data analyst position with 401k and health benefits
+Senior programmer for health care provider in Dallas Masters degree required
+The data scientist manager in private company should have experience of 5-6 years with the estimated salary of $85K in Texas.
+The degree must be post graduate and also need to have years of experience
+We suspect that a scarcity of resources trained in the newer open source tools creates demand that bids up salaries compared to the more mature commercial cluster tools.
+What is the average salary in a data science job private company in california?
+What is the salary of data science job?
+business analyst job government &120K or $130K in illinois
+computer engineer helpdesk military security online router
+data engineer at least $100k California or new york
+data entry operator private company $80k or $90k in washington
+data science job is google company salary $80k
+data science job private $70K or $80K in california
+data science job private company $80K or $90K in california
+data science job private company $80K or 90
+data science job private company $88 K or $99K in california
+data science job private company $89K or $90K in california
+data science job private company$80K or $90K in california
+data science private 80 to 90 k
+data science private 80-90k
+data science
+database manager jobs austin texas $100k in healthcare
+entry level data analyst government local $50k chicago
+it analyst public company $100k in Georgia healthcare 5 years
+manager business analyst 100000 new england
+masters degree google el paso database administrator 120k
+python artificial intelligence minimum five years experience
+senior computer programmer job private company $90K to $120K in new york
+senior scientist company $60k or $ 70k in pasadena
+senior scientist founder phd 24 years work experience $145K
+senior scientist job private company in california
+software developer remote company $95k information technology new york
+what is the nature work for Data Scientist Manager
+Editor Analyst, 30k-50k, two years experience, Tampa Florida, medium sized company
+usiness Analyst, Art company, $10k, london,
+Senior Data Analyst $75k Arizona
+computer science = "Consultant"
+data scientist
+data analyst $150,000 salary bachelors degree required
+Digital marketing executive, 3 years experience, IT
+Alabama Senior Data Scientist
+How much money can have a scientist have?
+DEGREE
+JENIOR DATE MANAGER $50K ALABAMA
+Data analyst IBM $75K
+Software engineer entry level
+Looking for database specialized 56999
+senior data scientist manager $100
+Job Title (Senior Data Scientist) Salary Estimate $74k-$103k Quailfactions (Bachelors Degree3-5 years experience) Company Name Betterteam Birgham Alabama
+Business Analyst ibm New York $100k
+Nurse $50K colorado
+4 years experience Business Analyst Colorado
+Software developer BS in computer science 5 years experience
+ENTRY LEVEL NETWORKING JOB
+Job title
+Assistant IT manager Colorado
+Data analyst for bank in Texas
+The salary of Business Analyst is $80K in Texas.
+Salary estimation will be depends on qualification
+As a person functioning in the role, you have to troubleshoot database issues while also executing the database procedures. Being a manager, you'll also supervise the database team.
+What is the salary of senior data scientist?
+What is the qualification for senior data scientist?
+business analyst $50K atlanta
+software developer helpdesk
+data engineer california
+senior data entry operator $74k florida
+data scientis is complicated job
+senior data scientist $55K alabama
+senior data scientist $74K alabama
+senior data scientist $ 74K alabama
+senior data scientist $88K alabama
+senior data scientist $89K alabama
+senior data scientist $74K alabama
+data scientist
+data scientist 74k
+senior data scientist
+database manager job near me
+entry level data analyst $50k illinois
+it engineer $70k Georgia
+Entry data scientist california
+engineer 84k seattle
+java expert masters degree
+senior business analyst $46K texas
+senior business analyst $65k alabama
+senior scientist phd california
+data scientist manager $56k alabama
+junior data engineer $50k london
+where is located your concern
+
+=FURNITURE=
+New Kitchen Bar Stool, Black, Wood, 35 in by 37 in
+What are the price, color, and dimensions of the brown kitchen bar stool?
+category = "beds"  and price > 200$
+kitchen countertop granite or stone, black or brown
+material, durability, shape, price, dimension.
+new kitchen dining table solid brown 48" L x 30" D x 29" H
+Antique master bedroom side table maple wood
+Bar Stool
+Brand new kitchen table in pine with full matching chair set with blue upholstery.
+CHIMENEY SILVER
+Eames Lounge Chair and Ottoman Standard with Pearl leather upholstery
+How the bar stool can be fixed according to the dimensions?
+KITCHEN ISLAND OAK OR PINE SEATS 4 BUILT IN STORAGE WIRED FOR ELECTRICITY
+Kitchen cupboard with mat finish 2 foot wide
+Kitchen table seats 8 walnut stained natural wood
+New 100 met gold stool
+New Kitchen Island Marble 2m by 1m
+New blue mid centrury modern couch with walnut legs
+New brown wooden dining room table chair
+New closed kitchen sink
+New kitchen bar is with the dimension
+New or used bookshelf wood metal dark brown
+Stools by Emeco
+The price of pink bed in Texas was $1500 with dimensions of 100 by 150m
+Used Oak 1-2m Dining Room table with 6 chairs for under $500
+Used kitchen chair in wood pine
+amish made farmstyle table unstained
+bar stools 2 ft 6in 4 numbers black and steel combo
+brown oak desk 200 150 by 300
+dining table 200 x 100 cm glass $700 or less
+dining table brown 200 by 500 meters $100
+dining table with 8 chairs no longer than 8 feet long under 1000 with free delivery
+gray tufted 6 seater sectional sofa
+is this modular or traditional kitchen
+king size bed teak 7x7
+kitchen bar stool brown
+kitchen bar stool
+kitchen table walnut under $50 45 by 32 inches
+never been used queen mattress pillow top
+new bathroom stool brown 111 by 156 meters
+new bedroom nightstand glass top 36 to 45 inches tall
+new couch brown 7 ft long
+new extending wooden table 1x3 meters green or white under $1000
+new kitchen bar stool brown 111 by 146 meters
+new kitchen bar stool brown 111 by 164 meters
+new kitchen bar stool brown 122 by 156 meters
+new kitchen bar stool brown 333 by 176 meters
+new mahogany  cabinets for kitchen or office
+new sofa is wonderfull furniture
+oak dresser under 11x7 feet under 2000 dark brown
+pink colour bed 217 by 150mts
+queen size bed white metal frame under 500 dollars
+rustic counter height white and black bar stools metal
+sofa couch black two seater recline
+solid oak 8 person dining room table
+tv stand in brown or black 5 foot in height 10 foot in width
+used blue 10 by 14 inches desk mahogany
+used three seater sofa black armless 15 by 5 feet
+what survey future plane and ideas
+white day bed full size metal or plastic
+white wooden bedroom bed 110 by 220
+Bar stools, Black, Wood
+What price is the mahogany kitchen cabinet?
+category = "beds"
+dining table bar height or standard
+shape, price, dimension
+kitchen countertop marble or granite
+Double bed mattress soft
+Kitchen Cabinets
+Kitchen table in pine with matching chairs
+WALNUT
+leopard accent chair
+What is the color of the kitchen cabinet mahogany?
+CHERRY BREAKFAST NOOK
+wooden bed under $150
+Black painted dresser with 4 drawers
+New kitch dink 3000
+Used Double Bed
+Beige mid-century modern chair
+Brown wooden chair
+New kitchen stove brown
+Which category it is
+bookshelf used wood
+Wal nut
+The brown furniture in the showroom costs $50
+2m Blue Sofa
+Kitchen chair in pine
+canopy bed frame walnut
+bunker bed metal frame 6x3
+white desk 200
+pine bed king size
+bedroom wardrobe 500 black
+green sectional sofa
+gray couch
+what type wood using for furniture
+bed mahagony off white color
+kitchen cabinet
+kitchen table brown under $50
+modern couch permanent cushions
+kitchen cabinet mahogany or walnut
+queen bed white or offwhite
+living room couch brown or black
+large green sofa
+kitchen cabinet mahogany or walnut
+what type of chair is that
+kitchen cabinet mahogany or walnut
+kitchen cabinet mahogany or pista
+cabinets mahogany or walnut
+sofa is very soft
+dinner table brown under 500
+bar furnitures or beds
+bedroom set white or beige
+white bar stools
+kitchen counter marble or granite
+green love seat new
+bedroom dresser wood or metal
+table green $20
+Sofa black leather armless
+what future plane
+black bed twin size
+white bedroom bed
+
+=HOUSING=
+Single family home with 4 BDR, 2 BATH, 2-car garage in Los Angeles, CA for $790,000 built in 1990
+Sydney House with 6 bedrooms, 5 bathrooms and parking in the city.
+chicago suburb townhouse transportation "built within 10 years" three bed
+housing address = "via roma 111" and apartament type = "flat"
+16000
+1650 sq. feet building available for rental 10000 per month
+2 Bedroom apartment in downtown Denver
+3 bathroom city no car 1950 new york
+3 bed 2 bath apartments in dallas with no pet free under $1800 a month
+4 bedroom Dallas apartment with pool access close to the airport  and restaurants
+4 bedroom duplex car park 10 years old near Vox Hall downtown Chicago
+Apartment complex near costco
+Apartments for rent 1000 a minth in lorain
+CONDO FOR SALE GRAND HAVEN BEACHFRONT DOWNTOWN ACCESS 4 BEDROOMS
+Georgia house urban built after 2000 with 4 bathrooms
+Housing
+How many bedrooms are there?
+Melbourne Apartment 2 bathrooms
+One bedroom two bath apartment close to city
+Suburban 2bhk house with atleast 3 separate bathrooms near Panvel area.
+Sydney apartment 2 bedrooms 2 bathrooms car (yes)
+Two bedroom one bath move in ready
+Villa type mansion under 2 million AUSD  required for purchase in Perth
+find apartments near me with 2 bathrooms built after 1980
+house built in 1990
+house with 3 bed 2 bath 1000 per month or less with attached garage in rural area
+melbourne apartment close to city center built after 1980 with 2 bathrooms
+melbourne apartment close to city center built after 1980 with 2 bathroooms
+melbourne apartment close to city center built after 1980 with 3 bathrooms
+multi room apartment no roommates near center city
+nebtleigh apartment close to city enter with 2 bathroom
+new york city flat close to times square
+new york house close to train station double bed
+rent to own single family home in barboursville
+stone garden home at least 1 acre and at least 5 bedrooms
+vienna apartment in the city center with 2 bedrooms and 1 bathroom
+Single family home with 3 BDR
+Adelaide apartment with one bedroom under 5 years old
+chicago townhouse three bed 200k
+housing address = "via roma 111"
+nebteigh apt 4000 per month
+New apartment build in two bedrooms look like suburb and fasionate
+Suburban home with 3 bedrooms
+no car 1950 bellevue 4 bed
+dallas new build homes
+Dallas apartment 3 bedrooms 1 bath
+2 bedroom 2 bath rent $5000
+2 bedroom 800 per month
+Two bedroom house with available parking
+DUPLEX FOR RENT
+rural apartment 2000 per month
+Housing
+What is the address of the above nebtleigh?
+8000 per single
+8000 per month one bed apartment
+1bhk house with car parking.
+Suburb built before 1900 2 bedrooms 1 bath
+Single 3 bedroom home
+Single bedroom apartment under 1000 pm
+1 bedroom apartment for rent
+condo two bedrooms
+house located in rural area with 3 bedrooms
+nebtleigh apt 8000 per month single bed
+netbleigh apt 9000 per month single bed
+netleigh apt 6000 per month single bed
+studio apartment desirable neighborhood
+ward apartment apt 7000per month single bed
+seattle house 4000 per month three bed
+london apartment 500 per week double bed
+single family home
+san francisco,ca apartment less than $2600
+apt 3 bedrooms 2 bathrooms built after 1990
+
+=JEWELRY=
+Diamond ear rings for her, gold plated for more than $500
+Silver necklace for $750 on sale from $999 that is 16" long.
+a combo of wedding band, ring, necklace at affordable price $500 color options gold and silver
+jewerly type = "ring" and color = "gold"
+size, color, craftman, weight, carat
+1 carat solitaire engagement ring size 6 $2000
+14K Gold Anniversary Ring $5800
+24K gold wedding ring under $2000 with matching engagement ring
+50th anniversary diamond and pearl necklace and bracelet set over $5000
+Anniversary ring for him gold or silver $500
+Anniversay bracelt for her silver $100
+Black or silver necklace with price less than 500 and more than 100
+Clip-on Diamond Earrings for girls less than $200
+Earrings silver gold $250
+Gold $100
+Jewelry
+Matching wedding sets for him and her $1000 rosegold
+Rose gold Charm Bracelet with Diamonds for under $500
+Silver Wedding Ring with Diamonds for Under $1000
+Used wedding rings 3500
+WOMEN'S GOLD OR PLATINUM BAND WITH EMERALD OR RUBY LESS THAN $1000
+Wedding band for him in gold $250
+What is the type of jewellery?
+Where can I find anniversary bracelets for females that are silver or gold for less than $100?
+anniversary bracelet for her silver or gold $100
+anniversary bracelet for her silver or gold $200
+anniversary chain for her silver or gold $300
+anniversery neckless is gold and diamond mixed
+birthday necklace for her $800
+diamond and white gold bracelet $500
+diamond tennis bracelet platinum or white gold $2000
+earrings for silver or gold $500
+engraved engagement ring for him silver $200
+gold necklace without pendant large links
+gold or silver anniversary bracelet under $100
+necklace $400
+pearl necklace matching earrings blue color $450
+ringsv wo
+ruby encrusted gold necklace for 2000$
+silver butterfly necklace for woman under 500
+silver cross necklace between $75 and $150
+silver earrings with real diamonds and clip-cons
+silver or gold bracelet
+tiffany diamond wedding ring at least $1000
+wedding gold ring $1000 big diamond 204 karat
+wedding ring $1000 platinum set double
+wedding ring gold for her for 100
+Silver necklaces for sale
+Earrings that are gold.
+Couple ring set for best price $50
+jewerly type = "ring"
+size, color, manufacturer
+engagement ring 2000
+Sterling Silver Earrings $50
+silver engraved chain necklace
+emerald ring less than $850
+Wedding necklace more than $5000
+braclet silver $100
+Black necklace with price less than 200
+Gold Necklace
+pandora bracelet less then $500
+Price
+Jewelry
+rosegold wedding band with necklace
+$100 silver necklace
+Pearl earrings for less than $ 200
+Used wedding rings 2500
+HEMATITE RINGS
+Red Earring less than $200
+what is the price
+Where can I buy wedding rings for less than $1000?
+wedding rings less than $1000
+wedding rings less than $2000
+wedding earing is look so cute
+wedding band less than $200
+gold chain and pendant
+diamond tennis bracelet
+wedding band less than $1000
+gold necklace
+gold necklace large links
+wedding jewelry
+earring  less than $500
+diamond necklace @7700
+sharmi looking for rings less than $1000
+gold earring for 500$ or less
+gold necklace over 500
+men's bracelet silver under $150
+earrings with clips-ons
+wedding ring
+jade bracelet less than $600
+gold ring diamond big
+bracelet green $100
+silver necklaces for 20$
+
+=MOTORCYCLE=
+1970 Honda RedWing motorcycle with 9000 KM, one owner for $6,500
+2007 honda shadow 1.0L less than 3,000 miles with one owner and under $1,000
+2019 Triumph Bonneville less than 10,000 in Florida in black
+ajaj Dominar 400 2017 less than 77,000 sale
+Harley Davidson  10,000 for sale  2016
+Hellcat 2018, less than 50km drive.
+TOYOTA MOTORCYCLE SECOND HAND $10000 BLUE COLOR  300,000 MILAGE
+The 2021 Suzuki Boulevard M109R B.O.S.S COSTS UPTO $15,249 near Daytona Beach, FL.
+km- driven , engine, color, cylinder capacity, owner, documents
+motorcycle name = "yamaha" and  price < 200
+$10000 harley silver electric powered
+2019 Honda Good Condition $5000
+2020 YZT-R6 1346 miles less than 13000
+2021 Harley Davidson Road King on sale
+BMW bike 2020 $6300 1500 kms
+Bajaj CT 100 less than 25000km driven 2018 model
+Harley Davidson 2021 less than 50000
+Honda motorcycle $2500 used driven 12k miles black
+Honda polite 3000
+Ninja motorcycle 2015 or newer less than $20000 one owner
+OVER 500CC YAMAHA STREET LEGAL PREVIOUSLY OWNED CHROME
+Suzuki katana 2018 new or used under 15000
+Trendy and hot 2021 toyota motorcycle for $1000
+Used honda 2000
+WHICH CAR BEAT OF THE YEAR BETTER THAN FERRARI
+Want a ducati monster 797 karnataka registered 2017 below 8 lakh rupees
+What is minimum price of bajaj?
+YAMAHA  MT 07 2017 LESS THAN 8000 SALE
+bajaj 2017 130000
+bajaj dominar 2017 less than 100000 sale
+bajaj dominar 2017 less than 130000 sale
+bajaj dominar 2017 less than 140000 sale
+bajaj dominar 2018 less than 120000 sale
+bajaj dominar
+duster 2020 4x4 drive
+green chevy malibu 10000 sale 2010
+harley davidson all original parts
+he is looking for bike under 5000$
+honda 2015 $10k 1 owner 700cc
+honda 260000
+honda dominar 2017 less than 140000 sale
+honda motorcycle have good reputation compared with other motorcycles in part 30years
+kawasaki motorcycle ninja 2013 less than 1400 new
+ktm dominar 2020 less than 40000sale
+nissan leaf electric 3 bar battery used less than 10000
+suzuki motorcycle used 2015 to 2020 less than 10000
+used honda white 1000cc 2009
+used red harley davidson electra glide standard near el paso texas under 20k km
+vehicles for sale near me 130000
+what is the price
+yamaha fazer 2016 more than 10000 sale
+1984 Harley Davidson motorcycle
+suzuki motorcycle 750cc
+Used Honda 125
+Royal Enfield Bullet 350
+Harley davidson 10k
+Chevy tahoe, 2015
+SUZUKI MOTORCYCLE 900CC
+The price of red Yamaha motor cycle was $10000 in Texas.
+color, price, cylinder capacity
+motorcycles name = "yamaha"
+harley davidson under $3000
+450cc
+Suzuki 600s
+Yamaha 1000
+1995 harley motorcyle like new
+Harley Davidson 250cc 5000 km
+Honda Shine First Hand
+yellow 2021 Vespa
+Harley Davidson motorcycle 1989 vintage
+New honda crv4500
+Ducati motorcycle less than $10000
+1980 GOLDWING
+harvey davidson dyna super glide new under $13000
+2014 Toyota motorcycle for $2000
+Used motorcycle 3000miles 1200
+HONDA CAR PRICE
+Pulsar 220 used in kerala
+What is the price of the honda motorcycle 500cc
+YAMAHA MOTORCYCLE 220CC
+honda 500 cc
+honda motorcycle 600cc
+honda motorcycle 500cc
+hyundai motorcycle 500cc
+honda motorcycle 500cc
+Honda Motorcycle
+dacia car 2.0
+toyota corolla 2005
+harley davidson low mileage
+she want a mobile
+yamaha motorcycle 2018
+kinetic price 95000,  1000cc
+ajaj motorcycle 650cc
+Royal enfilled overall very famous motorcycles in the world
+kawasaki motorcycle 250cc
+honda motorcycle 500cc
+honda electric 1000miles new
+suzuki motorcycle new 2021
+mv augusta 2010 red
+2021 Harley Electra Glide
+honda motorcycle parts 500cc
+what is the name of motor cycle
+suzuki motorcycle 750cc
