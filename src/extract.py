@@ -10,152 +10,67 @@ class DataExtractor(object):
     '''
     Extracts different type of data from the text
     '''
+    
+    def __loadLowerLines(self, directory: string):
+        file = open(str(Path(__file__).parent) + "/" + directory)
+        allLines = file.read()
+        lines = allLines.split('\n')
+        for line in lines:
+            line = line.lower()
+        file.close()
+        return lines
+
 
     def __init__(self):
         self.typed = []
 
-        placeFile = open(Path(__file__).parent / "../place-names.txt")
-        wholeList = placeFile.read()
-        self.placeNames = wholeList.split('\n')
-        for name in self.placeNames:
-            name = name.lower()
-        placeFile.close()
-
-        measureFile = open(Path(__file__).parent / "../measure-units.txt")
-        allMeasure = measureFile.read()
-        self.measureUnits = allMeasure.split('\n')
-        for name in self.measureUnits:
-            name = name.lower()
-        measureFile.close()
+        self.placeNames = self.__loadLowerLines("../place-names.txt")
+        self.measureUnits = self.__loadLowerLines("../measure-units.txt")
 
         # Read in Abbreviations below
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-car-abbr.txt")
-        allCar2Abbr = abbrFile.read()
-        self.car2Abbr = allCar2Abbr.split('\n')
-        for name in self.car2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        # COMMENT: ok to reuse abbrFile?
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-csjobs-abbr.txt")
-        allCsjobs2Abbr = abbrFile.read()
-        self.csjobs2Abbr = allCsjobs2Abbr.split('\n')
-        for name in self.csjobs2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-furniture-abbr.txt")
-        allFurniture2Abbr = abbrFile.read()
-        self.furniture2Abbr = allFurniture2Abbr.split('\n')
-        for name in self.furniture2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-jewelry-abbr.txt")
-        allJewelry2Abbr = abbrFile.read()
-        self.jewelry2Abbr = allJewelry2Abbr.split('\n')
-        for name in self.jewelry2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-housing-abbr.txt")
-        allHousing2Abbr = abbrFile.read()
-        self.housing2Abbr = allHousing2Abbr.split('\n')
-        for name in self.housing2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/2letter-abbr/case-insensitive/i-2-motorcycles-abbr.txt")
-        allMotorcycles2Abbr = abbrFile.read()
-        self.motorcycles2Abbr = allMotorcycles2Abbr.split('\n')
-        for name in self.motorcycles2Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-car-abbr.txt")
-        allCar3Abbr = abbrFile.read()
-        self.car3Abbr = allCar3Abbr.split('\n')
-        for name in self.car3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-csjobs-abbr.txt")
-        allCsjobs3Abbr = abbrFile.read()
-        self.csjobs3Abbr = allCsjobs3Abbr.split('\n')
-        for name in self.csjobs3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-furniture-abbr.txt")
-        allFurniture3Abbr = abbrFile.read()
-        self.furniture3Abbr = allFurniture3Abbr.split('\n')
-        for name in self.furniture3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-jewelry-abbr.txt")
-        allJewelry3Abbr = abbrFile.read()
-        self.jewelry3Abbr = allJewelry3Abbr.split('\n')
-        for name in self.jewelry3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-housing-abbr.txt")
-        allHousing3Abbr = abbrFile.read()
-        self.housing3Abbr = allHousing3Abbr.split('\n')
-        for name in self.housing3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/3letter-abbr/case-insensitive/i-3-motorcycles-abbr.txt")
-        allMotorcycles3Abbr = abbrFile.read()
-        self.motorcycles3Abbr = allMotorcycles3Abbr.split('\n')
-        for name in self.motorcycles3Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        allCar4Abbr = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-car-abbr.txt")
-        allCar4Abbr = abbrFile.read()
-        self.car4Abbr = allCar4Abbr.split('\n')
-        for name in self.car4Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-csjobs-abbr.txt")
-        allCsjobs4Abbr = abbrFile.read()
-        self.csjobs4Abbr = allCsjobs4Abbr.split('\n')
-        for name in self.csjobs4Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-furniture-abbr.txt")
-        allFurniture4Abbr = abbrFile.read()
-        self.furniture4Abbr = allFurniture4Abbr.split('\n')
-        for name in self.furniture4Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-jewelry-abbr.txt")
-        allJewelry4Abbr = abbrFile.read()
-        self.jewelry4Abbr = allJewelry4Abbr.split('\n')
-        for name in self.jewelry4Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-housing-abbr.txt")
-        allHousing4Abbr = abbrFile.read()
-        self.housing4Abbr = allHousing4Abbr.split('\n')
-        for name in self.housing4Abbr:
-            name = name.lower()
-        abbrFile.close()
-
-        abbrFile = open(Path(__file__).parent / "../abbreviations/4letter-abbr/case-insensitive/i-4-motorcycles-abbr.txt")
-        allHousing4Abbr = abbrFile.read()
-        self.housing4Abbr = allHousing4Abbr.split('\n')
-        for name in self.housing4Abbr:
-            name = name.lower()
-        abbrFile.close()
+        abbrevPath = "letter-abbr/case-insensitive/"
+        carFile = abbrevPath + "cars.txt"
+        self.carAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + carFile),
+            self.__loadLowerLines("../abbreviations/3" + carFile),
+            self.__loadLowerLines("../abbreviations/4" + carFile)
+        ]
+        csjobsFile = abbrevPath + "csjobs.txt"
+        self.csjobsAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + csjobsFile),
+            self.__loadLowerLines("../abbreviations/3" + csjobsFile),
+            self.__loadLowerLines("../abbreviations/4" + csjobsFile)
+        ]
+        furnitureFile = abbrevPath + "furniture.txt"
+        self.furnitureAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + furnitureFile),
+            self.__loadLowerLines("../abbreviations/3" + furnitureFile),
+            self.__loadLowerLines("../abbreviations/4" + furnitureFile)
+        ]
+        jewelryFile = abbrevPath + "jewelry.txt"
+        self.jewelryAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + jewelryFile),
+            self.__loadLowerLines("../abbreviations/3" + jewelryFile),
+            self.__loadLowerLines("../abbreviations/4" + jewelryFile)
+        ]
+        carFile = abbrevPath + "cars.txt"
+        self.carAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + carFile),
+            self.__loadLowerLines("../abbreviations/3" + carFile),
+            self.__loadLowerLines("../abbreviations/4" + carFile)
+        ]
+        housingFile = abbrevPath + "housing.txt"
+        self.housingAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + housingFile),
+            self.__loadLowerLines("../abbreviations/3" + housingFile),
+            self.__loadLowerLines("../abbreviations/4" + housingFile)
+        ]
+        motorcycleFile = abbrevPath + "motorcycles.txt"
+        self.motorcyclesAbbr = [
+            self.__loadLowerLines("../abbreviations/2" + motorcycleFile),
+            self.__loadLowerLines("../abbreviations/3" + motorcycleFile),
+            self.__loadLowerLines("../abbreviations/4" + motorcycleFile)
+        ]
 
 
     def classify(self, text: string, category : string):
@@ -173,7 +88,7 @@ class DataExtractor(object):
         # each token is going to be evaluated by the different heuristics
         # https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
         for token in pos_tagged:
-            print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token))
+            print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token, category))
             # Here we should be identifying the types that each token is and place it correctly
             # TODO here
 
@@ -182,12 +97,12 @@ class DataExtractor(object):
         queryF = open(queryFile)
 
         fileMode = 'a'
-        outputs = [['CAR', open(Path(__file__).parent / "../tagging/car.csv", fileMode)],
-                   ['JOB', open(Path(__file__).parent / "../tagging/job.csv", fileMode)],
-                   ['FURNITURE', open(Path(__file__).parent / "../tagging/furniture.csv", fileMode)],
-                   ['HOUS', open(Path(__file__).parent / "../tagging/housing.csv", fileMode)],
-                   ['JEWELRY', open(Path(__file__).parent / "../tagging/jewelry.csv", fileMode)],
-                   ['CYCLE', open(Path(__file__).parent / "../tagging/motorcycle.csv", fileMode)]]
+        outputs = [['CAR', open(Path(__file__).parent / "../tagging/car.csv", fileMode), 'cars'],
+                   ['JOB', open(Path(__file__).parent / "../tagging/job.csv", fileMode), 'csjobs'],
+                   ['FURNITURE', open(Path(__file__).parent / "../tagging/furniture.csv", fileMode), 'furniture'],
+                   ['HOUS', open(Path(__file__).parent / "../tagging/housing.csv", fileMode), 'housing'],
+                   ['JEWELRY', open(Path(__file__).parent / "../tagging/jewelry.csv", fileMode), 'jewelry'],
+                   ['CYCLE', open(Path(__file__).parent / "../tagging/motorcycle.csv", fileMode), 'motorcycles']]
         output = None
 
         def normalize(b: bool) -> int:
@@ -203,6 +118,7 @@ class DataExtractor(object):
                 for outputType in outputs:
                     if outputType[0] in line:
                         output = outputType[1]
+                        category = outputType[2]
                         break
                 continue
 
@@ -214,8 +130,8 @@ class DataExtractor(object):
             for token in pos_tagged:
                 ok = False
                 while not ok:
-                    text = input(token[0]+"= ")                                     # COMMENT: text is '1=' now, right?
-                    if text == '1' or text == '2' or text == '3' or text == '4':    # COMMENT: won't this never be true?
+                    text = input(token[0]+"= ")
+                    if text == '1' or text == '2' or text == '3' or text == '4':
                         ok = True
                     if not text:
                         ariadne = True
@@ -223,9 +139,9 @@ class DataExtractor(object):
                 if ariadne:
                     break
                 if output != None:
-                    print(text, text, normalize(self.__isPlural(token)), normalize(self.__isCapital(token)), normalize(self.__isAdjective(token)),
+                    print(text, normalize(self.__isPlural(token)), normalize(self.__isCapital(token)), normalize(self.__isAdjective(token)),
                                 normalize(self.__isMeasurement(token)), normalize(self.__isAlphaNumeric(token)), normalize(self.__isLocation(token)),
-                                normalize(self.__isAcronym(token)), sep=', ', file=output)
+                                normalize(self.__isAcronym(token, category)), sep=', ', file=output)
             if ariadne:
                 break
         queryF.close()
@@ -234,7 +150,7 @@ class DataExtractor(object):
 
 
     def __isPlural(self, token) -> bool:
-        # The types that are plural are NNS (noun, plural) and NNPS (Proper noun, plual)
+        # The types that are plural are NNS (noun, plural) and NNPS (Proper noun, plural)
         return token[1] == 'NNS' or token[1] == 'NNPS'
 
     def __isCapital(self, token) -> bool:
@@ -253,67 +169,32 @@ class DataExtractor(object):
         import functools
         alpha = functools.reduce(lambda x, y: x or y in string.ascii_letters, token[1], False)
         numeric = functools.reduce(lambda x, y: x or y in string.digits, token[1], False)
-        return alpha and numeric                                                                    # COMMENT: shouldn't be alpha OR numeric?
+        # The paper says that we should return true if the token contains both alphabetic and numeric characters
+        return alpha and numeric
 
     def __isLocation(self, token) -> bool:
         # https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
         return token[0].lower() in self.placeNames
 
-    def __isAcronym(self, token) -> bool:
-        # TODO come back to this with common abbreviations for the different categories
+    def __isAcronym(self, token, category:string) -> bool:
         size = len(token[0])
-        domain = # how do we access the domain?
-        return token[0].lower() in self.getAbbr(size, domain)
+        if size > 4:
+            return False
+        
+        if category == "cars":
+            abbrevList = self.carAbbr
+        elif category == "csjobs":
+            abbrevList = self.csjobsAbbr
+        elif category == "furniture":
+            abbrevList = self.furnitureAbbr
+        elif category == "housing":
+            abbrevList = self.housingAbbr
+        elif category == "jewelry":
+            abbrevList = self.jewelryAbbr
+        elif category == "motorcycles":
+            abbrevList = self.motorcyclesAbbr
+        else:
+            raise Exception("Domain type '" + category + "' not found!")
+        return token[0].lower() in abbrevList[size - 2] # since index 0 is abbreviation length 2
 
-    def getAbbr(self, size, domain):
-        match size:
-            case 1:
-                return string.ascii_lowercase
-            case 2:               #COMMENT: single letter abbreviations?
-                if (domain == "cars"):
-                    return self.car2Abbr
-                elif (domain == "csjobs"):
-                    return self.csjobs2Abbr
-                elif (domain == "furniture"):
-                    return self.furniture2Abbr
-                elif (domain == "housing"):
-                    return self.housing2Abbr
-                elif (domain == "jewelry"):
-                    return self.jewelry2Abbr
-                elif (domain == "motorcycles"):
-                    return self.motorcycles2Abbr
-                else:
-                    return # COMMENT: need empty array???
-            case 3:
-                if (domain == "cars"):
-                    return self.car3Abbr
-                elif (domain == "csjobs"):
-                    return self.csjobs3Abbr
-                elif (domain == "furniture"):
-                    return self.furniture3Abbr
-                elif (domain == "housing"):
-                    return self.housing3Abbr
-                elif (domain == "jewelry"):
-                    return self.jewelry3Abbr
-                elif (domain == "motorcycles"):
-                    return self.motorcycles3Abbr
-                else:
-                    return #empty array???
-            case 4:
-                if (domain == "cars"):
-                    return self.car4Abbr
-                elif (domain == "csjobs"):
-                    return self.csjobs4Abbr
-                elif (domain == "furniture"):
-                    return self.furniture4Abbr
-                elif (domain == "housing"):
-                    return self.housing4Abbr
-                elif (domain == "jewelry"):
-                    return self.jewelry4Abbr
-                elif (domain == "motorcycles"):
-                    return self.motorcycles4Abbr
-                else:
-                    return #empty array???
-            case _:
-                return
 
