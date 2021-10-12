@@ -54,7 +54,7 @@ if __name__ == '__main__':
     
     from sklearn import metrics
     print()
-    avgArg = "weighted" # could be one of "macro", "micro", or "weighted"
+    avgArg = "micro" # could be one of "macro", "micro", or "weighted"
     print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
     print("Precision:", metrics.precision_score(y_test, y_pred, average=avgArg))
     print("Recall:", metrics.recall_score(y_test, y_pred, average=avgArg))
