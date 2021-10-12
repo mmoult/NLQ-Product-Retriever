@@ -5,6 +5,7 @@ Created on Oct 1, 2021
 import string
 import nltk
 from pathlib import Path
+import functools
 
 class DataExtractor(object):
     '''
@@ -88,9 +89,10 @@ class DataExtractor(object):
         # each token is going to be evaluated by the different heuristics
         # https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
         for token in pos_tagged:
-            print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token, category))
+            #print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token, category))
             # Here we should be identifying the types that each token is and place it correctly
             # TODO here
+            pass
 
 
     def userTag(self, queryFile: string):
@@ -141,7 +143,8 @@ class DataExtractor(object):
                 if output != None:
                     print(text, normalize(self.__isPlural(token)), normalize(self.__isCapital(token)), normalize(self.__isAdjective(token)),
                                 normalize(self.__isMeasurement(token)), normalize(self.__isAlphaNumeric(token)), normalize(self.__isLocation(token)),
-                                normalize(self.__isAcronym(token, category)), sep=', ', file=output)
+                                normalize(self.__isAcronym(token, category)), normalize(self.__isNumeric(token)), normalize(self.__isPunctuation(token)),
+                                normalize(self.__isPreposition(token)), normalize(self.__isNoun(token)), normalize(self.__isChar(token)), sep=', ', file=output)
             if ariadne:
                 break
         queryF.close()
@@ -155,7 +158,19 @@ class DataExtractor(object):
 
     def __isCapital(self, token) -> bool:
         # in the tuple, the first element is the token itself, the second is the part of speech
-        return len(token[0]) > 0 and token[0][0] in string.ascii_uppercase
+        cap = False
+        low = False
+        # If the whole word is capitalized (though not including tokens that are only one character long), then it may just have caps lock on
+        if len(token[0]) == 0:
+            return False
+        for char in token[0]:
+            if char in string.ascii_uppercase:
+                cap = True
+            elif char in string.ascii_lowercase:
+                low = True
+        if low:
+            return cap
+        return False
 
     def __isAdjective(self, token) -> bool:
         # All JJ types (JJ, JJR, and JJS) are adjectives
@@ -166,11 +181,9 @@ class DataExtractor(object):
         return token[0].lower() in self.measureUnits
 
     def __isAlphaNumeric(self, token) -> bool:
-        import functools
         alpha = functools.reduce(lambda x, y: x or y in string.ascii_letters, token[1], False)
-        numeric = functools.reduce(lambda x, y: x or y in string.digits, token[1], False)
         # The paper says that we should return true if the token contains both alphabetic and numeric characters
-        return alpha and numeric
+        return alpha and self.__isNumeric(token)
 
     def __isLocation(self, token) -> bool:
         # https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population
@@ -196,5 +209,27 @@ class DataExtractor(object):
         else:
             raise Exception("Domain type '" + category + "' not found!")
         return token[0].lower() in abbrevList[size - 2] # since index 0 is abbreviation length 2
-
-
+    
+    def __isNumeric(self, token) -> bool:
+        return functools.reduce(lambda x, y: x or y in string.digits, token[1], False)
+    
+    def __isPunctuation(self, token) -> bool:
+        if len(token[0]) == 3 and token[0] == '...':
+            return True
+        if len(token[0]) > 1:
+            return False
+        punct = ['.', '?', '!', ';', ':', '-', '[', ']', '{', '}', '(', ')', '"', "'"]
+        for punc in punct:
+            if token[0] == punc:
+                return True
+        return False
+    
+    def __isPreposition(self, token) -> bool:
+        return token[1] == 'IN' or token[1] == 'RP'
+    
+    def __isNoun(self, token) -> bool:
+        return token[1] == 'NN' or token[1] == 'NNS' or token[1] == 'NNP' or token[1] == 'NNPS'
+    
+    def __isChar(self, token) -> bool:
+        return len(token[0]) <= 1
+    
