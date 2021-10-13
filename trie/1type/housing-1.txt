@@ -1,0 +1,6 @@
+single-family
+multi-family
+apartment
+townhouse
+condominium
+co-op
