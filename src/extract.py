@@ -211,7 +211,7 @@ class DataExtractor(object):
         return token[0].lower() in abbrevList[size - 2] # since index 0 is abbreviation length 2
     
     def __isNumeric(self, token) -> bool:
-        return functools.reduce(lambda x, y: x or y in string.digits, token[1], False)
+        return functools.reduce(lambda x, y: x or (y in string.digits or y==',' or y=='.'), token[1], False)
     
     def __isPunctuation(self, token) -> bool:
         if len(token[0]) == 3 and token[0] == '...':

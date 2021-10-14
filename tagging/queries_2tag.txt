@@ -1,5 +1,5 @@
 =CAR=
-honda car with black color and milage 300,000 price $55000 with petrol fuel
+300,000 price $55000 with petrol fuel
 honda sedan less than 200,000 miles and under $15000
 honda, 200,000 miles
 jeep less than 300,000 miles under $20000
