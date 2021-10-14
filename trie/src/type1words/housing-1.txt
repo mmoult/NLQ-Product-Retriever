@@ -3,4 +3,5 @@ multi-family
 apartment
 townhouse
 condominium
+condo
 co-op
