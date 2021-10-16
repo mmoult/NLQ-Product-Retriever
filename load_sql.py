@@ -15,20 +15,20 @@ class Table(object):
         self.dat = args
 
 
-motorcyles = Table("Motorcycles", None,
+motorcycles = Table("Motorcycles", None,
     ["name", "TEXT"],
-    ["price", "INTEGER"],
+    ["price", "NUMERIC"],
     ["year", "INTEGER"],
     ["seller", "TEXT"],
     ["owner", "TEXT"],
-    ["km_driven", "INTEGER"],
+    ["mileage", "NUMERIC"],
     ["show_price", "INTEGER"]
 )
 jewelry = Table("Jewelry", 0,
     ["ref", "TEXT NOT NULL UNIQUE"],
     ["category", "TEXT"],
     ["title", "TEXT"],
-    ["price", "INTEGER"],
+    ["price", "NUMERIC"],
     ["tags", "TEXT"],
     ["description", "TEXT"],
     ["image", "TEXT"]
@@ -71,7 +71,7 @@ housing = Table("Housing", None,
     ["address", "TEXT NOT NULL"],
     ["rooms", "INTEGER"],
     ["type", "TEXT"],
-    ["price", "INTEGER NOT NULL"],
+    ["price", "NUMERIC NOT NULL"],
     ["method", "TEXT"],
     ["date", "TEXT"],
     ["distance", "NUMERIC"],
@@ -91,7 +91,7 @@ housing = Table("Housing", None,
 cars = Table("Cars", 0,
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["region", "TEXT NOT NULL"],
-    ["price", "INTEGER NOT NULL"],
+    ["price", "NUMERIC NOT NULL"],
     ["year", "INTEGER"],
     ["manufacturer", "TEXT"],
     ["model", "TEXT"],
@@ -135,7 +135,7 @@ def buildCreate(table:Table):
 
 def buildTables(cursor):
     dropCommand = 'DROP TABLE IF EXISTS '
-    allTables = [motorcyles, jewelry, jobs, furniture, housing, cars]
+    allTables = [motorcycles, jewelry, jobs, furniture, housing, cars]
     for table in allTables:
         cursor.execute(dropCommand + table.name)
         cursor.execute(buildCreate(table))
@@ -254,16 +254,43 @@ def loadTable(cursor, loc:string, table:Table):
 
 def loadTables(cursor):
     dataRoot = 'Datasets/'
-    loadTable(cursor, dataRoot+'BIKE DETAILS.csv', motorcyles)
+    loadTable(cursor, dataRoot+'BIKE DETAILS.csv', motorcycles)
     loadTable(cursor, dataRoot+'cartier_catalog.csv', jewelry)
     loadTable(cursor, dataRoot+'DataScientist.csv', jobs)
     loadTable(cursor, dataRoot+'IKEA_Furniture.csv', furniture)
     loadTable(cursor, dataRoot+'melb_data.csv', housing)
     loadTable(cursor, dataRoot+'vehicles4.csv', cars)
 
+
+def rectifyData(cursor):
+    # There are some things about the dataset that we are going to change to make it easier to use
+    # We need to:
+    #    change from Swedish crowns to USD on the furniture file
+    sekToUsd = str(0.12)
+    cursor.execute("UPDATE " + furniture.name + " SET price = price * " + sekToUsd + ";")
+    #    change from Australian dollars to USD on the housing file
+    audToUsd = str(0.74)
+    cursor.execute("UPDATE " + housing.name + " SET price = price * " + audToUsd + ";")
+    #    change from the single character types to the full name on the housing file
+    cursor.execute('UPDATE ' + housing.name + ' SET type = "house" WHERE type = "h";')
+    cursor.execute('UPDATE ' + housing.name + ' SET type = "unit" WHERE type = "u";')
+    cursor.execute('UPDATE ' + housing.name + ' SET type = "townhouse" WHERE type = "t";')
+    #    change from m^2 to ft^2 in the housing file
+    sqmToSqft = str(10.76391)
+    cursor.execute("UPDATE " + housing.name + " SET landsize = landsize * " + sqmToSqft + " WHERE landsize <> -1;")
+    cursor.execute("UPDATE " + housing.name + " SET building_area = building_area * " + sqmToSqft + " WHERE building_area <> -1;")
+    #    change from km driven to miles driven in the motorcycles file
+    kmToMi = str(0.6213712)
+    cursor.execute("UPDATE " + motorcycles.name + " SET mileage = mileage * " + kmToMi + ";")
+    #    change the price from Indian rupees to USD in the motorcycle file
+    indianRupeeToUsd = str(0.01)
+    cursor.execute("UPDATE " + motorcycles.name + " SET price = price * " + indianRupeeToUsd + ";")
+
+
 ##################################################################################### Main Entry
 
 if __name__ == '__main__':
     commitAction(buildTables)
     commitAction(loadTables)
+    commitAction(rectifyData)
     pass
