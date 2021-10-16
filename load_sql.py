@@ -123,12 +123,15 @@ def commitAction(action):
 def buildCreate(table:Table):
     cmd = 'CREATE TABLE "' + table.name + '" ('
     for attr in table.dat:
-        cmd += '"' + attr[0] + '" ' + attr[1] + ','
+        cmd += '"' + attr[0] + '" ' + attr[1] + ', '
+    
     if not table.primKey is None:
         cmd += ('PRIMARY KEY("' + table.dat[table.primKey][0] + '")')
+        cmd += ') WITHOUT ROWID;'
     else:
-        cmd = cmd[0:len(cmd)-1] #get rid of the last comma
-    cmd += ')'
+        cmd = cmd[0:len(cmd)-2] #get rid of the last comma
+        cmd += ');'
+    
     #print(cmd)
     return cmd
 
