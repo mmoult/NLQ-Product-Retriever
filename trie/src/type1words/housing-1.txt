@@ -5,3 +5,6 @@ townhouse
 condominium
 condo
 co-op
+house
+unit
+duplex

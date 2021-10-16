@@ -88,7 +88,7 @@ class DataExtractor(object):
 
         # each token is going to be evaluated by the different heuristics
         # https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
-        for token in pos_tagged:
+        for _ in pos_tagged:
             #print(token, self.__isPlural(token), self.__isCapital(token), self.__isAdjective(token), self.__isMeasurement(token), self.__isAlphaNumeric(token), self.__isLocation(token), self.__isAcronym(token, category))
             # Here we should be identifying the types that each token is and place it correctly
             # TODO here
