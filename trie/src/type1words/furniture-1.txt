@@ -1,6 +1,4 @@
-Accubita
 armoire
-bag
 bar
 Bed
 Bench
@@ -10,7 +8,6 @@ cabinet
 Cabinetry
 Canapé
 Cellarette
-center
 Chabudai
 Chair
 Chaise
@@ -37,7 +34,6 @@ Gramophone
 Hammock
 Hatstand
 Headboard
-Hi-fi
 Hutch
 Jukebox
 Klinai
