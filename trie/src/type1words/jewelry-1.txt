@@ -5,6 +5,7 @@ Bangle
 Belly chain
 Bolo tie
 Bracelet
+bracelets
 Breastplate
 broach
 Brooch
@@ -16,6 +17,7 @@ Corolla
 Coronet
 Crowns
 Cuff links
+earrings
 Emblem
 Findings
 japa mala
@@ -23,9 +25,11 @@ Kalabubu
 Locket
 Medallion
 Necklace
+necklaces
 ornament
 Pendant
 pin
 Ring
+rings
 rope
 Torc
