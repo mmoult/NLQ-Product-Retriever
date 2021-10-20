@@ -5,7 +5,7 @@ Created on Oct 16, 2021
 '''
 import string
 import nltk
-from trie.src.verify.py import Type1Verifier
+from src.trie import verify
 
 
 class TypeExtractor(object):
@@ -19,7 +19,7 @@ class TypeExtractor(object):
         '''
         This is where we will need to construct all the associated trie structures.
         '''
-        self.verifier = Type1Verifier()
+        self.verifier = verify.Type1Verifier()
 
 
     def typify(self, text: string, domain:string) -> [[string, int]]:
