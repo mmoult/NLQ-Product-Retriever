@@ -5,6 +5,7 @@ Created on Oct 16, 2021
 '''
 import string
 import nltk
+from trie.src.verify.py import Type1Verifier
 
 
 class TypeExtractor(object):
@@ -18,7 +19,7 @@ class TypeExtractor(object):
         '''
         This is where we will need to construct all the associated trie structures.
         '''
-    
+        self.verifier = Type1Verifier()
 
 
     def typify(self, text: string, domain:string) -> [[string, int]]:
@@ -52,8 +53,9 @@ class TypeExtractor(object):
     def __isNumeric(self, token) -> bool:
         for c in token:
             if c in string.digits or c==',' or c=='.':
-                continue
+                continue # valid numeric character, but all need to be checked
             else:
-                return False
+                return False # break on first invalid
+        # If all characters were valid, then we have a valid numeric token
         return True
     

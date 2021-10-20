@@ -2,7 +2,7 @@ from src.verify import Type1Verifier
 
 if __name__ == '__main__':
 
-    verify = Verifier()
+    verify = Type1Verifier()
 
     # TEST:
     # domains
