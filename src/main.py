@@ -4,6 +4,8 @@ Created on Oct 1, 2021
 @author: moultmat
 '''
 from src.typify import TypeExtractor
+from src import domains
+Domain = domains.Domain
 
 if __name__ == '__main__':
     # here is a sample query. We would have already classified its category by now
@@ -11,5 +13,5 @@ if __name__ == '__main__':
     
     # now we want to pull some data out (Type I, II, III)
     extractor = TypeExtractor()
-    print(extractor.typify(query, "cars"))
+    print(extractor.typify(query, Domain.CAR))
     

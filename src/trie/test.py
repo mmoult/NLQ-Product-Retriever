@@ -8,7 +8,7 @@ class TestTrie(unittest.TestCase):
 
     def testVerify(self):
         from . import verify
-        verify = verify.Type1Verifier()
+        verify = verify.TypeVerifier()
 
         # TEST:
         # domains

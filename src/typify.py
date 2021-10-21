@@ -18,11 +18,12 @@ class TypeExtractor(object):
     def __init__(self):
         '''
         This is where we will need to construct all the associated trie structures.
+        They are all nicely bundled in the TypeVerifier class
         '''
-        self.verifier = verify.Type1Verifier()
+        self.verifier = verify.TypeVerifier()
 
 
-    def typify(self, text: string, domain:string) -> [[string, int]]:
+    def typify(self, text: string, domain) -> [[string, int]]:
         # running the Stanford POS Tagger from NLTK
         ''' Needed NLTK downloads to run:
         nltk.download('punkt')
@@ -42,8 +43,13 @@ class TypeExtractor(object):
             if self.__isNumeric(token[0]):
                 tval = 3
             else:
-                # TODO here
-                pass
+                # try to find the type of the token and save it to tval
+                if self.verifier.isType1(token[0], domain):
+                    tval = 1
+                elif self.verifier.isType2(token[0], domain):
+                    tval = 2
+                elif self.verifier.isType3(token[0], domain):
+                    tval = 3
             
             # Adds the token to the list
             ret.append([token[0], tval])
