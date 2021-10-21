@@ -9,13 +9,21 @@ import string
 
 
 class Table(object):
-    def __init__(self, name:string, primKey:int, *args):
+    def __init__(self, name:string, primKey:int, idxCol:[int], *args):
+        '''
+        Creates a new table that can be used with SQLite.
+        @param name: the name that the table should have internally in SQL
+        @param primKey: the column that should be used as the primary key of the table
+        @param idxCol: the column(s) that should be used in creating the index
+        @param args: the data of the table attributes. Should be in form ["attributeName", "attributeType"], ...
+        '''
         self.name = name
         self.primKey = primKey
+        self.idxCol = idxCol
         self.dat = args
 
 
-motorcycles = Table("Motorcycles", None,
+motorcycles = Table("Motorcycles", None, [0],
     ["name", "TEXT"],
     ["price", "NUMERIC"],
     ["year", "INTEGER"],
@@ -24,7 +32,7 @@ motorcycles = Table("Motorcycles", None,
     ["mileage", "NUMERIC"],
     ["show_price", "INTEGER"]
 )
-jewelry = Table("Jewelry", 0,
+jewelry = Table("Jewelry", 0, [1],
     ["ref", "TEXT NOT NULL UNIQUE"],
     ["category", "TEXT"],
     ["title", "TEXT"],
@@ -33,10 +41,10 @@ jewelry = Table("Jewelry", 0,
     ["description", "TEXT"],
     ["image", "TEXT"]
 )
-jobs = Table("Jobs", 0,
+jobs = Table("Jobs", 0, [1],
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["title", "TEXT NOT NULL"],
-    ["salary", "TEXT"],
+    ["salary", "TEXT"], # this may be problematic since the salary is in a string bucket
     ["description", "TEXT"],
     ["rating", "NUMERIC"], # [0,5], -1
     ["company", "TEXT"],
@@ -51,7 +59,7 @@ jobs = Table("Jobs", 0,
     ["competitors", "TEXT"],
     ["easy_apply", "TEXT"] # TRUE, FALSE, -1
 )
-furniture = Table("Furniture", 0,
+furniture = Table("Furniture", 0, [2],
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["name", "TEXT"],
     ["category", "TEXT"],
@@ -66,7 +74,7 @@ furniture = Table("Furniture", 0,
     ["height", "INTEGER"],
     ["width", "INTEGER"]
 )
-housing = Table("Housing", None,
+housing = Table("Housing", None, [3],
     ["suburb", "TEXT"],
     ["address", "TEXT NOT NULL"],
     ["rooms", "INTEGER"],
@@ -88,7 +96,7 @@ housing = Table("Housing", None,
     ["region", "TEXT"],
     ["property_count", "INTEGER"]
 )
-cars = Table("Cars", 0,
+cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["region", "TEXT NOT NULL"],
     ["price", "NUMERIC NOT NULL"],
@@ -142,6 +150,13 @@ def buildTables(cursor):
     for table in allTables:
         cursor.execute(dropCommand + table.name)
         cursor.execute(buildCreate(table))
+        # build the indexes (if any)
+        if table.idxCol is not None:
+            for idxC in table.idxCol: # for each of the specified indexes
+                iOn = table.dat[idxC][0]
+                cmd = 'CREATE INDEX idx_' + table.name + '_' + iOn + ' ON ' + table.name + '(' + iOn + ');'
+                print(cmd)
+                cursor.execute(cmd)
 
 ##################################################################################### Populate tables
 

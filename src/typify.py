@@ -5,6 +5,7 @@ Created on Oct 16, 2021
 '''
 import string
 import nltk
+from src.trie import verify
 
 
 class TypeExtractor(object):
@@ -17,11 +18,12 @@ class TypeExtractor(object):
     def __init__(self):
         '''
         This is where we will need to construct all the associated trie structures.
+        They are all nicely bundled in the TypeVerifier class
         '''
-    
+        self.verifier = verify.TypeVerifier()
 
 
-    def typify(self, text: string, domain:string) -> [[string, int]]:
+    def typify(self, text: string, domain) -> [[string, int]]:
         # running the Stanford POS Tagger from NLTK
         ''' Needed NLTK downloads to run:
         nltk.download('punkt')
@@ -41,8 +43,13 @@ class TypeExtractor(object):
             if self.__isNumeric(token[0]):
                 tval = 3
             else:
-                # TODO here
-                pass
+                # try to find the type of the token and save it to tval
+                if self.verifier.isType1(token[0], domain):
+                    tval = 1
+                elif self.verifier.isType2(token[0], domain):
+                    tval = 2
+                elif self.verifier.isType3(token[0], domain):
+                    tval = 3
             
             # Adds the token to the list
             ret.append([token[0], tval])
@@ -52,8 +59,9 @@ class TypeExtractor(object):
     def __isNumeric(self, token) -> bool:
         for c in token:
             if c in string.digits or c==',' or c=='.':
-                continue
+                continue # valid numeric character, but all need to be checked
             else:
-                return False
+                return False # break on first invalid
+        # If all characters were valid, then we have a valid numeric token
         return True
     

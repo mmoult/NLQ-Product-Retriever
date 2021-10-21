@@ -1,0 +1,564 @@
+Price,address,Local_area,zipcode,beds,baths,sqft,url
+229900,11444 N 28th Dr APT 14,Phoenix,85029,2.0,3.0,1498.0,https://www.zillow.com/homedetails/11444-N-28th-Dr-APT-14-Phoenix-AZ-85029/7750068_zpid/
+294900,107 W Camino Rancho Lucido,Sahuarita,85629,4.0,3.0,1951.0,https://www.zillow.com/homedetails/107-W-Camino-Rancho-Lucido-Sahuarita-AZ-85629/59833790_zpid/
+683100,3320 E Briarwood Ter,Phoenix,85048,4.0,4.0,3110.0,https://www.zillow.com/homedetails/3320-E-Briarwood-Ter-Phoenix-AZ-85048/67759175_zpid/
+260000,2401 N 70th St APT H,Scottsdale,85257,2.0,1.0,759.0,https://www.zillow.com/homedetails/2401-N-70th-St-APT-H-Scottsdale-AZ-85257/7569063_zpid/
+290900,3781 E Sierrita Rd,San Tan Valley,85143,2.0,2.0,1052.0,https://www.zillow.com/homedetails/3781-E-Sierrita-Rd-San-Tan-Valley-AZ-85143/67435958_zpid/
+377900,1120 S 225th Ln,Buckeye,85326,5.0,3.0,2267.0,https://www.zillow.com/homedetails/1120-S-225th-Ln-Buckeye-AZ-85326/68960941_zpid/
+344900,43994 W Cypress Ln,Maricopa,85138,3.0,3.0,2200.0,https://www.zillow.com/homedetails/43994-W-Cypress-Ln-Maricopa-AZ-85138/67438054_zpid/
+269100,1805 N 84th Ave,Phoenix,85037,2.0,1.0,911.0,https://www.zillow.com/homedetails/1805-N-84th-Ave-Phoenix-AZ-85037/7487970_zpid/
+700900,4245 E Palo Verde St,Gilbert,85296,3.0,3.0,2661.0,https://www.zillow.com/homedetails/4245-E-Palo-Verde-St-Gilbert-AZ-85296/125121054_zpid/
+647900,4645 E Runaway Bay Dr,Chandler,85249,3.0,2.0,2309.0,https://www.zillow.com/homedetails/4645-E-Runaway-Bay-Dr-Chandler-AZ-85249/57688702_zpid/
+534900,2042 E Saltsage Dr,Phoenix,85048,3.0,3.0,1755.0,https://www.zillow.com/homedetails/2042-E-Saltsage-Dr-Phoenix-AZ-85048/8257212_zpid/
+493200,25722 N 122nd Ave,Peoria,85383,3.0,3.0,2431.0,https://www.zillow.com/homedetails/25722-N-122nd-Ave-Peoria-AZ-85383/95145554_zpid/
+483900,12999 N 93rd Dr,Peoria,85381,3.0,2.0,1516.0,https://www.zillow.com/homedetails/12999-N-93rd-Dr-Peoria-AZ-85381/95091427_zpid/
+428900,14159 W Columbus Ave,Goodyear,85395,4.0,3.0,2111.0,https://www.zillow.com/homedetails/14159-W-Columbus-Ave-Goodyear-AZ-85395/50204611_zpid/
+444900,6219 W Navajo Dr,Glendale,85302,4.0,3.0,2183.0,https://www.zillow.com/homedetails/6219-W-Navajo-Dr-Glendale-AZ-85302/7704208_zpid/
+229900,6957 E Calle Orion,Tucson,85710,3.0,1.0,1434.0,https://www.zillow.com/homedetails/6957-E-Calle-Orion-Tucson-AZ-85710/8544282_zpid/
+546800,8960 E Shangri La Rd,Scottsdale,85260,3.0,3.0,2172.0,https://www.zillow.com/homedetails/8960-E-Shangri-La-Rd-Scottsdale-AZ-85260/8064235_zpid/
+496900,10259 W Townley Ave,Peoria,85345,4.0,3.0,2731.0,https://www.zillow.com/homedetails/10259-W-Townley-Ave-Peoria-AZ-85345/240309966_zpid/
+356100,14223 W Yosemite Dr,Sun City West,85375,2.0,2.0,1391.0,https://www.zillow.com/homedetails/14223-W-Yosemite-Dr-Sun-City-West-AZ-85375/8114236_zpid/
+460300,1685 E Deer Shadow Ln,Tucson,85737,3.0,3.0,2220.0,https://www.zillow.com/homedetails/1685-E-Deer-Shadow-Ln-Tucson-AZ-85737/8608459_zpid/
+456900,658 S 223rd Ln,Buckeye,85326,4.0,3.0,2267.0,https://www.zillow.com/homedetails/658-S-223rd-Ln-Buckeye-AZ-85326/67787107_zpid/
+1149000,28835 N 64th St,Cave Creek,85331,3.0,3.0,3446.0,https://www.zillow.com/homedetails/28835-N-64th-St-Cave-Creek-AZ-85331/82801096_zpid/
+304900,4852 E Euclid Ave UNIT 2,Phoenix,85044,2.0,2.0,1015.0,https://www.zillow.com/homedetails/4852-E-Euclid-Ave-UNIT-2-Phoenix-AZ-85044/8139386_zpid/
+559900,11076 N Divot Dr,Tucson,85737,3.0,2.0,2450.0,https://www.zillow.com/homedetails/11076-N-Divot-Dr-Tucson-AZ-85737/8625958_zpid/
+375000,6928 E Madero Ave,Mesa,85209,3.0,2.0,1459.0,https://www.zillow.com/homedetails/6928-E-Madero-Ave-Mesa-AZ-85209/8273958_zpid/
+221000,27500 N Cochie Canyon Trl,Marana,85658,2.0,3.0,3005.0,https://www.zillow.com/homedetails/27500-N-Cochie-Canyon-Trl-Marana-AZ-85658/2103674073_zpid/
+175000,2615 W Highland Ave,Phoenix,85017,2.0,2.0,1088.0,https://www.zillow.com/homedetails/2615-W-Highland-Ave-Phoenix-AZ-85017/7765946_zpid/
+410000,1495 S Winslow Way,Cornville,86325,4.0,3.0,2178.0,https://www.zillow.com/homedetails/1495-S-Winslow-Way-Cornville-AZ-86325/8780459_zpid/
+549000,906 McCulloch Blvd S,Lake Havasu City,86406,4.0,3.0,1860.0,https://www.zillow.com/homedetails/906-McCulloch-Blvd-S-Lake-Havasu-City-AZ-86406/295480138_zpid/
+210000,1295 S Kelson Pl,Safford,85546,3.0,2.0,1318.0,https://www.zillow.com/homedetails/1295-S-Kelson-Pl-Safford-AZ-85546/247910306_zpid/
+389900,4225 E Brookwood Ct,Phoenix,85048,3.0,2.0,1352.0,https://www.zillow.com/homedetails/4225-E-Brookwood-Ct-Phoenix-AZ-85048/8259599_zpid/
+379000,3259 Thunderbird Dr,Lake Havasu City,86406,3.0,2.0,1453.0,https://www.zillow.com/homedetails/3259-Thunderbird-Dr-Lake-Havasu-City-AZ-86406/104028182_zpid/
+725000,5536 Lemonmint Ln,Prescott,86305,3.0,2.0,2561.0,https://www.zillow.com/homedetails/5536-Lemonmint-Ln-Prescott-AZ-86305/64962427_zpid/
+414900,11640 N Tatum Blvd UNIT 1010,Phoenix,85028,2.0,2.0,1147.0,https://www.zillow.com/homedetails/11640-N-Tatum-Blvd-UNIT-1010-Phoenix-AZ-85028/82821100_zpid/
+268900,5125 S Missiondale Rd,Tucson,85706,2.0,1.0,1015.0,https://www.zillow.com/homedetails/5125-S-Missiondale-Rd-Tucson-AZ-85706/8560304_zpid/
+392000,7724 W Oraibi Dr,Glendale,85308,3.0,3.0,1422.0,https://www.zillow.com/homedetails/7724-W-Oraibi-Dr-Glendale-AZ-85308/7891700_zpid/
+665000,361 E Hopkins Rd,Gilbert,85295,4.0,3.0,2407.0,https://www.zillow.com/homedetails/361-E-Hopkins-Rd-Gilbert-AZ-85295/52433717_zpid/
+325000,86 E Zinnia Pl,San Tan Valley,85143,3.0,2.0,1402.0,https://www.zillow.com/homedetails/86-E-Zinnia-Pl-San-Tan-Valley-AZ-85143/60140879_zpid/
+189000,2733 S Player Ave,Sierra Vista,85650,3.0,2.0,1627.0,https://www.zillow.com/homedetails/2733-S-Player-Ave-Sierra-Vista-AZ-85650/2069536856_zpid/
+425000,2820 E Carla Vista Dr,Chandler,85225,3.0,2.0,1623.0,https://www.zillow.com/homedetails/2820-E-Carla-Vista-Dr-Chandler-AZ-85225/8284277_zpid/
+385000,6105 Winchester Dr,Prescott Valley,86314,3.0,2.0,1461.0,https://www.zillow.com/homedetails/6105-Winchester-Dr-Prescott-Valley-AZ-86314/8732424_zpid/
+240000,2109 W Rose Garden Ln,Phoenix,85027,3.0,2.0,1092.0,https://www.zillow.com/homedetails/2109-W-Rose-Garden-Ln-Phoenix-AZ-85027/7970917_zpid/
+700000,1810 E Willetta St,Phoenix,85006,3.0,3.0,2076.0,https://www.zillow.com/homedetails/1810-E-Willetta-St-Phoenix-AZ-85006/7528786_zpid/
+384900,10101 N Arabian Trl UNIT 2043,Scottsdale,85258,2.0,2.0,1076.0,https://www.zillow.com/homedetails/10101-N-Arabian-Trl-UNIT-2043-Scottsdale-AZ-85258/50180614_zpid/
+390900,936 W Summit Pl,Chandler,85225,2.0,2.0,1170.0,https://www.zillow.com/homedetails/936-W-Summit-Pl-Chandler-AZ-85225/8200144_zpid/
+575000,19344 W Oregon Ave,Litchfield Park,85340,4.0,3.0,2985.0,https://www.zillow.com/homedetails/19344-W-Oregon-Ave-Litchfield-Park-AZ-85340/95080258_zpid/
+1399000,25008 S 195th St,Queen Creek,85142,5.0,4.0,3855.0,https://www.zillow.com/homedetails/25008-S-195th-St-Queen-Creek-AZ-85142/95137492_zpid/
+250000,8680 E Desert Spring St,Tucson,85730,3.0,2.0,1577.0,https://www.zillow.com/homedetails/8680-E-Desert-Spring-St-Tucson-AZ-85730/8555195_zpid/
+544900,3289 E Carla Vista Dr,Gilbert,85295,4.0,3.0,2356.0,https://www.zillow.com/homedetails/3289-E-Carla-Vista-Dr-Gilbert-AZ-85295/82825110_zpid/
+269900,8511 W Altos Dr,Arizona City,85123,3.0,2.0,1401.0,https://www.zillow.com/homedetails/8511-W-Altos-Dr-Arizona-City-AZ-85123/67423450_zpid/
+295000,14961 S Theodore Roosevelt Way,Sahuarita,85629,3.0,2.0,1615.0,https://www.zillow.com/homedetails/14961-S-Theodore-Roosevelt-Way-Sahuarita-AZ-85629/59832989_zpid/
+339995,11029 W Granada Dr,Sun City,85373,4.0,2.0,1679.0,https://www.zillow.com/homedetails/11029-W-Granada-Dr-Sun-City-AZ-85373/8093683_zpid/
+425000,129 S Becker Lake Rd,Springerville,85938,6.0,4.0,2664.0,https://www.zillow.com/homedetails/129-S-Becker-Lake-Rd-Springerville-AZ-85938/7350915_zpid/
+350000,1837 S Rockwell St,Gilbert,85295,3.0,2.0,1742.0,https://www.zillow.com/homedetails/1837-S-Rockwell-St-Gilbert-AZ-85295/81971600_zpid/
+425000,3865 E Garden Ln,Cottonwood,86326,3.0,2.0,1665.0,https://www.zillow.com/homedetails/3865-E-Garden-Ln-Cottonwood-AZ-86326/112360887_zpid/
+399900,18182 W Fulton St,Goodyear,85338,4.0,3.0,2139.0,https://www.zillow.com/homedetails/18182-W-Fulton-St-Goodyear-AZ-85338/300108985_zpid/
+525000,816 N Emery,Mesa,85207,3.0,2.0,2144.0,https://www.zillow.com/homedetails/816-N-Emery-Mesa-AZ-85207/60049376_zpid/
+199000,2743 S 17th Ave,Yuma,85364,3.0,2.0,1254.0,https://www.zillow.com/homedetails/2743-S-17th-Ave-Yuma-AZ-85364/8798853_zpid/
+250000,9650 S Leon Ranch Rd,Vail,85641,3.0,2.0,1815.0,https://www.zillow.com/homedetails/9650-S-Leon-Ranch-Rd-Vail-AZ-85641/52486306_zpid/
+299900,2678 E Turkey Run Rd,Pinetop,85935,2.0,1.0,645.0,https://www.zillow.com/homedetails/2678-E-Turkey-Run-Rd-Pinetop-AZ-85935/8413059_zpid/
+449000,223 Pineveta Rd,Ash Fork,86320,2.0,3.0,1729.0,https://www.zillow.com/homedetails/223-Pineveta-Rd-Ash-Fork-AZ-86320/2093856622_zpid/
+132000,325 Pennsylvania Ave,Patagonia,85624,2.0,1.0,1088.0,https://www.zillow.com/homedetails/325-Pennsylvania-Ave-Patagonia-AZ-85624/2112765700_zpid/
+799000,1032 E Wagon Wheel Dr,Prescott,86303,2.0,3.0,2278.0,https://www.zillow.com/homedetails/1032-E-Wagon-Wheel-Dr-Prescott-AZ-86303/82017057_zpid/
+850000,3419 N 63rd Pl,Scottsdale,85251,3.0,2.0,2230.0,https://www.zillow.com/homedetails/3419-N-63rd-Pl-Scottsdale-AZ-85251/7567830_zpid/
+292200,25738 W Saint Catherine Ave,Buckeye,85326,3.0,2.0,1326.0,https://www.zillow.com/homedetails/25738-W-Saint-Catherine-Ave-Buckeye-AZ-85326/67797513_zpid/
+335000,45025 N Zorrillo Dr,Phoenix,85087,4.0,2.0,2178.0,https://www.zillow.com/homedetails/45025-N-Zorrillo-Dr-Phoenix-AZ-85087/7928633_zpid/
+530000,22610 N Via Tercero,Sun City West,85375,3.0,3.0,2525.0,https://www.zillow.com/homedetails/22610-N-Via-Tercero-Sun-City-West-AZ-85375/8121773_zpid/
+310000,8129 S Carbury Way,Tucson,85747,3.0,2.0,1738.0,https://www.zillow.com/homedetails/8129-S-Carbury-Way-Tucson-AZ-85747/8580616_zpid/
+239000,170 County Road 3158,Vernon,85940,2.0,2.0,1340.0,https://www.zillow.com/homedetails/170-County-Road-3158-Vernon-AZ-85940/2070529249_zpid/
+355900,41175 N Rose Ln,San Tan Valley,85140,4.0,2.0,2000.0,https://www.zillow.com/homedetails/41175-N-Rose-Ln-San-Tan-Valley-AZ-85140/67434569_zpid/
+379900,11423 W Crimson Ln,Avondale,85392,4.0,3.0,2205.0,https://www.zillow.com/homedetails/11423-W-Crimson-Ln-Avondale-AZ-85392/7472490_zpid/
+295000,7044 S Petrel Ln,Tucson,85756,4.0,3.0,2889.0,https://www.zillow.com/homedetails/7044-S-Petrel-Ln-Tucson-AZ-85756/67134062_zpid/
+850000,11781 N Luzon Ct,Tucson,85737,5.0,3.0,3637.0,https://www.zillow.com/homedetails/11781-N-Luzon-Ct-Tucson-AZ-85737/239253685_zpid/
+120000,400 W Baseline Rd SPACE 212,Tempe,85283,3.0,2.0,1500.0,https://www.zillow.com/homedetails/400-W-Baseline-Rd-SPACE-212-Tempe-AZ-85283/2070520505_zpid/
+350000,16327 W Latham St,Goodyear,85338,3.0,3.0,1773.0,https://www.zillow.com/homedetails/16327-W-Latham-St-Goodyear-AZ-85338/240305895_zpid/
+427000,2331 W Darrel Rd,Phoenix,85041,3.0,3.0,2055.0,https://www.zillow.com/homedetails/2331-W-Darrel-Rd-Phoenix-AZ-85041/58883276_zpid/
+515000,4647 S Romano,Mesa,85212,4.0,2.0,2302.0,https://www.zillow.com/homedetails/4647-S-Romano-Mesa-AZ-85212/88795482_zpid/
+449000,3257 E Silversmith Trl,San Tan Valley,85143,4.0,2.0,2199.0,https://www.zillow.com/homedetails/3257-E-Silversmith-Trl-San-Tan-Valley-AZ-85143/67436503_zpid/
+619900,7233 W Via Montoya Dr,Glendale,85310,5.0,2.0,2394.0,https://www.zillow.com/homedetails/7233-W-Via-Montoya-Dr-Glendale-AZ-85310/7881218_zpid/
+385000,13036 N 56th Ave,Glendale,85304,3.0,2.0,1916.0,https://www.zillow.com/homedetails/13036-N-56th-Ave-Glendale-AZ-85304/7896784_zpid/
+475000,2706 W Monte Ave,Mesa,85202,3.0,2.0,1649.0,https://www.zillow.com/homedetails/2706-W-Monte-Ave-Mesa-AZ-85202/8251209_zpid/
+115000,2310 E Lass Ave,Kingman,86409,3.0,2.0,1040.0,https://www.zillow.com/homedetails/2310-E-Lass-Ave-Kingman-AZ-86409/8385069_zpid/
+294000,37683 W Bello Ln,Maricopa,85138,3.0,2.0,1556.0,https://www.zillow.com/homedetails/37683-W-Bello-Ln-Maricopa-AZ-85138/185847873_zpid/
+720000,6155 N 186th Ave,Waddell,85355,4.0,3.0,2542.0,https://www.zillow.com/homedetails/6155-N-186th-Ave-Waddell-AZ-85355/8307705_zpid/
+319000,2092 Roy Rogers Way,Kingman,86409,3.0,2.0,1763.0,https://www.zillow.com/homedetails/2092-Roy-Rogers-Way-Kingman-AZ-86409/67815108_zpid/
+360000,201 Johnson Ln,Young,85554,7.0,4.0,3050.0,https://www.zillow.com/homedetails/201-Johnson-Ln-Young-AZ-85554/2069612241_zpid/
+390000,8801 W Edgemont Ave,Phoenix,85037,4.0,3.0,2212.0,https://www.zillow.com/homedetails/8801-W-Edgemont-Ave-Phoenix-AZ-85037/7473764_zpid/
+330000,968 Calle Robalo,Rio Rico,85648,4.0,3.0,2422.0,https://www.zillow.com/homedetails/968-Calle-Robalo-Rio-Rico-AZ-85648/108311391_zpid/
+325000,46 County Road 8149,Concho,85924,3.0,2.0,1792.0,https://www.zillow.com/homedetails/46-County-Road-8149-Concho-AZ-85924/2069525935_zpid/
+199900,5605 E Labrador Ln,Hereford,85615,4.0,3.0,2230.0,https://www.zillow.com/homedetails/5605-E-Labrador-Ln-Hereford-AZ-85615/304675969_zpid/
+595000,6410 W Avenida Del Rey,Phoenix,85083,5.0,3.0,3126.0,https://www.zillow.com/homedetails/6410-W-Avenida-Del-Rey-Phoenix-AZ-85083/7925950_zpid/
+425000,27 County Road 2048,Alpine,85920,2.0,2.0,1557.0,https://www.zillow.com/homedetails/27-County-Road-2048-Alpine-AZ-85920/7347823_zpid/
+160000,4445 E Accidental Ln,Prescott,86303,4.0,4.0,3600.0,https://www.zillow.com/homedetails/4445-E-Accidental-Ln-Prescott-AZ-86303/8752361_zpid/
+794900,1573 Gettysvue Way,Prescott,86301,3.0,3.0,2532.0,https://www.zillow.com/homedetails/1573-Gettysvue-Way-Prescott-AZ-86301/55632469_zpid/
+489900,4716 E Cloudburst Dr,Gilbert,85297,4.0,2.0,1773.0,https://www.zillow.com/homedetails/4716-E-Cloudburst-Dr-Gilbert-AZ-85297/61630363_zpid/
+225000,132 E Taylor Ave,Coolidge,85128,4.0,2.0,1209.0,https://www.zillow.com/homedetails/132-E-Taylor-Ave-Coolidge-AZ-85128/185785356_zpid/
+270000,17232 N 16th Ave,Phoenix,85023,3.0,2.0,1106.0,https://www.zillow.com/homedetails/17232-N-16th-Ave-Phoenix-AZ-85023/7965122_zpid/
+315000,1528 W Corona Ave,Phoenix,85041,4.0,2.0,1350.0,https://www.zillow.com/homedetails/1528-W-Corona-Ave-Phoenix-AZ-85041/7501977_zpid/
+140000,11383 N Dill St,Portal,85632,3.0,2.0,1680.0,https://www.zillow.com/homedetails/11383-N-Dill-St-Portal-AZ-85632/2129870458_zpid/
+1520000,3139 E Bellflower Ct,Gilbert,85298,5.0,4.0,5003.0,https://www.zillow.com/homedetails/3139-E-Bellflower-Ct-Gilbert-AZ-85298/95186279_zpid/
+329990,2539 E Camino St,Mesa,85213,3.0,2.0,1306.0,https://www.zillow.com/homedetails/2539-E-Camino-St-Mesa-AZ-85213/7636781_zpid/
+303000,10219 W Luxton Ln,Tolleson,85353,3.0,2.0,1397.0,https://www.zillow.com/homedetails/10219-W-Luxton-Ln-Tolleson-AZ-85353/71619063_zpid/
+455000,2691 Saratoga Ave,Lake Havasu City,86406,3.0,3.0,2571.0,https://www.zillow.com/homedetails/2691-Saratoga-Ave-Lake-Havasu-City-AZ-86406/8330930_zpid/
+359000,3215 E Menadota Dr,Phoenix,85050,3.0,2.0,1012.0,https://www.zillow.com/homedetails/3215-E-Menadota-Dr-Phoenix-AZ-85050/7992720_zpid/
+365000,1527 W 2nd St,Mesa,85201,3.0,2.0,1322.0,https://www.zillow.com/homedetails/1527-W-2nd-St-Mesa-AZ-85201/7610624_zpid/
+1525000,1015 E Hattie Greene,Flagstaff,86001,4.0,3.0,3423.0,https://www.zillow.com/homedetails/1015-E-Hattie-Greene-Flagstaff-AZ-86001/64953738_zpid/
+239000,8594 N Cantora Way,Tucson,85743,3.0,2.0,1118.0,https://www.zillow.com/homedetails/8594-N-Cantora-Way-Tucson-AZ-85743/8640301_zpid/
+675000,29103 N 152nd Dr,Surprise,85387,3.0,3.0,2835.0,https://www.zillow.com/homedetails/29103-N-152nd-Dr-Surprise-AZ-85387/64669613_zpid/
+300000,6426 E Boldin Dr,Tucson,85756,4.0,3.0,2173.0,https://www.zillow.com/homedetails/6426-E-Boldin-Dr-Tucson-AZ-85756/97415860_zpid/
+269900,3018 W Laquila Aerie,Tucson,85742,3.0,2.0,1485.0,https://www.zillow.com/homedetails/3018-W-Laquila-Aerie-Tucson-AZ-85742/8631796_zpid/
+250000,6941 E Rivercrest Rd,Tucson,85750,3.0,2.0,1995.0,https://www.zillow.com/homedetails/6941-E-Rivercrest-Rd-Tucson-AZ-85750/8471139_zpid/
+350000,9700 N Camino Del Grillo,Tucson,85742,3.0,2.0,1697.0,https://www.zillow.com/homedetails/9700-N-Camino-Del-Grillo-Tucson-AZ-85742/8624028_zpid/
+450000,1122 S Una Ave,Tempe,85281,3.0,2.0,1364.0,https://www.zillow.com/homedetails/1122-S-Una-Ave-Tempe-AZ-85281/7585263_zpid/
+270000,504 S 7th St,Buckeye,85326,3.0,2.0,1127.0,https://www.zillow.com/homedetails/504-S-7th-St-Buckeye-AZ-85326/8287031_zpid/
+17750,2650 W Union Hills Dr #118,Phoenix,85027,2.0,1.0,910.0,https://www.zillow.com/homedetails/2650-W-Union-Hills-Dr-118-Phoenix-AZ-85027/2072060904_zpid/
+305000,9987 W Monterosa Ave,Phoenix,85037,3.0,2.0,1189.0,https://www.zillow.com/homedetails/9987-W-Monterosa-Ave-Phoenix-AZ-85037/7484545_zpid/
+347000,4640 N Montezuma Ave,Rimrock,86335,2.0,2.0,1613.0,https://www.zillow.com/homedetails/4640-N-Montezuma-Ave-Rimrock-AZ-86335/8768831_zpid/
+199990,66 County Road 8113,Concho,85924,3.0,2.0,1184.0,https://www.zillow.com/homedetails/66-County-Road-8113-Concho-AZ-85924/2070299990_zpid/
+849900,1987 W Fresh Aire St,Flagstaff,86001,4.0,3.0,3099.0,https://www.zillow.com/homedetails/1987-W-Fresh-Aire-St-Flagstaff-AZ-86001/64956560_zpid/
+598000,410 Barnwood Trl,Munds Park,86017,4.0,4.0,2811.0,https://www.zillow.com/homedetails/410-Barnwood-Trl-Munds-Park-AZ-86017/7377817_zpid/
+295000,2683 S Ave 7 3/4 E,Yuma,85365,4.0,3.0,1650.0,https://www.zillow.com/homedetails/2683-S-Ave-7-3-4-E-Yuma-AZ-85365/2132188331_zpid/
+130000,4800 N 68th St UNIT 262,Scottsdale,85251,1.0,1.0,624.0,https://www.zillow.com/homedetails/4800-N-68th-St-UNIT-262-Scottsdale-AZ-85251/7844734_zpid/
+159900,789 S Jefferson St,Coolidge,85128,2.0,2.0,840.0,https://www.zillow.com/homedetails/789-S-Jefferson-St-Coolidge-AZ-85128/55504650_zpid/
+398900,10023 N Laurelwood Dr,Tucson,85737,4.0,2.0,1805.0,https://www.zillow.com/homedetails/10023-N-Laurelwood-Dr-Tucson-AZ-85737/8622524_zpid/
+900000,26218 N 47th Dr,Phoenix,85083,3.0,3.0,3041.0,https://www.zillow.com/homedetails/26218-N-47th-Dr-Phoenix-AZ-85083/55263005_zpid/
+345000,43850 W Kramer Ln,Maricopa,85138,4.0,2.0,1884.0,https://www.zillow.com/homedetails/43850-W-Kramer-Ln-Maricopa-AZ-85138/71683011_zpid/
+160000,3605 W Bethany Home Rd APT 15,Phoenix,85019,3.0,2.0,1260.0,https://www.zillow.com/homedetails/3605-W-Bethany-Home-Rd-APT-15-Phoenix-AZ-85019/2142826892_zpid/
+450000,64483 E Sugar Ln,Saddlebrooke,85739,2.0,3.0,2424.0,https://www.zillow.com/homedetails/64483-E-Sugar-Ln-Saddlebrooke-AZ-85739/8689073_zpid/
+60000,7255 S Cole Ln,Hereford,85615,3.0,2.0,1706.0,https://www.zillow.com/homedetails/7255-S-Cole-Ln-Hereford-AZ-85615/7391386_zpid/
+949000,7131 E Indigo St,Mesa,85207,3.0,4.0,2872.0,https://www.zillow.com/homedetails/7131-E-Indigo-St-Mesa-AZ-85207/68538338_zpid/
+409900,1148 N California St,Chandler,85225,4.0,2.0,1568.0,https://www.zillow.com/homedetails/1148-N-California-St-Chandler-AZ-85225/8189485_zpid/
+179900,319 N 88th Pl,Mesa,85207,3.0,3.0,1346.0,https://www.zillow.com/homedetails/319-N-88th-Pl-Mesa-AZ-85207/8071437_zpid/
+410000,8906 E Calle Pasto,Tucson,85715,3.0,3.0,2217.0,https://www.zillow.com/homedetails/8906-E-Calle-Pasto-Tucson-AZ-85715/8524400_zpid/
+1390000,10970 E Dale Ln,Scottsdale,85262,4.0,4.0,4659.0,https://www.zillow.com/homedetails/10970-E-Dale-Ln-Scottsdale-AZ-85262/8037991_zpid/
+95000,814 N 82nd St #G207,Scottsdale,85257,2.0,1.0,888.0,https://www.zillow.com/homedetails/814-N-82nd-St-G207-Scottsdale-AZ-85257/2070306527_zpid/
+1199000,21484 E Mewes Rd,Queen Creek,85142,6.0,4.0,5442.0,https://www.zillow.com/homedetails/21484-E-Mewes-Rd-Queen-Creek-AZ-85142/67783205_zpid/
+212000,139 W Paseo Adobe,Green Valley,85614,2.0,2.0,2060.0,https://www.zillow.com/homedetails/139-W-Paseo-Adobe-Green-Valley-AZ-85614/8646051_zpid/
+371000,873 N Deer Creek Dr,Payson,85541,2.0,2.0,1750.0,https://www.zillow.com/homedetails/873-N-Deer-Creek-Dr-Payson-AZ-85541/7441956_zpid/
+179000,1130 E Morris Ln,Benson,85602,3.0,2.0,1459.0,https://www.zillow.com/homedetails/1130-E-Morris-Ln-Benson-AZ-85602/7410009_zpid/
+499900,521 Monarch Cir,Lakeside,85929,3.0,2.0,1804.0,https://www.zillow.com/homedetails/521-Monarch-Cir-Lakeside-AZ-85929/71335056_zpid/
+360000,7474 W Parnell Dr,Kirkland,86332,3.0,2.0,2175.0,https://www.zillow.com/homedetails/7474-W-Parnell-Dr-Kirkland-AZ-86332/63540526_zpid/
+256399,14814 S Tampico Rd,Arizona City,85123,4.0,2.0,1485.0,https://www.zillow.com/homedetails/14814-S-Tampico-Rd-Arizona-City-AZ-85123/111043707_zpid/
+415000,13623 E Aviara Pl,Vail,85641,4.0,2.0,2338.0,https://www.zillow.com/homedetails/13623-E-Aviara-Pl-Vail-AZ-85641/67138453_zpid/
+300000,10914 W Saratoga Cir,Sun City,85351,3.0,2.0,1617.0,https://www.zillow.com/homedetails/10914-W-Saratoga-Cir-Sun-City-AZ-85351/7920168_zpid/
+15000000,6121 N Nauni Valley Dr,Paradise Valley,85253,4.0,5.0,6200.0,https://www.zillow.com/homedetails/6121-N-Nauni-Valley-Dr-Paradise-Valley-AZ-85253/157726267_zpid/
+205000,225 Paseo Montura,Rio Rico,85648,3.0,2.0,1273.0,https://www.zillow.com/homedetails/225-Paseo-Montura-Rio-Rico-AZ-85648/2069557303_zpid/
+345990,"Loon Plan, Lucero at Estrella",Goodyear,85338,4.0,2.0,1613.0,https://www.zillow.com/community/lucero-at-estrella/2081357879_zpid/
+235000,5953 E Grant Rd,Tucson,85712,2.0,2.0,1905.0,https://www.zillow.com/homedetails/5953-E-Grant-Rd-Tucson-AZ-85712/8454551_zpid/
+225000,7801 N 44th Dr UNIT 1030,Glendale,85301,3.0,3.0,1386.0,https://www.zillow.com/homedetails/7801-N-44th-Dr-UNIT-1030-Glendale-AZ-85301/7724282_zpid/
+799900,1780 Coyote Rd,Prescott,86303,4.0,3.0,2748.0,https://www.zillow.com/homedetails/1780-Coyote-Rd-Prescott-AZ-86303/8739892_zpid/
+59000,27697 Santa Fe Ave,Bouse,85325,2.0,1.0,720.0,https://www.zillow.com/homedetails/27697-Santa-Fe-Ave-Bouse-AZ-85325/7455552_zpid/
+365000,703 E Holmes Ave,Mesa,85204,3.0,2.0,1616.0,https://www.zillow.com/homedetails/703-E-Holmes-Ave-Mesa-AZ-85204/7629182_zpid/
+735000,360 E Day Flower Dr,Oro Valley,85755,3.0,3.0,2336.0,https://www.zillow.com/homedetails/360-E-Day-Flower-Dr-Oro-Valley-AZ-85755/300513656_zpid/
+995000,2044 William Palmer,Flagstaff,86005,3.0,3.0,2685.0,https://www.zillow.com/homedetails/2044-William-Palmer-Flagstaff-AZ-86005/7368612_zpid/
+395000,1056 N Saguaro St,Chandler,85224,3.0,2.0,1587.0,https://www.zillow.com/homedetails/1056-N-Saguaro-St-Chandler-AZ-85224/8203278_zpid/
+675000,8309 E Vernon Ave,Scottsdale,85257,3.0,2.0,2000.0,https://www.zillow.com/homedetails/8309-E-Vernon-Ave-Scottsdale-AZ-85257/7580710_zpid/
+350000,6160 N Tower Ln,Prescott Valley,86314,3.0,2.0,1534.0,https://www.zillow.com/homedetails/6160-N-Tower-Ln-Prescott-Valley-AZ-86314/8732470_zpid/
+799000,163 W Briarwood Ter,Phoenix,85045,5.0,4.0,3300.0,https://www.zillow.com/homedetails/163-W-Briarwood-Ter-Phoenix-AZ-85045/8134995_zpid/
+325000,1223 E Grove St,Phoenix,85040,3.0,2.0,1331.0,https://www.zillow.com/homedetails/1223-E-Grove-St-Phoenix-AZ-85040/62726453_zpid/
+510000,9836 N 181st Ave,Waddell,85355,5.0,3.0,3115.0,https://www.zillow.com/homedetails/9836-N-181st-Ave-Waddell-AZ-85355/71625192_zpid/
+575000,3432 E Zion Way,Chandler,85249,3.0,2.0,2418.0,https://www.zillow.com/homedetails/3432-E-Zion-Way-Chandler-AZ-85249/94638223_zpid/
+214900,4087 Quail Ave,Show Low,85901,2.0,2.0,1198.0,https://www.zillow.com/homedetails/4087-Quail-Ave-Show-Low-AZ-85901/134019873_zpid/
+330000,130 Castle Rock Rd UNIT 20,Sedona,86351,2.0,2.0,1010.0,https://www.zillow.com/homedetails/130-Castle-Rock-Rd-UNIT-20-Sedona-AZ-86351/8771638_zpid/
+346000,14311 N Sky Trl,Tucson,85755,2.0,2.0,1304.0,https://www.zillow.com/homedetails/14311-N-Sky-Trl-Tucson-AZ-85755/2069547924_zpid/
+369900,252 E Refuge Loop,Vail,85641,4.0,3.0,2400.0,https://www.zillow.com/homedetails/252-E-Refuge-Loop-Vail-AZ-85641/97393646_zpid/
+79900,16-123 N Star Vale Dr #A,Payson,85541,1.0,1.0,559.0,https://www.zillow.com/homedetails/16-123-N-Star-Vale-Dr-A-Payson-AZ-85541/2069542904_zpid/
+250000,1176 E Cougar St,Munds Park,86017,3.0,2.0,980.0,https://www.zillow.com/homedetails/1176-E-Cougar-St-Munds-Park-AZ-86017/7379668_zpid/
+385000,4419 N 57th Ave,Phoenix,85031,5.0,5.0,2141.0,https://www.zillow.com/homedetails/4419-N-57th-Ave-Phoenix-AZ-85031/7712692_zpid/
+188500,704 S McLane Rd,Payson,85541,3.0,2.0,1336.0,https://www.zillow.com/homedetails/704-S-McLane-Rd-Payson-AZ-85541/7440298_zpid/
+349500,17206 N 34th St,Phoenix,85032,3.0,2.0,1259.0,https://www.zillow.com/homedetails/17206-N-34th-St-Phoenix-AZ-85032/7998400_zpid/
+369900,17596 S Green Willow Pl,Vail,85641,4.0,3.0,2298.0,https://www.zillow.com/homedetails/17596-S-Green-Willow-Pl-Vail-AZ-85641/71688051_zpid/
+1895000,3961 E Norcroft Cir,Mesa,85215,6.0,6.0,7499.0,https://www.zillow.com/homedetails/3961-E-Norcroft-Cir-Mesa-AZ-85215/37767514_zpid/
+315000,1018 E Ash St,Cottonwood,86326,3.0,2.0,1328.0,https://www.zillow.com/homedetails/1018-E-Ash-St-Cottonwood-AZ-86326/8776352_zpid/
+494900,7537 W Eugie Ave,Peoria,85381,4.0,3.0,2346.0,https://www.zillow.com/homedetails/7537-W-Eugie-Ave-Peoria-AZ-85381/52429754_zpid/
+375000,25802 S Brentwood Dr,Sun Lakes,85248,2.0,2.0,1545.0,https://www.zillow.com/homedetails/25802-S-Brentwood-Dr-Sun-Lakes-AZ-85248/8218193_zpid/
+395000,844 E Rosebud Dr,San Tan Valley,85143,5.0,3.0,2639.0,https://www.zillow.com/homedetails/844-E-Rosebud-Dr-San-Tan-Valley-AZ-85143/67396826_zpid/
+389900,67 Wagon Wheel Ln,Sonoita,85637,7.0,4.0,4000.0,https://www.zillow.com/homedetails/67-Wagon-Wheel-Ln-Sonoita-AZ-85637/8716833_zpid/
+445000,3516 N Creston,Mesa,85213,3.0,2.0,1700.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Arboleda/3516-N-Creston/107293784.html
+650000,8939 W CAMINO DE ORO --,Peoria,85383,3.0,2.0,2942.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Westwing-Mountain/8939-W-CAMINO-DE-ORO-/109759336.html
+363930,2580 Climbing Rock Lane,Bullhead City,86442,2.0,3.0,1715.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2580-Climbing-Rock-Lane/109752153.html
+660000,448 W LARONA Lane,Tempe,85284,5.0,4.0,3458.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tempe/Warner-Ranch/448-W-LARONA-Lane/109756743.html
+699000,11279 S SANTA MARGARITA Lane,Goodyear,85338,4.0,4.0,2759.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Estrella/11279-S-SANTA-MARGARITA-Lane/109756794.html
+217000,No address available,Youngtown,85363,2.0,2.0,1580.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Youngtown/No-address-available/109759131.html
+1995000,8345 N VIA LINDA --,Scottsdale,85258,5.0,4.0,3460.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/McCormick-Ranch/8345-N-VIA-LINDA-/109759149.html
+375000,9048 E Chickamauga Street,Tucson,85710,4.0,2.0,2253.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Harrison-East-South/9048-E-Chickamauga-Street/109707813.html
+315000,11796 N Mineral Park Way,Oro Valley,85737,2.0,3.0,1602.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pima-County/Oro-Valley/Monterra/11796-N-Mineral-Park-Way/109776884.html
+529737,2552 Climbing Rock Lane,Bullhead City,86442,3.0,4.0,2800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2552-Climbing-Rock-Lane/109752127.html
+699999,5763 W Michigan Street,Tucson Estates,85735,3.0,3.0,2236.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson-Estates/5763-W-Michigan-Street/109213387.html
+390000,23768 W DESERT BLOOM Street,Buckeye,85326,3.0,3.0,2154.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Sundance/23768-W-DESERT-BLOOM-Street/109756777.html
+355000,821 Reta St,Clarkdale,86324,3.0,2.0,1400.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/821-Reta-St/109774957.html
+715450,8740 Country Club Drive ,Pinetop Country Club,85935,3.0,2.5,2506.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pinetop-Country-Club/8740-Country-Club-Drive-/109727304.html
+450000,5075 W CORTEZ Street,Glendale,85304,3.0,3.0,2100.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Chaparral-Ranch/5075-W-CORTEZ-Street/109759228.html
+499000,1850 W GLENHAVEN Drive,Phoenix,85045,3.0,2.0,1741.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/1850-W-GLENHAVEN-Drive/109756802.html
+265000,7110 W Veda Lane,Wilhoit,86332,3.0,2.0,1457.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wilhoit/7110-W-Veda-Lane/109774099.html
+230000,12443 N RIVIERA Drive,Sun City,85351,2.0,1.0,1120.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/12443-N-RIVIERA-Drive/109759134.html
+699990,13515 W MEDLOCK Drive,Litchfield Park,85340,5.0,5.0,4592.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Litchfield-Park/13515-W-MEDLOCK-Drive/109756695.html
+400000,1121 E Desert Holly Dr,San Tan Valley,85143,4.0,3.0,2336.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/1121-E-Desert-Holly-Dr/107348424.html
+729900,13434 N CANTERBURY Drive,Phoenix,85023,3.0,2.0,2100.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/North-Mountain-Village/13434-N-CANTERBURY-Drive/109756928.html
+299000,2010 N 24TH Street,Phoenix,85006,4.0,1.0,952.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Encanto-Village/2010-N-24TH-Street/109756815.html
+699900,4080 S MINGUS Drive,Chandler,85249,3.0,2.0,2363.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Sun-Groves/4080-S-MINGUS-Drive/109759352.html
+765999,3000 W Sahuaro Divide,Tortolita,85742,4.0,2.0,2098.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Tortolita/3000-W-Sahuaro-Divide/109776877.html
+719000,11433 N 43RD Street,Phoenix,85028,3.0,2.0,2141.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/11433-N-43RD-Street/109759231.html
+588000,2726 E Sourwood Drive,Gilbert,85298,4.0,2.0,2109.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Freeman-Farms/2726-E-Sourwood-Drive/109759168.html
+492000,95 S Corral Circle,Cottonwood,86326,3.0,2.0,2149.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/Cottonwood/95-S-Corral-Circle/105251806.html
+50000,2108 Del Rey Drive,Bullhead City,86442,1.0,1.0,420.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2108-Del-Rey-Drive/109752124.html
+320000,1717 E Lindrick Drive,Chandler,85249,2.0,2.0,1017.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Springfield/1717-E-Lindrick-Drive/109756907.html
+550000,855 W HEATHER Avenue,Gilbert,85233,3.0,2.0,2422.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/El-Dorado-Lakes/855-W-HEATHER-Avenue/109757014.html
+495000,18468 W WESTERN STAR Boulevard,Goodyear,85338,3.0,2.0,1973.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Estrella/18468-W-WESTERN-STAR-Boulevard/109756970.html
+679900,7030 E Potawatami Drive,Catalina Foothills,85715,5.0,3.0,2902.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Coronado/7030-E-Potawatami-Drive/107369874.html
+849900,17509 E CHESTNUT Drive,Queen Creek,85142,5.0,4.0,2710.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Chandler-Heights/17509-E-CHESTNUT-Drive/109759339.html
+374900,1450 W Wagon Wheel Rd,Cottonwood,86326,2.0,2.0,1278.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/Cottonwood/1450-W-Wagon-Wheel-Rd/109774961.html
+400000,11213 E Quarry Avenue,Mesa,85212,3.0,2.0,1509.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Mountain-Heights/11213-E-Quarry-Avenue/109759226.html
+660000,1320 W LISA Lane,Tempe,85284,5.0,3.0,3075.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tempe/Warner-Ranch/1320-W-LISA-Lane/109756788.html
+820000,31507 N 47TH Terrace,Cave Creek,85331,4.0,4.0,3114.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Cave-Creek/31507-N-47TH-Terrace/109756889.html
+850000,2519 N 29TH Street,Phoenix,85008,4.0,3.0,2547.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/2519-N-29TH-Street/109756550.html
+349950,29072 N YELLOW BEE Drive,San Tan Valley,85143,4.0,2.0,1790.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/29072-N-YELLOW-BEE-Drive/109759310.html
+360000,9914 W OAK RIDGE Drive,Sun City,85351,3.0,2.0,1465.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/9914-W-OAK-RIDGE-Drive/109756587.html
+565000,16984 W WINDSOR Avenue,Goodyear,85395,2.0,3.0,2036.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Pebblecreek/16984-W-WINDSOR-Avenue/109756818.html
+359900,1952 W BUSONI Place,Phoenix,85023,2.0,3.0,1520.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Deer-Valley-Village/1952-W-BUSONI-Place/109759136.html
+549900,17304 E TEJON Drive,Fountain Hills,85268,3.0,2.0,1603.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Fountain-Hills/Diamante-del-Lago/17304-E-TEJON-Drive/109756861.html
+400000,17437 N White Tank Vista,Surprise,85374,2.0,2.0,1800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Arizona-Traditions/17437-N-White-Tank-Vista/109756732.html
+389000,3832 W EVA Street,Phoenix,85051,3.0,2.0,1797.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/North-Mountain-Village/3832-W-EVA-Street/109757057.html
+395000,739 N VALENCIA Place,Chandler,85226,3.0,2.0,1381.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Twelve-Oaks/739-N-VALENCIA-Place/109756842.html
+435000,11394 S 175TH Drive,Goodyear,85338,2.0,3.0,1721.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Estrella-Mountain-Ranch/11394-S-175TH-Drive/109756886.html
+345000,1776 E DESERT ROSE Trail,San Tan Valley,85143,3.0,3.0,2281.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/1776-E-DESERT-ROSE-Trail/109756876.html
+747000,2549 W Shadow Valley Ranch Road,Prescott,86305,3.0,3.0,2570.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/Greater-Prescott/2549-W-Shadow-Valley-Ranch-Road/109774098.html
+380000,12742 N Quinoa Drive,Marana,85653,4.0,2.0,2584.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Marana-CCD/12742-N-Quinoa-Drive/109510427.html
+259900,6229 S Saddle Lane,Hereford,85615,3.0,2.0,1713.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Hereford/6229-S-Saddle-Lane/109756864.html
+225000,1024 N Mountain Brush Drive 333,Prescott Valley,86327,1.0,2.0,919.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/1024-N-Mountain-Brush-Drive/109756952.html
+273000,6330 E Butte Street,Mesa,85205,2.0,1.0,1366.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Alta-Mesa/6330-E-Butte-Street/109756684.html
+494156,5936 N 189TH Glen,Litchfield Park,85340,3.0,2.0,2037.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Litchfield-Park/5936-N-189TH-Glen/109756744.html
+539000,329 E Painted Pottery Place,Oro Valley,85755,3.0,2.0,2621.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Oro-Valley/Rancho-Vistoso/329-E-Painted-Pottery-Place/109571467.html
+475000,4750 N Meixner Road,Prescott Valley,86314,5.0,2.0,1821.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/4750-N-Meixner-Road/109774103.html
+300000,390 Tumamoc Dr,Lake Havasu City,86403,3.0,2.0,1192.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/390-Tumamoc-Dr/109769084.html
+474900,1137 W Peaceful Meadow Path,Sahuarita,85629,3.0,3.0,2517.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sahuarita/1137-W-Peaceful-Meadow-Path/109776892.html
+560000,566 W MONTE Avenue,Mesa,85210,3.0,2.0,2136.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Rancho-del-Mar/566-W-MONTE-Avenue/109757031.html
+499900,791 Churchill Bay,Lake Havasu City,86406,3.0,2.0,1336.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/791-Churchill-Bay/109769089.html
+399900,20001 N 76TH Avenue,Glendale,85308,3.0,2.0,1220.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Arrowhead-Ranch/20001-N-76TH-Avenue/109757064.html
+539000,15022 S 47TH Way,Phoenix,85044,4.0,2.0,1846.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/15022-S-47TH-Way/109757065.html
+449500,1405 E Orange Street,Tempe,85281,3.0,2.0,1522.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tempe/Hughes-Acres/1405-E-Orange-Street/109756599.html
+360000,8620 S 254th Dr,Buckeye,85326,4.0,3.0,2235.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Sunset-Point/8620-S-254th-Dr/109772282.html
+378000,9901 W SHIPROCK Drive,Sun City,85351,3.0,2.0,1699.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/9901-W-SHIPROCK-Drive/109759191.html
+145000,2640 E Snavely Avenue,Kingman,86409,2.0,2.0,1344.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Kingman/2640-E-Snavely-Avenue/109752150.html
+419900,2684 Bluewater Dr,Lake Havasu City,86403,3.0,3.0,1658.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2684-Bluewater-Dr/109769088.html
+350000,4580 W Federal Way,Queen Creek,85142,3.0,2.0,1590.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/4580-W-Federal-Way/109756863.html
+357000,11533 W COTTONWOOD Lane,Avondale,85392,3.0,2.0,1632.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Avondale/Garden-Lakes/11533-W-COTTONWOOD-Lane/109756779.html
+449825,2548 Climbing Rock Lane,Bullhead City,86442,2.0,3.0,1903.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2548-Climbing-Rock-Lane/109752165.html
+299000,5957 S Avenida Barranca Seca,Tucson,85706,4.0,3.0,2213.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Cherry-Avenue/5957-S-Avenida-Barranca-Seca/109776895.html
+1825000,3837 E HEATHERBRAE Drive,Phoenix,85018,4.0,5.0,3078.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/East-Pheonix/3837-E-HEATHERBRAE-Drive/109756930.html
+559900,4647 E MICHELLE Drive,Phoenix,85032,4.0,3.0,2013.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/4647-E-MICHELLE-Drive/109756657.html
+425000,1012 N Stirrup High Drive,Prescott Valley,86327,3.0,2.0,1660.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/1012-N-Stirrup-High-Drive/109774102.html
+445000,8141 W SANDS Road,Glendale,85303,4.0,2.0,2012.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Skyview-West/8141-W-SANDS-Road/109756749.html
+382200,8545 W HUGHES Drive,Tolleson,85353,3.0,2.0,2207.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tolleson/8545-W-HUGHES-Drive/109756994.html
+358000,22332 N. Arrellaga Drive ,Sun City West,85375,2.0,2.0,1378.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sun-City-West/22332-N-Arrellaga-Drive-/109727416.html
+450000,18821 E SWAN Drive,Queen Creek,85142,5.0,3.0,2109.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Cortina/18821-E-SWAN-Drive/109756873.html
+417000,3413 S 90TH Avenue,Tolleson,85353,4.0,3.0,3125.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tolleson/3413-S-90TH-Avenue/109757052.html
+640000,7405 Esplin Way,Flagstaff,86004,3.0,2.0,1911.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Doney-Park/7405-Esplin-Way/109773027.html
+311990,811 S SILVERCREEK Court,Casa Grande,85122,3.0,2.0,1375.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/811-S-SILVERCREEK-Court/109756669.html
+129900,530 Wilshire Avenue,Kingman,86409,2.0,2.0,1060.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Kingman/530-Wilshire-Avenue/109752144.html
+450000,616 N Magdalena Street,Prescott Valley,86327,3.0,2.0,1912.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/616-N-Magdalena-Street/109774106.html
+329185,4643 W CINNAMON Avenue,Coolidge,85128,4.0,2.0,1790.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Coolidge/4643-W-CINNAMON-Avenue/109756651.html
+385000,40029 N PANTHER CREEK Court,Anthem,85086,3.0,2.0,1135.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/40029-N-PANTHER-CREEK-Court/109759300.html
+424900,161 N SANDAL --,Mesa,85205,4.0,3.0,2414.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Alta-Mesa/161-N-SANDAL-/109759193.html
+1100000,8105 S Comstock Mine Road,Prescott,86303,3.0,3.0,4800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/Greater-Prescott/8105-S-Comstock-Mine-Road/109774114.html
+1600000,21600 S CRISMON Road,Queen Creek,85142,3.0,2.0,2135.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Queenland-Manor/21600-S-CRISMON-Road/109756688.html
+395000,11263 E QUADE Circle,Mesa,85212,3.0,2.0,1509.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Mountain-Heights/11263-E-QUADE-Circle/109756846.html
+489900,18519 N 20Th Place,Phoenix,85022,4.0,3.0,1910.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/18519-N-20Th-Place/109756977.html
+498500,4342 E Desert Oak Trail,Catalina Foothills,85718,3.0,3.0,2365.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Coronado/4342-E-Desert-Oak-Trail/108772036.html
+599900,18718 N PALACIO Lane,Surprise,85387,2.0,3.0,2483.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Sun-City-Grand/18718-N-PALACIO-Lane/109756665.html
+415000,9315 W MARIPOSA Drive,Phoenix,85037,3.0,2.0,2157.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Maryvale/9315-W-MARIPOSA-Drive/109756740.html
+489000,1960 W Omar Drive,Casas Adobes,85704,4.0,3.0,2171.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Coronado/1960-W-Omar-Drive/109776894.html
+495000,28001 N 210TH Avenue,Wittmann,85361,4.0,2.0,1800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wittmann/28001-N-210TH-Avenue/109759182.html
+449900,40000 W HOPPER Drive,Maricopa,85138,5.0,3.0,3267.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/40000-W-HOPPER-Drive/109756585.html
+50000,1932 Oliver Drive,Bullhead City,86442,2.0,1.0,720.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/1932-Oliver-Drive/109752134.html
+399000,2008 E BEAUTIFUL Lane,Phoenix,85042,3.0,2.0,1852.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/South-Mountain-Highland-Terrace/2008-E-BEAUTIFUL-Lane/109756811.html
+675000,2338 Regatta Ct,Lake Havasu City,86404,3.0,2.0,1966.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2338-Regatta-Ct/109769081.html
+310000,810 S Fremont Avenue 2,Tucson,85719,3.0,2.0,1800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Millville/810-S-Fremont-Avenue/109598642.html
+415000,4145 W Bluefield Avenue,Glendale,85308,4.0,2.0,2028.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Arrowhead-Ranch/4145-W-Bluefield-Avenue/109759116.html
+369000,15931 W QUAIL BRUSH Lane,Surprise,85374,2.0,2.0,1282.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Sun-City-Grand/15931-W-QUAIL-BRUSH-Lane/109759224.html
+444000,343 E Streams Edge Place,Oro Valley,85737,5.0,3.0,2626.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Oro-Valley/Linda-Vista/343-E-Streams-Edge-Place/109776868.html
+260000,1449 E AVENIDA FRESCA --,Casa Grande,85122,3.0,2.0,1630.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/1449-E-AVENIDA-FRESCA-/109756735.html
+399000,18265 W EVA Street,Waddell,85355,4.0,3.0,2438.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Waddell/18265-W-EVA-Street/109759133.html
+40000,2052 Swan Circle,Bullhead City,86442,1.0,1.0,500.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2052-Swan-Circle/109752123.html
+335000,325 N Palo Verde St,Cottonwood,86326,2.0,2.0,1482.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/Cottonwood/325-N-Palo-Verde-St/109706180.html
+299000,2014 N 24TH Street,Phoenix,85006,3.0,2.0,1401.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Encanto-Village/2014-N-24TH-Street/109759129.html
+639000,1971 E DERRINGER Way,Chandler,85286,4.0,3.0,2689.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/1971-E-DERRINGER-Way/109756765.html
+340000,2836 W Greenstreak Drive,Casas Adobes,85741,3.0,3.0,2311.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Coronado/2836-W-Greenstreak-Drive/109776869.html
+309000,20435 E Wagon Wheel Circle,Black Canyon City,85324,3.0,2.0,1546.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Black-Canyon-City/20435-E-Wagon-Wheel-Circle/109756924.html
+399000,3232 Cutthroat Circle,Pinetop Country Club,85935,3.0,2.0,1549.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pinetop-Country-Club/3232-Cutthroat-Circle/109752427.html
+264900,2196 E Bloor Way,Fort Mohave,86426,3.0,2.0,1316.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mohave-County/Fort-Mohave/2196-E-Bloor-Way/109752151.html
+379900,2263 Brookfield Drive,Bullhead City,86442,3.0,2.0,1886.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2263-Brookfield-Drive/109752133.html
+725000,3456 E. Franklin Avenue ,Gilbert,85295,4.0,3.0,3076.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Lyons-Gate/3456-E-Franklin-Avenue-/109727412.html
+610000,2181 Souchak Drive,Lake Havasu City,86406,3.0,2.0,1688.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2181-Souchak-Drive/109769086.html
+489900,629 King Copper Rd,Clarkdale,86324,3.0,3.0,2887.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/629-King-Copper-Rd/109774962.html
+489900,2949 W Mcrae Way,Phoenix,85027,3.0,2.0,2386.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Deer-Valley-Village/2949-W-Mcrae-Way/109759230.html
+389000,10902 E KIVA Avenue,Mesa,85209,2.0,2.0,1165.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Augusta-Ranch/10902-E-KIVA-Avenue/109757011.html
+305000,1101 W EMELITA Avenue,Mesa,85210,3.0,2.0,1515.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Powell-Estates/1101-W-EMELITA-Avenue/109756827.html
+350000,12525 W JEFFERSON Street,Avondale,85323,3.0,2.0,1575.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Avondale/Coldwater-Springs/12525-W-JEFFERSON-Street/109759163.html
+765000,2457 N Strawberry Way,Flagstaff,86004,5.0,3.0,2862.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Flagstaff-CCD/2457-N-Strawberry-Way/109773026.html
+339000,9976 E Via Del Pasto,Tucson,85747,4.0,2.0,1935.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Rita-Ranch/9976-E-Via-Del-Pasto/109776870.html
+370000,10943 E LINDNER Avenue,Mesa,85209,2.0,2.0,1375.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Augusta-Ranch/10943-E-LINDNER-Avenue/109759347.html
+415000,326 W BRUCE Avenue,Gilbert,85233,3.0,2.0,1384.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Val-Vista-Lakes/326-W-BRUCE-Avenue/109759277.html
+180000,889 N Taylor Rd,Willcox,85643,3.0,2.0,1890.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Willcox/889-N-Taylor-Rd/109758864.html
+998888,5323 W LONE CACTUS Drive,Glendale,85308,6.0,4.0,3758.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Arrowhead-Ranch/5323-W-LONE-CACTUS-Drive/109756929.html
+374900,3062 W SANTA CRUZ Avenue,Queen Creek,85142,4.0,3.0,2011.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/3062-W-SANTA-CRUZ-Avenue/109759146.html
+975000,3465 Navoti Drive,Sedona,86336,3.0,3.0,2251.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sedona/3465-Navoti-Drive/107413143.html
+425000,7083 Breeze Way Lane,Linden,85901,2.0,3.0,1682.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Linden/7083-Breeze-Way-Lane/109752424.html
+770000,1445 W Kenrick Drive,Wickenburg,85390,3.0,2.0,3230.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wickenburg/1445-W-Kenrick-Drive/109759350.html
+275000,620 Zaire Court,Rio Rico,85648,3.0,2.0,1498.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Rio-Rico/620-Zaire-Court/109776891.html
+1099000,1405 Sierry Peaks Drive,Prescott,86305,4.0,3.0,3667.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1405-Sierry-Peaks-Drive/109774107.html
+409900,12319 W PALMAIRE Avenue,Glendale,85307,4.0,2.0,1800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Capistrano-North/12319-W-PALMAIRE-Avenue/109757048.html
+750000,1721 Rolling Hills Drive,Prescott,86303,3.0,2.0,1990.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1721-Rolling-Hills-Drive/109774100.html
+375000,25532 W CROWN KING Road,Buckeye,85326,3.0,3.0,2485.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Westpark/25532-W-CROWN-KING-Road/109756949.html
+369900,5293 S Tierra Linda Drive,Fort Mohave,86426,4.0,2.0,1547.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mohave-County/Fort-Mohave/5293-S-Tierra-Linda-Drive/109752120.html
+1550000,10180 E Larkspur Drive,Scottsdale,85260,4.0,3.0,2748.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Horizons/10180-E-Larkspur-Drive/109756659.html
+550000,1949 E STACEY Road,Queen Creek,85142,5.0,3.0,2121.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Chandler-Heights/1949-E-STACEY-Road/109759172.html
+699000,35526 E Peregrine Place,Tucson,85739,2.0,3.0,2578.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/35526-E-Peregrine-Place/109776890.html
+339900,125 N 22nd Place #93 --,Mesa,85213,3.0,2.0,1302.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Meadowgreen/125-N-22nd-Place-93-/109756621.html
+899900,14573 W LAJOLLA Drive,Litchfield Park,85340,5.0,6.0,3919.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Litchfield-Park/14573-W-LAJOLLA-Drive/109756783.html
+325000,10844 W MEADE Drive,Sun City,85351,2.0,1.0,1235.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/10844-W-MEADE-Drive/109757053.html
+2500000,14138 E PEAK VIEW Road,Scottsdale,85262,4.0,4.0,6000.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Sunrise-Desert-Vistas/14138-E-PEAK-VIEW-Road/109759157.html
+410000,10426 W ILLINI Street,Tolleson,85353,4.0,2.0,2258.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tolleson/10426-W-ILLINI-Street/109756672.html
+100000,341 W Shady Glenn Drive,Williams,86320,3.0,2.0,1440.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Williams-CCD/Greater-Valle/341-W-Shady-Glenn-Drive/109774105.html
+425000,19615 W SOLANO Drive,Buckeye,85326,4.0,4.0,2247.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Sundance/19615-W-SOLANO-Drive/109757070.html
+460000,3775 E HANS Drive,Gilbert,85296,3.0,3.0,1961.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Greenfield-Lakes/3775-E-HANS-Drive/109759135.html
+199000,317 E 4TH Street,Casa Grande,85122,2.0,1.0,1326.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/317-E-4TH-Street/109756660.html
+689000,23605 N 24TH Terrace,Phoenix,85024,6.0,4.0,3958.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Desert-View/23605-N-24TH-Terrace/109759342.html
+749900,28864 N Pamela Drive,Queen Creek,85142,4.0,3.0,3025.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/28864-N-Pamela-Drive/109757019.html
+359000,16922 N VERDE Place,Maricopa,85138,4.0,2.0,1911.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/16922-N-VERDE-Place/109756626.html
+791500,440 Cabaret Street,Prescott,86301,3.0,3.0,1994.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/440-Cabaret-Street/109774104.html
+370000,4311 N 17th Avenue,Phoenix,85015,3.0,1.0,1500.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Encanto-Village/4311-N-17th-Avenue/109726795.html
+470000,2302 W DEL CAMPO Circle,Mesa,85202,4.0,2.0,1903.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Powell-Estates/2302-W-DEL-CAMPO-Circle/109757013.html
+1900000,321 E CLAREMONT Street,Phoenix,85012,4.0,5.0,3656.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/321-E-CLAREMONT-Street/109756937.html
+949000,21682 N 53rd Drive ,Glendale,85308,4.0,3.5,3855.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Arrowhead-Ranch/21682-N-53rd-Drive-/109727378.html
+385000,14230 W VOLTAIRE Street,Surprise,85379,3.0,2.0,1324.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Mountain-Gate/14230-W-VOLTAIRE-Street/109756715.html
+550000,9250 E Charlotte Place,Tucson,85710,4.0,4.0,3244.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Harrison-East-South/9250-E-Charlotte-Place/109213304.html
+390000,3749 E DULCIANA Avenue,Mesa,85206,4.0,2.0,1500.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Meadowgreen/3749-E-DULCIANA-Avenue/109759292.html
+720000,7896 S DATELAND Drive,Tempe,85284,3.0,3.0,2628.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tempe/Sandahl/7896-S-DATELAND-Drive/109759169.html
+322000,39100 W Habu Drive,Ash Fork,86337,3.0,2.0,1568.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Ash-Fork-CCD/39100-W-Habu-Drive/109759236.html
+650000,19051 S 211TH Way,Queen Creek,85142,4.0,3.0,2770.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Ellsworth/19051-S-211TH-Way/109756917.html
+595000,978 Heather Lane,Chino Valley,86323,4.0,2.0,2286.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chino-Valley/978-Heather-Lane/109317832.html
+1600000,21616 S CRISMON Road,Queen Creek,85142,3.0,2.0,3644.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Queen-Creek/Queenland-Manor/21616-S-CRISMON-Road/109756737.html
+390000,20565 W NELSON Place,Buckeye,85396,3.0,2.0,1623.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Verrado/20565-W-NELSON-Place/109756987.html
+478000,1009 Riata Valley Circle,Kingman,86409,3.0,3.0,2692.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Kingman/1009-Riata-Valley-Circle/109752152.html
+799000,7733 E BUTEO Drive,Scottsdale,85255,5.0,3.0,2599.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Grayhawk/7733-E-BUTEO-Drive/109759238.html
+449000,4320 E HARVARD Avenue,Gilbert,85234,3.0,2.0,1725.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Towne-Meadows/4320-E-HARVARD-Avenue/109756978.html
+499082,6601 W LARIAT Lane,Phoenix,85083,4.0,3.0,2104.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Stetson-Valley/6601-W-LARIAT-Lane/109756834.html
+625000,1205 Hillview Cir,Lake Havasu City,86403,3.0,2.0,1775.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/1205-Hillview-Cir/109769082.html
+599000,1417 E BERRIDGE Lane,Phoenix,85014,4.0,2.0,2043.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/1417-E-BERRIDGE-Lane/109756939.html
+575000,9017 E Nacoma Drive,Sun Lakes,85248,3.0,2.0,2250.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/9017-E-Nacoma-Drive/109756698.html
+700000,6512 W Whispering Windmill Lane,Marana,85658,4.0,3.0,3047.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Marana-CCD/6512-W-Whispering-Windmill-Lane/108715450.html
+394135,2584 Climbing Rock Lane,Bullhead City,86442,2.0,3.0,1903.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2584-Climbing-Rock-Lane/109752118.html
+378590,1100 W CHIMES TOWER Drive,Casa Grande,85122,4.0,2.0,2122.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/1100-W-CHIMES-TOWER-Drive/109756770.html
+259900,1904 E Leisure Lane,Fort Mohave,86426,2.0,2.0,1434.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mohave-County/Fort-Mohave/1904-E-Leisure-Lane/109752119.html
+832000,16437 E NICKLAUS Drive,Fountain Hills,85268,3.0,4.0,3461.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Fountain-Hills/Firerock/16437-E-NICKLAUS-Drive/109759349.html
+349900,1541 E FLOWER Circle,Mesa,85204,3.0,2.0,1788.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Powell-Estates/1541-E-FLOWER-Circle/109756671.html
+2000000,5050 N 2ND Street,Phoenix,85012,5.0,5.0,4486.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/5050-N-2ND-Street/109756544.html
+440000,30427 N 42ND Place,Cave Creek,85331,3.0,3.0,1674.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Cave-Creek/30427-N-42ND-Place/109756969.html
+275000,4809 W Candleberry Way,Tortolita,85742,3.0,2.0,1582.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Tortolita/4809-W-Candleberry-Way/109776879.html
+950000,766 Cherokee Road,Prescott,86303,4.0,4.0,2957.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/766-Cherokee-Road/109206491.html
+1444000,8654 E CHERYL Drive,Scottsdale,85258,4.0,3.0,2800.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/McCormick-Ranch/8654-E-CHERYL-Drive/109756703.html
+375500,7211 W Dupont Way,Valencia West,85757,4.0,3.0,2300.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Valencia-West/7211-W-Dupont-Way/108619407.html
+675000,3018 E WELDON Avenue,Phoenix,85016,3.0,2.0,1995.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Biltmore/3018-E-WELDON-Avenue/109756848.html
+310000,1310 S OWL Drive,Gilbert,85296,3.0,2.0,1061.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Lyons-Gate/1310-S-OWL-Drive/109756733.html
+500000,383 S Via De Los Campos,Tucson,85711,4.0,2.0,2288.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Rosemont-Aledea-Linda/383-S-Via-De-Los-Campos/109776881.html
+499900,1901 W PERSHING Avenue,Phoenix,85029,5.0,3.0,2194.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/North-Mountain-Village/1901-W-PERSHING-Avenue/109757015.html
+898000,14620 E. Diamond Sky Trail ,Mingus Mountain,86315,3.0,3.0,2471.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mingus-Mountain/Woodchute-Mountain/14620-E-Diamond-Sky-Trail-/109727427.html
+370000,41378 W GRANADA Drive,Maricopa,85138,4.0,3.0,2463.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/41378-W-GRANADA-Drive/109759295.html
+350000,8536 Antelope Drive,White Mountain Lake,85901,5.0,2.0,1825.0,https://www.point2homes.com/US/Home-For-Sale/AZ/White-Mountain-Lake/8536-Antelope-Drive/109752435.html
+179000,3301 S GOLDFIELD Road 6059,Apache Junction,85119,2.0,2.0,1399.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Apache-Junction/3301-S-GOLDFIELD-Road/108005869.html
+500000,3555 Red Cloud Dr,Lake Havasu City,86406,3.0,3.0,1517.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/3555-Red-Cloud-Dr/109453814.html
+26900,11201 N El Mirage Rd,El Mirage,85335,2.0,1.0,600.0,https://www.point2homes.com/US/Home-For-Sale/AZ/El-Mirage/11201-N-El-Mirage-Rd/105579131.html
+83000,29217 S Sage Ave B205,Wellton,85356,1.0,1.0,704.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wellton-CCD/29217-S-Sage-Ave-B205/109643234.html
+309999,7525 E. 26th St.,Yuma,85365,4.0,2.0,1907.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yuma-CCD/7525-E-26th-St/109170349.html
+455000,7746 E Lavender Loop,Prescott Valley,86315,2.0,3.0,1879.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/7746-E-Lavender-Loop/106795039.html
+1395000,2570 Plaza Hermosa,Lake Havasu City,86406,3.0,4.0,4274.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2570-Plaza-Hermosa/107082916.html
+154000,11584 S. Bonnie Ave.,Fortuna Foothills,85367,2.0,2.0,960.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Fortuna-Foothills/11584-S-Bonnie-Ave/108890043.html
+175000,703 Quail Run Avenue,Douglas,85607,4.0,2.0,1514.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Douglas/703-Quail-Run-Avenue/106825031.html
+485000,2496 E PROUTY Lane,Casa Grande,85194,3.0,2.0,1653.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/2496-E-PROUTY-Lane/108303525.html
+410000,38611 N ARMADILLO Drive,San Tan Valley,85140,3.0,2.0,1871.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/38611-N-ARMADILLO-Drive/109493149.html
+599000,8701 E SANDALWOOD Drive,Scottsdale,85250,4.0,2.0,1760.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Indian-Bend/8701-E-SANDALWOOD-Drive/109492880.html
+248000,28572 E LIGURTA LN,Wellton,85356,3.0,2.0,1440.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wellton-CCD/28572-E-LIGURTA-LN/109695611.html
+630000,11485 N 90TH Way,Scottsdale,85260,3.0,2.0,1508.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Via-Linda-Corridor/11485-N-90TH-Way/109553935.html
+1495000,9230 E ANDORA HILLS Drive,Scottsdale,85262,3.0,4.0,4058.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Desert-Mountain/9230-E-ANDORA-HILLS-Drive/109493191.html
+400000,617 E WATSON Drive,Tempe,85283,3.0,2.0,1266.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tempe/Pepperwood/617-E-WATSON-Drive/109492709.html
+459000,5630 S SAGE Way,Gold Canyon,85118,3.0,2.0,2855.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gold-Canyon/5630-S-SAGE-Way/109492739.html
+619000,422 S Sun Road,Apache Junction,85119,4.0,2.0,1843.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Apache-Junction/422-S-Sun-Road/109699322.html
+490000,378 W EVERGREEN PEAR Avenue,San Tan Valley,85140,4.0,3.0,2261.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/378-W-EVERGREEN-PEAR-Avenue/109492914.html
+565000,25413 W PUEBLO Avenue,Buckeye,85326,3.0,2.0,1747.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Westpark/25413-W-PUEBLO-Avenue/109435961.html
+324485,392 N 20TH Street,Coolidge,85128,4.0,2.0,1775.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Coolidge/392-N-20TH-Street/109614256.html
+299900,10363 E SUNFLOWER Lane,Florence,85132,3.0,2.0,1831.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Florence/10363-E-SUNFLOWER-Lane/109554004.html
+3200000,9870 E JENAN Drive,Scottsdale,85260,4.0,5.0,4050.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Cactus-Corridor/9870-E-JENAN-Drive/109551538.html
+575000,15225 N 77TH Drive,Peoria,85381,4.0,4.0,2700.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Crown-Point/15225-N-77TH-Drive/109551611.html
+295000,7279 E 24 LN,Yuma,85365,3.0,2.0,1562.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yuma-CCD/7279-E-24-LN/108963619.html
+725000,1248 E CLARK Drive,Gilbert,85297,6.0,4.0,4046.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Estates-at-the-Spectrum/1248-E-CLARK-Drive/109177585.html
+450000,41971 N MODENA Road,San Tan Valley,85140,3.0,2.0,2134.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/41971-N-MODENA-Road/109177572.html
+435500,2029 E NUNNELEY Court,Gilbert,85296,4.0,2.0,1652.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Neely/2029-E-NUNNELEY-Court/109590138.html
+950000,10826 N 83rd St,Scottsdale,85260,6.0,2.0,2838.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/West-Cactus/10826-N-83rd-St/107772717.html
+207000,2335 E 11TH Street,Douglas,85607,3.0,2.0,2240.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Douglas/2335-E-11TH-Street/108537001.html
+630000,2893 E PALM BEACH Drive,Chandler,85249,4.0,3.0,3303.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Springfield/2893-E-PALM-BEACH-Drive/109553860.html
+135000,11201 N. El Mirage Rd,El Mirage,85335,3.0,2.0,1680.0,https://www.point2homes.com/US/Home-For-Sale/AZ/El-Mirage/11201-N-El-Mirage-Rd/101281013.html
+39500,11201 N. El Mirage Rd.,El Mirage,85335,1.0,1.0,570.0,https://www.point2homes.com/US/Home-For-Sale/AZ/El-Mirage/11201-N-El-Mirage-Rd/104420428.html
+799900,2878 Plaza Del Oro,Lake Havasu City,86406,4.0,4.0,3066.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2878-Plaza-Del-Oro/109189801.html
+700000,1118 E VIA NICOLA --,San Tan Valley,85140,4.0,5.0,3418.0,https://www.point2homes.com/US/Home-For-Sale/AZ/San-Tan-Valley/1118-E-VIA-NICOLA-/108011298.html
+279000,2123 E Glenmar Drive,Prescott,86301,2.0,2.0,1357.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/2123-E-Glenmar-Drive/109206476.html
+410000,3875 E SABRA Lane,Gilbert,85296,3.0,3.0,1588.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Greenfield-Lakes/3875-E-SABRA-Lane/109492981.html
+169000,863 N Wild Walnut Drive,Prescott Valley,86327,1.0,1.0,539.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/863-N-Wild-Walnut-Drive/108431439.html
+244900,653 N Wild Walnut Drive,Prescott Valley,86327,2.0,2.0,1280.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/653-N-Wild-Walnut-Drive/109596708.html
+776000,1560 Donamire Circle,Prescott,86301,3.0,2.0,2431.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1560-Donamire-Circle/107717163.html
+430000,17271 N 169TH Drive,Surprise,85374,5.0,3.0,1818.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Bell-West-Ranch/17271-N-169TH-Drive/109492797.html
+489000,851 N Rush Street,Chandler,85226,3.0,2.0,1715.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Twelve-Oaks/851-N-Rush-Street/109551412.html
+319900,425 S 7th Street,Williams,86046,2.0,1.0,1346.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Williams-CCD/425-S-7th-Street/109655223.html
+250000,7734 S Meadow Spring Way,Tucson,85747,3.0,2.0,1133.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Rita-Ranch/7734-S-Meadow-Spring-Way/109598651.html
+235000,6947 W ENCANTO Boulevard,Phoenix,85035,3.0,1.0,840.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Maryvale/6947-W-ENCANTO-Boulevard/109553953.html
+399900,13666 W CHAPAROSA Way,Peoria,85383,3.0,2.0,1851.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Vistancia/13666-W-CHAPAROSA-Way/108591594.html
+375000,2565 E SOUTHERN Avenue 71,Mesa,85204,2.0,2.0,1616.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Meadowgreen/2565-E-SOUTHERN-Avenue/109590047.html
+485000,4098 S EMERALD Drive,Buckeye,85326,3.0,2.0,1704.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Westpark/4098-S-EMERALD-Drive/109645965.html
+439990,40870 W Haley Drive,Maricopa,85138,3.0,2.0,1896.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/40870-W-Haley-Drive/109590100.html
+549000,1894 W MOCKINGBIRD Drive,Chandler,85286,4.0,2.0,1833.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Carrizal/1894-W-MOCKINGBIRD-Drive/109551631.html
+289900,5452 E BILLINGS Street,Mesa,85205,2.0,2.0,1181.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Alta-Mesa/5452-E-BILLINGS-Street/109698065.html
+370000,4206 W IRWIN Avenue,Phoenix,85041,4.0,3.0,2103.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/South-Mountain-Highland-Terrace/4206-W-IRWIN-Avenue/109590076.html
+594900,4432 W PARADISE Lane,Glendale,85306,3.0,2.0,2221.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Deerview/4432-W-PARADISE-Lane/109554196.html
+169000,611 E Yaqui Street,Springerville,85938,2.0,2.0,1064.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Springerville/611-E-Yaqui-Street/109548887.html
+321755,613 N 17TH Street,Coolidge,85128,3.0,2.0,1553.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Coolidge/613-N-17TH-Street/109698071.html
+499000,2592 E SAN RAFAEL Trail,Casa Grande,85194,5.0,4.0,3297.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/2592-E-SAN-RAFAEL-Trail/109553862.html
+295000,4028 E CLOVIS Circle,Mesa,85206,2.0,2.0,1156.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Leisure-World/4028-E-CLOVIS-Circle/109554184.html
+470000,6502 W WAHALLA Lane,Glendale,85308,3.0,2.0,1968.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Arrowhead-Ranch/6502-W-WAHALLA-Lane/108917887.html
+389000,145 N Grande Avenue,Tucson,85745,3.0,2.0,1244.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Menlo-Park/145-N-Grande-Avenue/106673445.html
+1300000,18601 E AGUA VERDE Drive,Rio Verde,85263,3.0,4.0,3876.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Rio-Verde/18601-E-AGUA-VERDE-Drive/109554188.html
+460000,1711 W BUTLER Drive,Chandler,85224,4.0,2.0,1772.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/San-Marcos/1711-W-BUTLER-Drive/109590089.html
+299900,40623 W HELEN Court,Maricopa,85138,3.0,3.0,1431.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/40623-W-HELEN-Court/109647597.html
+1899000,8242 E SOARING EAGLE Way,Scottsdale,85266,5.0,5.0,5000.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Boulders/8242-E-SOARING-EAGLE-Way/109699328.html
+698000,627 W Woodland Lake Road,Pinetop - Lakeside,85929,2.0,2.0,2093.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pinetop-Lakeside/627-W-Woodland-Lake-Road/109655219.html
+299000,1917 S Augusta Circle,Tucson,85710,4.0,2.0,1608.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Harrison-East-South/1917-S-Augusta-Circle/109571399.html
+475000,14544 W SIERRA Street,Surprise,85379,3.0,3.0,2719.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Mountain-Gate/14544-W-SIERRA-Street/109493031.html
+1150000,9837 E JAEGER Street,Mesa,85207,5.0,5.0,4200.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Desert-Air/9837-E-JAEGER-Street/109438005.html
+125000,2350 Adobe #258 Road,Bullhead City,86442,2.0,2.0,1456.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2350-Adobe-258-Road/109487831.html
+179000,4385 N Irving Street,Kingman,86409,3.0,2.0,1104.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Kingman/4385-N-Irving-Street/109644148.html
+250000,9255 E Ironbark Street,Tucson,85747,3.0,2.0,1569.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Rita-Ranch/9255-E-Ironbark-Street/109510406.html
+392900,12210 Perseus Rd Plan: Flagstaff Meadows Plan 1941,Flagstaff,86015,4.0,3.0,1941.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Flagstaff-CCD/Greater-Flagstaff/12210-Perseus-Rd/109696821.html
+465000,15642 S 31ST Street,Phoenix,85048,3.0,2.0,1736.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/15642-S-31ST-Street/109614230.html
+749999,12455 N ANTELOPE MEADOWS Drive,Mingus Mountain,86315,4.0,3.0,2434.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mingus-Mountain/Woodchute-Mountain/12455-N-ANTELOPE-MEADOWS-Drive/108174359.html
+314900,8617 S 9TH Street,Phoenix,85042,3.0,2.0,976.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/South-Mountain-Highland-Terrace/8617-S-9TH-Street/109591042.html
+750000,1420 Eureka Ridge Way,Prescott,86303,3.0,2.0,2389.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1420-Eureka-Ridge-Way/109206494.html
+475000,20408 N 30TH Way,Phoenix,85050,4.0,3.0,2177.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/20408-N-30TH-Way/109492924.html
+499000,9801 S 47TH Place,Phoenix,85044,4.0,3.0,2215.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/9801-S-47TH-Place/108876122.html
+725000,730 W LEWIS Avenue,Phoenix,85007,3.0,3.0,2688.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Encanto-Village/730-W-LEWIS-Avenue/108536713.html
+699900,5012 E WINDSTONE Trail,Cave Creek,85331,4.0,2.0,2332.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Cave-Creek/5012-E-WINDSTONE-Trail/109647514.html
+45000,502 N 2nd Street,Holbrook,86025,2.0,1.0,1221.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Holbrook/502-N-2nd-Street/109613036.html
+699000,2912 SUMMER Loop,Flagstaff,85931,3.0,2.0,1902.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Flagstaff-CCD/Greater-Flagstaff/2912-SUMMER-Loop/109490124.html
+225000,17420 N HORSESHOE Lane,Sun City,85373,3.0,1.0,998.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/17420-N-HORSESHOE-Lane/109551465.html
+4250000,10076 E Paradise Drive,Scottsdale,85260,8.0,8.0,8625.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Cactus-Corridor/10076-E-Paradise-Drive/108097411.html
+385000,12033 W CARIBBEAN Lane,El Mirage,85335,4.0,2.0,1642.0,https://www.point2homes.com/US/Home-For-Sale/AZ/El-Mirage/12033-W-CARIBBEAN-Lane/109490071.html
+560000,1844 Marble Canyon Dr,Bullhead City,86442,4.0,3.0,3294.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/1844-Marble-Canyon-Dr/109548723.html
+389990,35394 W SANTA CLARA Avenue,Maricopa,85138,5.0,3.0,2688.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa/35394-W-SANTA-CLARA-Avenue/109177659.html
+355000,609 E WESCOTT Drive,Phoenix,85024,3.0,3.0,1788.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Deer-Valley-Village/609-E-WESCOTT-Drive/109490025.html
+95000,10720 Admiral Rd,Parker,85344,1.0,1.0,600.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Cienega-Springs/10720-Admiral-Rd/108332996.html
+210000,2891 W Calle Del Tigre,Drexel Heights,85746,3.0,2.0,1101.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Drexel-Heights/2891-W-Calle-Del-Tigre/109571448.html
+799000,7181 E CAMELBACK Road 503,Scottsdale,85251,1.0,2.0,1147.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Downtown-Scottsdale/7181-E-CAMELBACK-Road/109493211.html
+598000,21519 W WATKINS Street,Buckeye,85326,4.0,2.0,1913.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Sundance/21519-W-WATKINS-Street/108919016.html
+370000,3207 N 21ST Street,Phoenix,85016,3.0,2.0,1346.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Biltmore/3207-N-21ST-Street/109492649.html
+360000,3670 Totem Dr,Lake Havasu City,86406,3.0,2.0,1484.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/3670-Totem-Dr/108704941.html
+290000,3880 VIA DE LA REINA --,Sierra Vista,85650,4.0,2.0,1985.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sierra-Vista/3880-VIA-DE-LA-REINA-/108873204.html
+2100000,305 Mundy Drive 2,Camp Verde - Sedona,86351,3.0,2.0,3665.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Camp-Verde-Sedona/Greater-Camp-Verde/305-Mundy-Drive/109507953.html
+320000,10829 W PALMERAS Drive,Sun City,85373,3.0,2.0,1508.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/10829-W-PALMERAS-Drive/109551568.html
+375000,10427 N 52ND Drive,Glendale,85302,3.0,2.0,1874.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Chaparral-Ranch/10427-N-52ND-Drive/109257318.html
+789000,8695 Laramie Road,Flagstaff,86004,5.0,4.0,3268.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Doney-Park/8695-Laramie-Road/108056480.html
+1325000,27606 N 61ST Place,Scottsdale,85266,4.0,4.0,3906.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Scottsdale/Monterra/27606-N-61ST-Place/109492724.html
+1450000,2210 Encanto Drive NE,Phoenix,85007,4.0,3.0,4085.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Encanto-Village/2210-Encanto-Drive-NE/108479500.html
+598500,21 County Road N3236,Vernon,85940,3.0,3.0,2500.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Vernon/21-County-Road-N3236/107108696.html
+374900,12230 N 23RD Street,Phoenix,85022,3.0,1.0,1276.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/12230-N-23RD-Street/108479468.html
+575000,609 E SILVER CREEK Road,Gilbert,85296,4.0,2.0,2134.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Neely/609-E-SILVER-CREEK-Road/109493028.html
+595000,5040 E Boulder Canyon Drive,Verde Village,86325,3.0,2.0,2280.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Verde-Village/5040-E-Boulder-Canyon-Drive/109568777.html
+899900,19236 W ALICE Court,Waddell,85355,6.0,4.0,4740.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Waddell/19236-W-ALICE-Court/108174515.html
+385000,3401 W Willis,Show Low,85901,2.0,2.0,1992.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Show-Low/3401-W-Willis/109613041.html
+1150000,15131 E WESTRIDGE Drive,Fountain Hills,85268,4.0,4.0,3689.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Fountain-Hills/Westridge-Village/15131-E-WESTRIDGE-Drive/109554177.html
+399000,16249 W CENTRAL Street,Surprise,85374,4.0,3.0,2320.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Mountain-Vista-Ranch/16249-W-CENTRAL-Street/109554183.html
+249400,7125 S Missiondale Road,Tucson,85756,4.0,2.0,1522.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Elvira/7125-S-Missiondale-Road/109571431.html
+525000,6249 E BECK Lane,Scottsdale,85254,3.0,2.0,1415.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/West-Cactus/6249-E-BECK-Lane/109590082.html
+575000,16756 W COCOPAH Street,Goodyear,85338,5.0,4.0,4070.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Canyon-Trails/16756-W-COCOPAH-Street/108876102.html
+604990,7242 S Kachina Place,Gold Canyon,85118,4.0,3.0,2834.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gold-Canyon/7242-S-Kachina-Place/109551545.html
+350000,7231 W MULBERRY Drive,Phoenix,85033,4.0,2.0,1740.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Maryvale/7231-W-MULBERRY-Drive/109551606.html
+49900,9351 East 28th St 10,Yuma,85365,2.0,2.0,1056.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yuma-CCD/9351-East-28th-St/109658511.html
+595000,56003 N VULTURE MINE Road,Wickenburg,85390,3.0,3.0,2248.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Wickenburg/56003-N-VULTURE-MINE-Road/109254351.html
+734900,4834 E CHARLESTON Avenue,Scottsdale,85254,3.0,2.0,2344.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/West-Cactus/4834-E-CHARLESTON-Avenue/109554000.html
+460000,3463 W KING Drive,Anthem,85086,3.0,2.0,2130.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/3463-W-KING-Drive/109590129.html
+225000,8213 W Mescalero Road,Payson,85541,2.0,2.0,1200.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa-del-Caballo/8213-W-Mescalero-Road/109554026.html
+147000,310 N Flynn Jans Court,Pearce,85625,3.0,3.0,1782.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pearce/310-N-Flynn-Jans-Court/109619276.html
+298000,4231 Gila Drive,Lake of the Woods,85929,2.0,2.0,1007.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-of-the-Woods/4231-Gila-Drive/109699296.html
+2900000,5635 E LINCOLN Drive 10,Paradise Valley,85253,3.0,4.0,2948.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Paradise-Valley/5635-E-LINCOLN-Drive/109551655.html
+1500000,6825 N 1st Place ,Phoenix,85012,5.0,5.5,3968.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/6825-N-1st-Place-/109727339.html
+369900,918 Joshua Tree Dr,Lake Havasu City,86404,3.0,2.0,1254.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/918-Joshua-Tree-Dr/109261787.html
+385000,2985 S AVE A,Yuma,85364,6.0,3.0,2769.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yuma-CCD/2985-S-AVE-A/109752819.html
+1699000,6025 E THUNDERBIRD Road,Scottsdale,85254,5.0,4.0,5000.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/West-Cactus/6025-E-THUNDERBIRD-Road/109492985.html
+479900,2044 S HERON Lane,Gilbert,85295,3.0,3.0,2072.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Gilbert/Lyons-Gate/2044-S-HERON-Lane/108300828.html
+574900,2830 S TUMBLEWEED Lane,Chandler,85286,4.0,3.0,2350.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/Arden-Park/2830-S-TUMBLEWEED-Lane/109554157.html
+439000,2200 S Old Black Canyon Highway,Dewey - Humboldt,86327,2.0,1.0,1137.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Dewey-Humboldt/2200-S-Old-Black-Canyon-Highway/109567621.html
+875000,30315 N 154TH Place,Scottsdale,85262,4.0,3.0,3359.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Sunrise-Desert-Vistas/30315-N-154TH-Place/109759167.html
+555000,3450 N PLATINA Circle,Mesa,85215,5.0,3.0,2834.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Alta-Mesa/3450-N-PLATINA-Circle/109590062.html
+649000,2677 E Reata Ridge Place,Sahuarita,85614,3.0,4.0,2893.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sahuarita/2677-E-Reata-Ridge-Place/107723083.html
+459700,4129 E DRAGOON Avenue,Mesa,85206,3.0,2.0,1867.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Leisure-World/4129-E-DRAGOON-Avenue/109759286.html
+799000,750 Mines Pass,Prescott,86301,5.0,4.0,3823.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/750-Mines-Pass/109774111.html
+365000,1728 S 42 AVE,Yuma,85364,3.0,2.0,2212.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yuma-CCD/1728-S-42-AVE/109752817.html
+1485000,1775 S Equestrian Way,Cornville,86325,4.0,3.0,3774.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Cornville/1775-S-Equestrian-Way/108432675.html
+299900,30191 N YUCCA Drive,Florence,85132,4.0,2.0,1793.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Florence/30191-N-YUCCA-Drive/109756580.html
+285000,7726 E PARK VIEW Drive,Mesa,85208,2.0,2.0,1100.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Fountain-of-the-Sun/7726-E-PARK-VIEW-Drive/109756996.html
+500000,12825 S 209TH Lane,Buckeye,85326,4.0,2.0,2000.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Rainbow-Valley/12825-S-209TH-Lane/109759218.html
+376850,2658 N Vuelta Vista Campestre,Tucson,85715,3.0,2.0,1890.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Rancho-Perdido-Estates/2658-N-Vuelta-Vista-Campestre/109776893.html
+1495000,17775 N 101ST Way,Scottsdale,85255,3.0,3.0,2653.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/McDowell-Mountain-Ranch/17775-N-101ST-Way/109759183.html
+243000,2736 Emerson Ave Avenue,Kingman,86401,3.0,2.0,1429.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Kingman/2736-Emerson-Ave-Avenue/109752138.html
+290000,416 N 42nd Street,Phoenix,85008,3.0,1.0,934.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/416-N-42nd-Street/109757004.html
+379900,5212 N Lone Drive,Prescott Valley,86314,3.0,2.0,1216.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/5212-N-Lone-Drive/109774113.html
+326000,14847 W WINDROSE Drive,Surprise,85379,3.0,2.0,1337.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Marley-Park/14847-W-WINDROSE-Drive/109759211.html
+1590000,28754 N. 107th Street ,Scottsdale,85262,3.0,3.0,4033.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Troon/28754-N-107th-Street-/109727434.html
+444520,9310 E SATURN Avenue,Mesa,85212,3.0,2.0,1377.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Eastmark/9310-E-SATURN-Avenue/109756675.html
+399900,2520 Tovar Ln,Lake Havasu City,86403,3.0,2.0,1500.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Lake-Havasu-City/2520-Tovar-Ln/109769080.html
+595000,5712 N 72ND Place,Scottsdale,85250,3.0,2.0,2475.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/Monterey/5712-N-72ND-Place/109757010.html
+2500000,5714 N ECHO CANYON Drive,Phoenix,85018,2.0,3.0,3478.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Phoenix/Camelback-East/5714-N-ECHO-CANYON-Drive/109756609.html
+270000,4784 W Daphne Lane,Tortolita,85742,3.0,2.0,1424.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Tortolita/4784-W-Daphne-Lane/109776883.html
+429595,3015 N BROOKLYN Drive,Buckeye,85396,4.0,3.0,2659.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Hassayampa-Ranches/3015-N-BROOKLYN-Drive/109759162.html
+750000,15011 W Highland Avenue,Goodyear,85395,4.0,3.0,3508.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Goodyear/Pebblecreek/15011-W-Highland-Avenue/109759196.html
+270000,10613 W CHERRY TREE Lane,Sun City,85373,2.0,2.0,1062.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Maricopa-County/Sun-City/10613-W-CHERRY-TREE-Lane/109756843.html
+380000,13290 N 144TH Lane,Surprise,85379,3.0,2.0,1323.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/Marley-Park/13290-N-144TH-Lane/109756612.html
+404900,21380 W MONTE VISTA Road,Buckeye,85396,4.0,2.0,1795.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Buckeye/Verrado/21380-W-MONTE-VISTA-Road/109759190.html
+390000,16300 N NAEGEL Drive,Surprise,85374,3.0,2.0,1585.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Surprise/West-Point/16300-N-NAEGEL-Drive/109756729.html
+355000,5954 N Cazador Drive,Eloy,85131,2.0,2.0,1510.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Eloy/5954-N-Cazador-Drive/109756766.html
+679000,2886 Hillview Drive,Bullhead City,86442,3.0,3.0,2241.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Bullhead-City/2886-Hillview-Drive/109752126.html
+829000,816 Chureo ,Prescott,86301,2.0,2.5,2246.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/816-Chureo-/108435675.html
+325000,7816 Moonbeam Drive,Flagstaff,86004,3.0,1.0,970.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Doney-Park/7816-Moonbeam-Drive/109773034.html
+498500,1782 Pacific Avenue,Prescott,86301,3.0,2.0,1925.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1782-Pacific-Avenue/109774110.html
+585000,12602 W Morning Vista Drive,Peoria,85383,4.0,3.0,2763.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Vistancia/12602-W-Morning-Vista-Drive/109759265.html
+335000,247 N MONTEREY Court,Casa Grande,85194,2.0,2.0,1648.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/247-N-MONTEREY-Court/109759159.html
+839000,420 Panorama Blvd,Sedona,86336,2.0,2.0,2012.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sedona/420-Panorama-Blvd/109774959.html
+825000,5109 E Gelding Drive,Scottsdale,85254,4.0,2.0,2064.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Scottsdale/West-Cactus/5109-E-Gelding-Drive/109756972.html
+559900,3161 Trail End,Heber - Overgaard,85933,3.0,3.0,2420.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Heber-Overgaard/3161-Trail-End/109752438.html
+355000,10525 W PASADENA Avenue,Glendale,85307,3.0,2.0,1297.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Glendale/Glendale-Airport/10525-W-PASADENA-Avenue/109756995.html
+398900,21431 N MORNING DOVE Drive,Sun City West,85375,3.0,2.0,2528.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Sun-City-West/21431-N-MORNING-DOVE-Drive/109756577.html
+1100000,1328 Sierry Peaks Drive,Prescott,86305,4.0,3.0,3542.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/1328-Sierry-Peaks-Drive/108337800.html
+330000,10994 W Rio Vista Lane,Avondale,85323,3.0,2.0,1319.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Avondale/Durango-Park/10994-W-Rio-Vista-Lane/109756874.html
+526670,9313 E STATIC Avenue,Mesa,85212,4.0,3.0,2668.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Mesa/Eastmark/9313-E-STATIC-Avenue/109751758.html
+699900,15415 S 16TH Avenue,Phoenix,85045,4.0,3.0,2894.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/15415-S-16TH-Avenue/109757016.html
+319000,2771 N Van Buren Avenue,Tucson,85712,4.0,2.0,1535.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Old-Fort-Lowell/2771-N-Van-Buren-Avenue/109776885.html
+375000,5164 N Long Rifle Road,Prescott Valley,86314,3.0,2.0,1581.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/5164-N-Long-Rifle-Road/109506609.html
+419900,661 S Angelas Place,Show Low,85901,3.0,2.0,1648.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Show-Low/661-S-Angelas-Place/109752439.html
+675000,8538 W IRMA Lane,Peoria,85382,4.0,3.0,2897.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Fletcher-Heights/8538-W-IRMA-Lane/109756913.html
+725000,6855 W Lightning Ridge Place,Tucson,85745,4.0,4.0,2731.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Del-Cerro-Estates/6855-W-Lightning-Ridge-Place/108195934.html
+485000,220 S 17th Place,Cottonwood,86326,3.0,4.0,1440.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Yavapai-County/Cottonwood/220-S-17th-Place/108989999.html
+569900,5896 S Copper Hills Drive,Tucson,85747,5.0,4.0,4071.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Tucson/Civano/5896-S-Copper-Hills-Drive/109776865.html
+365000,7324 W St Catherine Ave ,Laveen,85339,4.0,2.0,1914.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Laveen/7324-W-St-Catherine-Ave-/109709101.html
+397500,11 COUNTY RD. 2069 LOT 83,AVE,Apache County,2.0,2.0,1440.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Springerville-Fort-Apache/Escudilla/11-COUNTY-RD-2069/109752431.html
+289900,9512 N Albatross Drive,Tortolita,85742,4.0,3.0,1930.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Tortolita/9512-N-Albatross-Drive/109776873.html
+829000,816 Chureo Street,Prescott,86301,2.0,3.0,2246.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-CCD/816-Chureo-Street/108491670.html
+350000,704 W Rim Road,Pinetop - Lakeside,85929,2.0,2.0,1237.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Pinetop-Lakeside/704-W-Rim-Road/109752421.html
+875000,23936 S STONEY LAKE Drive,Sun Lakes,85248,4.0,3.0,3435.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Chandler/23936-S-STONEY-LAKE-Drive/109759324.html
+258500,964 W HOPI Drive,Coolidge,85128,3.0,2.0,1570.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Coolidge/964-W-HOPI-Drive/109756814.html
+650000,8142 S Circle S Ranch Place,Rincon Valley,85641,3.0,3.0,2488.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Baja-Arizona/Coronado/8142-S-Circle-S-Ranch-Place/109776888.html
+430000,18050 W CAROL Avenue,Waddell,85355,5.0,3.0,2318.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Waddell/18050-W-CAROL-Avenue/109756893.html
+362500,4115 E WAGONER Road,Phoenix,85032,3.0,2.0,1613.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Paradise-Valley-Village/4115-E-WAGONER-Road/109756726.html
+499000,7024 W TOWNLEY Avenue,Peoria,85345,4.0,3.0,2608.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Peoria/Foxfire/7024-W-TOWNLEY-Avenue/109756982.html
+345990,2036 E JULIAN Drive,Casa Grande,85122,4.0,2.0,1880.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Casa-Grande/2036-E-JULIAN-Drive/109756581.html
+355000,7636 E Buena Vista Drive,Prescott Valley,86314,3.0,2.0,1286.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Prescott-Valley/7636-E-Buena-Vista-Drive/108768022.html
+700000,16610 South 37th Way ,Phoenix,85048,5.0,3.0,3250.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Phoenix/Ahwatukee-Foothills/16610-South-37th-Way-/109599204.html
+105000,3825 N Santa Cruz Road,Golden Valley,86413,3.0,2.0,1050.0,https://www.point2homes.com/US/Home-For-Sale/AZ/Golden-Valley/3825-N-Santa-Cruz-Road/109752125.html
