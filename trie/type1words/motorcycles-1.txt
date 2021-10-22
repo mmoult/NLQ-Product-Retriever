@@ -1,6 +1,6 @@
-A.P. Honda
+A P  Honda
 Abbotsford motorcycles
-Abe-Star
+Abe Star
 Abra
 Absolom motorcycles
 Accossato
@@ -11,7 +11,7 @@ Adler
 Aeon Motor
 Aermacchi
 Aero
-Aeromere/Capriolo
+Aeromere Capriolo
 Aetos
 AGF
 Agrale
@@ -28,7 +28,7 @@ Alano
 Alato
 Alcyon
 Aldbert
-Alexander Leutner & Co.
+Alexander Leutner   Co
 Allen Norton
 Alligator
 Alpha
@@ -61,7 +61,7 @@ Balkan
 Baotian Motorcycle Company
 Beardmore Precision
 Benelli
-Bennett & Barkell Motorcycles
+Bennett   Barkell Motorcycles
 Beta Motor
 Bianchi
 Bimota
@@ -69,7 +69,7 @@ Blackburne
 Blata
 BMW
 BMW Motorrad
-Bombardier/Can-Am
+Bombardier Can Am
 Boon Siew Honda
 Boss Hoss
 Braaap
@@ -78,18 +78,18 @@ Bridgestone
 Britten Motorcycles
 Brough
 Brough Superior
-Brough Superior³
+Brough Superior
 Brumana Pugliese
 BSA
 Buell
 Buell Motorcycle Company
 Bull motors
 Bultaco
-Böhmerland
+B hmerland
 Cagiva
 California Motorcycle Company
 Calthorpe
-Can-Am
+Can Am
 Caproni
 CASAL
 Ceccato
@@ -102,23 +102,23 @@ Clews Competition Motorcycles
 Clyno
 CNA
 Cofersa
-Confederate/Curtiss Motorcycles
+Confederate Curtiss Motorcycles
 Cooper
 Cossack
 Cotton
-Coventry-Eagle
+Coventry Eagle
 Crocker
 Csepel
 Curtiss
 Cushman
 CWS
 CZ
-D-Rad
+D Rad
 Daelim
 Dafra Motos
 Dayun
 Della Ferrera
-Delta-Gnom
+Delta Gnom
 Derbi
 DKW
 Dollar
@@ -136,7 +136,7 @@ Escorts Group
 ESO
 Evoke Motorcycles
 Excelsior
-Excelsior-Henderson
+Excelsior Henderson
 Express
 ezeta
 FAMEL
@@ -145,26 +145,26 @@ FB Mondial
 Fischer
 Flying Merkel
 FN
-Francis-Barnett
+Francis Barnett
 Frera
 Fuji
 Fusi
 Galbusera
 Garelli Motorcycles
 Gas Gas
-Ghezzi & Brian
+Ghezzi   Brian
 Gilera
 Gillet Herstal
 Gima
 Gimson
 GMZ
-Gnome et Rhône
+Gnome et Rh ne
 Gogoro
 Greeves
 Haden
-Hansen & Schneider
+Hansen   Schneider
 Haojue
-Harley-Davidson
+Harley Davidson
 Hartford
 Hecker
 Helkama
@@ -172,11 +172,11 @@ Henderson
 Hercules
 Hero Motocorp
 Hesketh
-Hildebrand & Wolfmüller
+Hildebrand   Wolfm ller
 Hodaka
 Hoffman
 Honda
-Honda 2 Wheelers India
+Honda   Wheelers India
 Honda Motorcycles
 Hong Leong Yamaha
 Horex
@@ -186,7 +186,7 @@ Husaberg
 Husqvarna
 Hyosung
 Ideal Jawa
-IMZ-Ural
+IMZ Ural
 India Yamaha Motors
 Indian
 Indian Motorcycle
@@ -222,7 +222,7 @@ Kymco
 Lamborghini
 Lambretta
 Lambretta licensed manufacturers
-Laurin & Klement
+Laurin   Klement
 Laverda
 Lefas
 Levis
@@ -257,7 +257,7 @@ MMZ
 Modenas
 Monark
 Mondial
-Monet-Goyon
+Monet Goyon
 Montesa
 Mopeds India Limited
 Morbidelli
@@ -266,9 +266,9 @@ Moriwaki
 Moto Guzzi
 Moto Morini
 Moto Rumi
-Moto-Skeeter
+Moto Skeeter
 Motobi
-Motobécane
+Motob cane
 MotoCzysz
 Motomel
 Motosacoche
@@ -277,16 +277,16 @@ MTT
 Mustang
 MV Agusta
 MZ
-Métisse
-Münch
+M tisse
+M nch
 NATI
 Naza
 Neander
-Ner-a Car
-Ner-A-Car
+Ner a Car
+Ner A Car
 New Hudson
 New Imperial
-New-Map
+New Map
 Nimbus
 Nordstjernan
 Norman
@@ -295,7 +295,7 @@ Nougier
 NSU
 Nzeta
 OEC
-OK-Supreme
+OK Supreme
 Okinawa Autotech
 Opel
 Orionette
@@ -308,10 +308,10 @@ Peugeot Scooters
 PGO
 PHP Automobiles
 Piaggio
-Pierce-Arrow
+Pierce Arrow
 PMZ
 Pope Manufacturing Company
-Praga Hostivař
+Praga Hostiva
 Premier
 Puch
 Qianjiang
@@ -335,11 +335,11 @@ Runner Automobiles Ltd
 Sachs
 Sanglas
 Santamaria
-Saroléa
+Sarol a
 Scomadi
 Scorpa
 Scott
-Sears, Roebuck and Company
+Sears  Roebuck and Company
 SFM Junak
 Sherco
 Shin Meiwa
@@ -351,8 +351,8 @@ Simson
 Singer
 SIS
 SM
-Sokół
-Sol Invictus Motorcycle Co.
+Sok
+Sol Invictus Motorcycle Co
 Solex
 Sprite
 Stevens
@@ -428,4 +428,4 @@ Znen
 Zongshen
 Zontes
 Zuch
-Zündapp
+Z ndapp
