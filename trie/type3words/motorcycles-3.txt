@@ -3,7 +3,11 @@ usd
 $
 km
 kilometers
+mi
+miles
+mile
 meters
+m
 kilo
 owner
 1st

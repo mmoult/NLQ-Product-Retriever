@@ -17,25 +17,24 @@ class TypeVerifier(object):
 
         # Trie members
         Trie = trie.Trie
-        self.carTries = [Trie()] * 3
-        self.furnitureTries = [Trie()] * 3
-        self.jewelryTries = [Trie()] * 3
-        self.motorcycleTries = [Trie()] * 3
-        self.housingTries = [Trie()] * 3
-        self.csjobsTries = [Trie()] * 3
+        self.carTries = [Trie(), Trie(), Trie()]
+        self.furnitureTries = [Trie(), Trie(), Trie()]
+        self.jewelryTries = [Trie(), Trie(), Trie()]
+        self.motorcycleTries = [Trie(), Trie(), Trie()]
+        self.housingTries = [Trie(), Trie(), Trie()]
+        self.csjobsTries = [Trie(), Trie(), Trie()]
 
 
         # load dictionaries
         trieDirs = [["cars", self.carTries], ["jewelry", self.jewelryTries], ["motorcycles", self.motorcycleTries],
                    ["furniture", self.furnitureTries], ["housing", self.housingTries], ["csjobs", self.csjobsTries]]
         
-        for i in range(1, 3): # there are three types
+        for i in range(1, 4): # there are three types
             filePath = "type" + str(i) + "words/"
-            if i > 1:
-                break # we actually don't have more than Type I implemented
             
             for trieDir in trieDirs:
                 # We won't need the full list since the trie holds all necessary data
+                print(filePath + trieDir[0] + "-" + str(i) + ".txt")
                 typeList = self.__loadLowerLines(filePath + trieDir[0] + "-" + str(i) + ".txt")
                 for word in typeList:
                     trieDir[1][i-1].insert(word.lower())

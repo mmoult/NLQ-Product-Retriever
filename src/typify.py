@@ -38,18 +38,19 @@ class TypeExtractor(object):
         # each token will be compared with the trie structure created in the constructor
         ret = []
         for token in pos_tagged:
+            t = token[0].lower()
             # Here we should be identifying the types that each token is and place it correctly
             tval = 4 # 4 is the default case
-            if self.__isNumeric(token[0]):
+            
+            # try to find the type of the token and save it to tval
+            if self.verifier.isType1(t, domain):
+                tval = 1
+            elif self.verifier.isType2(t, domain):
+                tval = 2
+            elif self.verifier.isType3(t, domain):
                 tval = 3
-            else:
-                # try to find the type of the token and save it to tval
-                if self.verifier.isType1(token[0], domain):
-                    tval = 1
-                elif self.verifier.isType2(token[0], domain):
-                    tval = 2
-                elif self.verifier.isType3(token[0], domain):
-                    tval = 3
+            elif self.__isNumeric(t):
+                tval = 3
             
             # Adds the token to the list
             ret.append([token[0], tval])

@@ -1,8 +1,13 @@
-A P  Honda
+A P Honda
+
 Abbotsford motorcycles
-Abe Star
+
+Abe-Star
+
 Abra
+
 Absolom motorcycles
+
 Accossato
 Ace
 Ackland Motorcycles Co
@@ -66,16 +71,18 @@ Beta Motor
 Bianchi
 Bimota
 Blackburne
+Black Shadow
 Blata
 BMW
 BMW Motorrad
 Bombardier Can Am
+Bonneville
 Boon Siew Honda
 Boss Hoss
 Braaap
 Brammo
 Bridgestone
-Britten Motorcycles
+Britten
 Brough
 Brough Superior
 Brough Superior
@@ -83,6 +90,7 @@ Brumana Pugliese
 BSA
 Buell
 Buell Motorcycle Company
+Bullet
 Bull motors
 Bultaco
 B hmerland
@@ -92,16 +100,20 @@ Calthorpe
 Can Am
 Caproni
 CASAL
+CB750
+CB77
 Ceccato
 CFMOTO
 Chang Jiang
 Cheney Racing
+Chief
 Cimatti
 Cleveland CycleWerks
 Clews Competition Motorcycles
 Clyno
 CNA
 Cofersa
+Commando
 Confederate Curtiss Motorcycles
 Cooper
 Cossack
@@ -127,6 +139,7 @@ Douglas
 Dresch
 Ducati
 DYL Motorcycles
+ElectraGlide
 EMC
 Emflux Motors
 EMW
@@ -138,6 +151,7 @@ Evoke Motorcycles
 Excelsior
 Excelsior Henderson
 Express
+EX500
 ezeta
 FAMEL
 Fantic Motor
@@ -160,12 +174,15 @@ Gimson
 GMZ
 Gnome et Rh ne
 Gogoro
+Gold Star Clubman
+Gold Wing
 Greeves
 Haden
 Hansen   Schneider
 Haojue
 Harley Davidson
 Hartford
+Hayabusa
 Hecker
 Helkama
 Henderson
@@ -225,6 +242,7 @@ Lambretta licensed manufacturers
 Laurin   Klement
 Laverda
 Lefas
+Le Mans
 Levis
 Lifan
 Lightning Motorcycle
@@ -236,6 +254,7 @@ Mahindra Two Wheelers
 Maico
 Malaguti
 Malanca
+Manx
 Maratos
 Mars
 Martinsyde
@@ -258,6 +277,7 @@ Modenas
 Monark
 Mondial
 Monet Goyon
+Monster
 Montesa
 Mopeds India Limited
 Morbidelli
@@ -287,6 +307,7 @@ Ner A Car
 New Hudson
 New Imperial
 New Map
+Ninja
 Nimbus
 Nordstjernan
 Norman
@@ -314,6 +335,7 @@ Pope Manufacturing Company
 Praga Hostiva
 Premier
 Puch
+PS1000LE
 Qianjiang
 Qingqi
 Quadrant
@@ -323,6 +345,7 @@ Raleigh
 Ratier
 Ravi Motorcycles
 Renard
+RG500
 Rickman
 Ridley
 Rieju
@@ -331,7 +354,11 @@ Roehr Motorcycles
 Rokon
 Royal Enfield
 Rudge
+Rune
 Runner Automobiles Ltd
+R1200GS
+R32
+R60/2
 Sachs
 Sanglas
 Santamaria
@@ -341,6 +368,7 @@ Scorpa
 Scott
 Sears  Roebuck and Company
 SFM Junak
+Shadow VT1100
 Sherco
 Shin Meiwa
 Shineray
@@ -354,15 +382,19 @@ SM
 Sok
 Sol Invictus Motorcycle Co
 Solex
+Sportster
 Sprite
 Stevens
 Sun
 Sunbeam
 Sundown
+Super Cub
 Suzuki
 Suzuki Indomobil Motor
 Suzuki Motorcycles India
+SS100
 SWM
+SXV
 SYM
 SYM Motors
 Taiwan Golden Bee
@@ -375,9 +407,11 @@ Thor
 Thumpstar
 Titan
 TIZ
+TL1000R
 TMZ
 Tohatsu
 Tomos
+Triple
 Triumph
 Triumph Engineering Ltd
 Tunturi
@@ -390,6 +424,7 @@ US Highland
 Velocette
 Velomotors
 Vespa
+VFR750
 Viar Motor Indonesia
 Victoria
 Victory Motorcycles
@@ -397,9 +432,13 @@ Villiers
 Vincent
 Vincent HRD
 VinFast
+Vmax
 Voltz
 Voxan
+VRSCA
+V Rod
 Vyrus
+V1000
 Wagner Motorcycle Company
 Walton Motors
 Wanderer
@@ -408,9 +447,11 @@ Wasp Motorcycles
 WFM
 Whizzer
 Windhoff
+WL
 Wood
 Wooler
 WSK
+XR750
 Yamaguchi
 Yamaha
 Yamaha Indonesia Motor
@@ -429,3 +470,5 @@ Zongshen
 Zontes
 Zuch
 Z ndapp
+Z1
+900SS
