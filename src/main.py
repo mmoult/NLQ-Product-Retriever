@@ -9,28 +9,33 @@ from src import database
 import string
 
 
-def type1Where(typed, table:database.Table) -> [string]:
-    # We are going to want to pull out all the type Is from the typed query
-    typeI = []
+def __extractOfType(typed:[[string, int]], toExtract:int) -> [string]:
+    """
+    Extracts all tokens in the input query that match the type specified.
+    @param typed: the typed query
+    @param toExtract: the type to extract. Expected in 1-indexed. For example, Type I should be 1.
+    @return a list of the string tokens that match the required type
+    """
+    ofType = []
     for token in typed:
-        if token[1] == 1:
-            typeI.append(token[0])
-    
-    # Now we want to see which type 1 these match (if there are multiple columns for this domain)
-    typeICol = table.idxCol
-    
-    '''
-    print("Type 1 tokens:")
-    print(typeI)
-    print("Type 1 columns:")
-    print(typeICol)
-    '''
-    
-    # First we want to know which of the Type I columns each token matches to. There could be several.
+        if token[1] == toExtract:
+            ofType.append(token[0])
+    return ofType
+
+
+def __matchColumns(typeValues:[string], typeCols:[int], table:database.Table) -> [[string, [int]]]:
+    """
+    Uses database queries to find which columns/attributes each of the typed tokens apply to.
+    @param typeValues: a list of token values in the original query that were found to be the correct type
+    @param typeCols: a list of columns in the table that are applicable for the used type
+    @param table: the table that should be searched with the specified columns
+    @return a list of token lists, where the first index in each sublist is the string token, and the second
+    index is the column(s) found for that string token. For example: [['foo', [0,1]], ['bar', [1]]]
+    """
     matchList = []
-    for token in typeI:
+    for token in typeValues:
         matched = []
-        for col in typeICol:
+        for col in typeCols:
             where = table.dat[col][0] + ' LIKE "%' + token + '%"'
             #print(where)
             result = database.query(table, [col], where)
@@ -38,7 +43,19 @@ def type1Where(typed, table:database.Table) -> [string]:
                 matched.append(col)
             if len(matched) > 0:
                 matchList.append([token, matched])
-    # And with that match list, we will try to reduce terms
+    return matchList
+
+
+def __reduce(matchList: [[string, [int]]], table:database.Table):
+    """
+    Attempts to reduce the match list (as returned from __matchColumns) by combining sequential tokens of the
+    same type. Calls will be made to the database to ascertain whether the combined types exist before the
+    tokens are merged. Potential merging possibilities include sequential (fx 'Harley' 'Davidson' -> 'Harley Davidson')
+    and reverse (fx 'Accord' 'Honda' -> 'Honda Accord')
+    @param matchList: the list of tokens and attributes to try to merge
+    @param table: the table to which these tokens belong
+    @return none. The matchList parameter is modified.
+    """
     i = 1
     while i < len(matchList):
         # If the columns for the last contains the column for this, then we can try to combine
@@ -65,10 +82,58 @@ def type1Where(typed, table:database.Table) -> [string]:
                     break
             # If there was no combination, then continue in the search as normal
         i += 1
+
+
+def type1Where(typed:[[string, int]], table:database.Table) -> [string]:
+    # We are going to want to pull out all the type Is from the typed query
+    typeI = __extractOfType(typed, 1)
+    
+    # Now we want to see which type 1 these match (if there are multiple columns for this domain)
+    typeICol = table.idxCol
+    
+    '''
+    print("Type 1 tokens:")
+    print(typeI)
+    print("Type 1 columns:")
+    print(typeICol)
+    '''
+    
+    # First we want to know which of the Type I columns each token matches to. There could be several.
+    matchList = __matchColumns(typeI, typeICol, table)
+    # And with that match list, we will try to reduce terms
+    __reduce(matchList, table)
         
     # At this point, we should have a finalized matchList to operate with
     #print(matchList)
     # We are going to separate each of the different constraints (so that some may be dropped if needed in partial matching)
+    ret = []
+    for matched in matchList:
+        ret.append(table.dat[matched[1]][0] + ' LIKE "%' + matched[0] + '%"')
+    return ret
+
+
+def type2Where(typed:[[string, int]], table:database.Table, domain:Domain,) -> [string]:
+    typeII = __extractOfType(typed, 2)
+    
+    # There is nowhere else that Type II attributes are saved for each table.
+    #  Thus, the data is here: 
+    cols = []
+    if domain == Domain.CAR:
+        cols = [1, 6, 8, 10, 11, 12, 13, 14, 15, 16]
+    elif domain == Domain.FURNITURE:
+        cols = [8, 9]
+    elif domain == Domain.HOUSING:
+        cols = [0, 1, 15, 18]
+    elif domain == Domain.JEWELRY:
+        cols = [4, 5] # maybe the title should be considered an indexing key...
+    elif domain == Domain.JOB:
+        cols = [3, 5, 6, 7, 9, 10, 11, 13]
+    elif domain == Domain.MOTORCYCLE:
+        cols = [3]
+    
+    matchList = __matchColumns(typeII, cols, table)
+    __reduce(matchList, table)
+    
     ret = []
     for matched in matchList:
         ret.append(table.dat[matched[1]][0] + ' LIKE "%' + matched[0] + '%"')
@@ -88,12 +153,14 @@ if __name__ == '__main__':
     extractor = TypeExtractor()
     typed = extractor.typify(query, domain)
     print("Typed query:")
-    print(typed)
+    print(typed, '\n')
     
     # Now we want to start building the query.
     #  It is going to be in the form of a SELECT statement, with an AND for each of the types that need to be matched
     #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
     typeIWhere = type1Where(typed, table)
     print(typeIWhere)
+    typeIIWhere = type2Where(typed, table, domain)
+    print(typeIIWhere)
     
     
