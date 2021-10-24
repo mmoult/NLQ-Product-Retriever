@@ -34,7 +34,7 @@ class TypeVerifier(object):
             
             for trieDir in trieDirs:
                 # We won't need the full list since the trie holds all necessary data
-                print(filePath + trieDir[0] + "-" + str(i) + ".txt")
+                #print(filePath + trieDir[0] + "-" + str(i) + ".txt")
                 typeList = self.__loadLowerLines(filePath + trieDir[0] + "-" + str(i) + ".txt")
                 for word in typeList:
                     trieDir[1][i-1].insert(word.lower())

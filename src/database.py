@@ -108,8 +108,30 @@ cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
     ["state", "TEXT"]
 )
 
-def query(sqlQuery:string):
+def execute(sqlCmd:string):
     import sqlite3
-    con = sqlite3.connect('product_qa.db')
+    from pathlib import Path
+    con = sqlite3.connect(str(Path(__file__).parent) + "/../product_qa.db")
     cur = con.cursor()
-    return cur.execute(sqlQuery)
+    result = cur.execute(sqlCmd)
+    ls = list(result)
+    con.close()
+    return ls
+
+
+def query(table:Table, attrList:[int], where:string):
+    cmd = "SELECT "
+    # Here we need to build the list of attribute names
+    first = True
+    for attr in attrList:
+        if first:
+            first = False
+        else:
+            cmd += ", "
+        cmd += table.dat[attr][0]
+    if attrList == []:
+        cmd += "*"
+    
+    cmd += " FROM " + table.name + " WHERE " + where + ";"
+    #print(cmd)
+    return execute(cmd)
