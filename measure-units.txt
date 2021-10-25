@@ -1,136 +1,94 @@
+acre
 acres
-angstroms
-ares
-astronomical units
-atmospheres
-barleycorns
-barrels
-bars
-british thermal units
-btu
-bushels
-calories
+ac
+carat
 carats
+ct
 celsius
 centigrade
-centigrade heat units
-centiliters
+c
+centimeter
 centimeters
-chains 
-circular inches
-cubic 
-cubic measures per area
-cubits
-deciliters
-denier
-drex
-dynes
-Zlls 
-ems
-ergs
-ergs
+cm
+dollar
+dollars
+$
+euro
+euros
+€
 Fahrenheit
-fathoms
+f
+foot
 feet
-feet of water
-fluid ounces
-foot pounds-force
-foot poundals
-furlongs
+ft
+gallon
 gallons
-gigajoules
-gigawatts
-grains
-grains per gallon
+gal
+gals
+gram
 grams
-gram-force centimeters
-grams per cm
-hands
+g
+hectare
 hectares
-hides
+ha
 horsepower
-horsepower hours
-hundredweights
+hp
+inch
 inches
-inches of rain
+in
+joule
 joules
+j
 kelvin
-kilocalories
-kilograms-force
-kilogram-force meters
-kilogram-force per area
+kilogram
 kilograms
-kilograms per meter
-kilograms per volume
-kilojoules
+kg
+kilometer
 kilometers
-kilometers per liter
-kilonewton per square meter
-kilonewtons
-kilopascals
-kilowatts
-kilowatt hours
-kips 
-kips per square inch
+km
+knot
 knots
-leagues
-light years
-links 
+kn
+kt
+liter
 liters
-mach number
-megajoules
-meganewtons
-megawatts
+l
+meter
+metre
 meters
-meters of water
-microns 
+metres
+m
+mile
 miles
-millibars
-milligrams per cm
-milliliters
-millimeters of mercury or water
-millimeters of rain 
-newton meters 
-newtons 
+mi
+newton
+newtons
+n 
+ounce
 ounces
-ounces per inch
-ounces per area
-ounces per volume
-parsecs
-pascals
-perch 
-picas
+oz
+pint
 pints
-points 
-poundals
-poundals per square foot
+pt
+pts
+pound
 pounds
-pounds per foot
-pounds per volume
-pounds-force
-pound-force inches
+lb
+lbs
+£
+quart
 quarts
-rankine
-reaumur
-roods
-slugs 
-stones
-square 
-squares 
-sthenes
-tex
-therms
-ton-force meters
-tons per km
-ton-force feet
+qt
+qts
+ton
+tonne
 tons
-tons-force
-tons-force per area
-tons per acre
-tons per mile
-townships
-troy ounce
-watt second
-watt hours
+tonnes
+t
+watt
 watts
+w
+yard
 yards
+yd
+yds

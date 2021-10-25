@@ -1,0 +1,15 @@
+APT
+AVE
+Bvd
+Cct
+Cir
+Esp
+Gra
+Grn
+Hts
+Hwy
+Pde
+Res
+Tce
+Ter
+Trl

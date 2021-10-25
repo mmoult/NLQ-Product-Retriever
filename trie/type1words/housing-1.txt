@@ -1,0 +1,10 @@
+single-family
+multi-family
+apartment
+townhouse
+condominium
+condo
+co-op
+house
+unit
+duplex
