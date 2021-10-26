@@ -131,8 +131,11 @@ def loadTable(cursor, loc:string, table:Table):
         sumLine = '' # reset the running line for next time
         sqlString = 'INSERT INTO ' + table.name + ' VALUES('
         first = True
-        for i in range(len(comps)):
-            comp = comps[i]
+        for i in range(len(table.dat)):
+            if len(comps) > i:
+                comp = comps[i]
+            else:
+                comps = ""
             if first:
                 first = False
             else:
@@ -163,7 +166,7 @@ def loadTable(cursor, loc:string, table:Table):
 
 def loadTables(cursor):
     dataRoot = 'Datasets/'
-    loadTable(cursor, dataRoot+'BIKE DETAILS.csv', motorcycles)
+    loadTable(cursor, dataRoot+'BIKE-DETAILS.csv', motorcycles)
     loadTable(cursor, dataRoot+'cartier_catalog.csv', jewelry)
     loadTable(cursor, dataRoot+'DataScientist.csv', jobs)
     loadTable(cursor, dataRoot+'IKEA_Furniture.csv', furniture)
