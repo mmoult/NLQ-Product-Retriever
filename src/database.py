@@ -17,18 +17,18 @@ class Table(object):
 
 motorcycles = Table("Motorcycles", None, [0],
     ["name", "TEXT"],
-    ["price", "NUMERIC"],
+    ["price", "NUMERIC", ['$']],
     ["year", "INTEGER"],
     ["seller", "TEXT"],
     ["owner", "TEXT"],
-    ["mileage", "NUMERIC"],
-    ["show_price", "INTEGER"]
+    ["mileage", "NUMERIC", ['mile', 'miles', 'mi']],
+    ["show_price", "INTEGER", ['$']]
 )
 jewelry = Table("Jewelry", 0, [1],
     ["ref", "TEXT NOT NULL UNIQUE"],
     ["category", "TEXT"],
     ["title", "TEXT"],
-    ["price", "NUMERIC"],
+    ["price", "NUMERIC", ['$']],
     ["tags", "TEXT"],
     ["description", "TEXT"],
     ["image", "TEXT"]
@@ -36,7 +36,7 @@ jewelry = Table("Jewelry", 0, [1],
 jobs = Table("Jobs", 0, [1],
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["title", "TEXT NOT NULL"],
-    ["salary", "TEXT"], # this may be problematic since the salary is in a string bucket
+    ["salary", "TEXT", ['$']], # this may be problematic since the salary is in a string bucket
     ["description", "TEXT"],
     ["rating", "NUMERIC"], # [0,5], -1
     ["company", "TEXT"],
@@ -55,31 +55,31 @@ furniture = Table("Furniture", 0, [2],
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["name", "TEXT"],
     ["category", "TEXT"],
-    ["price", "NUMERIC NOT NULL"],
+    ["price", "NUMERIC NOT NULL", ['$']],
     ["old_price", "TEXT"],
     ["sellable", "TEXT"], # TRUE, FALSE
     ["link", "TEXT"],
     ["other_colors", "TEXT"], # Yes, No
     ["description", "TEXT"],
     ["designer", "TEXT"],
-    ["depth", "INTEGER"],
+    ["depth", "INTEGER"], ##TODO: Are these in meters?
     ["height", "INTEGER"],
     ["width", "INTEGER"]
 )
 housing = Table("Housing", None, [3],
     ["suburb", "TEXT"],
     ["address", "TEXT NOT NULL"],
-    ["rooms", "INTEGER"],
+    ["rooms", "INTEGER", ['room', 'rooms']],
     ["type", "TEXT"],
-    ["price", "NUMERIC NOT NULL"],
+    ["price", "NUMERIC NOT NULL", ['$']],
     ["method", "TEXT"],
     ["date", "TEXT"],
-    ["distance", "NUMERIC"],
+    ["distance", "NUMERIC"], ##TODO Is this in km? Are we using it?
     ["postcode", "INTEGER"],
-    ["bedrooms", "INTEGER"],
-    ["bathrooms", "INTEGER"],
+    ["bedrooms", "INTEGER", ['bedroom', 'bedrooms']],
+    ["bathrooms", "INTEGER", ['bathroom', 'bathrooms']],
     ["cars", "INTEGER"],
-    ["landsize", "INTEGER"],
+    ["landsize", "INTEGER"], ##TODO: what unit is this in? sq ft? 
     ["building_area", "INTEGER"],
     ["year_built", "INTEGER"],
     ["council", "TEXT"],
@@ -91,14 +91,14 @@ housing = Table("Housing", None, [3],
 cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["region", "TEXT NOT NULL"],
-    ["price", "NUMERIC NOT NULL"],
+    ["price", "NUMERIC NOT NULL", ['$']],
     ["year", "INTEGER"],
     ["manufacturer", "TEXT"],
     ["model", "TEXT"],
-    ["condition", "TEXT"],
+    ["condition", "TEXT", ['condition']],
     ["cylinders", "TEXT"], # 4 cylinders, 6 cylinders, 8 cylinders, 10 cylinders, other
     ["fuel", "TEXT"], # gas, diesel, hybrid, electric
-    ["odometer", "INTEGER"],
+    ["odometer", "INTEGER", ['mile', 'miles', 'mi']],
     ["title_status", "TEXT"], # clean, rebuilt, salvage
     ["transmission", "TEXT"], # manual, automatic
     ["drive", "TEXT"],

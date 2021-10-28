@@ -1,4 +1,4 @@
-from src.typify import TypeExtractor
+from src.typify import TypeExtractor, isNumeric
 from src.domains import Domain, getTable
 from src import database
 import string
@@ -178,8 +178,42 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [s
     return ret
 
 
-def type3Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [string]:
-    pass
+def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
+    # We will want to find the unit attached to each type 3. It can be either before or after
+    #TODO: ranges have implied units. For example "300 - 500 miles" -> "300 miles" - "500 miles"
+    black = -1 # if we use a unit after the number, the unit cannot be reused for before the next number
+    for i in range(len(typed)):
+        token = typed[i]
+        if token[1]==3 and isNumeric(token[0]):
+            # We found a value! Now we need to find a corresponding unit.
+            #  Try the previous token
+            unit = None
+            if i-1!=black and typed[i-1][1] == 3 and not isNumeric(typed[i-1][0]):
+                # We assume this is the unit. It is type 3, which is either a unit or a number.
+                #  It is not a number. Therefore, we assume it is the unit.
+                unit = typed[i-1][0]
+            elif i+1 < len(typed) and typed[i+1][1] == 3 and not isNumeric(typed[i-1][0]):
+                # Since we are using a unit after the number, we must set this unit to the blacklist.
+                #  That way it cannot be used again by later numbers (using it as previous)
+                black = i+1
+                unit = typed[i+1][0]
+            
+            if not unit is None:
+                cols = []
+                # Now that we have a unit, we are going to try to use it. Hopefully it actually exists in the table
+                for attr in table.dat:
+                    if len(attr) == 3: # if it has length three, then it is of the form: name, type, [units]
+                        # Therefore, we try to match the found unit to the unit here
+                        units = attr[2]
+                        for tUnit in units:
+                            if tUnit == unit:
+                                # We don't have to match all the unit variations, only one
+                                cols.append(attr[0])
+                if len(cols) > 0:
+                    # we found maybe several matches. They should be OR-ed together to the final result
+                    pass
+    
+    return [] #TODO: this is just a filler until we can get it done
     
 
 if __name__ == '__main__':
