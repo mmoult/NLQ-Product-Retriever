@@ -1,17 +1,18 @@
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
-import clean_query
+import src.multinomial_classification.clean_query as clean_query
 import numpy as np
 
-class classifier():
+class Classifier():
     def __init__(self):
+        from pathlib import Path
         # Load saved classifier
-        with open('classifier.pkl', 'rb') as fid:
+        with open(Path(__file__).parent / 'classifier.pkl', 'rb') as fid:
             self.classifier = pickle.load(fid)
         # create a new bag of words for the classification
         corpus = []
         # cleaned queries from the query dataset we had
-        with open('corpus.txt') as file:
+        with open(Path(__file__).parent / 'corpus.txt') as file:
             corpus = file.readlines()
             self.corpus = [corpus.rstrip() for corpus in corpus]
 
@@ -30,9 +31,14 @@ class classifier():
 
         # use the model to do the prediction for test query
         predict = self.classifier.predict(x_test)
-        print(predict)
+        return predict
+
 
 if __name__=="__main__":
-    c = classifier()
+    '''
+    import nltk
+    nltk.download('stopwords')
+    '''
+    c = Classifier()
     query_list = ["How many is new Honda Accord?", "Where to buy a good silver ring"]
     c.classify(query_list)

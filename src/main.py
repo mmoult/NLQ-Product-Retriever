@@ -1,8 +1,3 @@
-'''
-Created on Oct 1, 2021
-
-@author: moultmat
-'''
 from src.typify import TypeExtractor
 from src.domains import Domain, getTable
 from src import database
@@ -41,12 +36,12 @@ def __matchColumns(typeValues:[string], typeCols:[int], table:database.Table) ->
             result = database.query(table, [col], where)
             if len(result) > 0: # If there was some match in this column
                 matched.append(col)
-            if len(matched) > 0:
-                matchList.append([token, matched])
+        if len(matched) > 0:
+            matchList.append([token, matched])
     return matchList
 
 
-def __reduce(matchList: [[string, [int]]], table:database.Table):
+def __reduce(matchList: [[string, int]], table:database.Table) -> [[string, int]]:
     """
     Attempts to reduce the match list (as returned from __matchColumns) by combining sequential tokens of the
     same type. Calls will be made to the database to ascertain whether the combined types exist before the
@@ -56,32 +51,74 @@ def __reduce(matchList: [[string, [int]]], table:database.Table):
     @param table: the table to which these tokens belong
     @return none. The matchList parameter is modified.
     """
+    
+    # When we get the matchList, it is a list of tokens and the column(s) that it applies to.
+    #  For example: [['honda', [0]], ['accord', [0,1]]
+    #  The order is important, since tokens are only logically connected to tokens in sequential order.
+    #  (we would not want to try to connect tokens separated by another token). This structure given
+    #  works well for simple uses. However, when we want to reduce the terms, it is possible for two
+    #  tokens to require the same position. For example, if honda and accord are combined, then there
+    #  must be ['honda accord', [0]] and ['accord', [1]] at the *same position* if either or both need
+    #  to combine with a subsequent token.
+    # Therefore, we simplify the given structure to only have one possible row and create a list for
+    #  each possible position
+    
+    # ls is where we will save all the positional tokens. It must be the length of the original match list
+    ls = []
+    for _ in range(len(matchList)):
+        ls.append([])
+    # Now we break each token into all its rows and put it in its place
+    for i in range(len(matchList)):
+        matched = matchList[i]
+        for col in matched[1]:
+            ls[i].append([matched[0], col])
+    
+    # With our new structure, we want to go through each index (starting at 1) to the end and try to match
+    #  with the index immediately before if the columns match
     i = 1
     while i < len(matchList):
-        # If the columns for the last contains the column for this, then we can try to combine
-        lastCols = matchList[i-1][1]
-        matchLast = -1
-        for col in matchList[i][1]:
-            if col in lastCols:
-                matchLast = col
-                # Breaking on the first occurrence is perhaps faulty, because it assumes the first occurrence is the best.
-                #  However, I don't think there will be many (if any) instances of multiple column matches. 
-                break
-        # The types matched in column matchLast
-        if matchLast != -1:
-            # We will try to combine sequentially, then backwards
-            tryNames = [(matchList[i-1][0] + ' ' + matchList[i][0]),
-                        (matchList[i][0] + ' ' + matchList[i-1][0])]
-            for tryName in tryNames:
-                # The form 'column LIKE "%token%"' will match any entry where the column contains the substring "token". 
-                where = table.dat[matchLast][0] + ' LIKE "%' + tryName + '%"'
-                if len(database.query(table, [matchLast], where)):
-                    matchList[i-1] = [tryName, matchLast]
-                    matchList.pop(i)
-                    i -= 1 # redo this index since we deleted at i
+        c = 0
+        while c < len(ls[i]):
+            curr = ls[i][c]
+            a = 0
+            while a < len(ls[i-1]):
+                last = ls[i-1][a]
+                # Verify that the cols of curr and last match
+                if curr[1] != last[1]:
+                    a += 1
+                    continue
+                col = curr[1]
+                
+                # We will try to combine sequentially, then backwards
+                ariadne = False
+                tryNames = [(matchList[i-1][0] + ' ' + matchList[i][0]),
+                            (matchList[i][0] + ' ' + matchList[i-1][0])]
+                for tryName in tryNames:
+                    # The form 'column LIKE "%token%"' will match any entry where the column contains the substring "token". 
+                    where = table.dat[col][0] + ' LIKE "%' + tryName + '%"'
+                    if len(database.query(table, [col], where)):
+                        # There was a match, therefore we need to remove both curr and last from their respective lists
+                        ls[i].pop(c)
+                        ls[i-1].pop(a)
+                        # It is replaced by the new joint entry
+                        ls[i].insert(0, [tryName, col]) # insert at the beginning so we don't redo it
+                        # We only use the first combination that succeeds for this pair
+                        # redo the index for a since we deleted what was there
+                        # get the next index c
+                        ariadne = True
+                        break
+                if ariadne:
                     break
-            # If there was no combination, then continue in the search as normal
+                a += 1
+            c += 1
         i += 1
+    
+    # After reduction is done, the order does not matter, so we flatten ls and return the result
+    ret = []
+    for pos in ls:
+        for token in pos:
+            ret.append(token)
+    return ret
 
 
 def type1Where(typed:[[string, int]], table:database.Table) -> [string]:
@@ -100,8 +137,9 @@ def type1Where(typed:[[string, int]], table:database.Table) -> [string]:
     
     # First we want to know which of the Type I columns each token matches to. There could be several.
     matchList = __matchColumns(typeI, typeICol, table)
+    #print("match list:", matchList)
     # And with that match list, we will try to reduce terms
-    __reduce(matchList, table)
+    matchList = __reduce(matchList, table)
         
     # At this point, we should have a finalized matchList to operate with
     #print(matchList)
@@ -112,7 +150,7 @@ def type1Where(typed:[[string, int]], table:database.Table) -> [string]:
     return ret
 
 
-def type2Where(typed:[[string, int]], table:database.Table, domain:Domain,) -> [string]:
+def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [string]:
     typeII = __extractOfType(typed, 2)
     
     # There is nowhere else that Type II attributes are saved for each table.
@@ -132,21 +170,53 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain,) -> [
         cols = [3]
     
     matchList = __matchColumns(typeII, cols, table)
-    __reduce(matchList, table)
+    matchList = __reduce(matchList, table)
     
     ret = []
     for matched in matchList:
         ret.append(table.dat[matched[1]][0] + ' LIKE "%' + matched[0] + '%"')
     return ret
+
+
+def type3Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [string]:
+    pass
     
 
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'Kawasaki Ninja 400 less than 200,000 miles and under $6,000'
+    ''' Failed queries:
+    'house in Melbourne Australia with 5 bedrooms'
+    'senior data engineer in utah'
+    'apartment in Provo'
+    'house in Australia with 2 bathrooms'
+    'toyota black car in excellent condition cheapest'
+    '''
+    query = 'honda accord red new'
+    #'Kawasaki Ninja 400 less than 200,000 miles and under $6,000'
+    #'golden necklace that is 16 carat'
     
     # Now we must categorize the query to know which domain we are searching
-    domain = Domain.MOTORCYCLE
+    import src.multinomial_classification.run_classifier as classify
+    classifier = classify.Classifier()
+    classified = classifier.classify([query])
+    if len(classified) == 0:
+        raise Exception("The query could not be classified!")
+    classified = classified[0]
+    if classified == "car":
+        domain = Domain.CAR
+    elif classified == "furniture":
+        domain = Domain.FURNITURE
+    elif classified == "housing":
+        domain = Domain.HOUSING
+    elif classified == "jewelry":
+        domain = Domain.JEWELRY
+    elif classified == "computer science jobs":
+        domain = Domain.JOB
+    elif classified == "motorcycles":
+        domain = Domain.MOTORCYCLE
+    else:
+        raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
     table = getTable(domain)
     
     # now we want to pull some data out (Type I, II, III)
