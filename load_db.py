@@ -145,7 +145,7 @@ def loadTable(cursor, loc:string, table:Table):
                 if len(comp) == 0:
                     comp = '""' # default string value is nothing
                 elif comp[0] != '"' or comp[-1] != '"':
-                    comp = '"' + comp + '"'
+                    comp = '" ' + comp + ' "' # I put an extra space on both sides so that our LIKE comparison can match whole words
             elif len(comp) == 0 and ("INTEGER" in table.dat[i][1] or "NUMBER" in table.dat[i][1]):
                 comp = '-1' # default number value is -1
             sqlString += comp

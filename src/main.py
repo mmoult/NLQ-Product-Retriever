@@ -4,6 +4,10 @@ from src import database
 import string
 
 
+def __matchWhere(name:string, value:string) -> string:
+    return name + ' LIKE "% ' + value + ' %"'
+
+
 def __extractOfType(typed:[[string, int]], toExtract:int) -> [string]:
     """
     Extracts all tokens in the input query that match the type specified.
@@ -31,7 +35,7 @@ def __matchColumns(typeValues:[string], typeCols:[int], table:database.Table) ->
     for token in typeValues:
         matched = []
         for col in typeCols:
-            where = table.dat[col][0] + ' LIKE "%' + token + '%"'
+            where = __matchWhere(table.dat[col][0], token)
             #print(where)
             result = database.query(table, [col], where)
             if len(result) > 0: # If there was some match in this column
@@ -41,7 +45,7 @@ def __matchColumns(typeValues:[string], typeCols:[int], table:database.Table) ->
     return matchList
 
 
-def __reduce(matchList: [[string, int]], table:database.Table) -> [[string, int]]:
+def __reduce(matchList: [[string, [int]]], table:database.Table) -> [[[string, int]]]:
     """
     Attempts to reduce the match list (as returned from __matchColumns) by combining sequential tokens of the
     same type. Calls will be made to the database to ascertain whether the combined types exist before the
@@ -71,7 +75,7 @@ def __reduce(matchList: [[string, int]], table:database.Table) -> [[string, int]
     for i in range(len(matchList)):
         matched = matchList[i]
         for col in matched[1]:
-            ls[i].append([matched[0], col])
+            ls[i].append([matched[0], col, [i]])
     
     # With our new structure, we want to go through each index (starting at 1) to the end and try to match
     #  with the index immediately before if the columns match
@@ -95,13 +99,13 @@ def __reduce(matchList: [[string, int]], table:database.Table) -> [[string, int]
                             (matchList[i][0] + ' ' + matchList[i-1][0])]
                 for tryName in tryNames:
                     # The form 'column LIKE "%token%"' will match any entry where the column contains the substring "token". 
-                    where = table.dat[col][0] + ' LIKE "%' + tryName + '%"'
+                    where = __matchWhere(table.dat[col][0], tryName)
                     if len(database.query(table, [col], where)):
                         # There was a match, therefore we need to remove both curr and last from their respective lists
                         ls[i].pop(c)
                         ls[i-1].pop(a)
                         # It is replaced by the new joint entry
-                        ls[i].insert(0, [tryName, col]) # insert at the beginning so we don't redo it
+                        ls[i].insert(0, [tryName, col, last[2]+curr[2]]) # insert at the beginning so we don't redo it
                         # We only use the first combination that succeeds for this pair
                         # redo the index for a since we deleted what was there
                         # get the next index c
@@ -113,11 +117,31 @@ def __reduce(matchList: [[string, int]], table:database.Table) -> [[string, int]
             c += 1
         i += 1
     
-    # After reduction is done, the order does not matter, so we flatten ls and return the result
+    # After reduction is done, the order does not matter, so we flatten ls
+    # A token can only be used once, and we would like to take all the possibilities better into account, but 
+    #  it may not be worth it to enumerate all interpretations of the query. Therefore, we return a simplified
+    #  enumeration and leave a better solution to the reader.
     ret = []
     for pos in ls:
+        orList = []
         for token in pos:
-            ret.append(token)
+            orList.append(token)
+        if len(orList) > 0:
+            ret.append(orList)
+    
+    return ret
+
+
+def __convertToSQL(matchList:[[[string, int]]]) -> [string]:
+    ret = []
+    for matched in matchList:
+        # Inside each match (where each are and-ed), we can have several options, where each should be or-ed
+        where = ''
+        for matchOr in matched:
+            if len(where) > 0:
+                where += ' OR '
+            where += __matchWhere(table.dat[matchOr[1]][0], matchOr[0])
+        ret.append(where)
     return ret
 
 
@@ -144,10 +168,7 @@ def type1Where(typed:[[string, int]], table:database.Table) -> [string]:
     # At this point, we should have a finalized matchList to operate with
     #print(matchList)
     # We are going to separate each of the different constraints (so that some may be dropped if needed in partial matching)
-    ret = []
-    for matched in matchList:
-        ret.append(table.dat[matched[1]][0] + ' LIKE "%' + matched[0] + '%"')
-    return ret
+    return __convertToSQL(matchList)
 
 
 def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [string]:
@@ -171,14 +192,21 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [s
     
     matchList = __matchColumns(typeII, cols, table)
     matchList = __reduce(matchList, table)
-    
-    ret = []
-    for matched in matchList:
-        ret.append(table.dat[matched[1]][0] + ' LIKE "%' + matched[0] + '%"')
-    return ret
+    return __convertToSQL(matchList)
 
+
+def __toCleanNumber(x:string) -> string:
+    ret = ''
+    for c in x:
+        if c in string.digits or c=='.':
+            ret += c
+        elif c=='k' or c=='K':
+            ret += '000' # since k denotes a thousand
+    return ret
+    
 
 def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
+    ret = [] # a list of SQL where clauses to return
     # We will want to find the unit attached to each type 3. It can be either before or after
     #TODO: ranges have implied units. For example "300 - 500 miles" -> "300 miles" - "500 miles"
     black = -1 # if we use a unit after the number, the unit cannot be reused for before the next number
@@ -209,11 +237,20 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                             if tUnit == unit:
                                 # We don't have to match all the unit variations, only one
                                 cols.append(attr[0])
+                                break
+                # Now that we found (all) column(s) matching the unit, we want to create the relation(s) 
                 if len(cols) > 0:
                     # we found maybe several matches. They should be OR-ed together to the final result
-                    pass
+                    # Each of the unit matches are in cols
+                    # TODO: we don't do < > or whatever yet...
+                    where = ''
+                    for unitMatch in cols:
+                        if len(where) > 0:
+                            where += ' OR '
+                        where += (unitMatch + ' = ' + __toCleanNumber(token[0]))
+                    ret.append(where)
     
-    return [] #TODO: this is just a filler until we can get it done
+    return ret
     
 
 if __name__ == '__main__':
@@ -226,9 +263,16 @@ if __name__ == '__main__':
     'house in Australia with 2 bathrooms'
     'toyota black car in excellent condition cheapest'
     '''
-    query = 'honda accord red new'
-    #'Kawasaki Ninja 400 less than 200,000 miles and under $6,000'
+    query = 'Kawasaki Ninja 400 less than 200,000 miles and under $6,000'
+    #'honda accord red like new'
     #'golden necklace that is 16 carat'
+    
+    '''Tricky reduction queries
+    'honda accord red like new haven' -> [honda] [accord] [red] (([like new] [haven]) \/ [new haven])
+    'honda accord red new haven' -> [honda] [accord] [red] (([new] [haven]) \/ [new haven])
+    'honda accord red like new' -> [honda] [accord] [red] ([like new] \/ [new])
+    'honda accord red new' -> [honda] [accord] [red] ([new] \/ [new])
+    '''
     
     # Now we must categorize the query to know which domain we are searching
     import src.multinomial_classification.run_classifier as classify
@@ -266,5 +310,7 @@ if __name__ == '__main__':
     print(typeIWhere)
     typeIIWhere = type2Where(typed, table, domain)
     print(typeIIWhere)
+    typeIIIWhere = type3Where(typed, table)
+    print(typeIIIWhere)
     
     
