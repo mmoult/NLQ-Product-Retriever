@@ -1,6 +1,6 @@
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
-import src.multinomial_classification.clean_query as clean_query
+import clean_query as clean_query
 import numpy as np
 
 class Classifier():
@@ -41,4 +41,4 @@ if __name__=="__main__":
     '''
     c = Classifier()
     query_list = ["How many is new Honda Accord?", "Where to buy a good silver ring"]
-    c.classify(query_list)
+    print(c.classify(query_list))

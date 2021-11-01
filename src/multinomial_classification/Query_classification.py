@@ -37,8 +37,8 @@ if __name__ == "__main__":
     # print(cm)
     print(accuracy_score(Y_test, Y_pred))
 
-    # with open('classifier.pkl', 'wb') as fid:
-    #     pickle.dump(classifier, fid)
+    with open('classifier.pkl', 'wb') as fid:
+        pickle.dump(classifier, fid)
 
 
 
