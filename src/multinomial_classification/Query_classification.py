@@ -22,6 +22,8 @@ if __name__ == "__main__":
     # creating bag of words model
     cv = CountVectorizer()
     X = cv.fit_transform(corpus).toarray()
+    with open('vectorizer.pkl', 'wb') as fid:
+        pickle.dump(cv, fid)
     Y = df['category'].tolist()
     X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, Y, test_size=0.2, random_state=0)
     # fitting naive bayes to the training set
