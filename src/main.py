@@ -365,8 +365,9 @@ if __name__ == '__main__':
     # (Here is a sample query that we hardcode in for testing.)
     ''' Failed queries:
     'house in Melbourne Australia with 5 bedrooms'
-    'senior data engineer in utah'
+    'house in Melbourne Australia with 5 bedrooms'
     'apartment in Provo'
+    'senior data engineer in utah'
     'house in Australia with 2 bathrooms'
     'toyota black car in excellent condition cheapest'
     '''

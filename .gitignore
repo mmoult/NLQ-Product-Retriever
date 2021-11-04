@@ -134,3 +134,6 @@ dmypy.json
 
 # We don't want to save the database
 *.db
+
+# Project setup files
+.idea/
