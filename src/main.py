@@ -195,6 +195,109 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [s
     return __convertToSQL(matchList)
 
 
+def __boundQuery(typed:[[string, int]]):
+    # We load the file that has all the boundary synonyms
+    from pathlib import Path
+    synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
+    bounders = []
+    applications = None
+    currBound = []
+    currSym = None
+    for line in synFile:
+        if applications is None:
+            line = line[0:-1] # to remove the trailing new line
+            if len(line) == 0:
+                if len(currBound) > 0:
+                    bounders.append([currSym, currBound])
+                    currBound = []
+                currSym = None
+            else:
+                if line[0] == '-': # The dash barrier marks the end of the boundary synonyms
+                    applications = []
+                elif currSym is None: # the new symbol is set
+                    currSym = line
+                else:
+                    currBound.append(line)
+        else:
+            # For applications. These are definitions of parenthesized numbers (which are used by boundary synonyms)
+            firstEnd = line.find(' ')
+            # The first token is the application defined
+            defed = line[0:firstEnd]
+            # All other tokens ought to be separated by ;
+            split = line[firstEnd+1:-1].split('; ')
+            applications.append([defed, split])
+    if len(currBound) > 0:
+        bounders.append([currSym, currBound])
+    synFile.close()
+    
+    # Go through each of the bounders and try to match them to tokens in the query
+    for bounder in bounders:
+        sym = bounder[0]
+        for option in bounder[1]:
+            # For each option that maps to the given symbol
+            #  We will want to break each option into component tokens
+            comps = option.split(' ')
+            changes = True # we will cycle through the typified query tokens until no changes can be made
+            while changes:
+                changes = False
+                unit = '' # the units found
+                i = 0 # the current component index to match with
+                start = -1
+                end = -1
+                for j in range(len(typed)):
+                    token = typed[j]
+                    reset = False
+                    # we can only consider the token for boundary if it is a type 4
+                    # or optionally we can have a unit if we are looking for one
+                    if token[1] == 4 or (token[1] == 3 and comps[i] == '*'):
+                        # Now we try to make a match
+                        if comps[i] == '*':
+                            if token[1] != 3 and token[0].lower() == comps[i+1]:
+                                i += 2 # match, now move on to next
+                            else:
+                                # otherwise, save the unit we found
+                                if len(unit) > 0:
+                                    unit += ' '
+                                unit += token[0].lower()
+                        elif comps[i][0] == '(' and comps[i][-1] == ')':
+                            # we found an application. This should be saved, but then skipped over
+                            if len(unit) > 0:
+                                unit += ' '
+                            for app in applications:
+                                if app[0] == token[0].lower():
+                                    # match of application definition
+                                    if len(unit) > 0:
+                                        unit += ' '
+                                    unit += ' '.join(app[1])
+                                    break
+                            i += 1 # move on, since we don't actually match against an application
+                        elif comps[i] == token[0].lower(): # we need an exact match
+                            i += 1 # go to the next component to match
+                        else:
+                            reset = True
+                        
+                        # Now verify that i is within correct bounds
+                        if i >= len(comps):
+                            # We have a complete match!
+                            end = j
+                            break
+                    else:
+                        reset = True # reset any progress since all tokens in the pattern must be consecutive
+                    if reset:
+                        i = 0 # reset any progress we have made
+                        start = j+1 # this is potentially where the pattern begins
+                
+                # If we made it out of the token loop, we want to see if the range finished
+                if end != -1:
+                    # It did. Now we make the replacement
+                    value = sym
+                    if len(unit) > 0:
+                        value += " (" + unit + ")"
+                    typed = typed[0:start] + [[value, 3]] + typed[end+1:]
+                    changes = True
+    return typed
+
+
 def __toCleanNumber(x:string) -> string:
     ret = ''
     for c in x:
@@ -206,6 +309,10 @@ def __toCleanNumber(x:string) -> string:
     
 
 def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
+    # The first thing that we will want to do is identify boundaries and associated units
+    #  Boundaries such as less than, greater than, etc.
+    typed = __boundQuery(typed)
+    
     ret = [] # a list of SQL where clauses to return
     # We will want to find the unit attached to each type 3. It can be either before or after
     #TODO: ranges have implied units. For example "300 - 500 miles" -> "300 miles" - "500 miles"

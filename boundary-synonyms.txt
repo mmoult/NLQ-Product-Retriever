@@ -1,0 +1,51 @@
+<
+less * than
+fewer * than
+lower * than
+under
+below
+younger than (1)
+newer than (1)
+cheaper than (2)
+smaller than (3)
+
+<=
+at most
+at maximum
+no more * than
+not as much * as
+not so much * as
+or fewer
+or less
+or cheaper (2)
+or newer (1)
+or younger (1)
+or under
+or below
+
+>
+more * than
+higher * than
+greater * than
+over
+in excess of
+exceeding
+surpassing
+above
+older than (1)
+larger than (3)
+
+>=
+at least
+at fewest
+at minimum
+no fewer * than
+no less * than
+or more
+or older
+or over
+
+---------------------------------
+1 age; year
+2 cost; price
+3 size; length; width; height
