@@ -18,11 +18,11 @@ class Table(object):
 motorcycles = Table("Motorcycles", None, [0],
     ["name", "TEXT"],
     ["price", "NUMERIC", ['$']],
-    ["year", "INTEGER"],
+    ["year", "INTEGER", ['year', 'yr', 'yrs']],
     ["seller", "TEXT"],
     ["owner", "TEXT"],
     ["mileage", "NUMERIC", ['mile', 'miles', 'mi']],
-    ["show_price", "INTEGER", ['$']]
+    ["show_price", "INTEGER"]
 )
 jewelry = Table("Jewelry", 0, [1],
     ["ref", "TEXT NOT NULL UNIQUE"],
@@ -43,7 +43,7 @@ jobs = Table("Jobs", 0, [1],
     ["location", "TEXT"],
     ["hq", "TEXT"],
     ["size", "TEXT"],
-    ["founded", "INTEGER"], # year
+    ["founded", "INTEGER", ['year', 'yr', 'yrs']], # year
     ["owner", "TEXT"], # Company, Government
     ["industry", "TEXT"],
     ["sector", "TEXT"],
@@ -81,7 +81,7 @@ housing = Table("Housing", None, [3],
     ["cars", "INTEGER"],
     ["landsize", "INTEGER"], ##TODO: what unit is this in? sq ft? 
     ["building_area", "INTEGER"],
-    ["year_built", "INTEGER"],
+    ["year_built", "INTEGER", ['year', 'yr', 'yrs']],
     ["council", "TEXT"],
     ["latitude", "NUMERIC"],
     ["longitude", "NUMERIC"],
@@ -92,7 +92,7 @@ cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
     ["id", "INTEGER NOT NULL UNIQUE"],
     ["region", "TEXT NOT NULL"],
     ["price", "NUMERIC NOT NULL", ['$']],
-    ["year", "INTEGER"],
+    ["year", "INTEGER", ['year', 'yr', 'yrs']],
     ["manufacturer", "TEXT"],
     ["model", "TEXT"],
     ["condition", "TEXT", ['condition']],

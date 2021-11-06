@@ -195,11 +195,12 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [s
     return __convertToSQL(matchList)
 
 
+bounders = []
 def __boundQuery(typed:[[string, int]]):
     # We load the file that has all the boundary synonyms
     from pathlib import Path
     synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
-    bounders = []
+    bounders.clear()
     applications = None
     currBound = []
     currSym = None
@@ -293,9 +294,17 @@ def __boundQuery(typed:[[string, int]]):
                     value = sym
                     if len(unit) > 0:
                         value += " (" + unit + ")"
-                    typed = typed[0:start] + [[value, 3]] + typed[end+1:]
+                    typed = typed[0:start] + [[value, 4]] + typed[end+1:]
                     changes = True
     return typed
+
+
+def __isBoundOperation(x:string) -> bool:
+    for bounder in bounders:
+        sym = bounder[0]
+        if x.find(sym) == 0: # if the bounding symbol is the first in the string,
+            return True #- then we know it is a bounding operation
+    return False
 
 
 def __toCleanNumber(x:string) -> string:
@@ -312,6 +321,7 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
     # The first thing that we will want to do is identify boundaries and associated units
     #  Boundaries such as less than, greater than, etc.
     typed = __boundQuery(typed)
+    print("bounded query: ", typed)
     
     ret = [] # a list of SQL where clauses to return
     # We will want to find the unit attached to each type 3. It can be either before or after
@@ -321,21 +331,64 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
         token = typed[i]
         if token[1]==3 and isNumeric(token[0]):
             # We found a value! Now we need to find a corresponding unit.
-            #  Try the previous token
-            unit = None
-            if i-1!=black and typed[i-1][1] == 3 and not isNumeric(typed[i-1][0]):
-                # We assume this is the unit. It is type 3, which is either a unit or a number.
-                #  It is not a number. Therefore, we assume it is the unit.
-                unit = typed[i-1][0]
-            elif i+1 < len(typed) and typed[i+1][1] == 3 and not isNumeric(typed[i-1][0]):
-                # Since we are using a unit after the number, we must set this unit to the blacklist.
-                #  That way it cannot be used again by later numbers (using it as previous)
-                black = i+1
-                unit = typed[i+1][0]
+            # Also, we should look for a bounding operation (> >= < <=)
+            #  If no bounding operation is found, we assume equivalency
             
+            unit = None
+            bound = None
+            # First, try going backwards until the blacklisted.
+            # We are going to try two movement directions:
+            #  First, going backwards until the blacklisted.
+            #  Next, going forward until the end of the query
+            # If we hit an unexpected token, we abort that direction.
+            
+            # Last thing to mention: we need two different append operations to create joint units.
+            #  Going backwards, we want it to be curr + space + last
+            #  Going forward, we want to have last + space + curr
+            def backAppend(last:string, curr:string) -> string:
+                return curr + ' ' + last
+            def spaceAppend(last:string, curr:string) -> string:
+                return last + ' ' + curr
+            
+            directions = [[range(i-1, black, -1), backAppend], [range(i+1, len(typed)), spaceAppend]]
+            for dirr in directions:
+                foundUnit = unit is not None
+                for j in dirr[0]:
+                    if typed[j][1] == 3 and not isNumeric(typed[j][0]) and not foundUnit:
+                        # We assume this is the unit. It is type 3, which is either a unit or a number.
+                        #  It is not a number. Therefore, we assume it is the unit.
+                        if unit is not None: # we found another unit, and we already have a unit
+                            unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
+                        else:
+                            unit = typed[j][0]
+                    elif typed[j][1] == 4 and __isBoundOperation(typed[j][0]) and j<i: # we can only find bounds before
+                        if bound is not None:
+                            break # cannot have two bounds!
+                        bound = typed[j][0]
+                        if bound.find('(') != -1 and bound.find(')') != -1:
+                            # the unit is inside the bound
+                            start = bound.find('(')+1
+                            end = bound.find(')')
+                            
+                            unit = bound[start:end]
+                            bound = bound[0:bound.find(' ')] # cut off before the first space (which is the end of the symbol)
+                        if unit is not None:
+                            break # don't need to go back more if we have the bound and the unit
+                    else:
+                        break # If we found something unexpected, we stop going backwards
+                    
+                    # black list the token(s) that we have used so far
+                    if j > i: # if we are moving forward
+                        black = j
+                black = max(black, i) #
+            
+            # Now that we have a unit, we are going to try to use it.
+            #  If we don't have any unit, we try to match to year (if the table allows it)
+            if unit is None:
+                unit = "year"
             if not unit is None:
                 cols = []
-                # Now that we have a unit, we are going to try to use it. Hopefully it actually exists in the table
+                # Find whether the unit exists in the table.
                 for attr in table.dat:
                     if len(attr) == 3: # if it has length three, then it is of the form: name, type, [units]
                         # Therefore, we try to match the found unit to the unit here
@@ -349,12 +402,17 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                 if len(cols) > 0:
                     # we found maybe several matches. They should be OR-ed together to the final result
                     # Each of the unit matches are in cols
-                    # TODO: we don't do < > or whatever yet...
                     where = ''
                     for unitMatch in cols:
                         if len(where) > 0:
                             where += ' OR '
-                        where += (unitMatch + ' = ' + __toCleanNumber(token[0]))
+                        # We assume that the bound is in a correct form (since it is defined in a file we control).
+                        #  Therefore, since SQL supports >, >=, <, and <=, we can simply use it in the where clause
+                        bb = '=' # equals is the assumed bounding operation.
+                        if bound is not None:
+                            bb = bound
+                        
+                        where += (unitMatch + ' ' + bb + ' ' + __toCleanNumber(token[0]))
                     ret.append(where)
     
     return ret
@@ -363,17 +421,16 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    ''' Failed queries:
-    'house in Melbourne Australia with 5 bedrooms'
-    'house in Melbourne Australia with 5 bedrooms'
-    'apartment in Provo'
-    'senior data engineer in utah'
-    'house in Australia with 2 bathrooms'
+    query = 'blue Kawasaki Ninja 400 less than 200,000 miles and above $6,000'
+    '''Here are some other queries that we could have used:
     'toyota black car in excellent condition cheapest'
+    'house in Australia with 2 bathrooms'
+    'senior data engineer in utah'
+    'apartment in Provo'
+    'house in Melbourne Australia with 5 bedrooms'
+    'honda accord red like new'
+    'golden necklace that is 16 carat'
     '''
-    query = 'Kawasaki Ninja 400 less than 200,000 miles and under $6,000'
-    #'honda accord red like new'
-    #'golden necklace that is 16 carat'
     
     '''Tricky reduction queries
     'honda accord red like new haven' -> [honda] [accord] [red] (([like new] [haven]) \/ [new haven])
@@ -414,6 +471,7 @@ if __name__ == '__main__':
     # Now we want to start building the query.
     #  It is going to be in the form of a SELECT statement, with an AND for each of the types that need to be matched
     #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
+    # TODO: we don't handle any explicit boolean operators like 'or'
     typeIWhere = type1Where(typed, table)
     print(typeIWhere)
     typeIIWhere = type2Where(typed, table, domain)

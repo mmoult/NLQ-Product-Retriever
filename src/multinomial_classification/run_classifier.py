@@ -20,11 +20,11 @@ class Classifier():
         # clean the query
         c = clean_query.clean()
         query_list = [c.clean_text(q) for q in query_list]
-        print(query_list)
+        #print(query_list)
         # add the test query to be classified to the whole list, and use the entire list to creat a bag of words
         # use the bag of word to convert the test query to word vector
         x_test = self.vectorizer.transform(query_list).toarray()
-        print(x_test.shape)
+        #print(x_test.shape)
         # use the model to do the prediction for test query
         predict = self.classifier.predict(x_test)
         return predict
