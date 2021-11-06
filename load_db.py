@@ -180,6 +180,11 @@ def rectifyData(cursor):
     #    change from Swedish crowns to USD on the furniture file
     sekToUsd = str(0.12)
     cursor.execute("UPDATE " + furniture.name + " SET price = price * " + sekToUsd + ";")
+    #    change the dimensions from cm to inches
+    cmToInch = str(0.3937008)
+    cursor.execute("UPDATE " + furniture.name + " SET depth = depth * " + cmToInch + ";")
+    cursor.execute("UPDATE " + furniture.name + " SET height = height * " + cmToInch + ";")
+    cursor.execute("UPDATE " + furniture.name + " SET width = width * " + cmToInch + ";")
     #    change from Australian dollars to USD on the housing file
     audToUsd = str(0.74)
     cursor.execute("UPDATE " + housing.name + " SET price = price * " + audToUsd + ";")

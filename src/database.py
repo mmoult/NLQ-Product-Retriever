@@ -62,9 +62,9 @@ furniture = Table("Furniture", 0, [2],
     ["other_colors", "TEXT"], # Yes, No
     ["description", "TEXT"],
     ["designer", "TEXT"],
-    ["depth", "INTEGER"], ##TODO: Are these in meters?
-    ["height", "INTEGER"],
-    ["width", "INTEGER"]
+    ["depth", "NUMERIC", ['inch', 'inches', 'in']],
+    ["height", "NUMERIC", ['inch', 'inches', 'in'],
+    ["width", "NUMERIC", ['inch', 'inches', 'in']]]
 )
 housing = Table("Housing", None, [3],
     ["suburb", "TEXT"],
@@ -74,12 +74,12 @@ housing = Table("Housing", None, [3],
     ["price", "NUMERIC NOT NULL", ['$']],
     ["method", "TEXT"],
     ["date", "TEXT"],
-    ["distance", "NUMERIC"], ##TODO Is this in km? Are we using it?
+    ["distance", "NUMERIC"], 
     ["postcode", "INTEGER"],
     ["bedrooms", "INTEGER", ['bedroom', 'bedrooms']],
     ["bathrooms", "INTEGER", ['bathroom', 'bathrooms']],
     ["cars", "INTEGER"],
-    ["landsize", "INTEGER"], ##TODO: what unit is this in? sq ft? 
+    ["landsize", "INTEGER", ['sq ft', 'square feet', 'ft^2']],
     ["building_area", "INTEGER"],
     ["year_built", "INTEGER", ['year', 'yr', 'yrs']],
     ["council", "TEXT"],
