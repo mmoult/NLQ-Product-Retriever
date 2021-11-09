@@ -327,16 +327,6 @@ def __isBoundOperation(x:string) -> bool:
         if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): # if the bounding symbol is the first in the string,
             return True #- then we know it is a bounding operation
     return False
-
-
-def __toCleanNumber(x:string) -> string:
-    ret = ''
-    for c in x:
-        if c in string.digits or c=='.':
-            ret += c
-        elif c=='k' or c=='K':
-            ret += '000' # since k denotes a thousand
-    return ret
     
 
 def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
@@ -434,7 +424,7 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                         if bound is not None:
                             bb = bound
                         
-                        where += (unitMatch + ' ' + bb + ' ' + __toCleanNumber(token[0]))
+                        where += (unitMatch + ' ' + bb + ' ' + token[0])
                     ret.append(where)
     
     return ret
@@ -447,7 +437,7 @@ def orderBy(typed:[[string, int]], table:database.Table) -> string:
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'jeep wrangler between $10000 and 20000'
+    query = 'jeep wrangler between $10K-20K'
     '''Here are some other queries that we could have used:
     'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
     'automatic toyota black car in new condition cheapest'

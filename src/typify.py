@@ -44,8 +44,12 @@ class TypeExtractor(object):
             if inst > -1:
                 # Analyze whether this is a range, or a name
                 #  We can distinguish if there is a letter on at least one side
+                
+                # However,'K' cannot count for the left side, since it is often an abbreviation for thousand.
+                lettersButK = str(string.ascii_letters).replace('K', '')
+                
                 if inst > 0 and inst + 1 < len(tokens[i]) and \
-                not (tokens[i][inst-1] in string.ascii_letters or tokens[i][inst+1] in string.ascii_letters):
+                not (tokens[i][inst-1] in lettersButK or tokens[i][inst+1] in string.ascii_letters):
                     # Found an instance to separate!
                     whole = tokens[i]
                     tokens[i] = whole[0:inst]
@@ -75,10 +79,11 @@ class TypeExtractor(object):
             elif self.verifier.isType3(t, domain):
                 tval = 3
             elif isNumeric(t):
+                t = toCleanNumber(t)
                 tval = 3
             
             # Adds the token to the list
-            ret.append([token[0], tval])
+            ret.append([t, tval])
         return ret
 
 
@@ -92,4 +97,14 @@ def isNumeric(token) -> bool:
             return False # break on first invalid
     # If all characters were valid, then we have a valid numeric token
     return True
+
+
+def toCleanNumber(x:string) -> string:
+    ret = ''
+    for c in x:
+        if c in string.digits or c=='.':
+            ret += c
+        elif c=='k' or c=='K':
+            ret += '000' # since k denotes a thousand
+    return ret
     
