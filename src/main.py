@@ -196,7 +196,7 @@ def type2Where(typed:[[string, int]], table:database.Table, domain:Domain) -> [s
 
 
 bounders = []
-def __boundQuery(typed:[[string, int]]):
+def __standardizeQuery(typed:[[string, int]]) -> [[string, int]]:
     # We load the file that has all the boundary synonyms
     from pathlib import Path
     synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
@@ -296,13 +296,35 @@ def __boundQuery(typed:[[string, int]]):
                         value += " (" + unit + ")"
                     typed = typed[0:start] + [[value, 4]] + typed[end+1:]
                     changes = True
+    
+    # There are just a few different phrases for ranges:
+    #  Between * (and/to/-) *
+    #  From * (to/-) *
+    #  * - *
+    # Since the - is the common denominator in all, we will simplify to that.
+    #  There should be no other cases of - by itself, since negation is without a space.
+    rangeType = None
+    for token in typed:
+        if token[0].lower() == 'between' or token[0].lower() == 'from':
+            rangeType = token[0].lower()
+        
+        elif rangeType is not None:
+            if token[0].lower() == 'to' or (rangeType == 'between' and token[0].lower() == 'and'):
+                token[0] = '-' # transform to a simple hyphen, maintaining type
+            
+            # Between the range start and the range middle, we only expect to encounter number values and units.
+            elif token[1] == 3:
+                continue
+            # If we get anything else, break the range construct
+            rangeType = None
+        
     return typed
 
 
 def __isBoundOperation(x:string) -> bool:
     for bounder in bounders:
         sym = bounder[0]
-        if x.find(sym) == 0: # if the bounding symbol is the first in the string,
+        if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): # if the bounding symbol is the first in the string,
             return True #- then we know it is a bounding operation
     return False
 
@@ -320,7 +342,7 @@ def __toCleanNumber(x:string) -> string:
 def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
     # The first thing that we will want to do is identify boundaries and associated units
     #  Boundaries such as less than, greater than, etc.
-    typed = __boundQuery(typed)
+    typed = __standardizeQuery(typed)
     print("bounded query: ", typed)
     
     ret = [] # a list of SQL where clauses to return
@@ -416,14 +438,19 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                     ret.append(where)
     
     return ret
+
+
+def orderBy(typed:[[string, int]], table:database.Table) -> string:
+    return '' 
     
 
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'blue Kawasaki Ninja 400 less than 200,000 miles and above $6,000'
+    query = 'jeep wrangler between $10000 and 20000'
     '''Here are some other queries that we could have used:
-    'toyota black car in excellent condition cheapest'
+    'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
+    'automatic toyota black car in new condition cheapest'
     'house in Australia with 2 bathrooms'
     'senior data engineer in utah'
     'apartment in Provo'
@@ -479,4 +506,6 @@ if __name__ == '__main__':
     typeIIIWhere = type3Where(typed, table)
     print(typeIIIWhere)
     
+    orderByClause = orderBy(typed, table)
+    # We can use the LIMIT clause to limit the number of responses. Generally, we don't want more than 10 at a time
     

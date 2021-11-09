@@ -32,6 +32,31 @@ class TypeExtractor(object):
 
         # first order of business is going to be to tokenize the text
         tokens = nltk.word_tokenize(text)
+        # NLTK will do most of the work for us, but we need to do some extra checks for hyphens.
+        #  Sometimes hyphens are used to indicate ranges (fx $200-500), but it can also be used for model names (f-150)
+        #  Some words are also just hyphenated, such as community-based, meat-fed, etc.
+        i = 0
+        inst = 0
+        while i < len(tokens):
+            #print(tokens[i])
+            inst = tokens[i].find('-', inst)
+                
+            if inst > -1:
+                # Analyze whether this is a range, or a name
+                #  We can distinguish if there is a letter on at least one side
+                if inst > 0 and inst + 1 < len(tokens[i]) and \
+                not (tokens[i][inst-1] in string.ascii_letters or tokens[i][inst+1] in string.ascii_letters):
+                    # Found an instance to separate!
+                    whole = tokens[i]
+                    tokens[i] = whole[0:inst]
+                    tokens.insert(i+1, '-')
+                    tokens.insert(i+2, whole[inst+1:])
+                    i += 1 # since we want to skip the hyphen we just added
+                else: # if it was not an instance to break, there may be more
+                    continue # do not continue to next word (by skipping back to beginning of loop)
+            inst = 0 # reset to searching whole word
+            i += 1 # go to the next token
+        
         # we also need to analyze the part of speech for each token
         pos_tagged = nltk.pos_tag(tokens)
 
@@ -55,8 +80,8 @@ class TypeExtractor(object):
             # Adds the token to the list
             ret.append([token[0], tval])
         return ret
-    
-    
+
+
 def isNumeric(token) -> bool:
     pos = 0
     for c in token:

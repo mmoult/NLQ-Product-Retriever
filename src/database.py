@@ -38,7 +38,7 @@ jobs = Table("Jobs", 0, [1],
     ["title", "TEXT NOT NULL"],
     ["salary", "TEXT", ['$']], # this may be problematic since the salary is in a string bucket
     ["description", "TEXT"],
-    ["rating", "NUMERIC"], # [0,5], -1
+    ["rating", "INTEGER"], # [0,5], -1
     ["company", "TEXT"],
     ["location", "TEXT"],
     ["hq", "TEXT"],

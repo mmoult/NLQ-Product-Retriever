@@ -337,6 +337,7 @@ campervan
 campervn
 campmobile
 camry
+condition
 canopy
 canton
 canyon
@@ -701,7 +702,6 @@ die
 diego
 diesel
 diesels
-diesl
 dinan
 diplomat
 discovery

@@ -1,0 +1,25 @@
+>>
+maximum
+max
+most
+greatest
+highest
+oldest (1)
+most expensive (2)
+largest (3)
+
+<<
+minimum
+min
+least
+fewest
+lowest
+newest (1)
+youngest (1)
+cheapest (2)
+smallest (3)
+
+---------------------------------
+1 age; year
+2 cost; price
+3 size; length; width; height
