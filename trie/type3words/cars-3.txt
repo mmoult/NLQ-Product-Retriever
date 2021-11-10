@@ -2,9 +2,12 @@ usd
 dollar
 dollars
 $
-cyclinders
+cyl
+cylinders
 cylinder
+mi
 miles
+mile
 kilometers
 kilo
 meters

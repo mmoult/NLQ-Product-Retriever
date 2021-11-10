@@ -337,9 +337,11 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
     
     ret = [] # a list of SQL where clauses to return
     # We will want to find the unit attached to each type 3. It can be either before or after
-    #TODO: ranges have implied units. For example "300 - 500 miles" -> "300 miles" - "500 miles"
     black = -1 # if we use a unit after the number, the unit cannot be reused for before the next number
     for i in range(len(typed)):
+        if i <= black: # skip forward if this index is already blacklisted
+            continue
+        
         token = typed[i]
         if token[1]==3 and isNumeric(token[0]):
             # We found a value! Now we need to find a corresponding unit.
@@ -348,6 +350,8 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
             
             unit = None
             bound = None
+            otherVal = None # This is used only if the value is part of a range
+            
             # First, try going backwards until the blacklisted.
             # We are going to try two movement directions:
             #  First, going backwards until the blacklisted.
@@ -386,13 +390,41 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                             bound = bound[0:bound.find(' ')] # cut off before the first space (which is the end of the symbol)
                         if unit is not None:
                             break # don't need to go back more if we have the bound and the unit
+                    elif bound is None and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
+                        backup = j
+                        # If we find a range indicator, we need to do something special. Continue and find the next value,
+                        #  and if the unit has not already been specified, the next unit. These are both used to build a new bound
+                        while unit is None or otherVal is None:
+                            abort = False
+                            j += 1
+                            if j >= len(typed):
+                                abort = True
+                            
+                            if not abort:
+                                if typed[j][1] == 3:
+                                    if isNumeric(typed[j][0]):
+                                        otherVal = typed[j][0]
+                                    elif unit is None: # sometimes the unit is given twice. If so, ignore
+                                        unit = typed[j][0]
+                                else: # something unexpected!
+                                    abort = True
+                            
+                            if abort:
+                                # If we are just missing the unit, we are okay
+                                if otherVal is None:
+                                    # If we don't have the other value, then we have an ill-formed range
+                                    # Assume we misinterpreted something, and pretend we never saw the range
+                                    i = backup
+                                break
+                        i = j
+                        break # After range computations, we don't want to stick around looking for more
                     else:
                         break # If we found something unexpected, we stop going backwards
                     
                     # black list the token(s) that we have used so far
                     if j > i: # if we are moving forward
                         black = j
-                black = max(black, i) #
+                black = max(black, i)
             
             # Now that we have a unit, we are going to try to use it.
             #  If we don't have any unit, we try to match to year (if the table allows it)
@@ -414,6 +446,14 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                 if len(cols) > 0:
                     # we found maybe several matches. They should be OR-ed together to the final result
                     # Each of the unit matches are in cols
+                    
+                    # Also, if we have a range, we want to sort out which value is the lower, and which is the higher
+                    value = token[0]
+                    if otherVal is not None:
+                        if float(otherVal) < float(value):
+                            value = otherVal
+                            otherVal = value
+                    
                     where = ''
                     for unitMatch in cols:
                         if len(where) > 0:
@@ -424,7 +464,10 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
                         if bound is not None:
                             bb = bound
                         
-                        where += (unitMatch + ' ' + bb + ' ' + token[0])
+                        if otherVal is None: # no range, normal path
+                            where += (unitMatch + ' ' + bb + ' ' + value)
+                        else:
+                            where += ('(' + unitMatch + ' >= ' + value + ' AND ' + unitMatch + ' <= ' + otherVal + ')')
                     ret.append(where)
     
     return ret
@@ -437,7 +480,7 @@ def orderBy(typed:[[string, int]], table:database.Table) -> string:
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'jeep wrangler between $10K-20K'
+    query = 'car with from 4-8 cylinders'
     '''Here are some other queries that we could have used:
     'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
     'automatic toyota black car in new condition cheapest'
@@ -447,6 +490,10 @@ if __name__ == '__main__':
     'house in Melbourne Australia with 5 bedrooms'
     'honda accord red like new'
     'golden necklace that is 16 carat'
+    'jeep wrangler between $10K-20K'
+    'car with mileage between 500 and 600 mi'
+    'chair from $20 to $30'
+    'house or apartment with 2 - 4 rooms'
     '''
     
     '''Tricky reduction queries

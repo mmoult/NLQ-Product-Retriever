@@ -63,8 +63,8 @@ furniture = Table("Furniture", 0, [2],
     ["description", "TEXT"],
     ["designer", "TEXT"],
     ["depth", "NUMERIC", ['inch', 'inches', 'in']],
-    ["height", "NUMERIC", ['inch', 'inches', 'in'],
-    ["width", "NUMERIC", ['inch', 'inches', 'in']]]
+    ["height", "NUMERIC", ['inch', 'inches', 'in']],
+    ["width", "NUMERIC", ['inch', 'inches', 'in']]
 )
 housing = Table("Housing", None, [3],
     ["suburb", "TEXT"],
@@ -96,7 +96,7 @@ cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
     ["manufacturer", "TEXT"],
     ["model", "TEXT"],
     ["condition", "TEXT", ['condition']],
-    ["cylinders", "TEXT"], # 4 cylinders, 6 cylinders, 8 cylinders, 10 cylinders, other
+    ["cylinders", "INTEGER", ['cylinder', 'cylinders', 'cyl']],
     ["fuel", "TEXT"], # gas, diesel, hybrid, electric
     ["odometer", "INTEGER", ['mile', 'miles', 'mi']],
     ["title_status", "TEXT"], # clean, rebuilt, salvage

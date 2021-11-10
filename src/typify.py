@@ -36,10 +36,10 @@ class TypeExtractor(object):
         #  Sometimes hyphens are used to indicate ranges (fx $200-500), but it can also be used for model names (f-150)
         #  Some words are also just hyphenated, such as community-based, meat-fed, etc.
         i = 0
-        inst = 0
+        inst = -1
         while i < len(tokens):
             #print(tokens[i])
-            inst = tokens[i].find('-', inst)
+            inst = tokens[i].find('-', inst+1)
                 
             if inst > -1:
                 # Analyze whether this is a range, or a name
@@ -58,7 +58,7 @@ class TypeExtractor(object):
                     i += 1 # since we want to skip the hyphen we just added
                 else: # if it was not an instance to break, there may be more
                     continue # do not continue to next word (by skipping back to beginning of loop)
-            inst = 0 # reset to searching whole word
+            inst = -1 # reset to searching whole word
             i += 1 # go to the next token
         
         # we also need to analyze the part of speech for each token

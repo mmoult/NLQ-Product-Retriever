@@ -1,3 +1,5 @@
+$
+dollars
 year
 years
 family

@@ -643,8 +643,6 @@ cxl
 CXN
 cxu
 cyclone
-cyl
-cylinders
 d
 da
 Dad
@@ -1639,7 +1637,6 @@ metro
 MF
 mgb
 MGTD
-mi
 miata
 michiana
 michigan
