@@ -10,7 +10,6 @@ class Classifier():
         with open(Path(__file__).parent / 'classifier.pkl', 'rb') as fid:
             self.classifier = pickle.load(fid)
         # create a new bag of words for the classification
-        corpus = []
         # cleaned queries from the query dataset we had
         with open(Path(__file__).parent / 'vectorizer.pkl','rb') as vectorizer:
             self.vectorizer = pickle.load(vectorizer)

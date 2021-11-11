@@ -327,7 +327,16 @@ def __isBoundOperation(x:string) -> bool:
         if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): # if the bounding symbol is the first in the string,
             return True #- then we know it is a bounding operation
     return False
-    
+
+'''
+Partial Match for typeIII. 
+If there is no exact match for a numerical value in the certain column of the certain table,
+then return the record with the closest value to the target one.
+'''
+def partialTypeThree(value, table, column):
+    query = f"Select * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 1"
+    return database.execute(query)
+
 
 def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
     # The first thing that we will want to do is identify boundaries and associated units
