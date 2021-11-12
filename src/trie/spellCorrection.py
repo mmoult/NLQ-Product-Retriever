@@ -83,11 +83,11 @@ class SpellCorrection():
                     if self.t.search(self.word[i:]):
                         self.possibleWord.append(self.word[:i]+' '+self.word[i:])
             if not self.possibleWord:
-                for i in range(len(self.word)):
-                    if self.t.search(self.word[:i]):
-                        first_half = self.word[:i]
-                        self.previous_two_words = [self.word[i:]]
-                        while True:
+                while True:
+                    for i in range(len(self.word)):
+                        if self.t.search(self.word[:i]):
+                            first_half = self.word[:i]
+                            self.previous_two_words = [self.word[i:]]
                             for word in self.previous_two_words:
                                 self.Deletion(word)
                                 self.Insertion(word)
@@ -95,19 +95,21 @@ class SpellCorrection():
                                 self.Alteration(word)
                             self.previous_two_words = self.new_modified
                             self.new_modified = []
-                            if self.possibleWord:
-                                self.possibleWord=[first_half+ ' '+ i for i in self.possibleWord]
-                                break
+                            self.possibleWord_two_words.extend([first_half+ ' '+ i for i in self.possibleWord])
+                            self.possibleWord=[]
+                    if self.possibleWord_two_words:
+                        self.possibleWord=self.possibleWord_two_words
+                        break
 
-                            for word in self.previous_modified:
-                                self.Deletion(word)
-                                self.Insertion(word)
-                                self.Transposition(word)
-                                self.Alteration(word)
-                            self.previous_modified = self.new_modified
-                            self.new_modified = []
-                            if self.possibleWord:
-                                break
+                    for word in self.previous_modified:
+                        self.Deletion(word)
+                        self.Insertion(word)
+                        self.Transposition(word)
+                        self.Alteration(word)
+                    self.previous_modified = self.new_modified
+                    self.new_modified = []
+                    if self.possibleWord:
+                        break
 
             distance_dict = {}
             for w2 in self.possibleWord:
@@ -135,6 +137,6 @@ if __name__ == "__main__":
     trie = Trie()
     for word in keys:
         trie.insert(word)
-    corrector = SpellCorrection(trie,'hondaaccurd')
+    corrector = SpellCorrection(trie,'accur')
     result = corrector.suggestion()
     print(result[0])
