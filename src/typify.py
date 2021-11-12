@@ -23,46 +23,15 @@ class TypeExtractor(object):
         self.verifier = verify.TypeVerifier()
 
 
-    def typify(self, text: string, domain) -> [[string, int]]:
+    def typify(self, text: [string], domain) -> [[string, int]]:
         # running the Stanford POS Tagger from NLTK
         ''' Needed NLTK downloads to run:
         nltk.download('punkt')
         nltk.download('averaged_perceptron_tagger')
         '''
-
-        # first order of business is going to be to tokenize the text
-        tokens = nltk.word_tokenize(text)
-        # NLTK will do most of the work for us, but we need to do some extra checks for hyphens.
-        #  Sometimes hyphens are used to indicate ranges (fx $200-500), but it can also be used for model names (f-150)
-        #  Some words are also just hyphenated, such as community-based, meat-fed, etc.
-        i = 0
-        inst = -1
-        while i < len(tokens):
-            #print(tokens[i])
-            inst = tokens[i].find('-', inst+1)
-                
-            if inst > -1:
-                # Analyze whether this is a range, or a name
-                #  We can distinguish if there is a letter on at least one side
-                
-                # However,'K' cannot count for the left side, since it is often an abbreviation for thousand.
-                lettersButK = str(string.ascii_letters).replace('K', '')
-                
-                if inst > 0 and inst + 1 < len(tokens[i]) and \
-                not (tokens[i][inst-1] in lettersButK or tokens[i][inst+1] in string.ascii_letters):
-                    # Found an instance to separate!
-                    whole = tokens[i]
-                    tokens[i] = whole[0:inst]
-                    tokens.insert(i+1, '-')
-                    tokens.insert(i+2, whole[inst+1:])
-                    i += 1 # since we want to skip the hyphen we just added
-                else: # if it was not an instance to break, there may be more
-                    continue # do not continue to next word (by skipping back to beginning of loop)
-            inst = -1 # reset to searching whole word
-            i += 1 # go to the next token
         
         # we also need to analyze the part of speech for each token
-        pos_tagged = nltk.pos_tag(tokens)
+        pos_tagged = nltk.pos_tag(text)
 
         # each token will be compared with the trie structure created in the constructor
         ret = []

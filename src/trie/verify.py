@@ -1,6 +1,6 @@
 import string
 from pathlib import Path
-from . import trie
+from src.trie.trie import Trie
 from src import domains
 Domain = domains.Domain
 
@@ -16,7 +16,6 @@ class TypeVerifier(object):
         # TYPE 1 Members ------------------------------------------------------
 
         # Trie members
-        Trie = trie.Trie
         self.carTries = [Trie(), Trie(), Trie()]
         self.furnitureTries = [Trie(), Trie(), Trie()]
         self.jewelryTries = [Trie(), Trie(), Trie()]
@@ -53,25 +52,36 @@ class TypeVerifier(object):
 
     def isType1(self, word, domain):
         return self.__isType(word, domain, 0)
-
+    
+    
     def isType2(self, word, domain):
         return self.__isType(word, domain, 1)
-
+    
+    
     def isType3(self, word, domain):
         return self.__isType(word, domain, 2)
     
+    
     def __isType(self, word:string, domain, typeNo: int) -> bool:
-        if (domain == Domain.CAR):
-            return self.carTries[typeNo].search(word)
-        elif (domain == Domain.FURNITURE):
-            return self.furnitureTries[typeNo].search(word)
-        elif (domain == Domain.JEWELRY):
-            return self.jewelryTries[typeNo].search(word)
-        elif (domain == Domain.MOTORCYCLE):
-            return self.motorcycleTries[typeNo].search(word)
-        elif (domain == Domain.HOUSING):
-            return self.housingTries[typeNo].search(word)
-        elif (domain == Domain.JOB):
-            return self.csjobsTries[typeNo].search(word)
+        inDomain = self.getDomainTries(domain)
+        if len(inDomain) > typeNo:
+            return inDomain[typeNo].search(word)
         else:
             return False
+    
+    
+    def getDomainTries(self, domain: Domain) -> [Trie]:
+        if (domain == Domain.CAR):
+            return self.carTries
+        elif (domain == Domain.FURNITURE):
+            return self.furnitureTries
+        elif (domain == Domain.JEWELRY):
+            return self.jewelryTries
+        elif (domain == Domain.MOTORCYCLE):
+            return self.motorcycleTries
+        elif (domain == Domain.HOUSING):
+            return self.housingTries
+        elif (domain == Domain.JOB):
+            return self.csjobsTries
+        else:
+            return []

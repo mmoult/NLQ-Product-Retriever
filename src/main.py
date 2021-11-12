@@ -334,7 +334,7 @@ If there is no exact match for a numerical value in the certain column of the ce
 then return the record with the closest value to the target one.
 '''
 def partialTypeThree(value, table, column):
-    query = f"Select * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 1"
+    query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 1"
     return database.execute(query)
 
 
@@ -483,15 +483,50 @@ def type3Where(typed:[[string, int]], table:database.Table) -> [string]:
 
 
 def orderBy(typed:[[string, int]], table:database.Table) -> string:
-    return '' 
+    return ''
+
+
+def tokenize(text: string) -> [string]:
+    import nltk
+    # first order of business is going to be to tokenize the text
+    tokens = nltk.word_tokenize(text)
+    # NLTK will do most of the work for us, but we need to do some extra checks for hyphens.
+    #  Sometimes hyphens are used to indicate ranges (fx $200-500), but it can also be used for model names (f-150)
+    #  Some words are also just hyphenated, such as community-based, meat-fed, etc.
+    i = 0
+    inst = -1
+    while i < len(tokens):
+        #print(tokens[i])
+        inst = tokens[i].find('-', inst+1)
+            
+        if inst > -1:
+            # Analyze whether this is a range, or a name
+            #  We can distinguish if there is a letter on at least one side
+            
+            # However,'K' cannot count for the left side, since it is often an abbreviation for thousand.
+            lettersButK = str(string.ascii_letters).replace('K', '')
+            
+            if inst > 0 and inst + 1 < len(tokens[i]) and \
+            not (tokens[i][inst-1] in lettersButK or tokens[i][inst+1] in string.ascii_letters):
+                # Found an instance to separate!
+                whole = tokens[i]
+                tokens[i] = whole[0:inst]
+                tokens.insert(i+1, '-')
+                tokens.insert(i+2, whole[inst+1:])
+                i += 1 # since we want to skip the hyphen we just added
+            else: # if it was not an instance to break, there may be more
+                continue # do not continue to next word (by skipping back to beginning of loop)
+        inst = -1 # reset to searching whole word
+        i += 1 # go to the next token 
+    return tokens
     
 
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'car with from 4-8 cylinders'
+    query = 'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
     '''Here are some other queries that we could have used:
-    'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
+    Fabricated examples:
     'automatic toyota black car in new condition cheapest'
     'house in Australia with 2 bathrooms'
     'senior data engineer in utah'
@@ -503,6 +538,12 @@ if __name__ == '__main__':
     'car with mileage between 500 and 600 mi'
     'chair from $20 to $30'
     'house or apartment with 2 - 4 rooms'
+    'car with from 4-8 cylinders'
+    
+    Mechanical Turk queries:
+    'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
+    'jewelry weeding collections $50000'
+    'TOYOTA MOTORCYCLE SECOND HAND $10000 BLUE COLOR  300,000 MILAGE'
     '''
     
     '''Tricky reduction queries
@@ -513,6 +554,7 @@ if __name__ == '__main__':
     '''
     
     # Now we must categorize the query to know which domain we are searching
+    print("Classifying query...")
     import src.multinomial_classification.run_classifier as classify
     classifier = classify.Classifier()
     classified = classifier.classify([query])
@@ -534,10 +576,57 @@ if __name__ == '__main__':
     else:
         raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
     table = getTable(domain)
+    print("Identified as", domain.name.lower())
+    
+    # We want to tokenize the query
+    tokens = tokenize(query)
+    
+    # and then correct any misspellings
+    # To do so, we need to have a big trie with all three types of the correct domain
+    print("Correcting spelling...")
+    extractor = TypeExtractor()
+    trieList = extractor.verifier.getDomainTries(domain)
+    from src.trie.trie import Trie
+    bigTrie = Trie()
+    for trie in trieList:
+        for word in trie.wordSet:
+            bigTrie.insert(word)
+    # There are also some words that are universal (not specific to domain)
+    # TODO: load these from boundary-synonyms.txt and superlatives-synonyms.txt
+    universalWords = {'less', 'than', 'greater', 'more', 'less', 'under', 'between', 'from', 'to', 'above', 'least', 'most', 'cheapest',
+                      'newest', 'oldest'}
+    for word in universalWords:
+        bigTrie.insert(word)
+    # There are also domain-specific words we will enter
+    for attr in table.dat:
+        if len(attr[0]) > 0:
+            pass
+        else:
+            bigTrie.insert(attr[0])
+        if len(attr) > 2:
+            for unit in attr[2]:
+                bigTrie.insert(unit)
+    # Now we can actually perform the spelling corrections (if any)
+    # TODO: This is insufficient because many "words" in the trie are phrases
+    '''
+    from src.trie.spellCorrection import SpellCorrection
+    i = 0
+    while i < len(tokens):
+        corrector = SpellCorrection(bigTrie, tokens[i])
+        fixed = corrector.suggestion()
+        if len(fixed) > 0:
+            fixed = tokens[i]
+        fixed = fixed.split(' ')
+        for j in range(len(fixed)):
+            if j==0:
+                tokens[i] = fixed[j]
+            else:
+                tokens.insert(i+j, fixed[j])
+        i += 1
+    '''
     
     # now we want to pull some data out (Type I, II, III)
-    extractor = TypeExtractor()
-    typed = extractor.typify(query, domain)
+    typed = extractor.typify(tokens, domain)
     print("Typed query:")
     print(typed, '\n')
     

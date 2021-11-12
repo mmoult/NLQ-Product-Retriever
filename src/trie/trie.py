@@ -14,6 +14,7 @@ class Trie():
 
     def __init__(self):
         self.root = self.get_node()
+        self.wordSet = set()
 
     def get_node(self):
         return TrieNode()
@@ -31,6 +32,8 @@ class Trie():
                 root.children[index] = self.get_node()
             root = root.children.get(index)
             root.count += 1
+            if root.count == 1:
+                self.wordSet.add(word)
         root.terminating = True
 
     def word_count(self, word):
@@ -67,6 +70,7 @@ class Trie():
             if not root:
                 return False
             root = root.children.get(index)
+            self.wordSet.remove(word)
 
         if not root:
             return False

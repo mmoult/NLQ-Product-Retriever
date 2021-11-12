@@ -1,8 +1,12 @@
-import numpy as np
+from src.trie.trie import Trie
 
-from trie import *
 class SpellCorrection():
     def __init__(self, t, word):
+        """
+        Creates a new spelling corrector on the given word.
+        @param t: the trie structure used to find real words
+        @param word: the word that may need to be corrected
+        """
         self.t = t
         self.dict = {}
         self.possibleWord = []
@@ -119,7 +123,7 @@ class SpellCorrection():
                 l = r.split()
                 count = 0
                 for w in l:
-                   count+= self.t.word_count(w)
+                    count+= self.t.word_count(w)
                 count_dict[r]= count
             minval = max(count_dict.values())
             res = [k for k, v in count_dict.items() if v == minval]
