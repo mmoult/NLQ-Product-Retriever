@@ -7,12 +7,12 @@ def appendLineForLine(dataset, column):
 
 def readInData(path):
     lines = []
-    with open(path, 'r') as reader:
+    with open(path, 'r', encoding='utf-8') as reader:
         lines = reader.readlines()
     return lines
 
 def writeNewDataset(lines, path):
-    with open(path, 'w') as writer:
+    with open(path, 'w', encoding='utf-8') as writer:
             writer.writelines(lines)
 
 def insertColumn(datasetPath, newDatasetPath, columnPath):
