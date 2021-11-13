@@ -22,7 +22,7 @@ def commitAction(action):
 def buildCreate(table:Table):
     cmd = 'CREATE TABLE "' + table.name + '" ('
     for attr in table.dat:
-        cmd += '"' + attr[0] + '" ' + attr[1] + ', '
+        cmd += '"' + attr[0][0] + '" ' + attr[1] + ', '
     
     if not table.primKey is None:
         cmd += ('PRIMARY KEY("' + table.dat[table.primKey][0] + '")')

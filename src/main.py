@@ -6,7 +6,46 @@ import string
 class ConstraintBuilder():
     
     def __init__(self):
-        pass
+        import src.multinomial_classification.run_classifier as classify
+        self.classifier = classify.Classifier()
+        self.extractor = TypeExtractor()
+        
+        # With that in place, we want to load some data from files containing boundary words
+        #  and superlative words.
+        # We load the file that has all the boundary synonyms
+        from pathlib import Path
+        synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
+        self.bounders = []
+        self.applications = None
+        currBound = []
+        currSym = None
+        for line in synFile:
+            if self.applications is None:
+                line = line[0:-1] # to remove the trailing new line
+                if len(line) == 0:
+                    if len(currBound) > 0:
+                        self.bounders.append([currSym, currBound])
+                        currBound = []
+                    currSym = None
+                else:
+                    if line[0] == '-': # The dash barrier marks the end of the boundary synonyms
+                        self.applications = {}
+                    elif currSym is None: # the new symbol is set
+                        currSym = line
+                    else:
+                        currBound.append(line)
+            else:
+                # For applications. These are definitions of parenthesized numbers (which are used by boundary synonyms)
+                firstEnd = line.find(' ')
+                # The first token is the application defined
+                defed = line[0:firstEnd]
+                # All other tokens ought to be separated by ;
+                split = line[firstEnd+1:-1].split('; ')
+                self.applications.update({defed: split})
+        if len(currBound) > 0:
+            self.bounders.append([currSym, currBound])
+        synFile.close()
+
 
     def __matchWhere(self, name:string, value:string) -> string:
         return name + ' LIKE "% ' + value + ' %"'
@@ -172,7 +211,7 @@ class ConstraintBuilder():
         # At this point, we should have a finalized matchList to operate with
         #print(matchList)
         # We are going to separate each of the different constraints (so that some may be dropped if needed in partial matching)
-        return self.__convertToSQL(matchList)
+        return self.__convertToSQL(matchList, table)
     
     
     def type2Where(self, typed:[[string, int]], table:database.Table, domain:Domain) -> [string]:
@@ -199,42 +238,7 @@ class ConstraintBuilder():
         return self.__convertToSQL(matchList, table)
     
     
-    bounders = []
     def __standardizeQuery(self, typed:[[string, int]]) -> [[string, int]]:
-        # We load the file that has all the boundary synonyms
-        from pathlib import Path
-        synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
-        self.bounders.clear()
-        applications = None
-        currBound = []
-        currSym = None
-        for line in synFile:
-            if applications is None:
-                line = line[0:-1] # to remove the trailing new line
-                if len(line) == 0:
-                    if len(currBound) > 0:
-                        self.bounders.append([currSym, currBound])
-                        currBound = []
-                    currSym = None
-                else:
-                    if line[0] == '-': # The dash barrier marks the end of the boundary synonyms
-                        applications = []
-                    elif currSym is None: # the new symbol is set
-                        currSym = line
-                    else:
-                        currBound.append(line)
-            else:
-                # For applications. These are definitions of parenthesized numbers (which are used by boundary synonyms)
-                firstEnd = line.find(' ')
-                # The first token is the application defined
-                defed = line[0:firstEnd]
-                # All other tokens ought to be separated by ;
-                split = line[firstEnd+1:-1].split('; ')
-                applications.append([defed, split])
-        if len(currBound) > 0:
-            self.bounders.append([currSym, currBound])
-        synFile.close()
-        
         # Go through each of the bounders and try to match them to tokens in the query
         for bounder in self.bounders:
             sym = bounder[0]
@@ -268,13 +272,13 @@ class ConstraintBuilder():
                                 # we found an application. This should be saved, but then skipped over
                                 if len(unit) > 0:
                                     unit += ' '
-                                for app in applications:
-                                    if app[0] == token[0].lower():
-                                        # match of application definition
-                                        if len(unit) > 0:
-                                            unit += ' '
-                                        unit += ' '.join(app[1])
-                                        break
+                                
+                                appCode = token[0].lower() # currently all app codes are numbers, but that could change
+                                if appCode in self.applications:
+                                    # match of application definition
+                                    if len(unit) > 0:
+                                        unit += ' '
+                                    unit += ' '.join(self.applications[appCode])
                                 i += 1 # move on, since we don't actually match against an application
                             elif comps[i] == token[0].lower(): # we need an exact match
                                 i += 1 # go to the next component to match
@@ -453,7 +457,7 @@ class ConstraintBuilder():
                             for tUnit in units:
                                 if tUnit == unit:
                                     # We don't have to match all the unit variations, only one
-                                    cols.append(attr[0])
+                                    cols.append(attr[0][0])
                                     break
                     # Now that we found (all) column(s) matching the unit, we want to create the relation(s) 
                     if len(cols) > 0:
@@ -525,12 +529,19 @@ class ConstraintBuilder():
         return tokens
 
 
-    def fromQuery(self, query:string):
+    def fromQuery(self, query:string, toLog:bool):
+        if toLog:
+            def log(*args):
+                for a in args:
+                    print(a, end=' ')
+                print()
+        else:
+            def log(*args):
+                pass
+        
         # Now we must categorize the query to know which domain we are searching
-        print("Classifying query...")
-        import src.multinomial_classification.run_classifier as classify
-        classifier = classify.Classifier()
-        classified = classifier.classify([query])
+        log("Classifying query...")
+        classified = self.classifier.classify([query])
         if len(classified) == 0:
             raise Exception("The query could not be classified!")
         classified = classified[0]
@@ -549,16 +560,15 @@ class ConstraintBuilder():
         else:
             raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
         self.table = getTable(domain)
-        print("Identified as", domain.name.lower())
+        log("Identified as:", domain.name.lower())
         
         # We want to tokenize the query
         tokens = self.tokenize(query)
         
         # and then correct any misspellings
         # To do so, we need to have a big trie with all three types of the correct domain
-        print("Correcting spelling...")
-        extractor = TypeExtractor()
-        trieList = extractor.verifier.getDomainTries(domain)
+        log("Correcting spelling...")
+        trieList = self.extractor.verifier.getDomainTries(domain)
         from src.trie.trie import Trie
         bigTrie = Trie()
         for trie in trieList:
@@ -566,21 +576,29 @@ class ConstraintBuilder():
                 bigTrie.insert(word)
         # There are also some words that are universal (not specific to domain)
         # TODO: load these from boundary-synonyms.txt and superlatives-synonyms.txt
-        universalWords = {'less', 'than', 'greater', 'more', 'less', 'under', 'between', 'from', 'to', 'above', 'least', 'most', 'cheapest',
-                          'newest', 'oldest'}
+        universalWords = set()
+        for bounder in self.bounders:
+            for phrase in bounder[1]:
+                for word in phrase.split(' '):
+                    # There are some tokens that we should not add as words, namely the
+                    #  wild card (*) and applications (parenthesized application codes)
+                    if not('(' in word or ')' in word or word=='*'):
+                        universalWords.add(word)
+        for key in self.applications.keys():
+            for synonym in self.applications[key]:
+                universalWords.add(synonym)
+        
         for word in universalWords:
             bigTrie.insert(word)
         # There are also domain-specific words we will enter
         for attr in self.table.dat:
-            if len(attr[0]) > 0:
-                pass
-            else:
-                bigTrie.insert(attr[0])
+            for typeSynonym in attr[0]:
+                bigTrie.insert(typeSynonym)
             if len(attr) > 2:
                 for unit in attr[2]:
                     bigTrie.insert(unit)
         # Now we can actually perform the spelling corrections (if any)
-        # TODO: This is insufficient because many "words" in the trie are phrases
+        '''
         from src.trie.spellCorrection import SpellCorrection
         i = 0
         while i < len(tokens):
@@ -596,22 +614,23 @@ class ConstraintBuilder():
                 else:
                     tokens.insert(i+j, fixed[j])
             i += 1
+        '''
         
         # now we want to pull some data out (Type I, II, III)
-        typed = extractor.typify(tokens, domain)
-        print("Typed query:")
-        print(typed, '\n')
+        typed = self.extractor.typify(tokens, domain)
+        log("Typed query:")
+        log(typed, '\n')
         
         # Now we want to start building the query.
         #  It is going to be in the form of a SELECT statement, with an AND for each of the types that need to be matched
         #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
         # TODO: we don't handle any explicit boolean operators like 'or'
         typeIWhere = self.type1Where(typed, self.table)
-        print(typeIWhere)
+        log(typeIWhere)
         typeIIWhere = self.type2Where(typed, self.table, domain)
-        print(typeIIWhere)
+        log(typeIIWhere)
         typeIIIWhere = self.type3Where(typed, self.table)
-        print(typeIIIWhere)
+        log(typeIIIWhere)
         
         orderByClause = self.orderBy(typed, self.table)
         # We can use the LIMIT clause to limit the number of responses. Generally, we don't want more than 10 at a time
@@ -652,7 +671,7 @@ if __name__ == '__main__':
     '''
     
     cb = ConstraintBuilder()
-    cb.fromQuery(query)
+    cb.fromQuery(query, True)
     
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints

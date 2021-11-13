@@ -16,96 +16,96 @@ class Table(object):
 
 
 motorcycles = Table("Motorcycles", None, [0],
-    ["name", "TEXT"],
-    ["price", "NUMERIC", ['$']],
-    ["year", "INTEGER", ['year', 'yr', 'yrs']],
-    ["seller", "TEXT"],
-    ["owner", "TEXT"],
-    ["mileage", "NUMERIC", ['mile', 'miles', 'mi']],
-    ["show_price", "INTEGER"]
+    [["name"], "TEXT"],
+    [["price"], "NUMERIC", ['$']],
+    [["year"], "INTEGER", ['year', 'yr', 'yrs']],
+    [["seller"], "TEXT"],
+    [["owner"], "TEXT"],
+    [["mileage"], "NUMERIC", ['mile', 'miles', 'mi']],
+    [["show_price"], "INTEGER"]
 )
 jewelry = Table("Jewelry", 0, [1],
-    ["ref", "TEXT NOT NULL UNIQUE"],
-    ["category", "TEXT"],
-    ["title", "TEXT"],
-    ["price", "NUMERIC", ['$']],
-    ["tags", "TEXT"],
-    ["description", "TEXT"],
-    ["image", "TEXT"]
+    [["ref"], "TEXT NOT NULL UNIQUE"],
+    [["category"], "TEXT"],
+    [["title"], "TEXT"],
+    [["price"], "NUMERIC", ['$']],
+    [["tags"], "TEXT"],
+    [["description"], "TEXT"],
+    [["image"], "TEXT"]
 )
 jobs = Table("Jobs", 0, [1],
-    ["id", "INTEGER NOT NULL UNIQUE"],
-    ["title", "TEXT NOT NULL"],
-    ["salary", "TEXT", ['$']], # this may be problematic since the salary is in a string bucket
-    ["description", "TEXT"],
-    ["rating", "INTEGER"], # [0,5], -1
-    ["company", "TEXT"],
-    ["location", "TEXT"],
-    ["hq", "TEXT"],
-    ["size", "TEXT"],
-    ["founded", "INTEGER", ['year', 'yr', 'yrs']], # year
-    ["owner", "TEXT"], # Company, Government
-    ["industry", "TEXT"],
-    ["sector", "TEXT"],
-    ["revenue", "TEXT"],
-    ["competitors", "TEXT"],
-    ["easy_apply", "TEXT"] # TRUE, FALSE, -1
+    [["id"], "INTEGER NOT NULL UNIQUE"],
+    [["title"], "TEXT NOT NULL"],
+    [["salary"], "TEXT", ['$']], # this may be problematic since the salary is in a string bucket
+    [["description"], "TEXT"],
+    [["rating"], "INTEGER"], # [0,5], -1
+    [["company"], "TEXT"],
+    [["location"], "TEXT"],
+    [["hq"], "TEXT"],
+    [["size"], "TEXT"],
+    [["founded"], "INTEGER", ['year', 'yr', 'yrs']], # year
+    [["owner"], "TEXT"], # Company, Government
+    [["industry"], "TEXT"],
+    [["sector"], "TEXT"],
+    [["revenue"], "TEXT"],
+    [["competitors"], "TEXT"],
+    [["easy_apply"], "TEXT"] # TRUE, FALSE, -1
 )
 furniture = Table("Furniture", 0, [2],
-    ["id", "INTEGER NOT NULL UNIQUE"],
-    ["name", "TEXT"],
-    ["category", "TEXT"],
-    ["price", "NUMERIC NOT NULL", ['$']],
-    ["old_price", "TEXT"],
-    ["sellable", "TEXT"], # TRUE, FALSE
-    ["link", "TEXT"],
-    ["other_colors", "TEXT"], # Yes, No
-    ["description", "TEXT"],
-    ["designer", "TEXT"],
-    ["depth", "NUMERIC", ['inch', 'inches', 'in']],
-    ["height", "NUMERIC", ['inch', 'inches', 'in']],
-    ["width", "NUMERIC", ['inch', 'inches', 'in']]
+    [["id"], "INTEGER NOT NULL UNIQUE"],
+    [["name"], "TEXT"],
+    [["category"], "TEXT"],
+    [["price"], "NUMERIC NOT NULL", ['$']],
+    [["old_price"], "TEXT"],
+    [["sellable"], "TEXT"], # TRUE, FALSE
+    [["link"], "TEXT"],
+    [["other_colors"], "TEXT"], # Yes, No
+    [["description"], "TEXT"],
+    [["designer"], "TEXT"],
+    [["depth"], "NUMERIC", ['inch', 'inches', 'in']],
+    [["height"], "NUMERIC", ['inch', 'inches', 'in']],
+    [["width"], "NUMERIC", ['inch', 'inches', 'in']]
 )
 housing = Table("Housing", None, [3],
-    ["suburb", "TEXT"],
-    ["address", "TEXT NOT NULL"],
-    ["rooms", "INTEGER", ['room', 'rooms']],
-    ["type", "TEXT"],
-    ["price", "NUMERIC NOT NULL", ['$']],
-    ["method", "TEXT"],
-    ["date", "TEXT"],
-    ["distance", "NUMERIC"], 
-    ["postcode", "INTEGER"],
-    ["bedrooms", "INTEGER", ['bedroom', 'bedrooms']],
-    ["bathrooms", "INTEGER", ['bathroom', 'bathrooms']],
-    ["cars", "INTEGER"],
-    ["landsize", "INTEGER", ['sq ft', 'square feet', 'ft^2']],
-    ["building_area", "INTEGER"],
-    ["year_built", "INTEGER", ['year', 'yr', 'yrs']],
-    ["council", "TEXT"],
-    ["latitude", "NUMERIC"],
-    ["longitude", "NUMERIC"],
-    ["region", "TEXT"],
-    ["property_count", "INTEGER"]
+    [["suburb"], "TEXT"],
+    [["address"], "TEXT NOT NULL"],
+    [["rooms"], "INTEGER", ['room', 'rooms']],
+    [["type"], "TEXT"],
+    [["price"], "NUMERIC NOT NULL", ['$']],
+    [["method"], "TEXT"],
+    [["date"], "TEXT"],
+    [["distance"], "NUMERIC"], 
+    [["postcode"], "INTEGER"],
+    [["bedrooms"], "INTEGER", ['bedroom', 'bedrooms']],
+    [["bathrooms"], "INTEGER", ['bathroom', 'bathrooms']],
+    [["cars"], "INTEGER"],
+    [["landsize", "size"], "INTEGER", ['sq ft', 'square feet', 'ft^2']],
+    [["building_area"], "INTEGER"],
+    [["year_built"], "INTEGER", ['year', 'yr', 'yrs']],
+    [["council"], "TEXT"],
+    [["latitude"], "NUMERIC"],
+    [["longitude"], "NUMERIC"],
+    [["region"], "TEXT"],
+    [["property_count"], "INTEGER"]
 )
 cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
-    ["id", "INTEGER NOT NULL UNIQUE"],
-    ["region", "TEXT NOT NULL"],
-    ["price", "NUMERIC NOT NULL", ['$']],
-    ["year", "INTEGER", ['year', 'yr', 'yrs']],
-    ["manufacturer", "TEXT"],
-    ["model", "TEXT"],
-    ["condition", "TEXT", ['condition']],
-    ["cylinders", "INTEGER", ['cylinder', 'cylinders', 'cyl']],
-    ["fuel", "TEXT"], # gas, diesel, hybrid, electric
-    ["odometer", "INTEGER", ['mile', 'miles', 'mi']],
-    ["title_status", "TEXT"], # clean, rebuilt, salvage
-    ["transmission", "TEXT"], # manual, automatic
-    ["drive", "TEXT"],
-    ["size", "TEXT"],
-    ["type", "TEXT"],
-    ["paint_color", "TEXT"],
-    ["state", "TEXT"]
+    [["id"], "INTEGER NOT NULL UNIQUE"],
+    [["region"], "TEXT NOT NULL"],
+    [["price"], "NUMERIC NOT NULL", ['$']],
+    [["year"], "INTEGER", ['year', 'yr', 'yrs']],
+    [["manufacturer"], "TEXT"],
+    [["model"], "TEXT"],
+    [["condition"], "TEXT", ['condition']],
+    [["cylinders"], "INTEGER", ['cylinder', 'cylinders', 'cyl']],
+    [["fuel"], "TEXT"], # gas, diesel, hybrid, electric
+    [["odometer", "mileage"], "INTEGER", ['mile', 'miles', 'mi']],
+    [["title_status", "title"], "TEXT"], # clean, rebuilt, salvage
+    [["transmission"], "TEXT"], # manual, automatic
+    [["drive"], "TEXT"], # fwd, rwd, 4wd
+    [["size"], "TEXT"],
+    [["type"], "TEXT"],
+    [["paint_color", "paint", "color"], "TEXT"],
+    [["state"], "TEXT"]
 )
 
 def execute(sqlCmd:string):
@@ -128,7 +128,7 @@ def query(table:Table, attrList:[int], where:string):
             first = False
         else:
             cmd += ", "
-        cmd += table.dat[attr][0]
+        cmd += table.dat[attr][0][0]
     if attrList == []:
         cmd += "*"
     
