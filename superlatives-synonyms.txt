@@ -20,6 +20,6 @@ cheapest (2)
 smallest (3)
 
 ---------------------------------
-1 age; year
-2 cost; price
-3 size; length; width; height
+1 _age; _year
+2 $; _cost; _price
+3 _size; _length; _width; _height
