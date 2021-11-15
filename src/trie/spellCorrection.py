@@ -114,6 +114,9 @@ class SpellCorrection():
                         break
                     distance +=1
 
+            if not self.possibleWord:
+                return self.word
+
             distance_dict = {}
             for w2 in self.possibleWord:
                 # d = self.edit_distance(self.word, w2)
