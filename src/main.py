@@ -12,24 +12,28 @@ class ConstraintBuilder():
         
         # With that in place, we want to load some data from files containing boundary words
         #  and superlative words.
-        # We load the file that has all the boundary synonyms
+        self.bounders, self.boundApps = self.__loadSynonymFile("boundary-synonyms")
+        self.superlatives, self.superApps = self.__loadSynonymFile("superlatives-synonyms")
+    
+    
+    def __loadSynonymFile(self, fileName:string):
         from pathlib import Path
-        synFile = open(str(Path(__file__).parent) + "/../boundary-synonyms.txt", encoding='utf-8')
-        self.bounders = []
-        self.applications = None
+        synFile = open(str(Path(__file__).parent) + "/../" + fileName + ".txt", encoding='utf-8')
+        synList = []
+        appDict = None
         currBound = []
         currSym = None
         for line in synFile:
-            if self.applications is None:
+            if appDict is None:
                 line = line[0:-1] # to remove the trailing new line
                 if len(line) == 0:
                     if len(currBound) > 0:
-                        self.bounders.append([currSym, currBound])
+                        synList.append([currSym, currBound])
                         currBound = []
                     currSym = None
                 else:
                     if line[0] == '-': # The dash barrier marks the end of the boundary synonyms
-                        self.applications = {}
+                        appDict = {}
                     elif currSym is None: # the new symbol is set
                         currSym = line
                     else:
@@ -41,12 +45,14 @@ class ConstraintBuilder():
                 defed = line[0:firstEnd]
                 # All other tokens ought to be separated by ;
                 split = line[firstEnd+1:-1].split('; ')
-                self.applications.update({defed: split})
+                appDict.update({defed: split})
         if len(currBound) > 0:
-            self.bounders.append([currSym, currBound])
+            synList.append([currSym, currBound])
         synFile.close()
-
-
+        
+        return synList, appDict
+    
+    
     def __matchWhere(self, name:string, value:string) -> string:
         return name + ' LIKE "% ' + value + ' %"'
 
@@ -78,7 +84,7 @@ class ConstraintBuilder():
         for token in typeValues:
             matched = []
             for col in typeCols:
-                where = self.__matchWhere(table.dat[col][0], token)
+                where = self.__matchWhere(table.dat[col][0][0], token)
                 #print(where)
                 result = database.query(table, [col], where)
                 if len(result) > 0: # If there was some match in this column
@@ -142,7 +148,7 @@ class ConstraintBuilder():
                                 (matchList[i][0] + ' ' + matchList[i-1][0])]
                     for tryName in tryNames:
                         # The form 'column LIKE "%token%"' will match any entry where the column contains the substring "token". 
-                        where = self.__matchWhere(table.dat[col][0], tryName)
+                        where = self.__matchWhere(table.dat[col][0][0], tryName)
                         if len(database.query(table, [col], where)):
                             # There was a match, therefore we need to remove both curr and last from their respective lists
                             ls[i].pop(c)
@@ -183,7 +189,7 @@ class ConstraintBuilder():
             for matchOr in matched:
                 if len(where) > 0:
                     where += ' OR '
-                where += self.__matchWhere(table.dat[matchOr[1]][0], matchOr[0])
+                where += self.__matchWhere(table.dat[matchOr[1]][0][0], matchOr[0])
             ret.append(where)
         return ret
     
@@ -251,7 +257,7 @@ class ConstraintBuilder():
                     changes = False
                     unit = '' # the units found
                     i = 0 # the current component index to match with
-                    start = -1
+                    start = 0
                     end = -1
                     for j in range(len(typed)):
                         token = typed[j]
@@ -268,20 +274,22 @@ class ConstraintBuilder():
                                     if len(unit) > 0:
                                         unit += ' '
                                     unit += token[0].lower()
-                            elif comps[i][0] == '(' and comps[i][-1] == ')':
-                                # we found an application. This should be saved, but then skipped over
-                                if len(unit) > 0:
-                                    unit += ' '
-                                
-                                appCode = token[0].lower() # currently all app codes are numbers, but that could change
-                                if appCode in self.applications:
-                                    # match of application definition
-                                    if len(unit) > 0:
-                                        unit += ' '
-                                    unit += ' '.join(self.applications[appCode])
-                                i += 1 # move on, since we don't actually match against an application
                             elif comps[i] == token[0].lower(): # we need an exact match
                                 i += 1 # go to the next component to match
+                                
+                                # Check for an application next
+                                if comps[i][0] == '(' and comps[i][-1] == ')':
+                                    # we found an application. This should be saved, but then skipped over
+                                    if len(unit) > 0:
+                                        unit += ' '
+                                    
+                                    appCode = comps[i][1:-1]
+                                    if appCode in self.boundApps:
+                                        # match of application definition
+                                        if len(unit) > 0:
+                                            unit += ' '
+                                        unit += ' '.join(self.boundApps[appCode])
+                                    i += 1 # move on, since we don't actually match against an application
                             else:
                                 reset = True
                             
@@ -302,6 +310,80 @@ class ConstraintBuilder():
                         value = sym
                         if len(unit) > 0:
                             value += " (" + unit + ")"
+                        typed = typed[0:start] + [[value, 4]] + typed[end+1:]
+                        changes = True
+        
+        # Check to see if the tokens match with superlatives. This algorithm closely resembles for bounding.
+        #  A superlative will match one of the synonyms and will either be followed by (or preceded by) a Type II attribute or a Type III unit
+        for superlative in self.superlatives:
+            sym = superlative[0]
+            for option in superlative[1]:
+                # For each option that maps to the given symbol, we look in the query for potential matches
+                #  each match option can contain multiple tokens, which we need to break into component parts
+                comps = option.split(' ')
+                changes = True # we will cycle through the typified query tokens until no changes can be made
+                while changes:
+                    changes = False
+                    affected = '' # the unit or attribute that is being affected
+                    i = 0 # the current component index to match with
+                    start = 0
+                    end = -1
+                    for j in range(len(typed)):
+                        token = typed[j]
+                        reset = False
+                        # We only consider the token to match the superlative if it is type 4.
+                        if token[1] == 4:
+                            if comps[i] == token[0].lower(): # we need an exact match
+                                i += 1 # go to the next component to match
+                                
+                                # Check for an application
+                                if comps[i][0] == '(' and comps[i][-1] == ')':
+                                    # we found an application. This should be saved, but then skipped over
+                                    appCode = comps[i][1:-1]
+                                    if appCode in self.superApps:
+                                        # match of application definition
+                                        affected = ', '.join(self.superApps[appCode])
+                                    i += 1 # move on, since we don't actually match against an application
+                            else:
+                                reset = True
+                            
+                            # Now verify that i is within correct bounds
+                            if i >= len(comps):
+                                # We have a complete match!
+                                end = j
+                                break
+                        else:
+                            reset = True # reset any progress since all tokens in the pattern must be consecutive
+                        if reset:
+                            i = 0 # reset any progress we have made
+                            start = j+1 # this is potentially where the pattern begins
+                    
+                    # If we made it out of the token loop, we want to see if the range finished
+                    if end != -1:
+                        # It did. Now we make the replacement
+                        value = sym
+                        if len(affected) == 0:
+                            # If no affected was built-in to the superlative, we need to go find it
+                            #  If it exists, it will either be immediately after or before the superlative
+                            if end+1 <= len(typed):
+                                if typed[end+1][1] == 2:
+                                    # Mark Type II affected with a leading underscore
+                                    affected = "_" + typed[end+1][0]
+                                    end += 1
+                                elif typed[end+1][1] == 3:
+                                    affected = typed[end+1][0]
+                                    end += 1
+                            if len(affected) == 0 and start > 0 and typed[start-1][1] == 2:
+                                affected = "_" + typed[start-1][0]
+                                start -= 1
+                        
+                        # Now append the affected
+                        if len(affected) > 0:
+                            value += " (" + affected + ")"
+                        else:
+                            # If we could not find an effected, then throw out this superlative!
+                            break
+                        # Lastly, reflect the changes in the query
                         typed = typed[0:start] + [[value, 4]] + typed[end+1:]
                         changes = True
         
@@ -329,12 +411,20 @@ class ConstraintBuilder():
         return typed
     
     
+    def __isOperation(self, opSet, x:string) -> bool:
+        for operation in opSet:
+            sym = operation[0]
+            # if the bounding symbol is the first in the string, then we know it is a bounding operation
+            if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): 
+                return sym
+        return None
+    
     def __isBoundOperation(self, x:string) -> bool:
-        for bounder in self.bounders:
-            sym = bounder[0]
-            if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): # if the bounding symbol is the first in the string,
-                return True #- then we know it is a bounding operation
-        return False
+        return self.__isOperation(self.bounders, x)
+    
+    def __isSuperlative(self, x:string) -> bool:
+        return self.__isOperation(self.superlatives, x)
+    
     
     '''
     Partial Match for typeIII. 
@@ -342,16 +432,11 @@ class ConstraintBuilder():
     then return the record with the closest value to the target one.
     '''
     def partialTypeThree(self, value, table, column):
-        query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 1"
+        query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 10"
         return database.execute(query)
     
     
     def type3Where(self, typed:[[string, int]], table:database.Table) -> [string]:
-        # The first thing that we will want to do is identify boundaries and associated units
-        #  Boundaries such as less than, greater than, etc.
-        typed = self.__standardizeQuery(typed)
-        print("bounded query: ", typed)
-        
         ret = [] # a list of SQL where clauses to return
         # We will want to find the unit attached to each type 3. It can be either before or after
         black = -1 # if we use a unit after the number, the unit cannot be reused for before the next number
@@ -398,13 +483,14 @@ class ConstraintBuilder():
                             if bound is not None:
                                 break # cannot have two bounds!
                             bound = typed[j][0]
-                            if bound.find('(') != -1 and bound.find(')') != -1:
+                            bb = self.__isBoundOperation(typed[j][0])
+                            rest = bound[len(bb):]
+                            bound = bb
+                            if rest.find('(') != -1 and rest.find(')') != -1:
                                 # the unit is inside the bound
-                                start = bound.find('(')+1
-                                end = bound.find(')')
-                                
-                                unit = bound[start:end]
-                                bound = bound[0:bound.find(' ')] # cut off before the first space (which is the end of the symbol)
+                                start = rest.find('(')+1
+                                end = rest.find(')')
+                                unit = rest[start:end]
                             if unit is not None:
                                 break # don't need to go back more if we have the bound and the unit
                         elif bound is None and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
@@ -491,7 +577,53 @@ class ConstraintBuilder():
     
     
     def orderBy(self, typed:[[string, int]], table:database.Table) -> string:
-        return ''
+        # Since we assume the query has already been standardized, we can go through quickly looking for superlative tokens
+        ret = []
+        
+        for token in typed:
+            superlative = self.__isSuperlative(token[0])
+            if superlative:
+                # We have identified a superlative. By definition, we have an affected list
+                rest = token[0][len(superlative):]
+                start = rest.find('(')+1
+                end = rest.find(')')
+                affected = rest[start:end].split(', ')
+                
+                # Now we need to find out how the affected applies in the context of our table
+                attrFound = None
+                for affect in affected:
+                    if affect[0] == '_': # This is indicative of a attribute value
+                        attrVal = affect[1:].lower()
+                        # We will search the table attribute names (and synonyms) to try to find a match
+                        for attr in table.dat:
+                            for name in attr[0]:
+                                if attrVal == name:
+                                    attrFound = attr[0][0]
+                                    break
+                            if attrFound is not None:
+                                break
+                        if attrFound is not None:
+                                break
+                    else: # otherwise, we treat the affected like a unit
+                        unitVal = affect.lower()
+                        # We will search the table unit names to find a match
+                        for attr in table.dat:
+                            if len(attr) > 2:
+                                for unit in attr[2]:
+                                    if unitVal == unit:
+                                        attrFound = attr[0][0]
+                                        break
+                                if attrFound is not None:
+                                    break
+                        if attrFound is not None:
+                                break
+                
+                # Lastly, we just need to find if it is ascending (<<) or descending (>>)
+                if superlative == "<<":
+                    ret.append(attrFound + " ASC")
+                elif superlative == ">>":
+                    ret.append(attrFound + " DESC")
+        return ret
     
     
     def tokenize(self, text: string) -> [string]:
@@ -575,7 +707,7 @@ class ConstraintBuilder():
             for word in trie.wordSet:
                 bigTrie.insert(word)
         # There are also some words that are universal (not specific to domain)
-        # TODO: load these from boundary-synonyms.txt and superlatives-synonyms.txt
+        #  examples are the boundary words and the superlative words
         universalWords = set()
         for bounder in self.bounders:
             for phrase in bounder[1]:
@@ -584,8 +716,15 @@ class ConstraintBuilder():
                     #  wild card (*) and applications (parenthesized application codes)
                     if not('(' in word or ')' in word or word=='*'):
                         universalWords.add(word)
-        for key in self.applications.keys():
-            for synonym in self.applications[key]:
+        for superlative in self.superlatives:
+            for phrase in superlative[1]:
+                for word in phrase.split(' '):
+                    # There are some tokens that we should not add as words, namely the
+                    #  wild card (*) and applications (parenthesized application codes)
+                    if not('(' in word or ')' in word or word=='*'):
+                        universalWords.add(word)
+        for key in self.boundApps.keys():
+            for synonym in self.boundApps[key]:
                 universalWords.add(synonym)
         
         for word in universalWords:
@@ -618,6 +757,8 @@ class ConstraintBuilder():
         
         # now we want to pull some data out (Type I, II, III)
         typed = self.extractor.typify(tokens, domain)
+        # And standardize what we find
+        typed = self.__standardizeQuery(typed)
         log("Typed query:")
         log(typed, '\n')
         
@@ -633,14 +774,14 @@ class ConstraintBuilder():
         log(typeIIIWhere)
         
         orderByClause = self.orderBy(typed, self.table)
+        log(orderByClause)
         # We can use the LIMIT clause to limit the number of responses. Generally, we don't want more than 10 at a time
-        
 
 
 if __name__ == '__main__':
     # We should get a query from the user here
     # (Here is a sample query that we hardcode in for testing.)
-    query = 'jewelry weeding collections $50000'
+    query = 'cheapest blue Kawasaki Ninja 400 less than 200,000 miles'
     '''Here are some other queries that we could have used:
     Fabricated examples:
     'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'

@@ -1,13 +1,14 @@
 from src.trie.trie import Trie
 
 class SpellCorrection():
-    def __init__(self, t, word):
+    def __init__(self, t, word, edit_distance_limit):
         """
         Creates a new spelling corrector on the given word.
         @param t: the trie structure used to find real words
         @param word: the word that may need to be corrected
         """
         self.t = t
+        self.n = edit_distance_limit
         self.dict = {}
         self.possibleWord = []
         self.previous_modified = [word]
@@ -83,7 +84,8 @@ class SpellCorrection():
                     if self.t.search(self.word[i:]):
                         self.possibleWord.append(self.word[:i]+' '+self.word[i:])
             if not self.possibleWord:
-                while True:
+                distance = 0
+                while distance < self.n:
                     for i in range(len(self.word)):
                         if self.t.search(self.word[:i]):
                             first_half = self.word[:i]
@@ -110,6 +112,10 @@ class SpellCorrection():
                     self.new_modified = []
                     if self.possibleWord:
                         break
+                    distance +=1
+
+            if not self.possibleWord:
+                return self.word
 
             distance_dict = {}
             for w2 in self.possibleWord:
@@ -137,6 +143,6 @@ if __name__ == "__main__":
     trie = Trie()
     for word in keys:
         trie.insert(word)
-    corrector = SpellCorrection(trie,'accur')
+    corrector = SpellCorrection(trie,'accur', 3)
     result = corrector.suggestion()
     print(result[0])
