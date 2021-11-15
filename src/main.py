@@ -432,7 +432,7 @@ class ConstraintBuilder():
     then return the record with the closest value to the target one.
     '''
     def partialTypeThree(self, value, table, column):
-        query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 1"
+        query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 10"
         return database.execute(query)
     
     
