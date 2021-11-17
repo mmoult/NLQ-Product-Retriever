@@ -13,6 +13,7 @@ smaller than (3)
 at most
 at maximum
 no more * than
+not more * than
 not as much * as
 not so much * as
 or fewer
@@ -40,10 +41,16 @@ at least
 at fewest
 at minimum
 no fewer * than
+not fewer * than
 no less * than
+not less * than
 or more
 or older
 or over
+
+!=
+not equal
+not
 
 ---------------------------------
 1 age; year

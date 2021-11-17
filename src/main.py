@@ -278,7 +278,7 @@ class ConstraintBuilder():
                                 i += 1 # go to the next component to match
                                 
                                 # Check for an application next
-                                if comps[i][0] == '(' and comps[i][-1] == ')':
+                                if i < len(comps) and comps[i][0] == '(' and comps[i][-1] == ')':
                                     # we found an application. This should be saved, but then skipped over
                                     if len(unit) > 0:
                                         unit += ' '
@@ -570,7 +570,7 @@ class ConstraintBuilder():
                             if otherVal is None: # no range, normal path
                                 where += (unitMatch + ' ' + bb + ' ' + value)
                             else:
-                                where += ('(' + unitMatch + ' >= ' + value + ' AND ' + unitMatch + ' <= ' + otherVal + ')')
+                                where += (unitMatch + ' BETWEEN ' + value + ' AND ' + otherVal)
                         ret.append(where)
         
         return ret
@@ -659,45 +659,9 @@ class ConstraintBuilder():
             inst = -1 # reset to searching whole word
             i += 1 # go to the next token 
         return tokens
-
-
-    def fromQuery(self, query:string, toLog:bool):
-        if toLog:
-            def log(*args):
-                for a in args:
-                    print(a, end=' ')
-                print()
-        else:
-            def log(*args):
-                pass
-        
-        # Now we must categorize the query to know which domain we are searching
-        log("Classifying query...")
-        classified = self.classifier.classify([query])
-        if len(classified) == 0:
-            raise Exception("The query could not be classified!")
-        classified = classified[0]
-        if classified == "car":
-            domain = Domain.CAR
-        elif classified == "furniture":
-            domain = Domain.FURNITURE
-        elif classified == "housing":
-            domain = Domain.HOUSING
-        elif classified == "jewelry":
-            domain = Domain.JEWELRY
-        elif classified == "computer science jobs":
-            domain = Domain.JOB
-        elif classified == "motorcycles":
-            domain = Domain.MOTORCYCLE
-        else:
-            raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
-        self.table = getTable(domain)
-        log("Identified as:", domain.name.lower())
-        
-        # We want to tokenize the query
-        tokens = self.tokenize(query)
-        
-        # and then correct any misspellings
+    
+    
+    def correctSpelling(self, tokens, domain):
         # To do so, we need to have a big trie with all three types of the correct domain
         log("Correcting spelling...")
         trieList = self.extractor.verifier.getDomainTries(domain)
@@ -737,11 +701,10 @@ class ConstraintBuilder():
                 for unit in attr[2]:
                     bigTrie.insert(unit)
         # Now we can actually perform the spelling corrections (if any)
-        '''
         from src.trie.spellCorrection import SpellCorrection
         i = 0
         while i < len(tokens):
-            corrector = SpellCorrection(bigTrie, tokens[i])
+            corrector = SpellCorrection(bigTrie, tokens[i], 2)
             print(tokens[i])
             fixed = corrector.suggestion()
             if len(fixed) > 0:
@@ -753,7 +716,47 @@ class ConstraintBuilder():
                 else:
                     tokens.insert(i+j, fixed[j])
             i += 1
-        '''
+        return tokens
+    
+    
+    def fromQuery(self, query:string, toLog:bool):
+        if toLog:
+            def log(*args):
+                for a in args:
+                    print(a, end=' ')
+                print()
+        else:
+            def log(*args):
+                pass
+        
+        # Now we must categorize the query to know which domain we are searching
+        log("Classifying query...")
+        classified = self.classifier.classify([query])
+        if len(classified) == 0:
+            raise Exception("The query could not be classified!")
+        classified = classified[0]
+        if classified == "car":
+            domain = Domain.CAR
+        elif classified == "furniture":
+            domain = Domain.FURNITURE
+        elif classified == "housing":
+            domain = Domain.HOUSING
+        elif classified == "jewelry":
+            domain = Domain.JEWELRY
+        elif classified == "computer science jobs":
+            domain = Domain.JOB
+        elif classified == "motorcycles":
+            domain = Domain.MOTORCYCLE
+        else:
+            raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
+        self.table = getTable(domain)
+        log("Identified as:", domain.name.lower())
+        
+        # We want to tokenize the query
+        tokens = self.tokenize(query)
+        
+        # and then correct any misspellings
+        #tokens = self.correctSpelling(tokens, domain)
         
         # now we want to pull some data out (Type I, II, III)
         typed = self.extractor.typify(tokens, domain)
@@ -779,11 +782,9 @@ class ConstraintBuilder():
 
 
 if __name__ == '__main__':
-    # We should get a query from the user here
-    # (Here is a sample query that we hardcode in for testing.)
-    query = 'cheapest blue Kawasaki Ninja 400 less than 200,000 miles'
-    '''Here are some other queries that we could have used:
+    '''Here are some sample queries to use:
     Fabricated examples:
+    '200,000 miles or less cheapest blue Kawasaki Ninja 400'
     'blue Kawasaki Ninja 400 no more than 200,000 miles and above $6,000'
     'automatic toyota black car in new condition cheapest'
     'house in Australia with 2 bathrooms'
@@ -797,14 +798,14 @@ if __name__ == '__main__':
     'chair from $20 to $30'
     'house or apartment with 2 - 4 rooms'
     'car with from 4-8 cylinders'
+    'honda odyssey mileage less than 30,000 miles and less than 50,000 miles.'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
     'jewelry weeding collections $50000'
     'TOYOTA MOTORCYCLE SECOND HAND $10000 BLUE COLOR  300,000 MILAGE'
-    '''
     
-    '''Tricky reduction queries
+    Tricky reduction queries:
     'honda accord red like new haven' -> [honda] [accord] [red] (([like new] [haven]) \/ [new haven])
     'honda accord red new haven' -> [honda] [accord] [red] (([new] [haven]) \/ [new haven])
     'honda accord red like new' -> [honda] [accord] [red] ([like new] \/ [new])
@@ -812,7 +813,9 @@ if __name__ == '__main__':
     '''
     
     cb = ConstraintBuilder()
-    cb.fromQuery(query, True)
+    import sys
+    print('"' + sys.argv[1] + '"')
+    cb.fromQuery(sys.argv[1], True)
     
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints
