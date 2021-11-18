@@ -394,19 +394,28 @@ class ConstraintBuilder():
         # Since the - is the common denominator in all, we will simplify to that.
         #  There should be no other cases of - by itself, since negation is without a space.
         rangeType = None
-        for token in typed:
+        delIndex = None
+        i = 0
+        while i < len(typed):
+            token = typed[i]
             if token[0].lower() == 'between' or token[0].lower() == 'from':
                 rangeType = token[0].lower()
+                delIndex = i
             
             elif rangeType is not None:
                 if token[0].lower() == 'to' or (rangeType == 'between' and token[0].lower() == 'and'):
                     token[0] = '-' # transform to a simple hyphen, maintaining type
+                    typed.pop(delIndex)
+                    i -= 1
                 
                 # Between the range start and the range middle, we only expect to encounter number values and units.
                 elif token[1] == 3:
+                    i += 1
                     continue
                 # If we get anything else, break the range construct
                 rangeType = None
+                delIndex = None
+            i += 1
             
         return typed
     
@@ -495,7 +504,7 @@ class ConstraintBuilder():
                                     pass
                         elif first[1] == '=' or first[1] == '!=' and second[1] == first[1] and fVal == sVal:
                             action = True
-                        elif first[1] == 'BETWEEN' and second[1] == first[1]:
+                        elif (first[1] == 'BETWEEN' or first[1] == 'NOT BETWEEN') and second[1] == first[1]:
                             if fVal <= sVal and first[3] >= second[3]:
                                 action = True
                             elif fVal >= sVal and first[3] <= second[3]:
@@ -603,7 +612,7 @@ class ConstraintBuilder():
                                 unit = rest[start:end]
                             if unit is not None:
                                 break # don't need to go back more if we have the bound and the unit
-                        elif bound is None and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
+                        elif (bound is None or bound == '!=') and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
                             backup = j
                             # If we find a range indicator, we need to do something special. Continue and find the next value,
                             #  and if the unit has not already been specified, the next unit. These are both used to build a new bound
@@ -679,7 +688,10 @@ class ConstraintBuilder():
                             if otherVal is None: # no range, normal path
                                 where.append([unitMatch, bb, value])
                             else:
-                                where.append([unitMatch, 'BETWEEN', value, otherVal])
+                                bb = 'BETWEEN'
+                                if bound == '!=':
+                                    bb = 'NOT ' + bb
+                                where.append([unitMatch, bb, value, otherVal])
                         ret.append(where)
         
         # Before we return, we want to perform basic constraint simplification.
@@ -699,7 +711,7 @@ class ConstraintBuilder():
                 
                 where += constraint[0]
                 if len(constraint) > 3:
-                    where += (' BETWEEN ' + constraint[2] + ' AND ' + constraint[3])
+                    where += (' ' + constraint[1] + ' ' + constraint[2] + ' AND ' + constraint[3])
                 else:
                     where += (' ' + constraint[1] + ' ' + constraint[2])
             if len(where) > 0:
@@ -931,6 +943,7 @@ if __name__ == '__main__':
     'car with from 4-8 cylinders'
     'honda odyssey mileage less than 30,000 miles and less than 50,000 miles.'
     '200,000 miles or less and 300,000 miles or less, price between $50-60, blue Kawasaki Ninja'
+    'not between 10,000 miles and 200,000 miles, price between $500-600, blue Kawasaki Ninja'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
