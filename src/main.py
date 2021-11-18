@@ -337,7 +337,7 @@ class ConstraintBuilder():
                                 i += 1 # go to the next component to match
                                 
                                 # Check for an application
-                                if comps[i][0] == '(' and comps[i][-1] == ')':
+                                if i < len(comps) and comps[i][0] == '(' and comps[i][-1] == ')':
                                     # we found an application. This should be saved, but then skipped over
                                     appCode = comps[i][1:-1]
                                     if appCode in self.superApps:
@@ -405,7 +405,7 @@ class ConstraintBuilder():
             elif rangeType is not None:
                 if token[0].lower() == 'to' or (rangeType == 'between' and token[0].lower() == 'and'):
                     token[0] = '-' # transform to a simple hyphen, maintaining type
-                    typed.pop(delIndex)
+                    typed.pop(delIndex) # we delete the starting range word (since it can interfere with finding "not")
                     i -= 1
                 
                 # Between the range start and the range middle, we only expect to encounter number values and units.
@@ -416,7 +416,51 @@ class ConstraintBuilder():
                 rangeType = None
                 delIndex = None
             i += 1
-            
+        
+        # Simplify any negated conditions
+        i = 0
+        while i < len(typed):
+            if typed[i][0] == '!=':
+                # We encountered a not.
+                # The not must come before the condition operation that it is modifying
+                if i+1 < len(typed):
+                    nxt = typed[i+1][0]
+                    if nxt == '!=':
+                        # Two nots cancel out
+                        typed.pop(i)
+                        typed.pop(i)
+                        continue
+                    
+                    isBound = self.__isBoundOperation(nxt)
+                    isSuper = self.__isSuperlative(nxt)
+                    isOp = isBound if isBound is not None else isSuper
+                    if isOp is not None:
+                        excess = nxt.rfind('(')
+                        if excess != -1:
+                            excess = nxt[excess:]
+                        else:
+                            excess = ""
+                        
+                        result = None
+                        if isOp == '<':
+                            result = '>='
+                        elif isOp == '<=':
+                            result = '>'
+                        elif isOp == '>':
+                            result = '<='
+                        elif isOp == '>=':
+                            result = '<'
+                        elif isOp == '<<':
+                            result = '>>'
+                        elif isOp == '>>':
+                            result = '<<'
+                        
+                        if result is not None:
+                            if len(excess) > 0:
+                                result += ' ' + excess # append the qualifiers
+                            typed[i][0] = result
+                            typed.pop(i+1)
+            i += 1
         return typed
     
     
@@ -944,6 +988,8 @@ if __name__ == '__main__':
     'honda odyssey mileage less than 30,000 miles and less than 50,000 miles.'
     '200,000 miles or less and 300,000 miles or less, price between $50-60, blue Kawasaki Ninja'
     'not between 10,000 miles and 200,000 miles, price between $500-600, blue Kawasaki Ninja'
+    'not not not less than 50,000 miles Toyota Odyssey'
+    'not surpassing 50,000 miles Toyota Odyssey not most expensive'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'

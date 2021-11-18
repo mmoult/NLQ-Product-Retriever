@@ -41,9 +41,7 @@ at least
 at fewest
 at minimum
 no fewer * than
-not fewer * than
 no less * than
-not less * than
 or more
 or older
 or over
