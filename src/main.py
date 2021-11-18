@@ -436,6 +436,116 @@ class ConstraintBuilder():
         return database.execute(query)
     
     
+    def __constraintSimplification(self, tokens):
+        ret = tokens
+        breakUp = 0
+        i = 0
+        while i < len(ret):
+            j = i + 1
+            while j < len(ret):
+                ii = 0
+                while ii < len(ret[i]):
+                    first = ret[i][ii]
+                    jj = 0
+                    while jj < len(ret[j]):
+                        second = ret[j][jj]
+                        # no simplification if the constraints are on different attributes
+                        if first[0] != second[0]:
+                            jj += 1
+                            continue
+                        
+                        # We can combine into BETWEEN if the operations are
+                        #  opposite inclusive bounds that overlap (<= and >=)
+                        
+                        # If the attributes do match, then we need to perform case analysis on the operators
+                        # < and <= can be simplified by a lower < or <= or BETWEEN
+                        # > and >= can be simplified by a higher > or >= or BETWEEN
+                        # BETWEEN is a combination of both a >= and a <=
+                        # != cannot be simplified, unless in the case of duplication
+                        fVal = float(first[2])
+                        sVal = float(second[2])
+                        
+                        action = None
+                        if first[1] == '<' or first[1] == '<=':
+                            if second[1] == first[1]:
+                                action = fVal <= sVal
+                            elif first[1] == '<=' and second[1] == '>=':
+                                # Check for a combination into BETWEEN
+                                if fVal >= sVal:
+                                    first[1] = 'BETWEEN'
+                                    first.append(first[2])
+                                    second.append(first[2])
+                                    action = False
+                                else:
+                                    # I may want to raise an error here or return blank.
+                                    #  If we raise an error, we cannot do any partial matching...
+                                    pass
+                        elif first[1] == '>' or first[1] == '>=':
+                            if second[1] == first[1]:
+                                action = fVal >= sVal
+                            elif first[1] == '>=' and second[1] == '<=':
+                                # Check (again) for a combination into BETWEEN
+                                if fVal <= sVal:
+                                    second[1] = 'BETWEEN'
+                                    second.append(second[2])
+                                    first.append(second[2])
+                                    action = True
+                                else:
+                                    # TODO: Decide here
+                                    pass
+                        elif first[1] == '=' or first[1] == '!=' and second[1] == first[1] and fVal == sVal:
+                            action = True
+                        elif first[1] == 'BETWEEN' and second[1] == first[1]:
+                            if fVal <= sVal and first[3] >= second[3]:
+                                action = True
+                            elif fVal >= sVal and first[3] <= second[3]:
+                                action = False
+                        
+                        if action is not None:
+                            # If some action is needed, we need to determine what we are going to do.
+                            # We want to delete from the option with more OR constrains.
+                            # True action means the values of the first remain, false indicates of the second
+                            if len(ret[i]) >= len(ret[j]):
+                                if action: # if the first had the important info, copy it to the second
+                                    for z in range(2, len(ret[i][ii])):
+                                        ret[j][jj][z] = ret[i][ii][z]
+                                # Delete the first
+                                ret[i].pop(ii)
+                                ii -= 1
+                                breakUp = 1
+                                if len(ret[i]) == 0:
+                                    ret.pop(i)
+                                    i -= 1
+                                    breakUp += 2
+                            else:
+                                if not action:
+                                    for z in range(2, len(ret[i][ii])):
+                                        ret[i][ii][z] = ret[j][jj][z]
+                                ret[j].pop(jj)
+                                continue
+                                if len(ret[j]) == 0:
+                                    ret.pop(j)
+                                    j -= 1
+                                    breakUp = 2
+                        
+                        if breakUp > 0:
+                            breakUp -= 1
+                            break
+                        jj += 1
+                    if breakUp > 0:
+                        breakUp -= 1
+                        break
+                    ii += 1
+                if breakUp > 0:
+                    breakUp -= 1
+                    break
+                j += 1
+            if breakUp > 0:
+                break
+            i += 1
+        return ret
+    
+    
     def type3Where(self, typed:[[string, int]], table:database.Table) -> [string]:
         ret = [] # a list of SQL where clauses to return
         # We will want to find the unit attached to each type 3. It can be either before or after
@@ -479,7 +589,7 @@ class ConstraintBuilder():
                                 unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
                             else:
                                 unit = typed[j][0]
-                        elif typed[j][1] == 4 and self.__isBoundOperation(typed[j][0]) and j<i: # we can only find bounds before
+                        elif typed[j][1] == 4 and self.__isBoundOperation(typed[j][0]):
                             if bound is not None:
                                 break # cannot have two bounds!
                             bound = typed[j][0]
@@ -545,6 +655,7 @@ class ConstraintBuilder():
                                     # We don't have to match all the unit variations, only one
                                     cols.append(attr[0][0])
                                     break
+                    # TODO: If we find multiple matches for the unit, or no unit given, we should check for type 2: "mileage less than 500"
                     # Now that we found (all) column(s) matching the unit, we want to create the relation(s) 
                     if len(cols) > 0:
                         # we found maybe several matches. They should be OR-ed together to the final result
@@ -557,23 +668,43 @@ class ConstraintBuilder():
                                 value = otherVal
                                 otherVal = value
                         
-                        where = ''
-                        for unitMatch in cols:
-                            if len(where) > 0:
-                                where += ' OR '
+                        bb = '=' # equals is the assumed bounding operation.
+                        if bound is not None:
                             # We assume that the bound is in a correct form (since it is defined in a file we control).
                             #  Therefore, since SQL supports >, >=, <, and <=, we can simply use it in the where clause
-                            bb = '=' # equals is the assumed bounding operation.
-                            if bound is not None:
-                                bb = bound
-                            
+                            bb = bound
+                        
+                        where = []
+                        for unitMatch in cols:
                             if otherVal is None: # no range, normal path
-                                where += (unitMatch + ' ' + bb + ' ' + value)
+                                where.append([unitMatch, bb, value])
                             else:
-                                where += (unitMatch + ' BETWEEN ' + value + ' AND ' + otherVal)
+                                where.append([unitMatch, 'BETWEEN', value, otherVal])
                         ret.append(where)
         
-        return ret
+        # Before we return, we want to perform basic constraint simplification.
+        # Right now, the structure of ret is:
+        # [[[attr operation value] ...ORedVals] ...allConstraints]
+        # A complete optimization would require a case analysis for each pair of operations and some knowledge
+        # about the attributes themselves (such as a knowledge of discrete/integer or continuous). Instead, we
+        # will perform basic optimization only on pairs of same operation type.
+        ret = self.__constraintSimplification(ret)
+        # Lastly, we are going to convert the arrays into a list of strings
+        clauses = []
+        for orList in ret:
+            where = ''
+            for constraint in orList:
+                if len(where) > 0:
+                    where += ' OR '
+                
+                where += constraint[0]
+                if len(constraint) > 3:
+                    where += (' BETWEEN ' + constraint[2] + ' AND ' + constraint[3])
+                else:
+                    where += (' ' + constraint[1] + ' ' + constraint[2])
+            if len(where) > 0:
+                clauses.append(where)
+        return clauses
     
     
     def orderBy(self, typed:[[string, int]], table:database.Table) -> string:
@@ -799,6 +930,7 @@ if __name__ == '__main__':
     'house or apartment with 2 - 4 rooms'
     'car with from 4-8 cylinders'
     'honda odyssey mileage less than 30,000 miles and less than 50,000 miles.'
+    '200,000 miles or less and 300,000 miles or less, price between $50-60, blue Kawasaki Ninja'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'

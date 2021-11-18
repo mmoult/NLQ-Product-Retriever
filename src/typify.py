@@ -65,7 +65,7 @@ def isNumeric(token) -> bool:
         else:
             return False # break on first invalid
     # If all characters were valid, then we have a valid numeric token
-    return True
+    return len(token) > 1 and True
 
 
 def toCleanNumber(x:string) -> string:

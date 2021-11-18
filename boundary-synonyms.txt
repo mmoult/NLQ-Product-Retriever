@@ -50,6 +50,7 @@ or over
 
 !=
 not equal
+not equal to
 not
 
 ---------------------------------
