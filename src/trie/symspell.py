@@ -300,6 +300,9 @@ class SymSpell:
 
 
 def spell_corrector(word_list, words_d) -> str:
+    ss = SymSpell(max_edit_distance = 2)
+    ss.create_dictionary_from_arr(words_d, token_pattern=r'.+')
+    
     result_list = []
     for word in word_list:
 
@@ -322,7 +325,7 @@ def spell_corrector(word_list, words_d) -> str:
 
             result_list.append(word)
 
-    return " ".join(result_list)
+    return result_list
 
 
 if __name__ == '__main__':
@@ -349,14 +352,19 @@ if __name__ == '__main__':
     silence = ss.create_dictionary_from_arr(eng_words, token_pattern=r'.+')
 
     # create a dictionary of rightly spelled words for lookup
-    words_dict = {k: 0 for k in eng_words}
+    words_dict = {}
+    for word in eng_words:
+        if word in words_dict:
+            words_dict[word] += 1
+        else:
+            words_dict[word] = 1
 
     bad_words = ['hondaacor', 'hoda', 'accora', 'jewelry', 'c40']
     print('run spell checker...')
     print(f'dictionary: {eng_words}\n')
 
     print(f'original bad words: {bad_words}\n')
-    correct_text = spell_corrector(bad_words, words_dict)
+    correct_text = ' '.join(spell_corrector(bad_words, words_dict))
     print('corrected text: ' + correct_text)
 
 

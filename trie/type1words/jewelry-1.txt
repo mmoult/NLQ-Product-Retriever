@@ -1,3 +1,4 @@
+jewelry
 Amulet
 Anklet
 Armlet

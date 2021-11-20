@@ -849,61 +849,51 @@ class ConstraintBuilder():
     
     
     def correctSpelling(self, tokens, domain):
-        # To do so, we need to have a big trie with all three types of the correct domain
-        log("Correcting spelling...")
+        # To do so, we need to have a big dictionary with all three types of the correct domain
         trieList = self.extractor.verifier.getDomainTries(domain)
-        from src.trie.trie import Trie
-        bigTrie = Trie()
+        allWords = []
         for trie in trieList:
             for word in trie.wordSet:
-                bigTrie.insert(word)
+                allWords.append(word.lower())
         # There are also some words that are universal (not specific to domain)
         #  examples are the boundary words and the superlative words
-        universalWords = set()
         for bounder in self.bounders:
             for phrase in bounder[1]:
                 for word in phrase.split(' '):
                     # There are some tokens that we should not add as words, namely the
                     #  wild card (*) and applications (parenthesized application codes)
                     if not('(' in word or ')' in word or word=='*'):
-                        universalWords.add(word)
+                        allWords.append(word)
         for superlative in self.superlatives:
             for phrase in superlative[1]:
                 for word in phrase.split(' '):
                     # There are some tokens that we should not add as words, namely the
                     #  wild card (*) and applications (parenthesized application codes)
                     if not('(' in word or ')' in word or word=='*'):
-                        universalWords.add(word)
+                        allWords.append(word)
         for key in self.boundApps.keys():
             for synonym in self.boundApps[key]:
-                universalWords.add(synonym)
+                allWords.append(synonym)
+        universal = ['and', 'or', 'not', 'between', 'from']
+        allWords += universal
         
-        for word in universalWords:
-            bigTrie.insert(word)
         # There are also domain-specific words we will enter
         for attr in self.table.dat:
             for typeSynonym in attr[0]:
-                bigTrie.insert(typeSynonym)
+                allWords.append(typeSynonym)
             if len(attr) > 2:
                 for unit in attr[2]:
-                    bigTrie.insert(unit)
+                    allWords.append(unit)
         # Now we can actually perform the spelling corrections (if any)
-        from src.trie.spellCorrection import SpellCorrection
-        i = 0
-        while i < len(tokens):
-            corrector = SpellCorrection(bigTrie, tokens[i], 2)
-            print(tokens[i])
-            fixed = corrector.suggestion()
-            if len(fixed) > 0:
-                fixed = tokens[i]
-            fixed = fixed.split(' ')
-            for j in range(len(fixed)):
-                if j==0:
-                    tokens[i] = fixed[j]
-                else:
-                    tokens.insert(i+j, fixed[j])
-            i += 1
-        return tokens
+        from src.trie.symspell import spell_corrector
+        words_dict = {}
+        for word in allWords:
+            if word in words_dict:
+                words_dict[word] += 1
+            else:
+                words_dict[word] = 1
+                
+        return spell_corrector(tokens, words_dict)
     
     
     def fromQuery(self, query:string, toLog:bool):
@@ -943,7 +933,9 @@ class ConstraintBuilder():
         tokens = self.tokenize(query)
         
         # and then correct any misspellings
-        #tokens = self.correctSpelling(tokens, domain)
+        log("Correcting spelling...")
+        tokens = self.correctSpelling(tokens, domain)
+        log('"' + " ".join(tokens) + '"')
         
         # now we want to pull some data out (Type I, II, III)
         typed = self.extractor.typify(tokens, domain)
