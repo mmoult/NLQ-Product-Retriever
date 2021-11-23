@@ -1,13 +1,10 @@
+motorcycle
+motorcycles
 A P Honda
-
 Abbotsford motorcycles
-
 Abe-Star
-
 Abra
-
 Absolom motorcycles
-
 Accossato
 Ace
 Ackland Motorcycles Co
@@ -33,7 +30,7 @@ Alano
 Alato
 Alcyon
 Aldbert
-Alexander Leutner   Co
+Alexander Leutner Co
 Allen Norton
 Alligator
 Alpha
@@ -66,7 +63,7 @@ Balkan
 Baotian Motorcycle Company
 Beardmore Precision
 Benelli
-Bennett   Barkell Motorcycles
+Bennett Barkell Motorcycles
 Beta Motor
 Bianchi
 Bimota
@@ -166,19 +163,18 @@ Fusi
 Galbusera
 Garelli Motorcycles
 Gas Gas
-Ghezzi   Brian
+Ghezzi Brian
 Gilera
 Gillet Herstal
 Gima
 Gimson
 GMZ
-Gnome et Rh ne
 Gogoro
 Gold Star Clubman
 Gold Wing
 Greeves
 Haden
-Hansen   Schneider
+Hansen Schneider
 Haojue
 Harley Davidson
 Hartford
@@ -189,11 +185,10 @@ Henderson
 Hercules
 Hero Motocorp
 Hesketh
-Hildebrand   Wolfm ller
 Hodaka
 Hoffman
 Honda
-Honda   Wheelers India
+Honda Wheelers India
 Honda Motorcycles
 Hong Leong Yamaha
 Horex

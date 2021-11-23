@@ -930,7 +930,7 @@ class ConstraintBuilder():
         log("Identified as:", domain.name.lower())
         
         # We want to tokenize the query
-        tokens = self.tokenize(query)
+        tokens = self.tokenize(query.lower())
         
         # and then correct any misspellings
         log("Correcting spelling...")
