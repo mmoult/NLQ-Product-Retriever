@@ -1,4 +1,4 @@
-Suburb,Address,Rooms,Types,Price,Method,Dates,Distance,Postcode,Bedroom2,Bathroom,Car,Landsize,BuildingArea,YearBuilt,CouncilArea,Lattitude,Longtitude,Regionname,Propertycount
+Suburb,Address,Rooms,Types,Price,Method,Dates,Distance,Postcode,Bedroom,Bathroom,Car,Landsize,BuildingArea,YearBuilt,CouncilArea,Lattitude,Longtitude,Regionname,Propertycount
 Abbotsford,85 Turner St,2,h,1480000,S,3/12/2016,2.5,3067,2,1,1,202,,,Yarra,-37.7996,144.9984,Northern Metropolitan,4019
 Abbotsford,25 Bloomburg St,2,h,1035000,S,4/2/2016,2.5,3067,2,1,0,156,79,1900,Yarra,-37.8079,144.9934,Northern Metropolitan,4019
 Abbotsford,5 Charles St,3,h,1465000,SP,4/3/2017,2.5,3067,3,2,0,134,150,1900,Yarra,-37.8093,144.9944,Northern Metropolitan,4019

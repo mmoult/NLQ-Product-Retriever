@@ -1,6 +1,7 @@
 from src.typify import TypeExtractor, isNumeric
 from src.domains import Domain, getTable
 from src import database
+from src.partial import PartialMatcher
 import string
 
 class ConstraintBuilder():
@@ -489,19 +490,39 @@ class ConstraintBuilder():
         return database.execute(query)
     
     
-    def __constraintSimplification(self, tokens):
-        ret = tokens
+    def __constraintSimplification(self, constr):
+        '''
+        The structure of the constraints is a list of lists of lists. There is an implicit AND
+        between each of the outer most terms, and an implicit OR between each of the second-layer
+        terms. The inner-most layer holds the component words of the constraint. For example:
+        [[[price, <, 500] OR [worth, < 500]] AND [[rooms, BETWEEN, 3, 5]]]
+        '''
+        
+        # We want to make a comparison between two different terms for each pair of terms in
+        # the list. Therefore, we iterate over the list with indices i and j. The order of
+        # the two terms compared does not matter, so we only make one comparison for each
+        # pair (the comparison logic is symmetric).
+        # For example, on the set {A, B, C}, we would make three comparisons: {A, B}; {A, C};
+        # and {B, C}. Or in a graph:
+        #    A B C
+        #  A   B C
+        #  B     C
+        #  C
+        # where i is the row and j is the column.
+        
         breakUp = 0
         i = 0
-        while i < len(ret):
+        while i < len(constr):
             j = i + 1
-            while j < len(ret):
+            while j < len(constr):
+                # We also want to iterate over every term (though typically there is only one)
+                # in the OR clause. We use ii as the iterator over terms in i, and jj for j.
                 ii = 0
-                while ii < len(ret[i]):
-                    first = ret[i][ii]
+                while ii < len(constr[i]):
+                    first = constr[i][ii]
                     jj = 0
-                    while jj < len(ret[j]):
-                        second = ret[j][jj]
+                    while jj < len(constr[j]):
+                        second = constr[j][jj]
                         # no simplification if the constraints are on different attributes
                         if first[0] != second[0]:
                             jj += 1
@@ -519,33 +540,29 @@ class ConstraintBuilder():
                         sVal = float(second[2])
                         
                         action = None
+                        merge = None
                         if first[1] == '<' or first[1] == '<=':
                             if second[1] == first[1]:
                                 action = fVal <= sVal
-                            elif first[1] == '<=' and second[1] == '>=':
-                                # Check for a combination into BETWEEN
-                                if fVal >= sVal:
-                                    first[1] = 'BETWEEN'
-                                    first.append(first[2])
-                                    second.append(first[2])
-                                    action = False
-                                else:
-                                    # I may want to raise an error here or return blank.
-                                    #  If we raise an error, we cannot do any partial matching...
-                                    pass
+                            # Check for a combination into BETWEEN
+                            elif first[1] == '<=' and second[1] == '>=' and fVal >= sVal:
+                                second[1] = 'BETWEEN'
+                                second.append(first[2])
+                                action = False
+                            elif second[1] == '>' or second[1] == '>=' and fVal <= sVal:
+                                # If we find contradictory requirements, we merge them into
+                                #  one OR clause.
+                                merge = [first, second]
                         elif first[1] == '>' or first[1] == '>=':
                             if second[1] == first[1]:
                                 action = fVal >= sVal
-                            elif first[1] == '>=' and second[1] == '<=':
-                                # Check (again) for a combination into BETWEEN
-                                if fVal <= sVal:
-                                    second[1] = 'BETWEEN'
-                                    second.append(second[2])
-                                    first.append(second[2])
-                                    action = True
-                                else:
-                                    # TODO: Decide here
-                                    pass
+                            # Check (again) for a combination into BETWEEN
+                            elif first[1] == '>=' and second[1] == '<=' and fVal <= sVal:
+                                first[1] = 'BETWEEN'
+                                first.append(second[2])
+                                action = True
+                            elif second[1] == '<' or second[1] == '<=' and fVal >= sVal:
+                                merge = [second, first]
                         elif first[1] == '=' or first[1] == '!=' and second[1] == first[1] and fVal == sVal:
                             action = True
                         elif (first[1] == 'BETWEEN' or first[1] == 'NOT BETWEEN') and second[1] == first[1]:
@@ -555,31 +572,39 @@ class ConstraintBuilder():
                                 action = False
                         
                         if action is not None:
+                            # reflect the temporaries back to their container
+                            constr[i][ii] = first
+                            constr[j][jj] = second
                             # If some action is needed, we need to determine what we are going to do.
                             # We want to delete from the option with more OR constrains.
                             # True action means the values of the first remain, false indicates of the second
-                            if len(ret[i]) >= len(ret[j]):
+                            if len(constr[i]) >= len(constr[j]):
                                 if action: # if the first had the important info, copy it to the second
-                                    for z in range(2, len(ret[i][ii])):
-                                        ret[j][jj][z] = ret[i][ii][z]
+                                    constr[j][jj] = first
                                 # Delete the first
-                                ret[i].pop(ii)
+                                constr[i].pop(ii)
                                 ii -= 1
                                 breakUp = 1
-                                if len(ret[i]) == 0:
-                                    ret.pop(i)
+                                if len(constr[i]) == 0:
+                                    constr.pop(i)
                                     i -= 1
                                     breakUp += 2
                             else:
                                 if not action:
-                                    for z in range(2, len(ret[i][ii])):
-                                        ret[i][ii][z] = ret[j][jj][z]
-                                ret[j].pop(jj)
+                                    constr[i][ii] = second
+                                constr[j].pop(jj)
                                 continue
-                                if len(ret[j]) == 0:
-                                    ret.pop(j)
+                                if len(constr[j]) == 0:
+                                    constr.pop(j)
                                     j -= 1
                                     breakUp = 2
+                        
+                        if merge is not None and len(constr[i]) == 1 and len(constr[j]) == 1:
+                            # it only makes sense to merge if both are single in their or list
+                            constr[j] = merge
+                            constr.pop(i)
+                            i -= 1
+                            breakUp = 4
                         
                         if breakUp > 0:
                             breakUp -= 1
@@ -596,7 +621,7 @@ class ConstraintBuilder():
             if breakUp > 0:
                 break
             i += 1
-        return ret
+        return constr
     
     
     def type3Where(self, typed:[[string, int]], table:database.Table) -> [string]:
@@ -848,7 +873,7 @@ class ConstraintBuilder():
         return tokens
     
     
-    def correctSpelling(self, tokens, domain):
+    def correctSpelling(self, tokens, domain, table):
         # To do so, we need to have a big dictionary with all three types of the correct domain
         trieList = self.extractor.verifier.getDomainTries(domain)
         allWords = []
@@ -878,7 +903,7 @@ class ConstraintBuilder():
         allWords += universal
         
         # There are also domain-specific words we will enter
-        for attr in self.table.dat:
+        for attr in table.dat:
             for typeSynonym in attr[0]:
                 allWords.append(typeSynonym)
             if len(attr) > 2:
@@ -896,16 +921,7 @@ class ConstraintBuilder():
         return spell_corrector(tokens, words_dict)
     
     
-    def fromQuery(self, query:string, toLog:bool):
-        if toLog:
-            def log(*args):
-                for a in args:
-                    print(a, end=' ')
-                print()
-        else:
-            def log(*args):
-                pass
-        
+    def fromQuery(self, query:string, log):
         # Now we must categorize the query to know which domain we are searching
         log("Classifying query...")
         classified = self.classifier.classify([query])
@@ -926,7 +942,7 @@ class ConstraintBuilder():
             domain = Domain.MOTORCYCLE
         else:
             raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
-        self.table = getTable(domain)
+        table = getTable(domain)
         log("Identified as:", domain.name.lower())
         
         # We want to tokenize the query
@@ -934,7 +950,7 @@ class ConstraintBuilder():
         
         # and then correct any misspellings
         log("Correcting spelling...")
-        tokens = self.correctSpelling(tokens, domain)
+        #tokens = self.correctSpelling(tokens, domain, table)
         log('"' + " ".join(tokens) + '"')
         
         # now we want to pull some data out (Type I, II, III)
@@ -948,19 +964,22 @@ class ConstraintBuilder():
         #  It is going to be in the form of a SELECT statement, with an AND for each of the types that need to be matched
         #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
         # TODO: we don't handle any explicit boolean operators like 'or'
-        typeIWhere = self.type1Where(typed, self.table)
+        typeIWhere = self.type1Where(typed, table)
         log(typeIWhere)
-        typeIIWhere = self.type2Where(typed, self.table, domain)
+        typeIIWhere = self.type2Where(typed, table, domain)
         log(typeIIWhere)
-        typeIIIWhere = self.type3Where(typed, self.table)
+        typeIIIWhere = self.type3Where(typed, table)
         log(typeIIIWhere)
         
-        orderByClause = self.orderBy(typed, self.table)
+        orderByClause = self.orderBy(typed, table)
         log(orderByClause)
         # We can use the LIMIT clause to limit the number of responses. Generally, we don't want more than 10 at a time
-
+        return [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
 
 if __name__ == '__main__':
+    print(PartialMatcher().generateRemovals(2, 3, True))
+    exit()
+    
     '''Here are some sample queries to use:
     Fabricated examples:
     '200,000 miles or less cheapest blue Kawasaki Ninja 400'
@@ -998,10 +1017,21 @@ if __name__ == '__main__':
     cb = ConstraintBuilder()
     import sys
     print('"' + sys.argv[1] + '"')
-    cb.fromQuery(sys.argv[1], True)
+    
+    toLog = True
+    if toLog:
+        def log(*args):
+            for a in args:
+                print(a, end=' ')
+            print()
+    else:
+        def log(*args):
+            pass
+    
+    reqs = cb.fromQuery(sys.argv[1], log)
+    log() # get a new line
     
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints
-    
-    
-    
+    sql = PartialMatcher().bestRequest(reqs, log)
+    print(sql)

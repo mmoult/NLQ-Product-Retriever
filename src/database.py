@@ -20,7 +20,7 @@ motorcycles = Table("Motorcycles", None, [0],
     [["price"], "NUMERIC", ['$']],
     [["year"], "INTEGER", ['year', 'yr', 'yrs']],
     [["seller"], "TEXT"],
-    [["owner"], "TEXT"],
+    [["owner"], "INTEGER", ['owner']],
     [["mileage"], "NUMERIC", ['mile', 'miles', 'mi']],
     [["show_price"], "INTEGER"]
 )
@@ -36,20 +36,23 @@ jewelry = Table("Jewelry", 0, [1],
 jobs = Table("Jobs", 0, [1],
     [["id"], "INTEGER NOT NULL UNIQUE"],
     [["title"], "TEXT NOT NULL"],
-    [["salary"], "TEXT", ['$']], # this may be problematic since the salary is in a string bucket
     [["description"], "TEXT"],
-    [["rating"], "INTEGER"], # [0,5], -1
+    [["rating"], "NUMERIC"], # [0,5], -1
     [["company"], "TEXT"],
     [["location"], "TEXT"],
     [["hq"], "TEXT"],
-    [["size"], "TEXT"],
     [["founded"], "INTEGER", ['year', 'yr', 'yrs']], # year
     [["owner"], "TEXT"], # Company, Government
     [["industry"], "TEXT"],
     [["sector"], "TEXT"],
-    [["revenue"], "TEXT"],
     [["competitors"], "TEXT"],
-    [["easy_apply"], "TEXT"] # TRUE, FALSE, -1
+    [["easy_apply"], "TEXT"], # TRUE, FALSE, -1
+    [["salary_min"], "INTEGER", ['$']],
+    [["salary_max"], "INTEGER", ['$']],
+    [["size_min"], "INTEGER", ['people']],
+    [["size_max"], "INTEGER", ['people']],
+    [["revenue_min"], "INTEGER", ['$']],
+    [["revenue_max"], "INTEGER", ['$']]
 )
 furniture = Table("Furniture", 0, [2],
     [["id"], "INTEGER NOT NULL UNIQUE"],
@@ -80,8 +83,8 @@ housing = Table("Housing", None, [3],
     [["bathrooms"], "INTEGER", ['bathroom', 'bathrooms']],
     [["cars"], "INTEGER"],
     [["landsize", "size"], "INTEGER", ['sq ft', 'square feet', 'ft^2']],
-    [["building_area"], "INTEGER"],
-    [["year_built"], "INTEGER", ['year', 'yr', 'yrs']],
+    [["area"], "INTEGER"],
+    [["year"], "INTEGER", ['year', 'yr', 'yrs']],
     [["council"], "TEXT"],
     [["latitude"], "NUMERIC"],
     [["longitude"], "NUMERIC"],

@@ -1712,7 +1712,6 @@ monza
 MOOMBA
 moorhead
 mopar
-more
 morgantown
 moscow
 moses
