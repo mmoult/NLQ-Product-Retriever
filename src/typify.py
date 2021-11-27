@@ -58,14 +58,18 @@ class TypeExtractor(object):
 
 def isNumeric(token) -> bool:
     pos = 0
+    notPunct = False
     for c in token:
         pos += 1
-        if c in string.digits or c==',' or c=='.' or (pos == len(token) and (c=='k' or c=='K')):
+        if c in string.digits:
+            notPunct = True
             continue # valid numeric character, but all need to be checked
+        elif c==',' or c=='.' or (pos == len(token) and (c=='k' or c=='K')):
+            continue
         else:
             return False # break on first invalid
     # If all characters were valid, then we have a valid numeric token
-    return len(token) > 1 and True
+    return notPunct and True
 
 
 def toCleanNumber(x:string) -> string:
