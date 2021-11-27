@@ -977,9 +977,6 @@ class ConstraintBuilder():
         return [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
 
 if __name__ == '__main__':
-    print(PartialMatcher().generateRemovals(2, 3, True))
-    exit()
-    
     '''Here are some sample queries to use:
     Fabricated examples:
     '200,000 miles or less cheapest blue Kawasaki Ninja 400'
@@ -999,8 +996,8 @@ if __name__ == '__main__':
     'honda odyssey mileage less than 30,000 miles and less than 50,000 miles.'
     '200,000 miles or less and 300,000 miles or less, price between $50-60, blue Kawasaki Ninja'
     'not between 10,000 miles and 200,000 miles, price between $500-600, blue Kawasaki Ninja'
-    'not not not less than 50,000 miles Toyota Odyssey'
-    'not surpassing 50,000 miles Toyota Odyssey not most expensive'
+    'not not not less than 50,000 miles Honda Odyssey'
+    'not surpassing 50,000 miles Honda Odyssey not most expensive'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
@@ -1034,4 +1031,11 @@ if __name__ == '__main__':
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints
     sql = PartialMatcher().bestRequest(reqs, log)
-    print(sql)
+    print(sql, '\n')
+    
+    from src.database import execute
+    res = execute(sql)
+    print(len(res), 'Results:')
+    for result in res:
+        print('', result)
+    
