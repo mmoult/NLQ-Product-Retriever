@@ -8,26 +8,39 @@ class PartialMatcher(object):
     in order to get results.
     '''
     
-    def fromConstraints(self, tableName, constr, orderBy) -> string:
+    def __buildWhere(self, constr):
+        where = ''
+        first = True
+        for constraint in constr:
+            if first:
+                first = False
+            else:
+                where += ' AND '
+            where += ('(' + constraint + ')')
+        return where
+    
+    
+    def __buildOrder(self, constr):
+        orderBy = ''
+        first = True
+        for order in constr:
+            if first:
+                first = False
+            else:
+                orderBy += ', '
+            orderBy += order
+        return orderBy
+    
+    
+    def __fromConstraints(self, tableName, constr, orderBy) -> string:
         query = 'SELECT * FROM ' + tableName
         if len(constr) > 0:
             query += ' WHERE '
-            first = True
-            for constraint in constr:
-                if first:
-                    first = False
-                else:
-                    query += ' AND '
-                query += ('(' + constraint + ')')
+            query += self.__buildWhere(constr)
         if len(orderBy) > 0:
-            ' ORDER BY '
-            first = True
-            for order in orderBy:
-                if first:
-                    first = False
-                else:
-                    query += ', '
-                query += order
+            query += ' ORDER BY '
+            query += self.__buildOrder(orderBy)
+        query += " LIMIT 25"
         return query
 
 
@@ -70,17 +83,13 @@ class PartialMatcher(object):
         order = requirements[4]
         
         log(len(constr), 'total constraints...')
-        query = self.fromConstraints(table.name, constr, order)
-        
-        # The hope is that the query runs just fine and gives us some results.
-        res = execute(query)
         
         # However, this is not guaranteed to be the case. Sometimes the user may not get any results,
         #  in which case, we want to modify the query for them to get something similar
         scheduler = [[]]
         rnd = 0
         roundConstr = []
-        while len(res) == 0:
+        while True:
             # Make each constraint optional (one by one) until we get something
             constraints = constr
             if len(scheduler) == 0:
@@ -98,7 +107,8 @@ class PartialMatcher(object):
             rems = scheduler.pop(0)
             for rem in rems:
                 constraints.pop(rem)
-            query = self.fromConstraints(table.name, constraints, order)
+            query = self.__fromConstraints(table.name, constraints, order)
+            log('try:', query)
             res = execute(query)
             if len(res) > 0: # We got a successful query!
                 # Add the constraints to the list and keep looking for the rest of the round
@@ -114,16 +124,16 @@ class PartialMatcher(object):
                 else:
                     constraints += ' OR '
                 
-                constraints += '('
-                first = True
-                for constraint in roundC:
-                    if first:
-                        first = False
-                    else:
-                        constraints += ' AND '
-                    constraints += ('(' + constraint + ')')
-                constraints += ')'
+                constraints += ('(' + self.__buildWhere(roundC) + ')')
         else:
-            constraints = constr
+            # If none of the constraints can be met, then we rely on ordering
+            constraints = ''
         
-        return self.fromConstraints(table.name, constraints, order)
+        query = 'SELECT * FROM ' + table.name
+        if len(constraints) > 0:
+            query += (' WHERE ' + constraints)
+        if len(order) > 0:
+            query += ' ORDER BY '
+            query += self.__buildOrder(order)
+        query += " LIMIT 25"
+        return query

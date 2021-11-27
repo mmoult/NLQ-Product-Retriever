@@ -480,16 +480,6 @@ class ConstraintBuilder():
         return self.__isOperation(self.superlatives, x)
     
     
-    '''
-    Partial Match for typeIII. 
-    If there is no exact match for a numerical value in the certain column of the certain table,
-    then return the record with the closest value to the target one.
-    '''
-    def partialTypeThree(self, value, table, column):
-        query = f"SELECT * FROM {table} ORDER BY ABS\( {value} - {column}\) LIMIT 10"
-        return database.execute(query)
-    
-    
     def __constraintSimplification(self, constr):
         '''
         The structure of the constraints is a list of lists of lists. There is an implicit AND
@@ -788,9 +778,10 @@ class ConstraintBuilder():
         return clauses
     
     
-    def orderBy(self, typed:[[string, int]], table:database.Table) -> string:
+    def orderBy(self, typed:[[string, int]], table:database.Table, type3:[string]) -> [string]:
         # Since we assume the query has already been standardized, we can go through quickly looking for superlative tokens
         ret = []
+        usedAttrs = []
         
         for token in typed:
             superlative = self.__isSuperlative(token[0])
@@ -835,6 +826,52 @@ class ConstraintBuilder():
                     ret.append(attrFound + " ASC")
                 elif superlative == ">>":
                     ret.append(attrFound + " DESC")
+                else:
+                    attrFound = None
+                
+                if attrFound is not None:
+                    usedAttrs.append(attrFound)
+        
+        # We can also take advantage of the logic used to calculate type III constraints. If the user says "less than $3,000", then we can
+        #  assume they are looking to minimize cost. This is an example of a secondary superlative (cheapest in this case).
+        #  It may not be as important as the explicit superlatives, but if the condition is not met, we should order partials.
+        
+        # We don't want to worry about more complex clauses that contain OR since our ordering assumption is not necessarily valid
+        for i in range(len(type3)):
+            constr = type3[i]
+            if 'OR' in constr:
+                continue
+            # the attribute is always the first in the constraint (even for between)
+            comps = constr.split(' ')
+            if comps[0] in usedAttrs:
+                continue # do not reuse any attribute
+            
+            usedAttrs.append(comps[0]) # add it to used since we are analyzing it now
+            # Look through all the other constraints to verify there aren't conflicting reqs
+            ok = True
+            for j in range(i+1, len(type3)):
+                other = type3[j]
+                if comps[0] in other and not(len(other) > 0 and other[0] == '('):
+                    # The other has valid form. We want to verify it does not conflict with this
+                    if comps[1] == '<' or comps[1] == '<=' and '<' in other:
+                        ok = True
+                    elif comps[1] == '>' or comps[1] == '>=' and '>' in other:
+                        ok = True
+                    else: # otherwise, they are conflicting
+                        ok = False
+                        break
+            
+            # If no conflicting was found, we can use this for ordering partials
+            if ok:
+                if '>' in comps[1]:
+                    ret.append(comps[0] + " DESC")
+                elif '<' in comps[1]:
+                    ret.append(comps[0] + " ASC")
+                elif 'BETWEEN' in comps[1]:
+                    # comps[2] and comps[4] should be the bounds
+                    mean = (float(comps[2]) + float(comps[4])) / 2
+                    ret.append(f'ABS({mean} - {comps[0]})')
+        
         return ret
     
     
@@ -965,16 +1002,17 @@ class ConstraintBuilder():
         #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
         # TODO: we don't handle any explicit boolean operators like 'or'
         typeIWhere = self.type1Where(typed, table)
-        log(typeIWhere)
+        log('I:', typeIWhere)
         typeIIWhere = self.type2Where(typed, table, domain)
-        log(typeIIWhere)
+        log('II:', typeIIWhere)
         typeIIIWhere = self.type3Where(typed, table)
-        log(typeIIIWhere)
+        log('III:', typeIIIWhere)
         
-        orderByClause = self.orderBy(typed, table)
-        log(orderByClause)
+        orderByClause = self.orderBy(typed, table, typeIIIWhere)
+        log('order:', orderByClause)
         # We can use the LIMIT clause to limit the number of responses. Generally, we don't want more than 10 at a time
         return [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
+
 
 if __name__ == '__main__':
     '''Here are some sample queries to use:

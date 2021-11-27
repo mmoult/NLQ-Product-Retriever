@@ -25,7 +25,7 @@ def buildCreate(table:Table):
         cmd += '"' + attr[0][0] + '" ' + attr[1] + ', '
     
     if not table.primKey is None:
-        cmd += ('PRIMARY KEY("' + table.dat[table.primKey][0] + '")')
+        cmd += ('PRIMARY KEY("' + table.dat[table.primKey][0][0] + '")')
         cmd += ') WITHOUT ROWID;'
     else:
         cmd = cmd[0:len(cmd)-2] #get rid of the last comma
@@ -44,7 +44,7 @@ def buildTables(cursor):
         # build the indexes (if any)
         if table.idxCol is not None:
             for idxC in table.idxCol: # for each of the specified indexes
-                iOn = table.dat[idxC][0]
+                iOn = table.dat[idxC][0][0]
                 cmd = 'CREATE INDEX idx_' + table.name + '_' + iOn + ' ON ' + table.name + '(' + iOn + ');'
                 print(cmd)
                 cursor.execute(cmd)
@@ -195,7 +195,7 @@ def rectifyData(cursor):
     #    change from m^2 to ft^2 in the housing file
     sqmToSqft = str(10.76391)
     cursor.execute("UPDATE " + housing.name + " SET landsize = landsize * " + sqmToSqft + " WHERE landsize <> -1;")
-    cursor.execute("UPDATE " + housing.name + " SET building_area = building_area * " + sqmToSqft + " WHERE building_area <> -1;")
+    cursor.execute("UPDATE " + housing.name + " SET area = area * " + sqmToSqft + " WHERE area <> -1;")
     #    change from km driven to miles driven in the motorcycles file
     kmToMi = str(0.6213712)
     cursor.execute("UPDATE " + motorcycles.name + " SET mileage = mileage * " + kmToMi + ";")
