@@ -202,6 +202,10 @@ def rectifyData(cursor):
     #    change the price from Indian rupees to USD in the motorcycle file
     indianRupeeToUsd = str(0.01)
     cursor.execute("UPDATE " + motorcycles.name + " SET price = price * " + indianRupeeToUsd + ";")
+    #    update -1 to infinity in ranges
+    cursor.execute("UPDATE " + jobs.name + " SET salary_max = \"INFINITY\" WHERE salary_max = -1 AND salary_min <> -1;")
+    cursor.execute("UPDATE " + jobs.name + " SET size_max = \"INFINITY\" WHERE size_max = -1 AND size_min <> -1;")
+    cursor.execute("UPDATE " + jobs.name + " SET revenue_max = \"INFINITY\" WHERE revenue_max = -1 AND revenue_min <> -1;")
 
 
 ##################################################################################### Main Entry

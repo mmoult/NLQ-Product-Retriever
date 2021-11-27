@@ -47,12 +47,12 @@ jobs = Table("Jobs", 0, [1],
     [["sector"], "TEXT"],
     [["competitors"], "TEXT"],
     [["easy_apply"], "TEXT"], # TRUE, FALSE, -1
-    [["salary_min"], "INTEGER", ['$']],
-    [["salary_max"], "INTEGER", ['$']],
-    [["size_min"], "INTEGER", ['people']],
-    [["size_max"], "INTEGER", ['people']],
-    [["revenue_min"], "INTEGER", ['$']],
-    [["revenue_max"], "INTEGER", ['$']]
+    [["salary_min"], "INTEGER", ['$'], 'salary_max'],
+    [["salary_max"], "INTEGER", ['$'], 'salary_min'],
+    [["size_min"], "INTEGER", ['people'], 'size_max'],
+    [["size_max"], "INTEGER", ['people'], 'size_min'],
+    [["revenue_min"], "INTEGER", ['$'], 'revenue_max'],
+    [["revenue_max"], "INTEGER", ['$'], 'revenue_min']
 )
 furniture = Table("Furniture", 0, [2],
     [["id"], "INTEGER NOT NULL UNIQUE"],
