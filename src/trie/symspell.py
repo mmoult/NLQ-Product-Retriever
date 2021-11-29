@@ -1,6 +1,6 @@
 """
 The spell checker has been entirely ripped off of this script by Serg Lavrikov(rumbok):
-https://www.kaggle.com/rumbok/ridge-lb-0-41944
+https://www.kaggle.com/yk1598/symspell-spell-corrector/script
 
 do check it out, its a work of art.
 
@@ -302,11 +302,13 @@ class SymSpell:
 def spell_corrector(word_list, words_d) -> str:
     ss = SymSpell(max_edit_distance = 2)
     ss.create_dictionary_from_arr(words_d, token_pattern=r'.+')
-    
+    pattern = '(?<!\S)(?=.)(0|([1-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[1-9])?(?!\S)'
     result_list = []
     for word in word_list:
-
-        if word not in words_d:
+        # check if the word is a number
+        if word.isnumeric() or re.match(pattern, word):
+            result_list.append(word)
+        elif word not in words_d:
             suggestion = ss.best_word(word, silent=True)
 
             if suggestion is not None:
@@ -322,7 +324,6 @@ def spell_corrector(word_list, words_d) -> str:
                             break
                 result_list.append(suggestion)
         else:
-
             result_list.append(word)
 
     return result_list
@@ -336,7 +337,7 @@ if __name__ == '__main__':
     #     with open('../input/479k-english-words/english_words_479k.txt') as f:
     #         words = f.readlines()
     #     eng_words = [word.strip() for word in words]
-    eng_words = ['honda', 'c50', 'accord', 'accura', 'accord']
+    eng_words = ['honda', 'c50', 'accord', 'accura', 'accord', '50', '500012']
 
     # print('Total english words: {}'.format(len(eng_words)))
     #
@@ -359,7 +360,7 @@ if __name__ == '__main__':
         else:
             words_dict[word] = 1
 
-    bad_words = ['hondaacor', 'hoda', 'accora', 'jewelry', 'c40']
+    bad_words = ['hondaacor', 'hoda', 'accora', 'jewelry', 'c40', '500','5,000.12']
     print('run spell checker...')
     print(f'dictionary: {eng_words}\n')
 
