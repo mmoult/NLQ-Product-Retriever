@@ -91,7 +91,7 @@ class PartialMatcher(object):
         roundConstr = []
         while True:
             # Make each constraint optional (one by one) until we get something
-            constraints = constr
+            constraints = constr[:] # make a clone of the constraint list that we will manipulate
             if len(scheduler) == 0:
                 # if the scheduler is empty, then we need to move to the next round and refill it
                 # Though, if we got successful queries last round, we can just break
@@ -100,7 +100,7 @@ class PartialMatcher(object):
                 rnd += 1
                 if rnd >= len(constraints):
                     break # we cannot remove all or more constraints than we have
-                log('Round 1')
+                log('Round', rnd)
                 scheduler = self.generateUnorderedRemovals(rnd, len(constraints))
             
             # Go forward with the schedule
