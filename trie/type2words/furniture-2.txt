@@ -61,7 +61,6 @@ automatically
 available
 Avoid
 Axelsson
-B
 Babycare
 back
 BACKARYD
@@ -108,10 +107,8 @@ BIFMA
 BILLSBRO
 BILLY
 BINGSTA
-BJ
 BJORLI
 BJURSTA
-BL
 BLECKBERGET
 BLYSK
 board
@@ -160,7 +157,6 @@ BUSKBO
 BUSSAN
 BUSUNGE
 BYLLAN
-C
 cabinets
 cable
 cables
@@ -269,7 +265,6 @@ Cup
 curtain
 customise
 cutlery
-D
 DA
 DAGOTTO
 Dahlman
@@ -279,7 +274,6 @@ DALSHULT
 damaged
 David
 Day
-DD
 Debs
 DEBY
 decorative
@@ -326,7 +320,6 @@ DVIKEN
 dyed
 dyeing
 dyestuff
-E
 each
 earlier
 easier
@@ -375,7 +368,6 @@ Ext
 Extendable
 extension
 Extra
-F
 fabric
 FABRIK
 fade
@@ -409,7 +401,6 @@ fittings
 FIXA
 Fixed
 fixing
-FJ
 flat
 FLEKKE
 flexibility
@@ -453,7 +444,6 @@ furnish
 furniture
 FUSION
 FYRESDAL
-G
 GALANT
 game
 GAMLARED
@@ -475,7 +465,6 @@ GISTAD
 give
 gives
 giving
-GJ
 GLADOM
 GLASHOLM
 glass
@@ -488,7 +477,6 @@ GODISHUS
 GODVIN
 GONATT
 good
-GR
 grain
 GRANBODA
 greenhouse
@@ -509,7 +497,6 @@ GUNDE
 GUNNARED
 Gustav
 Gutierrez
-H
 HACK
 Hagberg
 half
@@ -555,8 +542,6 @@ Hilland
 HILLARED
 HILVER
 HISHULT
-HJ
-HL
 HOKKSUND
 HOL
 hold
@@ -601,7 +586,6 @@ island
 item
 items
 IVAR
-J
 JA
 Jacobsen
 JANINGE
@@ -623,7 +607,6 @@ JULES
 Junior
 Just
 JUSTINA
-K
 KALLAX
 KALLR
 KALLVIKEN
@@ -660,7 +643,6 @@ KRILLE
 KRITTER
 KROKHOLMEN
 Kroon
-KT
 KUDDARNA
 KULLABERG
 KULLEN
@@ -671,9 +653,7 @@ KUNGSHOLMEN
 KURA
 KVISTBRO
 KYRRE
-L
 label
-LACK
 ladder
 Lagerman
 LAIVA
@@ -702,7 +682,6 @@ Leg
 Legaard
 LEIFARNE
 LEIRVIK
-LEN
 length
 LENNART
 LERBERG
@@ -733,7 +712,6 @@ LIXHULT
 LJA
 LJUNGEN
 LJUV
-LL
 LLAN
 LLAND
 LLARP
@@ -755,7 +733,6 @@ love
 Low
 lower
 LPA
-LT
 LUBBAN
 Lumbar
 Lundberg
@@ -766,7 +743,6 @@ lustre
 LVIKEN
 Lycke
 LYCKSELE
-M
 Machado
 MACKAP
 made
@@ -851,7 +827,6 @@ MURBO
 MUREN
 must
 MYDAL
-n
 Nada
 NADAL
 Nakamura
@@ -871,10 +846,6 @@ Net
 NEVER
 new
 next
-NG
-NGA
-NGFJ
-nice
 Nicholai
 nickel
 Niels
@@ -937,7 +908,6 @@ other
 outdoor
 outlets
 OXBERG
-P
 packaged
 packaging
 pad
@@ -972,8 +942,6 @@ PLATSA
 Play
 plenty
 plinth
-pnl
-PO
 Pocket
 pockets
 pollen
@@ -985,7 +953,6 @@ post
 Pouffe
 PPLAR
 PPLING
-PR
 practical
 preference
 pressure
@@ -1000,7 +967,6 @@ protection
 protector
 Protects
 provide
-PS
 Pull
 purchased
 push
@@ -1008,8 +974,6 @@ pushed
 put
 quality
 quickly
-R
-RA
 rain
 raise
 raised
@@ -1019,8 +983,6 @@ RAMSTA
 RAST
 Rattan
 RBYL
-rd
-re
 reach
 Read
 Readily
@@ -1043,20 +1005,13 @@ remove
 REMSTA
 RENBERGET
 REND
-require
 required
 requirements
-requires
-RES
-resist
 resistance
 resistant
 rest
 restful
 Reversible
-RFJ
-RG
-RH
 RHAMN
 RIDABU
 right
@@ -1147,7 +1102,6 @@ SKOGSTA
 SKOGSTORP
 SKRUVSTA
 SKUBB
-SL
 slatted
 SLATTUM
 sliding
@@ -1176,9 +1130,6 @@ spine
 SPORREN
 spring
 sprung
-SR
-SSELBY
-ssmann
 stability
 stable
 Stackable
@@ -1251,7 +1202,6 @@ surface
 surfaces
 surfing
 Suspension
-SV
 SVALN
 SVALSTA
 SVAN
@@ -1262,7 +1212,6 @@ swivel
 Synn
 system
 SYVDE
-T
 tables
 tablet
 tabletop
@@ -1334,17 +1283,14 @@ TRULSTORP
 TRYSIL
 TSAM
 TSFJORD
-TT
 TUFFING
 TULLSTA
 tunnel
 turned
 TV
 TVs
-Two
 types
 TYSSEDAL
-U
 Ullenius
 ULRIKSBERG
 Unanchored
@@ -1367,7 +1313,6 @@ using
 UT
 uts
 UTTER
-V
 VA
 VADHOLMA
 VALLENTUNA
@@ -1376,7 +1321,6 @@ variations
 VASSVIKEN
 VATTVIKEN
 VBACKEN
-ve
 VEBER
 VEDBO
 VEJMON
@@ -1385,7 +1329,6 @@ velvety
 vertically
 VESA
 VESKEN
-VET
 vibrant
 VIDGA
 view
@@ -1411,7 +1354,6 @@ VOLFGANG
 VRARYD
 VUKU
 vulnerable
-w
 wadding
 Wahl
 Wall
@@ -1451,9 +1393,28 @@ workspace
 workstation
 woven
 write
-x
-Y
 YNGVAR
 young
 YPPERLIG
 YTTER
+stone
+granite
+polish
+polished
+black
+brown
+yellow
+green
+gray
+grey
+red
+orange
+maroon
+purple
+lilac
+brick
+blue
+white
+silver
+gold
+

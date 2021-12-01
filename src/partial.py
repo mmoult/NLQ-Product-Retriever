@@ -119,6 +119,9 @@ class PartialMatcher(object):
             # OR together all successful constraints
             firstRound = True
             for roundC in roundConstr:
+                if len(roundC) == 0:
+                    continue
+                
                 if firstRound:
                     firstRound = False
                 else:

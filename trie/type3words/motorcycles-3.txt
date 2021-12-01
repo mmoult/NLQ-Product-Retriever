@@ -17,3 +17,6 @@ owner
 5th
 owners
 owner
+first
+second
+hand
