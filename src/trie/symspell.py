@@ -314,15 +314,15 @@ def spell_corrector(word_list, words_d) -> str:
             if suggestion is not None:
                 result_list.append(suggestion)
             else:
-                suggestion = word
+                suggestion = [word]
                 for i in range(len(word)):
                     part1 = ss.best_word(word[:i], silent=True)
                     if part1 is not None:
                         part2 = ss.best_word(word[i:], silent=True)
                         if part2 is not None:
-                            suggestion = part1 + ' ' + part2
+                            suggestion = [part1, part2]
                             break
-                result_list.append(suggestion)
+                result_list += suggestion
         else:
             result_list.append(word)
 

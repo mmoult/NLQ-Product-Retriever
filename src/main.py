@@ -867,9 +867,11 @@ class ConstraintBuilder():
                     ret.append(comps[0] + " DESC")
                 elif '<' in comps[1]:
                     ret.append(comps[0] + " ASC")
-                elif 'BETWEEN' in comps[1]:
-                    # comps[2] and comps[4] should be the bounds
-                    mean = (float(comps[2]) + float(comps[4])) / 2
+                elif '=' in comps[1] or 'BETWEEN' in comps[1]:
+                    if 'BETWEEN' in comps[1]:
+                        mean = (float(comps[2]) + float(comps[4])) / 2
+                    else:
+                        mean = comps[2]
                     ret.append(f'ABS({mean} - {comps[0]})')
         
         return ret
@@ -958,6 +960,16 @@ class ConstraintBuilder():
         return spell_corrector(tokens, words_dict)
     
     
+    def extractOperated(self, typed) -> [string]:
+        from src.opeval import OperatorEvaluator
+        result = OperatorEvaluator(typed).result
+        # Now we need to read through the structure and work on the subparts
+        #from src.booleval import OperatorRelation
+        # TODO: HERE
+        
+        pass
+    
+    
     def fromQuery(self, query:string, log):
         # Now we must categorize the query to know which domain we are searching
         log("Classifying query...")
@@ -987,7 +999,7 @@ class ConstraintBuilder():
         
         # and then correct any misspellings
         log("Correcting spelling...")
-        #tokens = self.correctSpelling(tokens, domain, table)
+        tokens = self.correctSpelling(tokens, domain, table)
         log('"' + " ".join(tokens) + '"')
         
         # now we want to pull some data out (Type I, II, III)
@@ -1000,7 +1012,12 @@ class ConstraintBuilder():
         # Now we want to start building the query.
         #  It is going to be in the form of a SELECT statement, with an AND for each of the types that need to be matched
         #  For example, SELECT * FROM table WHERE typeI AND typeII AND typeIII
-        # TODO: we don't handle any explicit boolean operators like 'or'
+        
+        # We will only want one set of constraints at the end, but explicit boolean operators will have us split the query
+        # into separate pieces that should be evaluated in a specific relation to each other.
+        # TODO: HERE
+        #andList = self.extractOperated(typed)
+        
         typeIWhere = self.type1Where(typed, table)
         log('I:', typeIWhere)
         typeIIWhere = self.type2Where(typed, table, domain)

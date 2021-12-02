@@ -68,7 +68,6 @@ HF
 Himalayan
 Hornet
 Hunk
-i
 Ignitor
 Interceptor
 Intruder
@@ -167,3 +166,5 @@ YZF
 Zest
 ZMR
 ZR
+color
+mileage
