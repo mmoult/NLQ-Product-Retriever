@@ -2,7 +2,9 @@ from src.typify import TypeExtractor, isNumeric
 from src.domains import Domain, getTable
 from src import database
 from src.partial import PartialMatcher
+from src.opeval import OperatorHandler, OperatorEvaluator, OperatorRelation, OrRelation, AndRelation, NotRelation
 import string
+from src.standard import Standardizer
 
 class ConstraintBuilder():
     
@@ -11,47 +13,8 @@ class ConstraintBuilder():
         self.classifier = classify.Classifier()
         self.extractor = TypeExtractor()
         
-        # With that in place, we want to load some data from files containing boundary words
-        #  and superlative words.
-        self.bounders, self.boundApps = self.__loadSynonymFile("boundary-synonyms")
-        self.superlatives, self.superApps = self.__loadSynonymFile("superlatives-synonyms")
-    
-    
-    def __loadSynonymFile(self, fileName:string):
-        from pathlib import Path
-        synFile = open(str(Path(__file__).parent) + "/../" + fileName + ".txt", encoding='utf-8')
-        synList = []
-        appDict = None
-        currBound = []
-        currSym = None
-        for line in synFile:
-            if appDict is None:
-                line = line[0:-1] # to remove the trailing new line
-                if len(line) == 0:
-                    if len(currBound) > 0:
-                        synList.append([currSym, currBound])
-                        currBound = []
-                    currSym = None
-                else:
-                    if line[0] == '-': # The dash barrier marks the end of the boundary synonyms
-                        appDict = {}
-                    elif currSym is None: # the new symbol is set
-                        currSym = line
-                    else:
-                        currBound.append(line)
-            else:
-                # For applications. These are definitions of parenthesized numbers (which are used by boundary synonyms)
-                firstEnd = line.find(' ')
-                # The first token is the application defined
-                defed = line[0:firstEnd]
-                # All other tokens ought to be separated by ;
-                split = line[firstEnd+1:-1].split('; ')
-                appDict.update({defed: split})
-        if len(currBound) > 0:
-            synList.append([currSym, currBound])
-        synFile.close()
-        
-        return synList, appDict
+        # Set up the bounding and superlative handler
+        self.operatorHandler = OperatorHandler()
     
     
     def __matchWhere(self, name:string, value:string) -> string:
@@ -245,241 +208,6 @@ class ConstraintBuilder():
         return self.__convertToSQL(matchList, table)
     
     
-    def __standardizeQuery(self, typed:[[string, int]]) -> [[string, int]]:
-        # Go through each of the bounders and try to match them to tokens in the query
-        for bounder in self.bounders:
-            sym = bounder[0]
-            for option in bounder[1]:
-                # For each option that maps to the given symbol
-                #  We will want to break each option into component tokens
-                comps = option.split(' ')
-                changes = True # we will cycle through the typified query tokens until no changes can be made
-                while changes:
-                    changes = False
-                    unit = '' # the units found
-                    i = 0 # the current component index to match with
-                    start = 0
-                    end = -1
-                    for j in range(len(typed)):
-                        token = typed[j]
-                        reset = False
-                        # we can only consider the token for boundary if it is a type 4
-                        # or optionally we can have a unit if we are looking for one
-                        if token[1] == 4 or (token[1] == 3 and comps[i] == '*'):
-                            # Now we try to make a match
-                            if comps[i] == '*':
-                                if token[1] != 3 and token[0].lower() == comps[i+1]:
-                                    i += 2 # match, now move on to next
-                                else:
-                                    # otherwise, save the unit we found
-                                    if len(unit) > 0:
-                                        unit += ' '
-                                    unit += token[0].lower()
-                            elif comps[i] == token[0].lower(): # we need an exact match
-                                i += 1 # go to the next component to match
-                                
-                                # Check for an application next
-                                if i < len(comps) and comps[i][0] == '(' and comps[i][-1] == ')':
-                                    # we found an application. This should be saved, but then skipped over
-                                    if len(unit) > 0:
-                                        unit += ' '
-                                    
-                                    appCode = comps[i][1:-1]
-                                    if appCode in self.boundApps:
-                                        # match of application definition
-                                        if len(unit) > 0:
-                                            unit += ' '
-                                        unit += ' '.join(self.boundApps[appCode])
-                                    i += 1 # move on, since we don't actually match against an application
-                            else:
-                                reset = True
-                            
-                            # Now verify that i is within correct bounds
-                            if i >= len(comps):
-                                # We have a complete match!
-                                end = j
-                                break
-                        else:
-                            reset = True # reset any progress since all tokens in the pattern must be consecutive
-                        if reset:
-                            i = 0 # reset any progress we have made
-                            start = j+1 # this is potentially where the pattern begins
-                    
-                    # If we made it out of the token loop, we want to see if the range finished
-                    if end != -1:
-                        # It did. Now we make the replacement
-                        value = sym
-                        if len(unit) > 0:
-                            value += " (" + unit + ")"
-                        typed = typed[0:start] + [[value, 4]] + typed[end+1:]
-                        changes = True
-        
-        # Check to see if the tokens match with superlatives. This algorithm closely resembles for bounding.
-        #  A superlative will match one of the synonyms and will either be followed by (or preceded by) a Type II attribute or a Type III unit
-        for superlative in self.superlatives:
-            sym = superlative[0]
-            for option in superlative[1]:
-                # For each option that maps to the given symbol, we look in the query for potential matches
-                #  each match option can contain multiple tokens, which we need to break into component parts
-                comps = option.split(' ')
-                changes = True # we will cycle through the typified query tokens until no changes can be made
-                while changes:
-                    changes = False
-                    affected = '' # the unit or attribute that is being affected
-                    i = 0 # the current component index to match with
-                    start = 0
-                    end = -1
-                    for j in range(len(typed)):
-                        token = typed[j]
-                        reset = False
-                        # We only consider the token to match the superlative if it is type 4.
-                        if token[1] == 4:
-                            if comps[i] == token[0].lower(): # we need an exact match
-                                i += 1 # go to the next component to match
-                                
-                                # Check for an application
-                                if i < len(comps) and comps[i][0] == '(' and comps[i][-1] == ')':
-                                    # we found an application. This should be saved, but then skipped over
-                                    appCode = comps[i][1:-1]
-                                    if appCode in self.superApps:
-                                        # match of application definition
-                                        affected = ', '.join(self.superApps[appCode])
-                                    i += 1 # move on, since we don't actually match against an application
-                            else:
-                                reset = True
-                            
-                            # Now verify that i is within correct bounds
-                            if i >= len(comps):
-                                # We have a complete match!
-                                end = j
-                                break
-                        else:
-                            reset = True # reset any progress since all tokens in the pattern must be consecutive
-                        if reset:
-                            i = 0 # reset any progress we have made
-                            start = j+1 # this is potentially where the pattern begins
-                    
-                    # If we made it out of the token loop, we want to see if the range finished
-                    if end != -1:
-                        # It did. Now we make the replacement
-                        value = sym
-                        if len(affected) == 0:
-                            # If no affected was built-in to the superlative, we need to go find it
-                            #  If it exists, it will either be immediately after or before the superlative
-                            if end+1 <= len(typed):
-                                if typed[end+1][1] == 2:
-                                    # Mark Type II affected with a leading underscore
-                                    affected = "_" + typed[end+1][0]
-                                    end += 1
-                                elif typed[end+1][1] == 3:
-                                    affected = typed[end+1][0]
-                                    end += 1
-                            if len(affected) == 0 and start > 0 and typed[start-1][1] == 2:
-                                affected = "_" + typed[start-1][0]
-                                start -= 1
-                        
-                        # Now append the affected
-                        if len(affected) > 0:
-                            value += " (" + affected + ")"
-                        else:
-                            # If we could not find an effected, then throw out this superlative!
-                            break
-                        # Lastly, reflect the changes in the query
-                        typed = typed[0:start] + [[value, 4]] + typed[end+1:]
-                        changes = True
-        
-        # There are just a few different phrases for ranges:
-        #  Between * (and/to/-) *
-        #  From * (to/-) *
-        #  * - *
-        # Since the - is the common denominator in all, we will simplify to that.
-        #  There should be no other cases of - by itself, since negation is without a space.
-        rangeType = None
-        delIndex = None
-        i = 0
-        while i < len(typed):
-            token = typed[i]
-            if token[0].lower() == 'between' or token[0].lower() == 'from':
-                rangeType = token[0].lower()
-                delIndex = i
-            
-            elif rangeType is not None:
-                if token[0].lower() == 'to' or (rangeType == 'between' and token[0].lower() == 'and'):
-                    token[0] = '-' # transform to a simple hyphen, maintaining type
-                    typed.pop(delIndex) # we delete the starting range word (since it can interfere with finding "not")
-                    i -= 1
-                
-                # Between the range start and the range middle, we only expect to encounter number values and units.
-                elif token[1] == 3:
-                    i += 1
-                    continue
-                # If we get anything else, break the range construct
-                rangeType = None
-                delIndex = None
-            i += 1
-        
-        # Simplify any negated conditions
-        i = 0
-        while i < len(typed):
-            if typed[i][0] == '!=':
-                # We encountered a not.
-                # The not must come before the condition operation that it is modifying
-                if i+1 < len(typed):
-                    nxt = typed[i+1][0]
-                    if nxt == '!=':
-                        # Two nots cancel out
-                        typed.pop(i)
-                        typed.pop(i)
-                        continue
-                    
-                    isBound = self.__isBoundOperation(nxt)
-                    isSuper = self.__isSuperlative(nxt)
-                    isOp = isBound if isBound is not None else isSuper
-                    if isOp is not None:
-                        excess = nxt.rfind('(')
-                        if excess != -1:
-                            excess = nxt[excess:]
-                        else:
-                            excess = ""
-                        
-                        result = None
-                        if isOp == '<':
-                            result = '>='
-                        elif isOp == '<=':
-                            result = '>'
-                        elif isOp == '>':
-                            result = '<='
-                        elif isOp == '>=':
-                            result = '<'
-                        elif isOp == '<<':
-                            result = '>>'
-                        elif isOp == '>>':
-                            result = '<<'
-                        
-                        if result is not None:
-                            if len(excess) > 0:
-                                result += ' ' + excess # append the qualifiers
-                            typed[i][0] = result
-                            typed.pop(i+1)
-            i += 1
-        return typed
-    
-    
-    def __isOperation(self, opSet, x:string) -> bool:
-        for operation in opSet:
-            sym = operation[0]
-            # if the bounding symbol is the first in the string, then we know it is a bounding operation
-            if x.find(sym) == 0 and (len(x) == len(sym) or x[len(sym)]==' '): 
-                return sym
-        return None
-    
-    def __isBoundOperation(self, x:string) -> bool:
-        return self.__isOperation(self.bounders, x)
-    
-    def __isSuperlative(self, x:string) -> bool:
-        return self.__isOperation(self.superlatives, x)
-    
-    
     def __constraintSimplification(self, constr):
         '''
         The structure of the constraints is a list of lists of lists. There is an implicit AND
@@ -657,11 +385,11 @@ class ConstraintBuilder():
                                 unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
                             else:
                                 unit = typed[j][0]
-                        elif typed[j][1] == 4 and self.__isBoundOperation(typed[j][0]):
+                        elif typed[j][1] == 4 and self.operatorHandler.isBoundOperation(typed[j][0]):
                             if bound is not None:
                                 break # cannot have two bounds!
                             bound = typed[j][0]
-                            bb = self.__isBoundOperation(typed[j][0])
+                            bb = self.operatorHandler.isBoundOperation(typed[j][0])
                             rest = bound[len(bb):]
                             bound = bb
                             if rest.find('(') != -1 and rest.find(')') != -1:
@@ -784,7 +512,7 @@ class ConstraintBuilder():
         usedAttrs = []
         
         for token in typed:
-            superlative = self.__isSuperlative(token[0])
+            superlative = self.operatorHandler.isSuperlative(token[0])
             if superlative:
                 # We have identified a superlative. By definition, we have an affected list
                 rest = token[0][len(superlative):]
@@ -921,22 +649,22 @@ class ConstraintBuilder():
                 allWords.append(word.lower())
         # There are also some words that are universal (not specific to domain)
         #  examples are the boundary words and the superlative words
-        for bounder in self.bounders:
+        for bounder in self.operatorHandler.bounders:
             for phrase in bounder[1]:
                 for word in phrase.split(' '):
                     # There are some tokens that we should not add as words, namely the
                     #  wild card (*) and applications (parenthesized application codes)
                     if not('(' in word or ')' in word or word=='*'):
                         allWords.append(word)
-        for superlative in self.superlatives:
+        for superlative in self.operatorHandler.superlatives:
             for phrase in superlative[1]:
                 for word in phrase.split(' '):
                     # There are some tokens that we should not add as words, namely the
                     #  wild card (*) and applications (parenthesized application codes)
                     if not('(' in word or ')' in word or word=='*'):
                         allWords.append(word)
-        for key in self.boundApps.keys():
-            for synonym in self.boundApps[key]:
+        for key in self.operatorHandler.boundApps.keys():
+            for synonym in self.operatorHandler.boundApps[key]:
                 allWords.append(synonym)
         universal = ['and', 'or', 'not', 'between', 'from']
         allWords += universal
@@ -960,14 +688,100 @@ class ConstraintBuilder():
         return spell_corrector(tokens, words_dict)
     
     
-    def extractOperated(self, typed) -> [string]:
-        from src.opeval import OperatorEvaluator
-        result = OperatorEvaluator(typed).result
-        # Now we need to read through the structure and work on the subparts
-        #from src.booleval import OperatorRelation
-        # TODO: HERE
+    def extractOperated(self, typed, table, domain):
+        result = OperatorEvaluator(typed[:], lambda x: self.operatorHandler.isBoundOperation(x) or self.operatorHandler.isSuperlative(x)).result
         
-        pass
+        # Now we need to read through the structure and work on the subparts
+        # Essentially, we are trying to flatten it. 
+        def flatten(resList):
+            # For non-relation items, we can add them to a list that we can analyze through our type methods.
+            typesWhere = [[], [], []]
+            # However, relation items are more complicated, since they can analyze other relations and/or others.
+            def contribute(relation) -> [[string]]:
+                typesWhere = [[], [], []]
+                if isinstance(relation, NotRelation):
+                    # We want to get the result of flattening the internals
+                    notted = flatten(relation.notted)
+                    # We can append each clause with NOT (since that is valid in SQL)
+                    j = 0
+                    while j < len(notted):
+                        typeNum = notted[j]
+                        for clause in typeNum:
+                            typesWhere[j].append('NOT ' + clause)
+                        j += 1
+                elif isinstance(relation, AndRelation):
+                    left = flatten(relation.left)
+                    right = flatten(relation.right)
+                    # For and, we just want to add all clauses from both sides
+                    all_ = [left, right]
+                    for side in all_:
+                        j = 0
+                        while j < len(side):
+                            typeNum = side[j]
+                            typesWhere += typeNum
+                elif isinstance(relation, OrRelation):
+                    left = flatten(relation.left)
+                    right = flatten(relation.right)
+                    # Or is likely the hardest, since we need to combine all subclauses into one giant anded list (for each side)
+                    # then we combine those sides into a large OR statement
+                    lefted = ''
+                    righted = ''
+                    # Unfortunately, we have to sacrifice the type distinction. Though this is ok, since we only needed it for optimization,
+                    #  which would not be possible in the large or statement anyway
+                    for typeNum in left:
+                        for clause in typeNum:
+                            if len(lefted) > 0:
+                                lefted += ' AND '
+                            lefted += clause
+                    for typeNum in right:
+                        for clause in typeNum:
+                            if len(righted) > 0:
+                                righted += ' AND '
+                            righted += clause
+                    ored = ''
+                    if len(lefted) > 0:
+                        ored = lefted
+                    if len(righted) > 0:
+                        missEnd = False
+                        if len(ored) > 0:
+                            ored = '(' + ored + ') OR ('
+                            missEnd = True
+                        ored += righted
+                        if missEnd:
+                            ored += ')'
+                    if len(ored) > 0:
+                        typesWhere[0].append(ored)
+                return typesWhere
+            
+            pending = []
+            def clearPending():
+                # process the tokens and add them to their respective lists, then clear the pending list
+                if len(pending) > 0:
+                    typesWhere[0] += self.type1Where(pending, table)
+                    typesWhere[1] += self.type2Where(pending, table, domain)
+                    typesWhere[2] += self.type3Where(pending, table)
+                    pending.clear()
+            
+            i = 0
+            while i < len(resList):
+                if isinstance(resList[i], OperatorRelation):
+                    # If we encountered a non-operator item, then it splits the pending list
+                    clearPending()
+                    
+                    # Now we want to handle all that the relation contained
+                    contributed = contribute(resList[i])
+                    typesWhere[0] += contributed[0]
+                    typesWhere[1] += contributed[1]
+                    typesWhere[2] += contributed[2]
+                else:
+                    pending.append(resList[i])
+                i += 1
+            # If we have left the loop, we want to make one final check for pending
+            clearPending()
+            return typesWhere
+        
+        # Return the results of starting the recursive method
+        return flatten(result)
     
     
     def fromQuery(self, query:string, log):
@@ -1005,7 +819,8 @@ class ConstraintBuilder():
         # now we want to pull some data out (Type I, II, III)
         typed = self.extractor.typify(tokens, domain)
         # And standardize what we find
-        typed = self.__standardizeQuery(typed)
+        standardizer = Standardizer(self.operatorHandler)
+        typed = standardizer.standardizeQuery(typed)
         log("Typed query:")
         log(typed, '\n')
         
@@ -1015,14 +830,14 @@ class ConstraintBuilder():
         
         # We will only want one set of constraints at the end, but explicit boolean operators will have us split the query
         # into separate pieces that should be evaluated in a specific relation to each other.
-        # TODO: HERE
-        #andList = self.extractOperated(typed)
+        typeReqs = self.extractOperated(typed, table, domain)
         
-        typeIWhere = self.type1Where(typed, table)
+        # Print out what we got for debugging purposes
+        typeIWhere = typeReqs[0]
         log('I:', typeIWhere)
-        typeIIWhere = self.type2Where(typed, table, domain)
+        typeIIWhere = typeReqs[1]
         log('II:', typeIIWhere)
-        typeIIIWhere = self.type3Where(typed, table)
+        typeIIIWhere = typeReqs[2]
         log('III:', typeIIIWhere)
         
         orderByClause = self.orderBy(typed, table, typeIIIWhere)
