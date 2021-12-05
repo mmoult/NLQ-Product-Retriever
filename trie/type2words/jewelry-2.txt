@@ -12,7 +12,6 @@ artier
 available
 aventurine
 aventurines
-B
 Baby
 baguette
 Ballerine
@@ -61,7 +60,6 @@ cuff
 cultured
 curved
 cut
-d
 description
 Destin
 Diabolo
@@ -73,7 +71,6 @@ Double
 drop
 drops
 Dumont
-e
 earring
 Eclat
 Ecrou
@@ -101,10 +98,10 @@ Fran
 garnet
 garnets
 gers
+gold
 Goldmaster
 gray
 green
-H
 half
 Hand
 Heart
@@ -117,8 +114,6 @@ individually
 Inner
 Italy
 Juste
-K
-L
 lacquer
 lapis
 large
@@ -145,7 +140,6 @@ moire
 mother
 motif
 motifs
-N
 naturally
 Neck
 new
@@ -172,7 +166,6 @@ practices
 price
 princess
 purple
-r
 reef
 Reflection
 responsible
@@ -185,7 +178,6 @@ Ruban
 rubies
 Rubrum
 ruby
-s
 Santos
 Saphirs
 sapphire
@@ -238,3 +230,5 @@ wide
 XL
 XS
 yellow
+silver
+platinum

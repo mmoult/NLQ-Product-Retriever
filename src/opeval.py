@@ -36,7 +36,7 @@ class OperatorEvaluator(object):
                                     lhs.append(typed.pop(left))
                                 i -= len(lhs)
                                 rhs = []
-                                for _ in range(i+1, right):
+                                for _ in range(i+1, right+1-len(lhs)):
                                     rhs.append(typed.pop(i+1))
                                 typed[i] = OrRelation(lhs, rhs) if rnd==1 else AndRelation(lhs, rhs)
                 i += 1
@@ -56,13 +56,13 @@ class OperatorEvaluator(object):
         if typed[start][1] != 3:
             if isOp(typed[start][0]):
                 bound = True
+                start += iterate
             else:
                 return start - (iterate if typed[start][1] == 4 else 0)
         
         value = False
         unit = False
         while not (value and unit and bound):
-            start += iterate
             abort = False
             if start < 0 or start >= len(typed) or isinstance(typed[start], OperatorRelation):
                 abort = True
@@ -81,7 +81,8 @@ class OperatorEvaluator(object):
                 else:
                     abort = True
             if abort:
-                return start + iterate
+                return start - iterate # go back one, since this token was problematic
+            start += iterate
         return start
 
 

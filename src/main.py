@@ -868,11 +868,13 @@ if __name__ == '__main__':
     'not between 10,000 miles and 200,000 miles, price between $500-600, blue Kawasaki Ninja'
     'not not not less than 50,000 miles Honda Odyssey'
     'not surpassing 50,000 miles Honda Odyssey not most expensive'
+    'kitchen countertop granite or < $200, black or brown'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
     'jewelry weeding collections $50000'
     'TOYOTA MOTORCYCLE SECOND HAND $10000 BLUE COLOR  300,000 MILAGE'
+    'anniversary chain for her silver or gold $300'
     
     Tricky reduction queries:
     'honda accord red like new haven' -> [honda] [accord] [red] (([like new] [haven]) \/ [new haven])

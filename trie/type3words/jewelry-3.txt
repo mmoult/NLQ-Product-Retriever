@@ -1,8 +1,5 @@
 $
 carat
-18K
 mm
 cm
 width
-platinum
-gold
