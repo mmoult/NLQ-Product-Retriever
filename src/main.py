@@ -642,40 +642,25 @@ class ConstraintBuilder():
     
     def correctSpelling(self, tokens, domain, table):
         # To do so, we need to have a big dictionary with all three types of the correct domain
-        trieList = self.extractor.verifier.getDomainTries(domain)
         allWords = []
-        for trie in trieList:
-            for word in trie.wordSet:
-                allWords.append(word.lower())
-        # There are also some words that are universal (not specific to domain)
-        #  examples are the boundary words and the superlative words
-        for bounder in self.operatorHandler.bounders:
-            for phrase in bounder[1]:
-                for word in phrase.split(' '):
-                    # There are some tokens that we should not add as words, namely the
-                    #  wild card (*) and applications (parenthesized application codes)
-                    if not('(' in word or ')' in word or word=='*'):
-                        allWords.append(word)
-        for superlative in self.operatorHandler.superlatives:
-            for phrase in superlative[1]:
-                for word in phrase.split(' '):
-                    # There are some tokens that we should not add as words, namely the
-                    #  wild card (*) and applications (parenthesized application codes)
-                    if not('(' in word or ')' in word or word=='*'):
-                        allWords.append(word)
-        for key in self.operatorHandler.boundApps.keys():
-            for synonym in self.operatorHandler.boundApps[key]:
-                allWords.append(synonym)
-        universal = ['and', 'or', 'not', 'between', 'from']
-        allWords += universal
+        # Add universal words from a dictionary
+        from pathlib import Path
+        engDict = open(str(Path(__file__).parent) + "/../Datasets/dictionary_eng_80k.txt", encoding='utf-8')
+        for line in engDict:
+            word, _ = line.split(" ")
+            allWords.append(word)
         
         # There are also domain-specific words we will enter
-        for attr in table.dat:
+        for attr in table.dat: # from the table titles
             for typeSynonym in attr[0]:
                 allWords.append(typeSynonym)
             if len(attr) > 2:
                 for unit in attr[2]:
                     allWords.append(unit)
+        trieList = self.extractor.verifier.getDomainTries(domain)
+        for trie in trieList: # from the dataset instances
+            for word in trie.wordSet:
+                allWords.append(word.lower())
         # Now we can actually perform the spelling corrections (if any)
         from src.trie.symspell import spell_corrector
         words_dict = {}
