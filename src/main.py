@@ -383,6 +383,8 @@ class ConstraintBuilder():
                             #  It is not a number. Therefore, we assume it is the unit.
                             if unit is not None: # we found another unit, and we already have a unit
                                 unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
+                                # making joint units is problematic since we don't know where to stop, but necessary for units
+                                # like "sq ft". 
                             else:
                                 unit = typed[j][0]
                         elif typed[j][1] == 4 and self.operatorHandler.isBoundOperation(typed[j][0]):
@@ -427,6 +429,9 @@ class ConstraintBuilder():
                                     break
                             i = j
                             break # After range computations, we don't want to stick around looking for more
+                        elif typed[j][1] == 2 and unit is None and self.isNumericColumnName(table.dat, typed[j][0]):
+                            unit = '_' + typed[j][0]
+                            # We want to keep going since we might find a bound too
                         else:
                             break # If we found something unexpected, we stop going backwards
                         
@@ -436,22 +441,28 @@ class ConstraintBuilder():
                     black = max(black, i)
                 
                 # Now that we have a unit, we are going to try to use it.
-                #  If we don't have any unit, we try to match to year (if the table allows it)
+                #  If no unit is found, we try to match to year (if the table allows it)
                 if unit is None:
                     unit = "year"
                 if not unit is None:
                     cols = []
-                    # Find whether the unit exists in the table.
-                    for attr in table.dat:
-                        if len(attr) == 3: # if it has length three, then it is of the form: name, type, [units]
-                            # Therefore, we try to match the found unit to the unit here
-                            units = attr[2]
-                            for tUnit in units:
-                                if tUnit == unit:
-                                    # We don't have to match all the unit variations, only one
-                                    cols.append(attr[0][0])
-                                    break
-                    # TODO: If we find multiple matches for the unit, or no unit given, we should check for type 2: "mileage less than 500"
+                    # The unit can be a masquerading column title. In such a case, it begins with _
+                    if len(unit) > 0 and unit[0] == '_':
+                        cols.append(unit[1:]) # substring off the initial underscore
+                    else:
+                        # Find whether the unit exists in the table.
+                        for attr in table.dat:
+                            if len(attr) == 3: # if it has length three, then it is of the form: name, type, [units]
+                                # Therefore, we try to match the found unit to the unit here
+                                units = attr[2]
+                                for tUnit in units:
+                                    # Since we have joint units earlier, we have to accept the possibility that too much was amalgamated.
+                                    #  Therefore, the comparison must be "in" and not "==".
+                                    if tUnit in unit:
+                                        # We don't have to match all the unit variations, only one
+                                        cols.append(attr[0][0])
+                                        break
+                    # TODO: We want to find a way to resolve multiple conflicting matches. Right now we process all.
                     # Now that we found (all) column(s) matching the unit, we want to create the relation(s) 
                     if len(cols) > 0:
                         # we found maybe several matches. They should be OR-ed together to the final result
@@ -504,6 +515,17 @@ class ConstraintBuilder():
             if len(where) > 0:
                 clauses.append(where)
         return clauses
+    
+    def isNumericColumnName(self, columns, name):
+        for col in columns:
+            if len(col) > 2: 
+                # The column has to be greater than 2 to be numeric (since units are specified in the third column)
+                # In the first column, there are aliases. It just has to match one
+                # We also want to return the first in the series (the primary) if there is a match
+                for aliases in col[0]:
+                    if name == aliases:
+                        return col[0][0]
+        return None
     
     
     def orderBy(self, typed:[[string, int]], table:database.Table, type3:[string]) -> [string]:
