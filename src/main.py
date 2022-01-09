@@ -374,7 +374,8 @@ class ConstraintBuilder():
                 def spaceAppend(last:string, curr:string) -> string:
                     return last + ' ' + curr
                 
-                directions = [[range(i-1, black, -1), backAppend], [range(i+1, len(typed)), spaceAppend]]
+                directions = [[range(i-1, black, -1), backAppend, -1], [range(i+1, len(typed)), spaceAppend, 1]]
+                unitRange = [-1, -1] # for a joint unit, the tokens have to be consecutive
                 for dirr in directions:
                     foundUnit = unit is not None
                     for j in dirr[0]:
@@ -382,11 +383,17 @@ class ConstraintBuilder():
                             # We assume this is the unit. It is type 3, which is either a unit or a number.
                             #  It is not a number. Therefore, we assume it is the unit.
                             if unit is not None: # we found another unit, and we already have a unit
-                                unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
-                                # making joint units is problematic since we don't know where to stop, but necessary for units
-                                # like "sq ft". 
+                                # It must be consecutive to be a joint unit. Otherwise, it is an unexpected token
+                                if unitRange[1] + dirr[2] == j:
+                                    unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
+                                    # making joint units is problematic since we don't know where to stop, but necessary for units
+                                    # like "sq ft".
+                                else:
+                                    break
                             else:
                                 unit = typed[j][0]
+                                unitRange[0] = j
+                            unitRange[1] = j # update the end of the unit range to this
                         elif typed[j][1] == 4 and self.operatorHandler.isBoundOperation(typed[j][0]):
                             if bound is not None:
                                 break # cannot have two bounds!
@@ -461,7 +468,16 @@ class ConstraintBuilder():
                                     if tUnit in unit:
                                         # We don't have to match all the unit variations, only one
                                         cols.append(attr[0][0])
-                                        break
+                                        # We want to see if any at the end was extra. If so, we may need to rewind the blacklist
+                                        if unitRange[1] == black:
+                                            lastSpace = unit.rfind(' ')
+                                            trunc = unit[0:lastSpace]
+                                            while lastSpace != -1 and tUnit in trunc:
+                                                black -= 1 # rewind black once
+                                                unit = trunc
+                                                lastSpace = unit.rfind(' ')
+                                                trunc = unit[0:lastSpace]
+                                        break # We found our match!
                     # TODO: We want to find a way to resolve multiple conflicting matches. Right now we process all.
                     # Now that we found (all) column(s) matching the unit, we want to create the relation(s) 
                     if len(cols) > 0:
