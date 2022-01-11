@@ -50,24 +50,24 @@ class TypeVerifier(object):
 
 # Access Functions ------------------------------------------------------------
 
-    def isType1(self, word, domain):
-        return self.__isType(word, domain, 0)
+    def inType1(self, word, domain):
+        return self.__inType(word, domain, 1)
     
     
-    def isType2(self, word, domain):
-        return self.__isType(word, domain, 1)
+    def inType2(self, word, domain):
+        return self.__inType(word, domain, 2)
     
     
-    def isType3(self, word, domain):
-        return self.__isType(word, domain, 2)
+    def inType3(self, word, domain):
+        return self.__inType(word, domain, 3)
     
     
-    def __isType(self, word:string, domain, typeNo: int) -> bool:
+    def inType(self, word:string, domain, typeNo: int):
         inDomain = self.getDomainTries(domain)
-        if len(inDomain) > typeNo:
-            return inDomain[typeNo].search(word)
+        if len(inDomain) > typeNo - 1:
+            return inDomain[typeNo - 1].search(word)
         else:
-            return False
+            return None
     
     
     def getDomainTries(self, domain: Domain) -> [Trie]:

@@ -1,36 +1,32 @@
 jewelry
-Amulet
-Anklet
-Armlet
-Bangle
-Belly chain
-Bolo tie
-Bracelet
+amulet
+anklet
+armlet
+bangle
+belly chain
+bolo tie
+bracelet
 bracelets
-Breastplate
+breastplate
 broach
-Brooch
-Cameo
-Carcanet
-Chatelaine
-Choker
-Corolla
-Coronet
-Crowns
-Cuff links
-earrings
-Emblem
-Findings
-japa mala
-Kalabubu
-Locket
-Medallion
-Necklace
+brooch
+cameo
+carcanet
+chatelaine
+choker
+coronet
+crowns
+cuff links
+earring
+earring
+emblem
+locket
+medallion
+necklace
 necklaces
 ornament
-Pendant
+pendant
 pin
-Ring
+ring
 rings
-rope
-Torc
+wedding band

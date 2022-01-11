@@ -35,24 +35,48 @@ class TypeExtractor(object):
 
         # each token will be compared with the trie structure created in the constructor
         ret = []
-        for token in pos_tagged:
+        i = 0
+        while i < len(pos_tagged):
+            token = pos_tagged[i]
             t = token[0].lower()
             # Here we should be identifying the types that each token is and place it correctly
             tval = 4 # 4 is the default case
             
             # try to find the type of the token and save it to tval
-            if self.verifier.isType1(t, domain):
-                tval = 1
-            elif self.verifier.isType2(t, domain):
-                tval = 2
-            elif self.verifier.isType3(t, domain):
-                tval = 3
-            elif isNumeric(t):
-                t = toCleanNumber(t)
-                tval = 3
+            # The token may need to be combined with the next token to qualify for a type
+            search = [1, 2, 3]
+            first = True
+            j = i
+            while len(search) > 0 and tval == 4:
+                if first:
+                    first = False
+                    if isNumeric(t):
+                        t = toCleanNumber(t)
+                        tval = 3
+                        break
+                elif j < len(pos_tagged) - 1:
+                    j += 1
+                    # try to add the next token on
+                    t = t + ' ' + pos_tagged[j][0].lower()
+                
+                toRemove = []
+                for typeNum in search:
+                    res = self.verifier.inType(t, domain, typeNum)
+                    # Now we need to analyze the result. If it is none, we know this is not it. 
+                    #  If it is terminated, then we know this token is of that type independently.
+                    #  The third option is not terminated, which means we will try to append the next token and see if they go together
+                    if res is None:
+                        toRemove.append(typeNum)
+                    elif res.terminating: # We found that this was valid for this type
+                        tval = typeNum
+                        i = j # update i to how far we used
+                        break
+                    # Otherwise, we know that the token was partially in the trie. We will try appending the next token next round
+                for typeNum in toRemove:
+                    search.remove(typeNum)
             
-            # Adds the token to the list
             ret.append([t, tval])
+            i += 1
         return ret
 
 

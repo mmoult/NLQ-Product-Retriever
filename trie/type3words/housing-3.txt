@@ -1,4 +1,5 @@
 $
+dollar
 dollars
 year
 years
@@ -12,13 +13,15 @@ garage
 garages
 bedroom
 bedrooms
-dollar
-aud
-square
-meters
-sq
-m
+square meter
+square meters
+sq m
 sqm
+m
+meter
+meters
+acre
 acres
 km
+kilometer
 kilometers

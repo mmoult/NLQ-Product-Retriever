@@ -177,6 +177,8 @@ class ConstraintBuilder():
         #print("match list:", matchList)
         # And with that match list, we will try to reduce terms
         matchList = self.__reduce(matchList, table)
+        
+        # TODO: We want to do content-based partial matching if nothing comes up... (Same for Type II.) 
             
         # At this point, we should have a finalized matchList to operate with
         #print(matchList)
@@ -750,7 +752,7 @@ class ConstraintBuilder():
                     lefted = ''
                     righted = ''
                     # Unfortunately, we have to sacrifice the type distinction. Though this is ok, since we only needed it for optimization,
-                    #  which would not be possible in the large or statement anyway
+                    #  which would not be possible in the large OR statement anyway
                     for typeNum in left:
                         for clause in typeNum:
                             if len(lefted) > 0:
@@ -892,6 +894,7 @@ if __name__ == '__main__':
     'not not not less than 50,000 miles Honda Odyssey'
     'not surpassing 50,000 miles Honda Odyssey not most expensive'
     'kitchen countertop granite or < $200, black or brown'
+    'silver wedding band less than $5000 with gold highlights'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'

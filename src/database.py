@@ -24,7 +24,7 @@ motorcycles = Table("Motorcycles", None, [0],
     [["mileage"], "NUMERIC", ['mile', 'miles', 'mi']],
     [["show_price"], "INTEGER"]
 )
-jewelry = Table("Jewelry", 0, [1],
+jewelry = Table("Jewelry", 0, [1, 2],
     [["ref"], "TEXT NOT NULL UNIQUE"],
     [["category"], "TEXT"],
     [["title"], "TEXT"],

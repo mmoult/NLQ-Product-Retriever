@@ -1,12 +1,11 @@
-from collections import defaultdict
-
-"SOURCE https://medium.com/@info.gildacademy/a-simpler-way-to-implement-trie-data-structure-in-python-efa6a958a4f2"
+# Adapted from:
+"https://medium.com/@info.gildacademy/a-simpler-way-to-implement-trie-data-structure-in-python-efa6a958a4f2"
 
 
 class TrieNode():
 
     def __init__(self):
-        self.children = defaultdict()
+        self.children = dict()
         self.terminating = False
         self.count = 0
 
@@ -50,11 +49,22 @@ class Trie():
 
         for c in word:
             index = self.get_index(c)
-            if not root:
-                return False
+            if root is None:
+                break
             root = root.children.get(index)
 
-        return True if root and root.terminating else False
+        # Return what we got so far. If the request is for a word longer than in the
+        #  trie, None is returned. If the request is for a word shorter or the same
+        #  length as in the trie, the progress will be returned.
+        return root
+    
+    def __contains__(self, word):
+        res = self.searc(word)
+        if res is None:
+            return None
+        elif res.terminating:
+            return True
+        return False
 
     def delete(self, word) -> bool:
         '''
