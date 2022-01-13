@@ -806,6 +806,7 @@ class ConstraintBuilder():
             return typesWhere
         
         # Return the results of starting the recursive method
+        log(result)
         return flatten(result)
     
     
@@ -907,6 +908,11 @@ if __name__ == '__main__':
     'honda accord red new haven' -> [honda] [accord] [red] (([new] [haven]) \/ [new haven])
     'honda accord red like new' -> [honda] [accord] [red] ([like new] \/ [new])
     'honda accord red new' -> [honda] [accord] [red] ([new] \/ [new])
+    
+    'honda or red toyota' -> 'honda or (red toyota)'
+    'toyota honda and blue' -> 'toyota (honda and blue)'
+    'toyota or honda odyssey' -> 'toyota or (honda odyssey)'
+    'honda or red less than 3000 mi" -> '(honda or red) (< 3000 mi)' 
     '''
     
     cb = ConstraintBuilder()

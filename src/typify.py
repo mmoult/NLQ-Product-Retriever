@@ -39,6 +39,7 @@ class TypeExtractor(object):
         while i < len(pos_tagged):
             token = pos_tagged[i]
             t = token[0].lower()
+            original = t
             # Here we should be identifying the types that each token is and place it correctly
             tval = 4 # 4 is the default case
             
@@ -75,6 +76,8 @@ class TypeExtractor(object):
                 for typeNum in toRemove:
                     search.remove(typeNum)
             
+            if len(search) == 0:
+                t = original # Reset the token to the original if we did not find anything
             ret.append([t, tval])
             i += 1
         return ret

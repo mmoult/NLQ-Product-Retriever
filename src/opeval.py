@@ -17,7 +17,7 @@ class OperatorEvaluator(object):
                     if rnd == 0:
                         if typed[i][0] == 'not' or typed[i][0] == 'no' or typed[i][0] == '!=':
                             # The next token is included in the structure
-                            at = self.__findEnd(typed, i+1, 1, isOp)
+                            at = self.__findEnd(typed, i+1, 1, isOp, -1)
                             if at != -1:
                                 ls = []
                                 for j in range(i+1, at+1):
@@ -28,8 +28,10 @@ class OperatorEvaluator(object):
                         compare = 'or' if rnd == 1 else 'and'
                         if typed[i][0] == compare:
                             # find the left and right parts
-                            left = self.__findEnd(typed, i-1, -1, isOp)
-                            right = self.__findEnd(typed, i+1, 1, isOp)
+                            left = self.__findEnd(typed, i-1, -1, isOp, -1)
+                            # find the type of the left so that we can try to match on the right
+                            leftType = typed[left][1]
+                            right = self.__findEnd(typed, i+1, 1, isOp, leftType)
                             if left != -1 and right != -1:
                                 lhs = []
                                 for _ in range(left, i):
@@ -43,47 +45,112 @@ class OperatorEvaluator(object):
         self.result = typed
     
     
-    def __findEnd(self, typed, start, iterate, isOp):
+    def __findEnd(self, typed, start, iterate, isOp, typeMatch):
         from src.typify import isNumeric
-        # Type I and Type II end immediately, but type III can be longer (since it may consist of the value number, 
-        # the unit, and some bound. The chain is broken by any other Type IV in between.
         if start < 0 or start >= len(typed):
             return -1
         if isinstance(typed[start], OperatorRelation):
             return start
         
-        bound = False
-        if typed[start][1] != 3:
-            if isOp(typed[start][0]):
-                bound = True
-                start += iterate
-            else:
-                return start - (iterate if typed[start][1] == 4 else 0)
+        # Type I and Type II end immediately, but type III can be longer (since it may consist of the value number, 
+        #  the unit, and some bound. The chain is broken by any other Type IV in between.
+        # An exception to this rule is for type matching. It is typical for 'or' and 'and' to separate components of
+        #  the same type. For example, "honda or red toyota" would be interpreted as (honda) or (red toyota).
+        #  Theoretically, we could keep looking for the match until the end of the list, but this is bound to generate
+        #  a number of false positives. Therefore, we only look for the token after the first found.
+        # We may want to continue the search in case of another match. For example, in "toyota or honda odyssey", we
+        #  find the match immediately in honda, but odyssey is another Type 1 value that goes with honda.
+        # Then we may ask why such a match cannot occur without a matching. Why would "honda odyssey or toyota" not
+        #  yield (honda odyssey) or (toyota)? It could, but we also face problems, even within Type I, where run-ons
+        #  should not be considered, such as "honda odyssey or pilot" -> honda (odyssey or pilot).
+        # Thus, run-ons should only be considered if the type is expected. Furthermore, run-ons should only be 
+        #  considered for Type I values. This is because other type values are often more independent than Type I
+        #  values. For example, odyssey only makes sense with honda, but color or mileage are universal to all cars.
+        maxTolerance = 1
+        tolerance = 0
+        currType = -1
         
-        value = False
-        unit = False
-        while not (value and unit and bound):
-            abort = False
-            if start < 0 or start >= len(typed) or isinstance(typed[start], OperatorRelation):
-                abort = True
-            elif typed[start][1] != 3:
-                if not bound and isOp(typed[start][0]):
+        i = start       # The iterator index
+        # The first index where tolerance is necessary. If the expected type is not found, we revert back to this
+        firstBreak = -1
+        value = False   # whether a value has been set for this type 3
+        unit = False    # whether a unit has been set "
+        bound = False   # whether a bound (<, >, etc) has been set "
+        
+        while True:
+            if i < 0 or i >= len(typed):
+                break
+            if isinstance(typed[i], OperatorRelation):
+                # We never include operator relations if they are beyond the first searched index
+                break
+            
+            newFound= typed[i][1]
+            boundFound = False
+            if newFound != 3 and isOp(typed[i][0]): # correct units to be type 3
+                boundFound = True
+                newFound = 3
+            
+            # Now we perform a case analysis for the current type and what is found
+            if currType == 1:
+                # Type I values are sticky if they are expected
+                if typeMatch == 1 and newFound == 1:
+                    i += iterate
+                    continue
+                # Otherwise, we continue to the next type
+            # Type 2 values are never sticky, so we don't need to handle them separately
+            if currType == 3 or (currType == -1 and newFound == 3):
+                fine = True
+                if isNumeric(typed[i][0]) and not value:
+                    value = True
+                elif not unit:
+                    unit = True
+                elif boundFound and not bound:
                     bound = True
                 else:
-                    abort = True
-            # at this point in the chain, the typed must be a Type 3, so we look for a number or a unit
+                    fine = False
+                if fine:
+                    currType = 3
+                    i += iterate
+                    continue
+            
+            if currType == -1:
+                currType = newFound # set this the first time
+                i += iterate
+                continue
+            
+            # If we made it here, that means that we did not continue.
+            #  Thus, the token was not recognized.
+            if typeMatch != -1 and currType != typeMatch:
+                if tolerance == 0:
+                    firstBreak = i
+                # If we are looking for something specific, we can have tolerance
+                tolerance += 1
+                if tolerance > maxTolerance:
+                    # We have exceeded our tolerance level, so we need to break
+                    typeMatch = -1
+                else: # We will consider this type before we need the match
+                    currType = newFound
+                    if currType == 3:
+                        value = False
+                        unit = False
+                        bound = boundFound
+                        if not boundFound:
+                            # We want to analyze what this token contributes, thus we have to
+                            #  redo this index
+                            continue
+                        # Otherwise, we can just continue to the next token
             else:
-                number = isNumeric(typed[start][0])
-                if not value and number:
-                    value = True
-                elif not unit and not number:
-                    unit = True
-                else:
-                    abort = True
-            if abort:
-                return start - iterate # go back one, since this token was problematic
-            start += iterate
-        return start
+                # We have no tolerance if we have nothing to match.
+                break
+            i += iterate # continue to the next index. This is the iterative element of the loop
+        
+        # If the match is -1 and the first break is not, then our tolerance was exceeded and we
+        #  need to revert back to the first break. firstBreak can only be set if typeMatch is not
+        #  -1, but typeMatch is set to -1 if we don't find our match. 
+        if typeMatch == -1 and firstBreak != -1:
+            # If we did not end up finding the expected match, then our tolerance was useless
+            i = firstBreak
+        return i - iterate
 
 
 from abc import ABC, abstractmethod
@@ -93,6 +160,9 @@ class OperatorRelation(ABC):
     @abstractmethod
     def operator(self):
         pass
+    
+    def __repr__(self): # printing a list prints the representation of the elements rather than the string
+        return self.__str__()
 
 
 class OrRelation(OperatorRelation):
@@ -103,6 +173,9 @@ class OrRelation(OperatorRelation):
         
     def operator(self):
         return 'OR'
+    
+    def __str__(self):
+        return "{" + str(self.left) + "} OR {" + str(self.right) + "}"
 
 
 class AndRelation(OperatorRelation):
@@ -113,6 +186,9 @@ class AndRelation(OperatorRelation):
     
     def operator(self):
         return 'AND'
+    
+    def __str__(self):
+        return "{" + str(self.left) + "} AND {" + str(self.right) + "}"
 
 
 class NotRelation(OperatorRelation):
@@ -123,6 +199,9 @@ class NotRelation(OperatorRelation):
     def operator(self):
         return 'NOT'
     
+    def __str__(self):
+        return "NOT {" + str(self.notted) + "}"
+
 
 
 class OperatorHandler():

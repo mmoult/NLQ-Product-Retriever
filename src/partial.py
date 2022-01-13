@@ -81,6 +81,10 @@ class PartialMatcher(object):
         type3 = requirements[3]
         constr = type1 + type2 + type3
         order = requirements[4]
+        # Content-based partial matching is going to throw a wrench in our whole system. We cannot use SQL's 
+        #  built-in order by since it will not preserve the order in which the constraints are specified.
+        #  If we process ordering by content after SQL returns, then there may not even be any matches to pull
+        #  to the top! 
         
         log(len(constr), 'total constraints...')
         
