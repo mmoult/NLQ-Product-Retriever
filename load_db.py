@@ -20,7 +20,7 @@ def commitAction(action):
 ##################################################################################### Create tables
 
 def buildCreate(table:Table):
-    cmd = 'CREATE TABLE "' + table.name + '" ('
+    cmd = 'CREATE TABLE "' + table.name.value + '" ('
     for attr in table.dat:
         cmd += '"' + attr[0][0] + '" ' + attr[1] + ', '
     
@@ -39,13 +39,13 @@ def buildTables(cursor):
     dropCommand = 'DROP TABLE IF EXISTS '
     allTables = [motorcycles, jewelry, jobs, furniture, housing, cars]
     for table in allTables:
-        cursor.execute(dropCommand + table.name)
+        cursor.execute(dropCommand + table.name.value)
         cursor.execute(buildCreate(table))
         # build the indexes (if any)
         if table.idxCol is not None:
             for idxC in table.idxCol: # for each of the specified indexes
                 iOn = table.dat[idxC][0][0]
-                cmd = 'CREATE INDEX idx_' + table.name + '_' + iOn + ' ON ' + table.name + '(' + iOn + ');'
+                cmd = 'CREATE INDEX idx_' + table.name.value + '_' + iOn + ' ON ' + table.name.value + '(' + iOn + ');'
                 print(cmd)
                 cursor.execute(cmd)
 
@@ -129,7 +129,7 @@ def loadTable(cursor, loc:string, table:Table):
         # If we are here, the line is considered finished
         comps = splitWithStrings(sumLine)
         sumLine = '' # reset the running line for next time
-        sqlString = 'INSERT INTO ' + table.name + ' VALUES('
+        sqlString = 'INSERT INTO ' + table.name.value + ' VALUES('
         first = True
         for i in range(len(table.dat)):
             if len(comps) > i:
@@ -179,33 +179,33 @@ def rectifyData(cursor):
     # We need to:
     #    change from Swedish crowns to USD on the furniture file
     sekToUsd = str(0.12)
-    cursor.execute("UPDATE " + furniture.name + " SET price = price * " + sekToUsd + ";")
+    cursor.execute("UPDATE " + furniture.name.value + " SET price = price * " + sekToUsd + ";")
     #    change the dimensions from cm to inches
     cmToInch = str(0.3937008)
-    cursor.execute("UPDATE " + furniture.name + " SET depth = depth * " + cmToInch + ";")
-    cursor.execute("UPDATE " + furniture.name + " SET height = height * " + cmToInch + ";")
-    cursor.execute("UPDATE " + furniture.name + " SET width = width * " + cmToInch + ";")
+    cursor.execute("UPDATE " + furniture.name.value + " SET depth = depth * " + cmToInch + ";")
+    cursor.execute("UPDATE " + furniture.name.value + " SET height = height * " + cmToInch + ";")
+    cursor.execute("UPDATE " + furniture.name.value + " SET width = width * " + cmToInch + ";")
     #    change from Australian dollars to USD on the housing file
     audToUsd = str(0.74)
-    cursor.execute("UPDATE " + housing.name + " SET price = price * " + audToUsd + ";")
+    cursor.execute("UPDATE " + housing.name.value + " SET price = price * " + audToUsd + ";")
     #    change from the single character types to the full name on the housing file
-    cursor.execute('UPDATE ' + housing.name + ' SET type = "house" WHERE type = "h";')
-    cursor.execute('UPDATE ' + housing.name + ' SET type = "unit" WHERE type = "u";')
-    cursor.execute('UPDATE ' + housing.name + ' SET type = "townhouse" WHERE type = "t";')
+    cursor.execute('UPDATE ' + housing.name.value + ' SET type = "house" WHERE type = "h";')
+    cursor.execute('UPDATE ' + housing.name.value + ' SET type = "unit" WHERE type = "u";')
+    cursor.execute('UPDATE ' + housing.name.value + ' SET type = "townhouse" WHERE type = "t";')
     #    change from m^2 to ft^2 in the housing file
     sqmToSqft = str(10.76391)
-    cursor.execute("UPDATE " + housing.name + " SET landsize = landsize * " + sqmToSqft + " WHERE landsize <> -1;")
-    cursor.execute("UPDATE " + housing.name + " SET area = area * " + sqmToSqft + " WHERE area <> -1;")
+    cursor.execute("UPDATE " + housing.name.value + " SET landsize = landsize * " + sqmToSqft + " WHERE landsize <> -1;")
+    cursor.execute("UPDATE " + housing.name.value + " SET area = area * " + sqmToSqft + " WHERE area <> -1;")
     #    change from km driven to miles driven in the motorcycles file
     kmToMi = str(0.6213712)
-    cursor.execute("UPDATE " + motorcycles.name + " SET mileage = mileage * " + kmToMi + ";")
+    cursor.execute("UPDATE " + motorcycles.name.value + " SET mileage = mileage * " + kmToMi + ";")
     #    change the price from Indian rupees to USD in the motorcycle file
     indianRupeeToUsd = str(0.01)
-    cursor.execute("UPDATE " + motorcycles.name + " SET price = price * " + indianRupeeToUsd + ";")
+    cursor.execute("UPDATE " + motorcycles.name.value + " SET price = price * " + indianRupeeToUsd + ";")
     #    update -1 to infinity in ranges
-    cursor.execute("UPDATE " + jobs.name + " SET salary_max = \"INFINITY\" WHERE salary_max = -1 AND salary_min <> -1;")
-    cursor.execute("UPDATE " + jobs.name + " SET size_max = \"INFINITY\" WHERE size_max = -1 AND size_min <> -1;")
-    cursor.execute("UPDATE " + jobs.name + " SET revenue_max = \"INFINITY\" WHERE revenue_max = -1 AND revenue_min <> -1;")
+    cursor.execute("UPDATE " + jobs.name.value + " SET salary_max = \"INFINITY\" WHERE salary_max = -1 AND salary_min <> -1;")
+    cursor.execute("UPDATE " + jobs.name.value + " SET size_max = \"INFINITY\" WHERE size_max = -1 AND size_min <> -1;")
+    cursor.execute("UPDATE " + jobs.name.value + " SET revenue_max = \"INFINITY\" WHERE revenue_max = -1 AND revenue_min <> -1;")
 
 
 ##################################################################################### Main Entry

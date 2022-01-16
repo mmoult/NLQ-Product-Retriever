@@ -1,5 +1,6 @@
 import string
 from src.database import execute
+from src.content_match import suggestReplacements
 
 
 class PartialMatcher(object):
@@ -81,15 +82,16 @@ class PartialMatcher(object):
         type3 = requirements[3]
         constr = type1 + type2 + type3
         order = requirements[4]
-        # Content-based partial matching is going to throw a wrench in our whole system. We cannot use SQL's 
-        #  built-in order by since it will not preserve the order in which the constraints are specified.
-        #  If we process ordering by content after SQL returns, then there may not even be any matches to pull
-        #  to the top! 
         
         log(len(constr), 'total constraints...')
         
         # However, this is not guaranteed to be the case. Sometimes the user may not get any results,
         #  in which case, we want to modify the query for them to get something similar
+        
+        # We can perform partial content matching on Type I and Type II results
+        # We will create a list of partial-match replacements to parallel constr
+        replacements = suggestReplacements(table.name, constr)
+        
         scheduler = [[]]
         rnd = 0
         roundConstr = []
@@ -109,6 +111,10 @@ class PartialMatcher(object):
             
             # Go forward with the schedule
             rems = scheduler.pop(0)
+            
+            # Try a content-based partial match, and if no success, try without
+            
+            
             for rem in rems:
                 constraints.pop(rem)
             query = self.__fromConstraints(table.name, constraints, order)

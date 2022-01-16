@@ -1,0 +1,4 @@
+excellent<->like new
+like new<->good
+good<->fair
+fair<->salvage

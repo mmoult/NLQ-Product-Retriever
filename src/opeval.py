@@ -66,7 +66,8 @@ class OperatorEvaluator(object):
         # Thus, run-ons should only be considered if the type is expected. Furthermore, run-ons should only be 
         #  considered for Type I values. This is because other type values are often more independent than Type I
         #  values. For example, odyssey only makes sense with honda, but color or mileage are universal to all cars.
-        maxTolerance = 1
+        import math
+        maxTolerance = math.inf # We decided that we want to search for the matching type, regardless of distance.
         tolerance = 0
         currType = -1
         
@@ -118,8 +119,16 @@ class OperatorEvaluator(object):
                 i += iterate
                 continue
             
-            # If we made it here, that means that we did not continue.
-            #  Thus, the token was not recognized.
+            # If we made it here, that means that we did not continue the same type.
+            # Typically we only continue if we are expecting some type. However, there is a
+            #  special case to continue if we encounter some noun description chunk.
+            if typeMatch == -1 and iterate < 0 and currType == 1 and (newFound == 2 or newFound == 3):
+                # Type I values are typically nouns. In the English language, adjectives and
+                #  other descriptors precede the nouns they describe. Thus, if we had a Type
+                #  I value and we are going backwards, then we can encounter some 2 or 3
+                #  next without breaking out.
+                typeMatch = newFound
+            
             if typeMatch != -1 and currType != typeMatch:
                 if tolerance == 0:
                     firstBreak = i
@@ -127,7 +136,8 @@ class OperatorEvaluator(object):
                 tolerance += 1
                 if tolerance > maxTolerance:
                     # We have exceeded our tolerance level, so we need to break
-                    typeMatch = -1
+                    typeMatch = -1 # indicate that the match was not found
+                    break
                 else: # We will consider this type before we need the match
                     currType = newFound
                     if currType == 3:

@@ -1,0 +1,105 @@
+Washington<->Oregon
+Washington<->Idaho
+Oregon<->California
+Oregon<->Nevada
+Oregon<->Idaho
+Idaho<->Utah
+Idaho<->Nevada
+Idaho<->Wyoming
+Idaho<->Montana
+California<->Nevada
+California<->Arizona
+Nevada<->Utah
+Nevada<->Arizona
+Utah<->Arizona
+Utah<->Colorado
+Utah<->Wyoming
+Wyoming<->Montana
+Wyoming<->Colorado
+Wyoming<->South Dakota
+Wyoming<->Nebraska
+Montana<->North Dakota
+Montana<->South Dakota
+Arizona<->New Mexico
+Colorado<->New Mexico
+Colorado<->Oklahoma
+Colorado<->Kansas
+Colorado<->Nebraska
+South Dakota<->Nebraska
+South Dakota<->Iowa
+South Dakota<->Minnesota
+Nebraska<->Kansas
+Nebraska<->Iowa
+Nebraska<->Missouri
+North Dakota<->Minnesota
+New Mexico<->Oklahoma
+New Mexico<->Texas
+Kansas<->Oklahoma
+Kansas<->Missouri
+Iowa<->Minnesota
+Iowa<->Missouri
+Iowa<->Wisconsin
+Iowa<->Illinois
+Minnesota<->Wisconsin
+Missouri<->Oklahoma
+Missouri<->Illinois
+Missouri<->Arkansas
+Missouri<->Tennessee
+Missouri<->Kentucky
+Oklahoma<->Texas
+Oklahoma<->Arkansas
+Texas<->Arkansas
+Texas<->Louisiana
+Wisconsin<->Illinois
+Wisconsin<->Michigan
+Illinois<->Kentucky
+Illinois<->Indiana
+Arkansas<->Louisiana
+Arkansas<->Mississippi
+Arkansas<->Tennessee
+Tennessee<->Mississippi
+Tennessee<->Alabama
+Tennessee<->Georgia
+Tennessee<->North Carolina
+Tennessee<->Virginia
+Tennessee<->Kentucky
+Kentucky<->Indiana
+Kentucky<->Ohio
+Kentucky<->West Virginia
+Kentucky<->Virginia
+Louisiana<->Mississippi
+Michigan<->Indiana
+Michigan<->Ohio
+Indiana<->Ohio
+Mississippi<->Alabama
+Alabama<->Florida
+Alabama<->Georgia
+Georgia<->Florida
+Georgia<->South Carolina
+Gerogia<->North Carolina
+North Carolina<->South Carolina
+North Carolina<->Virginia
+Virginia<->West Virginia
+Virginia<->Maryland
+Virginia<->Washington D.C.
+Ohio<->West Viriginia
+Ohio<->Pennsylvania
+West Virginia<->Maryland
+West Virginia<->Pennsylvania
+Maryland<->Washington D.C.
+Maryland<->Delaware
+Maryland<->Pennsylvania
+Pennsylvania<->New York
+Pennsylvania<->New Jersey
+Delaware<->New Jersey
+New York<->New Jersey
+New York<->Connecticut
+New York<->Massachusetts
+New York<->Vermont
+Connecticut<->Rhode Island
+Connecticut<->Massachusetts
+Massachusetts<->Rhode Island
+Massachusetts<->New Hampshire
+Massachusetts<->Vermont
+Vermont<->New Hampshire
+New Hampshire<->Maine

@@ -1,5 +1,5 @@
 from src.typify import TypeExtractor, isNumeric
-from src.domains import Domain, getTable
+from src.domains import Domain
 from src import database
 from src.partial import PartialMatcher
 from src.opeval import OperatorHandler, OperatorEvaluator, OperatorRelation, OrRelation, AndRelation, NotRelation
@@ -831,7 +831,7 @@ class ConstraintBuilder():
             domain = Domain.MOTORCYCLE
         else:
             raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
-        table = getTable(domain)
+        table = database.getTable(domain)
         log("Identified as:", domain.name.lower())
         
         # We want to tokenize the query

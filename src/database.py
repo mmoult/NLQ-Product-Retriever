@@ -1,7 +1,8 @@
 import string
+from src.domains import Domain
 
 class Table(object):
-    def __init__(self, name:string, primKey:int, idxCol:[int], *args):
+    def __init__(self, name:Domain, primKey:int, idxCol:[int], *args):
         '''
         Creates a new table that can be used with SQLite.
         @param name: the name that the table should have internally in SQL
@@ -15,7 +16,7 @@ class Table(object):
         self.dat = args
 
 
-motorcycles = Table("Motorcycles", None, [0],
+motorcycles = Table(Domain.MOTORCYCLE, None, [0],
     [["name"], "TEXT"],
     [["price"], "NUMERIC", ['$']],
     [["year"], "INTEGER", ['year', 'yr', 'yrs']],
@@ -24,7 +25,7 @@ motorcycles = Table("Motorcycles", None, [0],
     [["mileage"], "NUMERIC", ['mile', 'miles', 'mi']],
     [["show_price"], "INTEGER"]
 )
-jewelry = Table("Jewelry", 0, [1, 2],
+jewelry = Table(Domain.JEWELRY, 0, [1, 2],
     [["ref"], "TEXT NOT NULL UNIQUE"],
     [["category"], "TEXT"],
     [["title"], "TEXT"],
@@ -33,7 +34,7 @@ jewelry = Table("Jewelry", 0, [1, 2],
     [["description"], "TEXT"],
     [["image"], "TEXT"]
 )
-jobs = Table("Jobs", 0, [1],
+jobs = Table(Domain.JOB, 0, [1],
     [["id"], "INTEGER NOT NULL UNIQUE"],
     [["title"], "TEXT NOT NULL"],
     [["description"], "TEXT"],
@@ -54,7 +55,7 @@ jobs = Table("Jobs", 0, [1],
     [["revenue_min"], "INTEGER", ['$'], 'revenue_max'],
     [["revenue_max"], "INTEGER", ['$'], 'revenue_min']
 )
-furniture = Table("Furniture", 0, [2],
+furniture = Table(Domain.FURNITURE, 0, [2],
     [["id"], "INTEGER NOT NULL UNIQUE"],
     [["name"], "TEXT"],
     [["category"], "TEXT"],
@@ -69,7 +70,7 @@ furniture = Table("Furniture", 0, [2],
     [["height"], "NUMERIC", ['inch', 'inches', 'in']],
     [["width"], "NUMERIC", ['inch', 'inches', 'in']]
 )
-housing = Table("Housing", None, [3],
+housing = Table(Domain.HOUSING, None, [3],
     [["suburb"], "TEXT"],
     [["address"], "TEXT NOT NULL"],
     [["rooms"], "INTEGER", ['room', 'rooms']],
@@ -91,7 +92,7 @@ housing = Table("Housing", None, [3],
     [["region"], "TEXT"],
     [["property_count"], "INTEGER"]
 )
-cars = Table("Cars", 0, [4, 5], # both the make and the model are type 1
+cars = Table(Domain.CAR, 0, [4, 5], # both the make and the model are type 1
     [["id"], "INTEGER NOT NULL UNIQUE"],
     [["region"], "TEXT NOT NULL"],
     [["price"], "NUMERIC NOT NULL", ['$']],
@@ -135,6 +136,23 @@ def query(table:Table, attrList:[int], where:string):
     if attrList == []:
         cmd += "*"
     
-    cmd += " FROM " + table.name + " WHERE " + where + ";"
+    cmd += " FROM " + table.name.value + " WHERE " + where + ";"
     #print(cmd)
     return execute(cmd)
+
+
+def getTable(domain:Domain) -> Table:
+    if domain == Domain.MOTORCYCLE:
+        return motorcycles
+    elif domain == Domain.JEWELRY:
+        return jewelry
+    elif domain == Domain.JOB:
+        return jobs
+    elif domain == Domain.FURNITURE:
+        return furniture
+    elif domain == Domain.HOUSING:
+        return housing
+    elif domain == Domain.CAR:
+        return cars
+    else:
+        return None
