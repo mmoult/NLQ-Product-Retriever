@@ -110,6 +110,7 @@ def suggestReplacements(tableName, constraints):
     
     # Now we are going to go through each constraint and suggest potential alternatives
     for i in range(len(constraints)):
+        changed = False
         # we will look for instances of ' LIKE ', which indicates that it is a type I or type II value
         constr = constraints[i]
         indx = constr.find(' LIKE "% ')
@@ -148,8 +149,10 @@ def suggestReplacements(tableName, constraints):
                     
                     # Finally we want to calculate how many to skip ahead in the search
                     indx = constr.find(' LIKE "% ', breakIndex + len(newClause))
+                    changed = True
                     continue
             
             indx = constr.find(' LIKE "% ', indx + 13) # 13 is length of pattern ' LIKE "% x %"'
-        replacements[i] = constr
+        if changed: # leave the "replacement" as None if there were no partial-match changes
+            replacements[i] = constr
     return replacements

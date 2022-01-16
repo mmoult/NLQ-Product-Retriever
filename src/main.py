@@ -896,6 +896,7 @@ if __name__ == '__main__':
     'not surpassing 50,000 miles Honda Odyssey not most expensive'
     'kitchen countertop granite or < $200, black or brown'
     'silver wedding band less than $5000 with gold highlights'
+    'ford f250 ranger full-size truck with orange color'
     
     Mechanical Turk queries:
     'red or green cedar and cherry nightstands for $1000 or less and at least 2" high'
