@@ -681,14 +681,36 @@ class ConstraintBuilder():
     
     
     def correctSpelling(self, tokens, domain, table):
+        from pathlib import Path
+        # We need to create a double map from abbreviations to expanded, and from expanded back to abbreviations.
+        abToEx = open(str(Path(__file__).parent) + "/../abbrev.txt", encoding='utf-8')
+        self.abbrevToExpand = dict()
+        self.expandToAbbrev = dict()
+        for line in abToEx:
+            if len(line) > 0 and line[0] == '#':
+                continue # comment lines begin with #
+            text, _ = line.lower().split('\n')
+            if text.find('<->') != -1:
+                abbrev, expand = text.split('<->')
+                self.abbrevToExpand[abbrev] = expand
+                self.expandToAbbrev[expand] = abbrev
+            elif text.find('<-') != -1:
+                abbrev, expand = text.split('<-')
+                self.expandToAbbrev[expand] = abbrev
+            elif text.find('->') != -1:
+                abbrev, expand = text.split('->')
+                self.abbrevToExpand[abbrev] = expand
+        abToEx.close()
+        
         # To do so, we need to have a big dictionary with all three types of the correct domain
         allWords = []
         # Add universal words from a dictionary
-        from pathlib import Path
+        
         engDict = open(str(Path(__file__).parent) + "/../Datasets/dictionary_eng_80k.txt", encoding='utf-8')
         for line in engDict:
             word, _ = line.split(" ")
             allWords.append(word)
+        engDict.close()
         
         # There are also domain-specific words we will enter
         for attr in table.dat: # from the table titles
@@ -710,7 +732,7 @@ class ConstraintBuilder():
             else:
                 words_dict[word] = 1
                 
-        return spell_corrector(tokens, words_dict)
+        return spell_corrector(tokens, words_dict, self.abbrevToExpand)
     
     
     def extractOperated(self, typed, table, domain):
@@ -780,6 +802,11 @@ class ConstraintBuilder():
             
             pending = []
             def clearPending():
+                # Convert all expanded forms back to their abbreviations
+                for i in range(len(pending)):
+                    if pending[i][0] in self.expandToAbbrev:
+                        pending[i][0] = self.expandToAbbrev[pending[i][0]]
+                
                 # process the tokens and add them to their respective lists, then clear the pending list
                 if len(pending) > 0:
                     typesWhere[0] += self.type1Where(pending, table)
@@ -935,12 +962,5 @@ if __name__ == '__main__':
     
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints
-    sql = PartialMatcher().bestRequest(reqs, log)
-    print(sql, '\n')
-    
-    from src.database import execute
-    res = execute(sql)
-    print(len(res), 'Results:')
-    for result in res:
-        print('', result)
+    PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, 25)
     

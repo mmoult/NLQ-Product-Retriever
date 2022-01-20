@@ -13,8 +13,6 @@ class TypeVerifier(object):
 
         # domains specified in Domains class
 
-        # TYPE 1 Members ------------------------------------------------------
-
         # Trie members
         self.carTries = [Trie(), Trie(), Trie()]
         self.furnitureTries = [Trie(), Trie(), Trie()]
@@ -37,6 +35,12 @@ class TypeVerifier(object):
                 typeList = self.__loadLowerLines(filePath + trieDir[0] + "-" + str(i) + ".txt")
                 for word in typeList:
                     trieDir[1][i-1].insert(word.lower())
+                
+                # place names should be type 2
+                if i == 2:
+                    places = self.__loadLowerLines("../place-names.txt")
+                    for place in places:
+                        trieDir[1][2].insert(place.lower())
     
     
     def __loadLowerLines(self, directory: string):

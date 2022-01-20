@@ -299,13 +299,18 @@ class SymSpell:
             return None
 
 
-def spell_corrector(word_list, words_d) -> str:
+def spell_corrector(word_list, words_d, abbrevs) -> str:
     ss = SymSpell(max_edit_distance = 2)
     ss.create_dictionary_from_arr(words_d, token_pattern=r'.+')
     pattern = '(?<!\S)(?=.)(0|([1-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[1-9])?(?!\S)'
+    
     result_list = []
     for word in word_list:
-        # check if the word is a number
+        # Check to see if the token is an abbreviation. In that case, expand it and append that
+        if word in abbrevs:
+            result_list.append(abbrevs[word])
+            continue
+        # check if the word is a number or dictionary match
         if word.isnumeric() or re.match(pattern, word):
             result_list.append(word)
         elif word not in words_d:

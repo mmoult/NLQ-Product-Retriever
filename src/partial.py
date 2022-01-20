@@ -74,7 +74,7 @@ class PartialMatcher(object):
         return removals
     
     
-    def bestRequest(self, requirements, log) -> string:
+    def bestResults(self, requirements, log, abbrevToExpand, expandToAbbrev, limit):
         # [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
         table = requirements[0]
         type1 = requirements[1]
@@ -183,5 +183,12 @@ class PartialMatcher(object):
         if len(order) > 0:
             query += ' ORDER BY '
             query += self.__buildOrder(order)
-        query += " LIMIT 25"
-        return query
+        query += " LIMIT " + str(limit)
+        
+        
+        res = execute(query)
+        print("\n")
+        print(len(res), 'Results:')
+        for result in res:
+            print('', result)
+        
