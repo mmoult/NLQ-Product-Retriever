@@ -867,7 +867,7 @@ class ConstraintBuilder():
         # and then correct any misspellings
         log("Correcting spelling...")
         tokens = self.correctSpelling(tokens, domain, table)
-        log('"' + " ".join(tokens) + '"')
+        print('"' + " ".join(tokens) + '"')
         
         # now we want to pull some data out (Type I, II, III)
         typed = self.extractor.typify(tokens, domain)
@@ -944,10 +944,8 @@ if __name__ == '__main__':
     '''
     
     cb = ConstraintBuilder()
-    import sys
-    print('"' + sys.argv[1] + '"')
     
-    toLog = True
+    toLog = False
     if toLog:
         def log(*args):
             for a in args:
@@ -957,6 +955,8 @@ if __name__ == '__main__':
         def log(*args):
             pass
     
+    import sys
+    log('"' + sys.argv[1] + '"')
     reqs = cb.fromQuery(sys.argv[1], log)
     log() # get a new line
     

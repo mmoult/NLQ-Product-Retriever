@@ -92,103 +92,131 @@ class PartialMatcher(object):
         # We will create a list of partial-match replacements to parallel constr
         replacements = suggestReplacements(table.name, constr)
         
-        scheduler = [[]]
+        # We want to keep searching for results until the limit is reached
+        results = []
         rnd = 0
-        roundConstr = []
-        contentSuccess = False
-        while True:
-            # Make each constraint optional (one by one) until we get something
-            if len(scheduler) == 0:
-                # if the scheduler is empty, then we need to move to the next round and refill it
-                # Though, if we got successful queries last round, we can just break
-                if len(roundConstr) > 0:
-                    break
-                rnd += 1
-                if rnd >= len(constr):
-                    break # we cannot remove all or more constraints than we have
-                log('Round', rnd)
-                scheduler = self.generateUnorderedRemovals(rnd, len(constr))
-            
-            # Go forward with the schedule
-            rems = scheduler.pop(0)
-            
-            # Try a content-based partial match, and if no success, try without
-            def tryQuery(constraints):
-                query = self.__fromConstraints(table.name, constraints, order)
-                res = execute(query)
-                if len(res) > 0:
-                    log('success:', query)
-                else:
-                    log('try:', query)
-                return len(res) > 0
-            
-            constraints = constr[:] # make a clone of the constraint list that we will manipulate
-            indices = list(range(len(constraints)))
-            remCpy = rems[:]
-            # Since indices is just a list of ordered, counting integers, we can use the ones popped
-            #  as indices to replace in constraints from the partial match
-            changed = False
-            for rem in remCpy:
-                index = indices.pop(rem)
-                if replacements[index] is not None:
-                    constraints[index] = replacements[index]
-                    changed = True
-            if changed: # only do a content-based partial match if the constraints were changed!
+        doPartial = True
+        scheduler = [[]]
+        while len(results) < limit:
+            roundConstr = []
+            contentSuccess = False
+            while True:
+                # Make each constraint optional (one by one) until we get something
+                if len(scheduler) == 0:
+                    # if the scheduler is empty, then we need to move to the next round and refill it
+                    # Though, if we got successful queries last round, we can just break
+                    if len(roundConstr) > 0:
+                        break
+                    rnd += 1
+                    # Since we are going to the next round, we want to try partials again.
+                    doPartial = True
+                    if rnd >= len(constr):
+                        break # we cannot remove all or more constraints than we have
+                    log('Round', rnd)
+                    scheduler = self.generateUnorderedRemovals(rnd, len(constr))
+                
+                # Go forward with the schedule
+                rems = scheduler.pop(0)
+                
+                # Try a content-based partial match, and if no success, try without
+                def tryQuery(constraints):
+                    query = self.__fromConstraints(table.name, constraints, order)
+                    res = execute(query)
+                    if len(res) > 0:
+                        log('success:', query)
+                    else:
+                        log('try:', query)
+                    return len(res) > 0
+                
+                constraints = constr[:] # make a clone of the constraint list that we will manipulate
+                indices = list(range(len(constraints)))
+                remCpy = rems[:]
+                # Since indices is just a list of ordered, counting integers, we can use the ones popped
+                #  as indices to replace in constraints from the partial match
+                changed = False
+                # We don't do partial if we backtrack (to reach limit) a round and already had success with it.
+                if doPartial:
+                    for rem in remCpy:
+                        index = indices.pop(rem)
+                        if replacements[index] is not None:
+                            constraints[index] = replacements[index]
+                            changed = True
+                    if changed: # only do a content-based partial match if the constraints were changed!
+                        if tryQuery(constraints):
+                            # The partial match was successful!
+                            # This is big news, since a content-based partial is preferred over a removal.
+                            if not contentSuccess:
+                                contentSuccess = True
+                                roundConstr.clear()
+                            roundConstr.append(constraints)
+                            continue # skip the removal of the indices, since partial was sufficient
+                        constraints = constr[:]
+                
+                # Now try removing the specified indices
+                if contentSuccess:
+                    # don't bother trying removals if we had success with content partial this round.
+                    continue # But we have to finish the round in case there are other partials to be found.
+                for rem in rems:
+                    constraints.pop(rem)
                 if tryQuery(constraints):
-                    # The partial match was successful!
-                    # This is big news, since a content-based partial is preferred over a removal.
-                    if not contentSuccess:
-                        contentSuccess = True
-                        roundConstr.clear()
                     roundConstr.append(constraints)
-                    continue # skip the removal of the indices, since partial was sufficient
-                constraints = constr[:]
+                # Interestingly, we continue to the next schedule in the round, even if we find a success.
+                #  Even though we achieved success with this removal, we have no certainty that this removal
+                #  was any more valid than any other removal. We need to test all the different possibilities
+                #  in the round before we can make a decision. 
+                # If a round is successful, we do not need to continue to the next round (Each round removes
+                #  more from the constraint list, and logically builds upon the previous round).
+        
+            if len(roundConstr) > 0:
+                constraints = ''
+                # OR together all successful constraints
+                firstRound = True
+                for roundC in roundConstr:
+                    if len(roundC) == 0:
+                        continue
+                    
+                    if firstRound:
+                        firstRound = False
+                    else:
+                        constraints += ' OR '
+                    
+                    constraints += ('(' + self.__buildWhere(roundC) + ')')
+            else:   # If we exited without adding round constraints, we eliminated all constraints with no success
+                    # Therefore, we should rely on ordering
+                constraints = ''
+        
+            query = 'SELECT * FROM ' + table.name.value
+            if len(constraints) > 0:
+                query += (' WHERE ' + constraints)
+            if len(order) > 0:
+                query += ' ORDER BY '
+                query += self.__buildOrder(order)
+            query += " LIMIT " + str(limit)
+        
+            # Add from the query to the results
+            res = execute(query)
+            # Filter out any duplicates
+            for result in res:
+                if result not in results:
+                    # Should always add to the end of the result list
+                    results.append(result)
             
-            # Now try removing the specified indices
+            print("Found", len(results), '/', limit)
+            log()
+            
+            if constraints == '':
+                break # Cannot check more constraints if there are simply no matches...
+            
+            # If content success was true, then we should go back to that round without partials
             if contentSuccess:
-                # don't bother trying removals if we had success with content partial this round.
-                continue # But we have to finish the round in case there are other partials to be found.
-            for rem in rems:
-                constraints.pop(rem)
-            if tryQuery(constraints):
-                roundConstr.append(constraints)
-            # Interestingly, we continue to the next schedule in the round, even if we find a success.
-            #  Even though we achieved success with this removal, we have no certainty that this removal
-            #  was any more valid than any other removal. We need to test all the different possibilities
-            #  in the round before we can make a decision. 
-            # If a round is successful, we do not need to continue to the next round (Each round removes
-            #  more from the constraint list, and logically builds upon the previous round).
-        
-        if len(roundConstr) > 0:
-            constraints = ''
-            # OR together all successful constraints
-            firstRound = True
-            for roundC in roundConstr:
-                if len(roundC) == 0:
-                    continue
-                
-                if firstRound:
-                    firstRound = False
-                else:
-                    constraints += ' OR '
-                
-                constraints += ('(' + self.__buildWhere(roundC) + ')')
-        else:
-            # If none of the constraints can be met, then we rely on ordering
-            constraints = ''
-        
-        query = 'SELECT * FROM ' + table.name.value
-        if len(constraints) > 0:
-            query += (' WHERE ' + constraints)
-        if len(order) > 0:
-            query += ' ORDER BY '
-            query += self.__buildOrder(order)
-        query += " LIMIT " + str(limit)
-        
-        
-        res = execute(query)
-        print("\n")
-        print(len(res), 'Results:')
-        for result in res:
+                # Redo the last round, but without partials
+                doPartial = False
+                log("return to Round", rnd)
+                scheduler = self.generateUnorderedRemovals(rnd, len(constr))
+
+        results = results[:limit]
+        print()
+        print(len(results), 'Results:')
+        for result in results:
             print('', result)
         
