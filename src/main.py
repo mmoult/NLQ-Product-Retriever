@@ -947,9 +947,9 @@ if __name__ == '__main__':
     
     # Get the input from the command line. We expect to see the user query, and we may see some flags
     toLog = False
-    limitDefault = 25
-    limit = limitDefault
+    limit = -1
     query = ''
+    exactOnly = False
     
     path = True
     import sys
@@ -963,13 +963,15 @@ if __name__ == '__main__':
                 limit = int(arg)
             except:
                 print('Result limit must be specified as an integer!')
-                limit = limitDefault
+                limit = -1
         elif len(arg) > 0 and arg[0] == '-':
             # possibly a flag
             if arg == '-v' or arg == '-V':
                 toLog = True
             elif arg == '-l' or arg == '-L':
                 limit = None
+            elif arg == '-e' or arg == '-E':
+                exactOnly = True
             else:
                 print('Unknown flag "', arg, '"!', delim='')
         else:
@@ -981,6 +983,11 @@ if __name__ == '__main__':
     if len(query) == 0:
         print('User query must be specified as a command line argument!')
         exit(1)
+    if limit == -1:
+        if not exactOnly:
+            limit = 25
+        else:
+            limit = float('inf')
     
     if toLog:
         def log(*args):
@@ -996,7 +1003,26 @@ if __name__ == '__main__':
     reqs = cb.fromQuery(query, log)
     log() # get a new line
     
-    # Here we will employ the partial matcher to refine our results.
-    #  We will modify some of the constraints
-    PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, limit)
+    if exactOnly:
+        from src.database import execute
+        query = PartialMatcher().fromConstraints(reqs[0].name, reqs[1] + reqs[2] + reqs[3], reqs[4])
+        # Add from the query to the results
+        print(query)
+        res = execute(query)
+        print()
+    else:
+        # Here we will employ the partial matcher to refine our results.
+        #  We will modify some of the constraints
+        res = PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, limit)
+    
+    print()
+    print(len(res), 'Results:')
+    # Print the table headings
+    for row in reqs[0].dat:
+        print('', row[0][0].upper(), end='\t')
+    print() # go to the line after the table headings
+    for result in res:
+        print('', result)
+    if len(res) == 0:
+        print('No results...')
     

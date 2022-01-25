@@ -32,5 +32,7 @@ Run the `main.py` module, and specify the user query as the first argument to th
 ### Flags
   Name	|  Effect
 --------|-------------------------------:
--v | Print verbose output for the process (Defaults to non-verbose).
--l <i>x</i> | Limit the number of products returned to no more than x. (Defaults to 25.)
+-v | Print verbose output for the process (defaults to non-verbose).
+-l <i>x</i> | Limit the number of products returned to no more than x (defaults to 25 for partial, no limit for exact).
+-e | Returns only exact matches to the specifications extracted from the user query, skipping any partial match recommendations (defaults partial on).
+

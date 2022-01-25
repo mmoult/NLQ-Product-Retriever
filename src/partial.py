@@ -33,7 +33,7 @@ class PartialMatcher(object):
         return orderBy
     
     
-    def __fromConstraints(self, tableName, constr, orderBy) -> string:
+    def fromConstraints(self, tableName, constr, orderBy) -> string:
         query = 'SELECT * FROM ' + tableName.value
         if len(constr) > 0:
             query += ' WHERE '
@@ -120,7 +120,7 @@ class PartialMatcher(object):
                 
                 # Try a content-based partial match, and if no success, try without
                 def tryQuery(constraints):
-                    query = self.__fromConstraints(table.name, constraints, order)
+                    query = self.fromConstraints(table.name, constraints, order)
                     res = execute(query)
                     if len(res) > 0:
                         log('success:', query)
@@ -211,18 +211,10 @@ class PartialMatcher(object):
             if contentSuccess:
                 # Redo the last round, but without partials
                 doPartial = False
-                log("return to Round", rnd)
-                scheduler = self.generateUnorderedRemovals(rnd, len(constr))
+                if len(results) < limit:
+                    log("return to Round", rnd)
+                    scheduler = self.generateUnorderedRemovals(rnd, len(constr))
 
         results = results[:limit]
-        print()
-        print(len(results), 'Results:')
-        
-        # Print the table headings
-        for row in table.dat:
-            print('', row[0][0].upper(), end='\t')
-        print()
-        
-        for result in results:
-            print('', result)
+        return results
         

@@ -4,8 +4,7 @@ fewer * than
 lower * than
 under
 below
-younger than (1)
-newer than (1)
+older than (1)
 cheaper than (2)
 smaller than (3)
 
@@ -19,10 +18,9 @@ not so much * as
 or fewer
 or less
 or cheaper (2)
-or newer (1)
-or younger (1)
 or under
 or below
+or older (1)
 
 >
 more * than
@@ -33,8 +31,9 @@ in excess of
 exceeding
 surpassing
 above
-older than (1)
 larger than (3)
+younger than (1)
+newer than (1)
 
 >=
 at least
@@ -43,7 +42,8 @@ at minimum
 no fewer * than
 no less * than
 or more
-or older
+or newer (1)
+or younger (1)
 or over
 
 !=
@@ -52,6 +52,6 @@ not equal to
 not
 
 ---------------------------------
-1 age; year
+1 year
 2 cost; price
 3 size; length; width; height
