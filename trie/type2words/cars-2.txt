@@ -1774,7 +1774,6 @@ ne
 neon
 never
 new
-newer
 newport
 nexo
 ngv
@@ -1791,8 +1790,6 @@ NissanFrontier
 Nitemare
 nitro
 nitto
-NJ
-nm
 no
 nomad
 non
@@ -1819,7 +1816,6 @@ nv
 nvp
 nx
 ny
-o
 oac
 obispo
 ocala
@@ -1835,12 +1831,9 @@ off
 offrd
 offroad
 ogden
-oh
 ohv
 oil
-OK
 okaloosa
-oklahoma
 old
 olds
 olet
@@ -2743,7 +2736,6 @@ ulimited
 Ult
 ultimate
 Ultra
-under
 unicorn
 Unimog
 universal

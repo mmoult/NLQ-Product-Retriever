@@ -34,7 +34,7 @@ nc<->North Carolina
 nd<->North Dakota
 oh<->Ohio
 ok<->Oklahoma
-or<->Oregon
+or<-Oregon
 pa<->Pennsylvania
 ri<->Rhode Island
 sc<->South Carolina

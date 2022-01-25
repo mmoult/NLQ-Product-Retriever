@@ -118,7 +118,8 @@ Toyota more than 300000 miles and upper $2000
 Audi  A8L used under 6000
 Toyota truck 2002 white used
 citroen used under 2000
-Toyota, 50000k, 2021, new, blue, 4 cylinders, Mazda, 5000k, used, red
+Toyota, 50000k, 2021, new, blue, 4 cylinders
+Mazda, 5000k, used, red
 Used 100000 honda 4000
 Used honda 7000
 Used Ford F-350 diesel truck with long bed and 4-wheel drive
@@ -269,8 +270,6 @@ toyota sedan less than 300,000 miles and under $20000
 $5,000
 Used Ford truck $12,000
 Nissan Sentra under 80,000 miles
-What is the pay for the job?
-How do you get a job at HUD?
 What is the price of toyota?
 What is the condition of toyota?
 black jeep cherokee 2017 under $20000,jeep cherokee 2017

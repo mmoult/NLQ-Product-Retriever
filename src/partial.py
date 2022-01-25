@@ -217,6 +217,12 @@ class PartialMatcher(object):
         results = results[:limit]
         print()
         print(len(results), 'Results:')
+        
+        # Print the table headings
+        for row in table.dat:
+            print('', row[0][0].upper(), end='\t')
+        print()
+        
         for result in results:
             print('', result)
         

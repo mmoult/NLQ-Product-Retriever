@@ -945,7 +945,43 @@ if __name__ == '__main__':
     
     cb = ConstraintBuilder()
     
+    # Get the input from the command line. We expect to see the user query, and we may see some flags
     toLog = False
+    limitDefault = 25
+    limit = limitDefault
+    query = ''
+    
+    path = True
+    import sys
+    for arg in sys.argv:
+        if path:
+            path = False
+            continue
+        
+        if limit is None:
+            try:
+                limit = int(arg)
+            except:
+                print('Result limit must be specified as an integer!')
+                limit = limitDefault
+        elif len(arg) > 0 and arg[0] == '-':
+            # possibly a flag
+            if arg == '-v' or arg == '-V':
+                toLog = True
+            elif arg == '-l' or arg == '-L':
+                limit = None
+            else:
+                print('Unknown flag "', arg, '"!', delim='')
+        else:
+            # We expect this is the user query
+            if len(query) > 0:
+                query += ' '
+            query += arg
+    
+    if len(query) == 0:
+        print('User query must be specified as a command line argument!')
+        exit(1)
+    
     if toLog:
         def log(*args):
             for a in args:
@@ -955,12 +991,12 @@ if __name__ == '__main__':
         def log(*args):
             pass
     
-    import sys
-    log('"' + sys.argv[1] + '"')
-    reqs = cb.fromQuery(sys.argv[1], log)
+    
+    log('"' + query + '"')
+    reqs = cb.fromQuery(query, log)
     log() # get a new line
     
     # Here we will employ the partial matcher to refine our results.
     #  We will modify some of the constraints
-    PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, 25)
+    PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, limit)
     
