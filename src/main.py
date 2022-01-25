@@ -765,7 +765,8 @@ class ConstraintBuilder():
                         j = 0
                         while j < len(side):
                             typeNum = side[j]
-                            typesWhere += typeNum
+                            typesWhere[j] += typeNum
+                            j += 1
                 elif isinstance(relation, OrRelation):
                     left = flatten(relation.left)
                     right = flatten(relation.right)
@@ -983,11 +984,8 @@ if __name__ == '__main__':
     if len(query) == 0:
         print('User query must be specified as a command line argument!')
         exit(1)
-    if limit == -1:
-        if not exactOnly:
-            limit = 25
-        else:
-            limit = float('inf')
+    if limit == -1 and not exactOnly:
+        limit = 25
     
     if toLog:
         def log(*args):
@@ -1005,7 +1003,7 @@ if __name__ == '__main__':
     
     if exactOnly:
         from src.database import execute
-        query = PartialMatcher().fromConstraints(reqs[0].name, reqs[1] + reqs[2] + reqs[3], reqs[4])
+        query = PartialMatcher().fromConstraints(reqs[0].name, reqs[1] + reqs[2] + reqs[3], reqs[4], limit)
         # Add from the query to the results
         print(query)
         res = execute(query)

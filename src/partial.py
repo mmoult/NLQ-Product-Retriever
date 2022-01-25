@@ -33,7 +33,7 @@ class PartialMatcher(object):
         return orderBy
     
     
-    def fromConstraints(self, tableName, constr, orderBy) -> string:
+    def fromConstraints(self, tableName, constr, orderBy, limit) -> string:
         query = 'SELECT * FROM ' + tableName.value
         if len(constr) > 0:
             query += ' WHERE '
@@ -41,7 +41,8 @@ class PartialMatcher(object):
         if len(orderBy) > 0:
             query += ' ORDER BY '
             query += self.__buildOrder(orderBy)
-        query += " LIMIT 25"
+        if limit >= 0:
+            query += " LIMIT " + str(limit)
         return query
 
 
@@ -97,7 +98,7 @@ class PartialMatcher(object):
         rnd = 0
         doPartial = True
         scheduler = [[]]
-        while len(results) < limit:
+        while len(results) < limit or limit == -1:
             roundConstr = []
             contentSuccess = False
             while True:
@@ -120,7 +121,7 @@ class PartialMatcher(object):
                 
                 # Try a content-based partial match, and if no success, try without
                 def tryQuery(constraints):
-                    query = self.fromConstraints(table.name, constraints, order)
+                    query = self.fromConstraints(table.name, constraints, order, limit)
                     res = execute(query)
                     if len(res) > 0:
                         log('success:', query)
@@ -191,7 +192,8 @@ class PartialMatcher(object):
             if len(order) > 0:
                 query += ' ORDER BY '
                 query += self.__buildOrder(order)
-            query += " LIMIT " + str(limit)
+            if limit >= 0:
+                query += " LIMIT " + str(limit)
         
             # Add from the query to the results
             res = execute(query)
@@ -211,7 +213,7 @@ class PartialMatcher(object):
             if contentSuccess:
                 # Redo the last round, but without partials
                 doPartial = False
-                if len(results) < limit:
+                if len(results) < limit or limit == -1:
                     log("return to Round", rnd)
                     scheduler = self.generateUnorderedRemovals(rnd, len(constr))
 
