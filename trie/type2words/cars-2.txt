@@ -576,7 +576,6 @@ coup
 coupe
 courgar
 covertible
-covette
 cpe
 cr
 craft
@@ -584,7 +583,6 @@ crafted
 cranbrook
 crane
 crarlo
-Crawler
 CRAZ
 crd
 cre
@@ -962,7 +960,6 @@ fordf
 fords
 FordThunderbird
 Fore
-forerunner
 FOREST
 forester
 forestry
@@ -1094,7 +1091,6 @@ graduate
 Graham
 gran
 grand
-grandcherokee
 grande
 grandville
 granite
@@ -1253,8 +1249,6 @@ IA
 IC
 ice
 icon
-id
-idaho
 ierra
 IHC
 ii

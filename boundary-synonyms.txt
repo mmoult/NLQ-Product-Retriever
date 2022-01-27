@@ -7,6 +7,7 @@ below
 older than (1)
 cheaper than (2)
 smaller than (3)
+before (1)
 
 <=
 at most

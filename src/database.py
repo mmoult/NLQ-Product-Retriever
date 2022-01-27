@@ -99,7 +99,7 @@ cars = Table(Domain.CAR, 0, [4, 5], # both the make and the model are type 1
     [["year"], "INTEGER", ['year', 'yr', 'yrs']],
     [["manufacturer"], "TEXT"],
     [["model"], "TEXT"],
-    [["condition"], "TEXT", ['condition']],
+    [["condition"], "TEXT"],
     [["cylinders"], "INTEGER", ['cylinder', 'cylinders', 'cyl']],
     [["fuel"], "TEXT"], # gas, diesel, hybrid, electric
     [["odometer", "mileage"], "INTEGER", ['mile', 'miles', 'mi']],

@@ -452,7 +452,10 @@ class ConstraintBuilder():
                 # Now that we have a unit, we are going to try to use it.
                 #  If no unit is found, we try to match to year (if the table allows it)
                 if unit is None:
-                    unit = "year"
+                    # verify that the number is within a reasonable year range
+                    year = int(token[0])
+                    if year >= 1940 and year <= 2025:
+                        unit = "year"
                 if not unit is None:
                     cols = []
                     # The unit can be a masquerading column title. In such a case, it begins with _

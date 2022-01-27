@@ -1,6 +1,5 @@
 convertible<->sedan
 sedan<->hatchback
-sedan<->suv
 sedan<->pickup
 hatchback<->mini-van
 suv<->pickup

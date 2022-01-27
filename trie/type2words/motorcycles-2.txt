@@ -168,3 +168,14 @@ ZMR
 ZR
 color
 mileage
+red
+yellow
+orange
+green
+blue
+purple
+silver
+black
+grey
+brown
+

@@ -19,7 +19,7 @@ la<->Louisiana
 me<->Maine
 md<->Maryland
 ma<->Massachusetts
-mi<->Michigan
+mi<-Michigan
 mn<->Minnesota
 ms<->Mississippi
 mo<->Missouri
