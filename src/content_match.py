@@ -111,48 +111,90 @@ def suggestReplacements(tableName, constraints):
     # Now we are going to go through each constraint and suggest potential alternatives
     for i in range(len(constraints)):
         changed = False
-        # we will look for instances of ' LIKE ', which indicates that it is a type I or type II value
         constr = constraints[i]
-        indx = constr.find(' LIKE "% ')
-        while indx != -1:
-            # we found an instance! Great, now we check if we can partial match on it
-            breakIndex = indx - 1
-            while breakIndex > -1:
-                # go backwards until we either find a break or the beginning of the string
-                if constr[breakIndex] == ' ' or constr[breakIndex] == '(':
-                    break
-                breakIndex -= 1
-            attr = constr[breakIndex + 1:indx]
-            if attr in hasFile:
-                # Excellent! We found an attribute we can partial match on
-                # We must build the graph if it has not been built already
-                if not attr in graphs:
-                    graph = createFromStringLines(readFileLines(filePrefix + hasFile[attr] + '.txt'))
-                    graphs[attr] = graph # place it in the dictionary for next time
-                else:
-                    graph = graphs[attr]
+        
+        # We will look on operations that we can partial match on
+        operations = [' LIKE "% ', ' = ', ' < ', ' <= ', ' > ', ' >= ']
+        indx = 0 # for some reason it needs to start within range
+        partialOp = "default"
+        
+        # No such thing as a do-while loop in Python, so we must use this strange construct
+        while partialOp is not None:
+            if partialOp != "default":
+                # We can find the attribute operated on, which is common logic to all operations
+                breakIndex = indx - 1
+                while breakIndex > -1:
+                    # go backwards until we either find a break or the beginning of the string
+                    if constr[breakIndex] == ' ' or constr[breakIndex] == '(':
+                        break
+                    breakIndex -= 1
+                attr = constr[breakIndex + 1:indx]
                 
-                # try to find the node with value matching given value from the constraint
-                end = constr.index(' %"', indx + 9)
-                matchValue = constr[indx + 9:end]
-                if matchValue in graph.nodes:
-                    neighbors = graph.nodes[matchValue].connections
-                    # Lastly, we build a giant OR with all the neighboring values 
-                    #  (We don't exclude matchValue since it may be helpful to match
-                    #  on with our liberal replacement strategy.)
-                    newClause = '(' + attr + ' LIKE "% ' + matchValue + ' %"'
-                    for neighbor in neighbors:
-                        newClause += ' OR ' + attr + ' LIKE "% ' + neighbor.name + ' %"'
-                    newClause += ')'
-                    # Now we need to insert our new clause to replace what was there
-                    constr = constr[:breakIndex + 1] + newClause + constr[end+3:]
-                    
-                    # Finally we want to calculate how many to skip ahead in the search
-                    indx = constr.find(' LIKE "% ', breakIndex + len(newClause))
+                newClause = None
+                if partialOp == ' LIKE "% ':
+                    # We need to do some special processing for like, since not all values are matchable
+                    if attr in hasFile:
+                        # Excellent! We found an attribute we can partial match on
+                        # We must build the graph if it has not been built already
+                        if not attr in graphs:
+                            graph = createFromStringLines(readFileLines(filePrefix + hasFile[attr] + '.txt'))
+                            graphs[attr] = graph # place it in the dictionary for next time
+                        else:
+                            graph = graphs[attr]
+                        
+                        # try to find the node with value matching given value from the constraint
+                        end = constr.index(' %"', indx + 9)
+                        matchValue = constr[indx + 9:end]
+                        end += 3
+                        if matchValue in graph.nodes:
+                            neighbors = graph.nodes[matchValue].connections
+                            # Lastly, we build a giant OR with all the neighboring values 
+                            #  (We don't exclude matchValue since it may be helpful to match
+                            #  on with our liberal replacement strategy.)
+                            newClause = '(' + attr + ' LIKE "% ' + matchValue + ' %"'
+                            for neighbor in neighbors:
+                                newClause += ' OR ' + attr + ' LIKE "% ' + neighbor.name + ' %"'
+                            newClause += ')'
+                    if newClause is None:
+                        indx += 13 # 13 is length of pattern ' LIKE "% x %"'
+                else: # We can also suggest replacements for numeric type III values
+                    # all operations here need a matchValue float to use
+                    end = indx + len(partialOp)
+                    while end < len(constr):
+                        # go forwards until some break
+                        if constr[end] == ' ' or constr[end] == ')':
+                            break
+                        end += 1
+                    matchValue = float(constr[indx + len(partialOp):end])
+                    import math
+                    offs = math.ceil(math.log(matchValue) / 2)
+                    loBound = str(matchValue - offs)
+                    hiBound = str(matchValue + offs)
+                    if partialOp == ' = ':
+                        newClause = '(' + attr + ' BETWEEN ' + loBound + ' AND ' + hiBound + ')'
+                    elif partialOp == ' < ' or partialOp == ' <= ':
+                        newClause = attr + partialOp + hiBound
+                    elif partialOp == ' > ' or partialOp == ' >= ':
+                        newClause = attr + partialOp + loBound
+                
+                if newClause is not None:
                     changed = True
-                    continue
+                    # Now we need to insert our new clause to replace what was there
+                    constr = constr[:breakIndex + 1] + newClause + constr[end:]
+                    # Finally we want to calculate how many to skip ahead in the search
+                    indx = breakIndex + len(newClause)    
             
-            indx = constr.find(' LIKE "% ', indx + 13) # 13 is length of pattern ' LIKE "% x %"'
+            # find a new operation
+            partialOp = None
+            lowest = len(constr)
+            for pop in operations:
+                got = constr.find(pop, indx)
+                if got != -1 and got < lowest:
+                    lowest = got
+                    partialOp = pop
+            indx = lowest
+            # Then we restart the loop. If we found some operation to match on, then do it and check again
+        
         if changed: # leave the "replacement" as None if there were no partial-match changes
             replacements[i] = constr
     return replacements

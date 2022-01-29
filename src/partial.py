@@ -75,7 +75,7 @@ class PartialMatcher(object):
         return removals
     
     
-    def bestResults(self, requirements, log, abbrevToExpand, expandToAbbrev, limit):
+    def bestResults(self, requirements, log, limit):
         # [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
         table = requirements[0]
         type1 = requirements[1]

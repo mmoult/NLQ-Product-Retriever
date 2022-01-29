@@ -409,6 +409,7 @@ class ConstraintBuilder():
                                 end = rest.find(')')
                                 unit = rest[start:end]
                             if unit is not None:
+                                black = max(black, j)
                                 break # don't need to go back more if we have the bound and the unit
                         elif (bound is None or bound == '!=') and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
                             backup = j
@@ -1014,7 +1015,7 @@ if __name__ == '__main__':
     else:
         # Here we will employ the partial matcher to refine our results.
         #  We will modify some of the constraints
-        res = PartialMatcher().bestResults(reqs, log, cb.abbrevToExpand, cb.expandToAbbrev, limit)
+        res = PartialMatcher().bestResults(reqs, log, limit)
     
     print()
     print(len(res), 'Results:')
