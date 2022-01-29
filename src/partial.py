@@ -217,6 +217,5 @@ class PartialMatcher(object):
                     log("return to Round", rnd)
                     scheduler = self.generateUnorderedRemovals(rnd, len(constr))
 
-        results = results[:limit]
         return results
         

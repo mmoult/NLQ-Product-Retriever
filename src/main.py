@@ -5,6 +5,7 @@ from src.partial import PartialMatcher
 from src.opeval import OperatorHandler, OperatorEvaluator, OperatorRelation, OrRelation, AndRelation, NotRelation
 import string
 from src.standard import Standardizer
+from src.rank import RelevanceRanker
 
 class ConstraintBuilder():
     
@@ -1010,21 +1011,24 @@ if __name__ == '__main__':
         query = PartialMatcher().fromConstraints(reqs[0].name, reqs[1] + reqs[2] + reqs[3], reqs[4], limit)
         # Add from the query to the results
         print(query)
-        res = execute(query)
+        records = execute(query)
         print()
     else:
         # Here we will employ the partial matcher to refine our results.
         #  We will modify some of the constraints
-        res = PartialMatcher().bestResults(reqs, log, limit)
+        records = PartialMatcher().bestResults(reqs, log, limit)
     
     print()
-    print(len(res), 'Results:')
-    # Print the table headings
-    for row in reqs[0].dat:
-        print('', row[0][0].upper(), end='\t')
-    print() # go to the line after the table headings
-    for result in res:
-        print('', result)
-    if len(res) == 0:
-        print('No results...')
+    if len(records) == 0:
+        print("No results...")
+    else:
+        # We want to score and rank our results such that the most relevant appear at the top
+        res = RelevanceRanker(reqs).rank(records, limit)
+        print(len(res), 'Results:')
+        # Print the table headings
+        for row in reqs[0].dat:
+            print('', row[0][0].upper(), end='\t')
+        print() # go to the line after the table headings
+        for result in res:
+            print('', result)
     

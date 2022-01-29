@@ -79,34 +79,63 @@ def readFileLines(path):
     return lines
 
 
+class Similarity(object):
+    def __init__(self, tableName):
+        self.tableName = tableName
+        hasFile = dict()
+        
+        # Unfortunately, we need to map from the table columns used in constraints to the
+        #  associated files, which cannot be an elegant solution.
+        from src.domains import Domain
+        if tableName == Domain.CAR:
+            hasFile['condition'] = 'condition'
+            hasFile['type'] = 'car-type'
+            hasFile['paint_color'] = 'color'
+            hasFile['state'] = 'us-states'
+        elif tableName == Domain.FURNITURE: # No options for furniture :/
+            raise Exception("No similarity options for furniture!")
+        elif tableName == Domain.HOUSING: # I could maybe match on suburb location?
+            raise Exception("No similarity options for housing!")
+        elif tableName == Domain.JEWELRY:
+            hasFile['tags'] = 'material'
+        elif tableName == Domain.JOB:
+            hasFile['sector'] = 'work-sector'
+            hasFile['location'] = 'us-states'
+        elif tableName == Domain.MOTORCYCLE: # No options for motorcycles either :/
+            raise Exception("No similarity options for motorcycles!")
+        
+        self.hasFile = hasFile
+        # Building each graph takes a lot of work, which we don't want to do unless we need it
+        self.graphs = dict()
+    
+    
+    def valueNode(self, attr, value) -> GraphNode:
+        filePrefix = "/../similarity/"
+        # Get the proper graph for this attribute
+        if attr in self.hasFile:
+            # Excellent! We found an attribute we can partial match on
+            # We must build the graph if it has not been built already
+            if not attr in self.graphs:
+                graph = createFromStringLines(readFileLines(filePrefix + self.hasFile[attr] + '.txt'))
+                self.graphs[attr] = graph # place it in the dictionary for next time
+            else:
+                graph = self.graphs[attr]
+            
+            # try to find the node in attr's graph that matches the specified value
+            if value in graph.nodes:
+                return graph.nodes[value]
+        # Return nothing if we could not find specified
+        return None
+
+
 def suggestReplacements(tableName, constraints):
     replacements = [None for _ in range(len(constraints))]
-    hasFile = dict()
     
-    # Unfortunately, we need to map from the table columns used in constraints to the
-    #  associated files, which cannot be an elegant solution.
-    from src.domains import Domain
-    if tableName == Domain.CAR:
-        hasFile['condition'] = 'condition'
-        hasFile['type'] = 'car-type'
-        hasFile['paint_color'] = 'color'
-        hasFile['state'] = 'us-states'
-    elif tableName == Domain.FURNITURE:
-        return replacements # No options for furniture :/
-    elif tableName == Domain.HOUSING:
-        return replacements # I could maybe match on suburb location?
-    elif tableName == Domain.JEWELRY:
-        hasFile['tags'] = 'material'
-    elif tableName == Domain.JOB:
-        hasFile['sector'] = 'work-sector'
-        hasFile['location'] = 'us-states'
-        pass
-    elif tableName == Domain.MOTORCYCLE:
-        return replacements # No options for motorcycles either :/
-    
-    filePrefix = "/../similarity/"
-    # Building each graph takes a lot of work, which we don't want to do unless we need it
-    graphs = dict()
+    try:
+        similarity = Similarity(tableName)
+    except:
+        # If there was an exception, then there are no matches for that table name
+        return replacements
     
     # Now we are going to go through each constraint and suggest potential alternatives
     for i in range(len(constraints)):
@@ -132,31 +161,24 @@ def suggestReplacements(tableName, constraints):
                 
                 newClause = None
                 if partialOp == ' LIKE "% ':
-                    # We need to do some special processing for like, since not all values are matchable
-                    if attr in hasFile:
+                    # try to find the node with value matching given value from the constraint
+                    end = constr.index(' %"', indx + 9)
+                    matchValue = constr[indx + 9:end]
+                    end += 3
+                    node = similarity.valueNode(attr, matchValue)
+                    if node is not None:
                         # Excellent! We found an attribute we can partial match on
-                        # We must build the graph if it has not been built already
-                        if not attr in graphs:
-                            graph = createFromStringLines(readFileLines(filePrefix + hasFile[attr] + '.txt'))
-                            graphs[attr] = graph # place it in the dictionary for next time
-                        else:
-                            graph = graphs[attr]
-                        
-                        # try to find the node with value matching given value from the constraint
-                        end = constr.index(' %"', indx + 9)
-                        matchValue = constr[indx + 9:end]
-                        end += 3
-                        if matchValue in graph.nodes:
-                            neighbors = graph.nodes[matchValue].connections
-                            # Lastly, we build a giant OR with all the neighboring values 
-                            #  (We don't exclude matchValue since it may be helpful to match
-                            #  on with our liberal replacement strategy.)
-                            newClause = '(' + attr + ' LIKE "% ' + matchValue + ' %"'
-                            for neighbor in neighbors:
-                                newClause += ' OR ' + attr + ' LIKE "% ' + neighbor.name + ' %"'
-                            newClause += ')'
+                        neighbors = node.connections
+                        # Lastly, we build a giant OR with all the neighboring values 
+                        #  (We don't exclude matchValue since it may be helpful to match
+                        #  on with our liberal replacement strategy.)
+                        newClause = '(' + attr + ' LIKE "% ' + matchValue + ' %"'
+                        for neighbor in neighbors:
+                            newClause += ' OR ' + attr + ' LIKE "% ' + neighbor.name + ' %"'
+                        newClause += ')'
                     if newClause is None:
                         indx += 13 # 13 is length of pattern ' LIKE "% x %"'
+                   
                 else: # We can also suggest replacements for numeric type III values
                     # all operations here need a matchValue float to use
                     end = indx + len(partialOp)
