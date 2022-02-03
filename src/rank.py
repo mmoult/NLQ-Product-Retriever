@@ -144,23 +144,26 @@ class RelevanceRanker(object):
             at = self.findEntryIndex(comp.attr)
             value = entry[at]
             if comp.operation == 'LIKE':
+                if len(value) == 0: # cannot content match on nothing
+                    return 0
                 exp = comp.vals[0]
                 # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
                 exp = exp[2:len(exp) - 2]
-                if exp in value or value in exp:
+                if exp == value:
                     return 1
                 # otherwise, we have to perform a partial matching approach...
                 # We modify exp even further to remove the extra padding spaces
                 exp = exp[1:len(exp) - 1]
-                node = self.similarity.valueNode(comp.attr, exp)
-                # there may be no similarity matches for either the attribute or value
-                if node is not None:
-                    # TODO: I experimentally chose edgeDiv, but we may be able to find a more scientific approach
-                    edgeDiv = 5 # Edge cost penalty divisor. The larger this number, the less the weight read from file is
-                    # If there are any related, then return the similarity value
-                    for edge in node.connections:
-                        if value in (' ' + edge.toNode.name + ' '):
-                            return 1 - edge.cost / edgeDiv if math.fabs(edge.cost) < edgeDiv else 0
+                if self.similarity is not None:
+                    node = self.similarity.valueNode(comp.attr, exp)
+                    # there may be no similarity matches for either the attribute or value
+                    if node is not None:
+                        # TODO: I experimentally chose edgeDiv, but we may be able to find a more scientific approach
+                        edgeDiv = 5 # Edge cost penalty divisor. The larger this number, the less the weight read from file is
+                        # If there are any related, then return the similarity value
+                        for edge in node.connections:
+                            if value in (' ' + edge.toNode.name + ' '):
+                                return 1 - edge.cost / edgeDiv if math.fabs(edge.cost) < edgeDiv else 0
                 return 0
             # All other operations use numbers
             act = float(value)
@@ -223,5 +226,5 @@ class RelevanceRanker(object):
         
         scores.sort(key=lambda entry : entry[0], reverse=True)
         scores = scores[:limit]
-        return scores #[entry[1] for entry in scores]
+        return [entry[1] for entry in scores]
         

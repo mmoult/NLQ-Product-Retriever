@@ -303,6 +303,7 @@ def spell_corrector(word_list, words_d, abbrevs) -> str:
     ss = SymSpell(max_edit_distance = 2)
     ss.create_dictionary_from_arr(words_d, token_pattern=r'.+')
     pattern = '(?<!\S)(?=.)(0|([1-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[1-9])?(?!\S)'
+    from src.typify import isNumeric
     
     result_list = []
     for word in word_list:
@@ -311,7 +312,7 @@ def spell_corrector(word_list, words_d, abbrevs) -> str:
             result_list.append(abbrevs[word])
             continue
         # check if the word is a number or dictionary match
-        if word.isnumeric() or re.match(pattern, word):
+        if isNumeric(word) or re.match(pattern, word):
             result_list.append(word)
         elif word not in words_d:
             suggestion = ss.best_word(word, silent=True)

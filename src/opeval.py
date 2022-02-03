@@ -103,7 +103,7 @@ class OperatorEvaluator(object):
                 fine = True
                 if isNumeric(typed[i][0]) and not value:
                     value = True
-                elif not unit:
+                elif not unit and newFound == 3:
                     unit = True
                 elif boundFound and not bound:
                     bound = True
