@@ -1,27 +1,35 @@
-black<->blue
-black<->purple
-blue<->purple
-blue<->green
-purple<->magenta
-purple<->pink
-green<->yellow
-magenta<->pink
-magenta<->red
-pink<->red
-yellow<->white
-yellow<->silver
-yellow<->orange
-red<->orange
-white<->silver
-silver<->orange
-red<->brown
-orange<->brown
-brown<->beige
-beige<->silver
-beige<->yellow
-blue<->aqua
-green<->aqua
-black<->gray
-silver<->black
-gray<->white
-gray<->yellow
+black <-> blue
+black <-> purple
+blue <-> purple
+blue <-> green
+purple <-> magenta
+purple <-> pink
+green <-> yellow
+magenta <-> pink
+magenta <-> red
+pink <-> red
+yellow <-> white
+yellow <-> orange
+red <-> orange $ .8
+yellow <-> silver
+white <-> silver
+silver <-> orange $ 1.5
+beige <-> silver
+silver <-> black
+silver <-> gray
+yellow <-> gray
+white <-> gray
+gray <-> orange $ 1.5
+beige <-> gray
+gray <-> black
+yellow <-> grey
+white <-> grey
+grey <-> orange $ 1.5
+beige <-> grey
+grey <-> black
+red <-> brown
+orange <-> brown
+brown <-> beige
+beige <-> yellow
+blue <-> aqua
+green <-> aqua

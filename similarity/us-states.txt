@@ -1,105 +1,105 @@
-WA<->OR
-WA<->ID
-OR<->CA
-OR<->NV
-OR<->ID
-ID<->UT
-ID<->NV
-ID<->WY
-ID<->MT
-CA<->NV
-CA<->AZ
-NV<->UT
-NV<->AZ
-UT<->AZ
-UT<->CO
-UT<->WY
-WY<->MT
-WY<->CO
-WY<->SD
-WY<->NE
-MT<->ND
-MT<->SD
-AZ<->NM
-CO<->NM
-CO<->OK
-CO<->KS
-CO<->NE
-SD<->NE
-SD<->IA
-SD<->MN
-NE<->KS
-NE<->IA
-NE<->MO
-ND<->MN
-NM<->OK
-NM<->TX
-KS<->OK
-KS<->MO
-IA<->MN
-IA<->MO
-IA<->WI
-IA<->IL
-MN<->WI
-MO<->OK
-MO<->IL
-MO<->AR
-MO<->TN
-MO<->KS
-OK<->TX
-OK<->AR
-TX<->AR
-TX<->LA
-WI<->IL
-WI<->MI
-IL<->KS
-IL<->IN
-AR<->LA
-AR<->MS
-AR<->TN
-TN<->MS
-TN<->AL
-TN<->GA
-TN<->NC
-TN<->VA
-TN<->KS
-KS<->IN
-KS<->OH
-KS<->WV
-KS<->VA
-LA<->MS
-MI<->IN
-MI<->OH
-IN<->OH
-MS<->AL
-AL<->FL
-AL<->GA
-GA<->FL
-GA<->SC
-GA<->NC
-NC<->SC
-NC<->VA
-VA<->WV
-VA<->MD
-VA<->DC
-OH<->WV
-OH<->PA
-WV<->MD
-WV<->PA
-MD<->DC
-MD<->DE
-MD<->PA
-PA<->NY
-PA<->NJ
-DE<->NJ
-NY<->NJ
-NY<->CT
-NY<->MA
-NY<->VT
-CT<->RI
-CT<->MA
-MA<->RI
-MA<->NH
-MA<->VT
-VT<->NH
-NH<->ME
+WA <-> OR
+WA <-> ID
+OR <-> CA
+OR <-> NV
+OR <-> ID
+ID <-> UT
+ID <-> NV
+ID <-> WY
+ID <-> MT
+CA <-> NV
+CA <-> AZ
+NV <-> UT
+NV <-> AZ
+UT <-> AZ
+UT <-> CO
+UT <-> WY
+WY <-> MT
+WY <-> CO
+WY <-> SD
+WY <-> NE
+MT <-> ND
+MT <-> SD
+AZ <-> NM
+CO <-> NM
+CO <-> OK
+CO <-> KS
+CO <-> NE
+SD <-> NE
+SD <-> IA
+SD <-> MN
+NE <-> KS
+NE <-> IA
+NE <-> MO
+ND <-> MN
+NM <-> OK
+NM <-> TX
+KS <-> OK
+KS <-> MO
+IA <-> MN
+IA <-> MO
+IA <-> WI
+IA <-> IL
+MN <-> WI
+MO <-> OK
+MO <-> IL
+MO <-> AR
+MO <-> TN
+MO <-> KS
+OK <-> TX
+OK <-> AR
+TX <-> AR
+TX <-> LA
+WI <-> IL
+WI <-> MI
+IL <-> KS
+IL <-> IN
+AR <-> LA
+AR <-> MS
+AR <-> TN
+TN <-> MS
+TN <-> AL
+TN <-> GA
+TN <-> NC
+TN <-> VA
+TN <-> KS
+KS <-> IN
+KS <-> OH
+KS <-> WV
+KS <-> VA
+LA <-> MS
+MI <-> IN
+MI <-> OH
+IN <-> OH
+MS <-> AL
+AL <-> FL
+AL <-> GA
+GA <-> FL
+GA <-> SC
+GA <-> NC
+NC <-> SC
+NC <-> VA
+VA <-> WV
+VA <-> MD
+VA <-> DC
+OH <-> WV
+OH <-> PA
+WV <-> MD
+WV <-> PA
+MD <-> DC
+MD <-> DE
+MD <-> PA
+PA <-> NY
+PA <-> NJ
+DE <-> NJ
+NY <-> NJ
+NY <-> CT
+NY <-> MA
+NY <-> VT
+CT <-> RI
+CT <-> MA
+MA <-> RI
+MA <-> NH
+MA <-> VT
+VT <-> NH
+NH <-> ME

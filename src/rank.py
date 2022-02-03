@@ -147,7 +147,7 @@ class RelevanceRanker(object):
                 exp = comp.vals[0]
                 # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
                 exp = exp[2:len(exp) - 2]
-                if exp in value:
+                if exp in value or value in exp:
                     return 1
                 # otherwise, we have to perform a partial matching approach...
                 # We modify exp even further to remove the extra padding spaces
@@ -155,34 +155,45 @@ class RelevanceRanker(object):
                 node = self.similarity.valueNode(comp.attr, exp)
                 # there may be no similarity matches for either the attribute or value
                 if node is not None:
-                    # If there are any related, then return the similarity value #TODO: may want similarity values for each edge in the future
-                    for neighbor in node.connections:
-                        if value in (' ' + neighbor.name + ' '):
-                            return 0.5 # assumed edge weight
+                    # TODO: I experimentally chose edgeDiv, but we may be able to find a more scientific approach
+                    edgeDiv = 5 # Edge cost penalty divisor. The larger this number, the less the weight read from file is
+                    # If there are any related, then return the similarity value
+                    for edge in node.connections:
+                        if value in (' ' + edge.toNode.name + ' '):
+                            return 1 - edge.cost / edgeDiv if math.fabs(edge.cost) < edgeDiv else 0
                 return 0
             # All other operations use numbers
             act = float(value)
             exp = float(comp.vals[0])
+            # Find the divisor, which will effectively determine how much the difference between actual and
+            #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
+            #  and some other products, they are closer to a Type II than a Type III in that the exact year
+            #  may be important for the style.
+            if comp.attr == 'year':
+                divisor = 8 # TODO: I had to decide some value to modify the score penalty
+            else:
+                divisor = exp
+            
             if comp.operation == '=':
-                score = 1 - math.fabs(exp - act)/exp
+                score = 1 - math.fabs(exp - act)/divisor
             # Often with ranges, we want the extreme. There is no way to take that into account without
             # giving some form of extra credit, which would be a controversial decision.
             elif comp.operation == '>':
                 if act > exp:
                     return 1 # This is where we would calculate extra credit score
-                score = 1 - (exp - (act - 0.1))/exp
+                score = 1 - (exp - (act - 0.1))/divisor
             elif comp.operation == '>=':
                 if act >= exp:
                     return 1 
-                score = 1 - (exp - act)/exp
+                score = 1 - (exp - act)/divisor
             elif comp.operation == '<':
                 if act < exp:
                     return 1 # This is where we would calculate extra credit score
-                score = 1 - ((act + 0.1) - exp)/exp
+                score = 1 - ((act + 0.1) - exp)/divisor
             elif comp.operation == '<=':
                 if act <= exp:
                     return 1 # This is where we would calculate extra credit score
-                score = 1 - (act - exp)/exp
+                score = 1 - (act - exp)/divisor
             elif comp.operation == 'BETWEEN':
                 lo = exp
                 hi = float(comp.vals[1])
@@ -190,9 +201,9 @@ class RelevanceRanker(object):
                 if act >= lo and act <= hi:
                     return 1
                 if act < lo:
-                    score = 1 - (lo - act)/exp
+                    score = 1 - (lo - act)/divisor
                 elif act > hi:
-                    score = 1 - (act - hi)/exp
+                    score = 1 - (act - hi)/divisor
             else:
                 raise Exception('Unknown operation "' + comp.operation + '"!')
             if score < 0:
@@ -212,5 +223,5 @@ class RelevanceRanker(object):
         
         scores.sort(key=lambda entry : entry[0], reverse=True)
         scores = scores[:limit]
-        return [entry[1] for entry in scores]
+        return scores #[entry[1] for entry in scores]
         

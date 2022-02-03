@@ -1,4 +1,9 @@
-excellent<->like new
-like new<->good
-good<->fair
-fair<->salvage
+new <-> like new $ .1
+new <-> excellent $ .6
+new <-> good $ 1.6
+like new <-> excellent $ .5
+like new <-> good $ 1.5
+excellent <-> good
+excellent <-> fair $ 2
+good <-> fair
+fair <-> salvage

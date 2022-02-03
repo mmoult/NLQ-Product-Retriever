@@ -11,19 +11,18 @@ class SimilarityGraph():
         self.nodes[name] = node
         return node
     
-    def bidirection(self, head, tail):
+    def bidirection(self, head, tail, cost = 1):
         n1 = self.nodeOf(head)
         n2 = self.nodeOf(tail)
         
-        n1.connect(n2)
-        n2.connect(n1)
+        n1.connect(n2, cost)
+        n2.connect(n1, cost)
     
-    def direction(self, head, tail):
+    def direction(self, head, tail, cost = 1):
         n1 = self.nodeOf(head)
         n2 = self.nodeOf(tail)
         
-        n1.connect(n2)
-        n2.connect(n1)
+        n1.connect(n2, cost)
     
 def createFromStringLines(text):
     graph = SimilarityGraph()
@@ -33,24 +32,32 @@ def createFromStringLines(text):
         if len(line) == 0:
             continue
         
+        def splitComps(line, conn):
+            # Edges are specified as: <N1> <connection> <N2> $ <cost>
+            left = line[:split].strip()
+            right = line[split + len(conn):].strip()
+            costFound = right.find('$')
+            if costFound != -1:
+                cost = right[costFound + 1:].strip()
+                right = right[:costFound].strip()
+                return (left, right, float(cost))
+            return (left, right, 1)
+        
         # The dividers are '<->' for bidirectional, '->' or '<-' for directional.
         split = line.find('<->')
         if split != -1:
-            left = line[:split]
-            right = line[split + 3:]
-            graph.bidirection(left, right)
+            left, right, cost = splitComps(line, '<->')
+            graph.bidirection(left, right, cost)
             continue
         split = line.find('<-')
         if split != -1:
-            left = line[:split]
-            right = line[split + 2:]
-            graph.direction(right, left)
+            left, right, cost = splitComps(line, '<-')
+            graph.direction(right, left, cost)
             continue
         split = line.find('->')
         if split != -1:
-            left = line[:split]
-            right = line[split + 2:]
-            graph.direction(left, right)
+            left, right, cost = splitComps(line, '->')
+            graph.direction(left, right, cost)
             continue
         raise Exception("Unexpected line '", line, '" found! Each line must list two nodes and give their relation as "<->", "<-", or "->"!')
     return graph
@@ -61,8 +68,14 @@ class GraphNode():
         self.name = name
         self.connections = set()
     
-    def connect(self, otherNode):
-        self.connections.add(otherNode)
+    def connect(self, otherNode, cost=1):
+        self.connections.add(GraphEdge(otherNode, cost))
+
+
+class GraphEdge():
+    def __init__(self, toNode, cost=1):
+        self.toNode = toNode
+        self.cost = cost
 
 
 def readFileLines(path):
@@ -173,8 +186,9 @@ def suggestReplacements(tableName, constraints):
                         #  (We don't exclude matchValue since it may be helpful to match
                         #  on with our liberal replacement strategy.)
                         newClause = '(' + attr + ' LIKE "% ' + matchValue + ' %"'
-                        for neighbor in neighbors:
-                            newClause += ' OR ' + attr + ' LIKE "% ' + neighbor.name + ' %"'
+                        for edge in neighbors:
+                            if edge.cost <= 1:
+                                newClause += ' OR ' + attr + ' LIKE "% ' + edge.toNode.name + ' %"'
                         newClause += ')'
                     if newClause is None:
                         indx += 13 # 13 is length of pattern ' LIKE "% x %"'

@@ -1,19 +1,19 @@
-convertible<->sedan
-sedan<->hatchback
-sedan<->pickup
-hatchback<->mini-van
-suv<->pickup
-suv<->truck
-suv<->mini-van
-mini-van<->truck
-truck<->pickup
-coupe<->sedan
-coupe<->convertible
-offroad<->truck
-offroad<->pickup
-wagon<->convertible
-van<->hatchback
-van<->mini-van
-van<->suv
-van<->truck
-van<->bus
+convertible <-> sedan
+sedan <-> hatchback
+sedan <-> pickup
+hatchback <-> mini-van
+suv <-> pickup
+suv <-> truck
+suv <-> mini-van
+mini-van <-> truck
+truck <-> pickup
+coupe <-> sedan
+coupe <-> convertible
+offroad <-> truck
+offroad <-> pickup
+wagon <-> convertible
+van <-> hatchback
+van <-> mini-van
+van <-> suv
+van <-> truck
+van <-> bus

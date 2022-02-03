@@ -1,7 +1,7 @@
-diamond<->moissanite
-diamond<->platinum
-gold<->silver
-lapis lazuli<->sapphire
-amazonite<->lapis lazuli
-garnet<->ruby
-garnet<->emerald
+diamond <-> moissanite
+diamond <-> platinum
+gold <-> silver
+lapis lazuli <-> sapphire
+amazonite <-> lapis lazuli
+garnet <-> ruby
+garnet <-> emerald

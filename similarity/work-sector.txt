@@ -1,20 +1,20 @@
-retail<->finance
-finance<->accounting
-art<->entertainment
-entertainment<->recreation
-real estate<->insurance
-insurance<->business
-business<->finance
-business<->real estate
-education<->government
-education<->defense
-consumer<->business
-energy<->government
-aerospace<->transportation
-legal<->government
-construction<->manufacturing
-biotech<->health care
-biotech<->pharmacy
-biotech<->pharmaceuticals
-pharmaceuticals<->health care
-pharmacy<->pharmaceuticals
+retail <-> finance
+finance <-> accounting
+art <-> entertainment
+entertainment <-> recreation
+real estate <-> insurance
+insurance <-> business
+business <-> finance
+business <-> real estate
+education <-> government
+education <-> defense
+consumer <-> business
+energy <-> government
+aerospace <-> transportation
+legal <-> government
+construction <-> manufacturing
+biotech <-> health care
+biotech <-> pharmacy
+biotech <-> pharmaceuticals
+pharmaceuticals <-> health care
+pharmacy <-> pharmaceuticals
