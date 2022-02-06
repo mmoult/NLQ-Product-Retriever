@@ -154,64 +154,71 @@ class RelevanceRanker(object):
                 # otherwise, we have to perform a partial matching approach...
                 # We modify exp even further to remove the extra padding spaces
                 exp = exp[1:len(exp) - 1]
+                distance = -1
                 if self.similarity is not None:
                     node = self.similarity.valueNode(comp.attr, exp)
                     # there may be no similarity matches for either the attribute or value
                     if node is not None:
-                        # TODO: I experimentally chose edgeDiv, but we may be able to find a more scientific approach
-                        edgeDiv = 5 # Edge cost penalty divisor. The larger this number, the less the weight read from file is
+                        # the typical offset is related to the number of nodes in the graph. 
+                        typical = len(self.similarity.graphs[comp.attr].nodes) / 2
                         # If there are any related, then return the similarity value
                         for edge in node.connections:
                             if value in (' ' + edge.toNode.name + ' '):
-                                return 1 - edge.cost / edgeDiv if math.fabs(edge.cost) < edgeDiv else 0
-                return 0
-            # All other operations use numbers
-            act = float(value)
-            exp = float(comp.vals[0])
-            # Find the divisor, which will effectively determine how much the difference between actual and
-            #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
-            #  and some other products, they are closer to a Type II than a Type III in that the exact year
-            #  may be important for the style.
-            if comp.attr == 'year':
-                divisor = 8 # TODO: I had to decide some value to modify the score penalty
+                                distance = edge.cost
+                                break
+                if distance == -1:
+                    return 0 # since distance was not actually set
             else:
-                divisor = exp
+                # All other operations use numbers
+                act = float(value)
+                exp = float(comp.vals[0])
+                # Find the divisor, which will effectively determine how much the difference between actual and
+                #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
+                #  and some other products, they are closer to a Type II than a Type III in that the exact year
+                #  may be important for the style.
+                if comp.attr == 'year':
+                    # TODO: I had to decide some value to modify years since they are disproportionately
+                    # larger than their use space (which is approx from 1950 - 2022)
+                    typical = 10 
+                else:
+                    typical = exp
+                
+                if comp.operation == '=':
+                    distance = math.fabs(exp - act)
+                # Often with ranges, we want the extreme. There is no way to take that into account without
+                # giving some form of extra credit, which would be a controversial decision.
+                elif comp.operation == '>':
+                    if act > exp:
+                        return 1 # This is where we would calculate extra credit score
+                    distance = exp - (act - 0.1)
+                elif comp.operation == '>=':
+                    if act >= exp:
+                        return 1 
+                    distance = exp - act
+                elif comp.operation == '<':
+                    if act < exp:
+                        return 1 # This is where we would calculate extra credit score
+                    distance = (act + 0.1) - exp
+                elif comp.operation == '<=':
+                    if act <= exp:
+                        return 1 # This is where we would calculate extra credit score
+                    distance = act - exp
+                elif comp.operation == 'BETWEEN':
+                    lo = exp
+                    hi = float(comp.vals[1])
+                    exp = (lo + hi) / 2
+                    if act >= lo and act <= hi:
+                        return 1
+                    if act < lo:
+                        distance = lo - act
+                    elif act > hi:
+                        distance = act - hi
+                else:
+                    raise Exception('Unknown operation "' + comp.operation + '"!')
             
-            if comp.operation == '=':
-                score = 1 - math.fabs(exp - act)/divisor
-            # Often with ranges, we want the extreme. There is no way to take that into account without
-            # giving some form of extra credit, which would be a controversial decision.
-            elif comp.operation == '>':
-                if act > exp:
-                    return 1 # This is where we would calculate extra credit score
-                score = 1 - (exp - (act - 0.1))/divisor
-            elif comp.operation == '>=':
-                if act >= exp:
-                    return 1 
-                score = 1 - (exp - act)/divisor
-            elif comp.operation == '<':
-                if act < exp:
-                    return 1 # This is where we would calculate extra credit score
-                score = 1 - ((act + 0.1) - exp)/divisor
-            elif comp.operation == '<=':
-                if act <= exp:
-                    return 1 # This is where we would calculate extra credit score
-                score = 1 - (act - exp)/divisor
-            elif comp.operation == 'BETWEEN':
-                lo = exp
-                hi = float(comp.vals[1])
-                exp = (lo + hi) / 2
-                if act >= lo and act <= hi:
-                    return 1
-                if act < lo:
-                    score = 1 - (lo - act)/divisor
-                elif act > hi:
-                    score = 1 - (act - hi)/divisor
-            else:
-                raise Exception('Unknown operation "' + comp.operation + '"!')
-            if score < 0:
-                score = 0
-            return score
+            # the more distant something is from the desired, the less the score decreases relatively.
+            # This is not a linear model of score depreciation. Instead, we use an exponential decay.
+            return .5 ** (distance / (typical / 5))
     
     
     def rank(self, results, limit):
