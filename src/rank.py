@@ -9,10 +9,10 @@ class RelevanceRanker(object):
         self.fieldAt = dict()
         
         # We should build the requirements into a more readable structure
-        strReqs = constr[1] + constr[2] + constr[3]
-        self.reqs = []
-        for strReq in strReqs:
-            self.reqs.append(self.__parseGroup(strReq))
+        self.reqs = [[], [], []]
+        for i in range(0, 3):
+            for strReq in constr[i+1]:
+                self.reqs[i].append(self.__parseGroup(strReq))
         
         try: # Attempt to build the word similarity graphs for this table
             self.similarity = Similarity(constr[0].name)
@@ -215,12 +215,18 @@ class RelevanceRanker(object):
     
     
     def rank(self, results, limit):
+        # Each type of data receives a certain weight:
+        #  1: 1, 2: .5, 3:.25
+        # Thus, an exact match in type III will count similarly to a bad match on type I
+        weights = [1, .5, .25]
+        
         # We need to score every record in results
         scores = []
         for record in results:
             score = 0
-            for req in self.reqs:
-                score += self.getScore(req, record)
+            for i in range(0, 3):
+                for req in self.reqs[i]:
+                    score += weights[i] * self.getScore(req, record)
             # typically we would normalize scores, but they are only used internally, compared to other records with the same reqs
             scores.append([score, record])
         
