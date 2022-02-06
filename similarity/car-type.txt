@@ -1,19 +1,66 @@
-convertible <-> sedan
+sedan <-> wagon $2
+sedan <-> mini-van $2
+sedan <-> van $2
+sedan <-> suv $2
+sedan <-> bus $3
+sedan <-> truck $2
+sedan <-> convertible
+sedan <-> coupe
 sedan <-> hatchback
+sedan <-> offroad $2
 sedan <-> pickup
+convertible <-> hatchback $2
+convertible <-> van $3
+convertible <-> suv $3
+convertible <-> offroad $3
+convertible <-> pickup $2
+convertible <-> bus $4
+convertible <-> truck $3
+convertible <-> wagon
+convertible <-> mini-van $3
+convertible <-> coupe
+hatchback <-> pickup $2
+hatchback <-> wagon $3
 hatchback <-> mini-van
-suv <-> pickup
-suv <-> truck
-suv <-> mini-van
+hatchback <-> van
+hatchback <-> suv $2
+hatchback <-> bus $2
+hatchback <-> truck $2
+hatchback <-> coupe $2
+hatchback <-> offroad $3
+pickup <-> offroad
+pickup <-> wagon $3
+pickup <-> mini-van $2
+pickup <-> van $2
+pickup <-> suv
+pickup <-> bus $3
+pickup <-> truck
+pickup <-> coupe $2
+mini-van <-> offroad $2
+mini-van <-> wagon $4
+mini-van <-> van
+mini-van <-> suv
+mini-van <-> bus $2
 mini-van <-> truck
-truck <-> pickup
-coupe <-> sedan
-coupe <-> convertible
-offroad <-> truck
-offroad <-> pickup
-wagon <-> convertible
-van <-> hatchback
-van <-> mini-van
-van <-> suv
-van <-> truck
+mini-van <-> coupe $3
+suv <-> offroad $2
+suv <-> wagon $4
+suv <-> van
+suv <-> bus $2
+suv <-> truck
+suv <-> coupe $3
+truck <-> coupe $3
+truck <-> offroad
+truck <-> wagon $4
+truck <-> van
+truck <-> bus $2
+coupe <-> offroad $3
+coupe <-> wagon $2
+coupe <-> van $3
+coupe <-> bus $4
+offroad <-> wagon $4
+offroad <-> van $2
+offroad <-> bus $3
+wagon <-> van $4
+wagon <-> bus $5
 van <-> bus

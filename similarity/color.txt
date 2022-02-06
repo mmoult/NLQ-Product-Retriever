@@ -1,35 +1,120 @@
-black <-> blue
-black <-> purple
 blue <-> purple
+blue <-> grey $2
+blue <-> white $3
 blue <-> green
-purple <-> magenta
-purple <-> pink
-green <-> yellow
-magenta <-> pink
-magenta <-> red
-pink <-> red
-yellow <-> white
-yellow <-> orange
-red <-> orange $ .8
-yellow <-> silver
-white <-> silver
-silver <-> orange $ 1.5
-beige <-> silver
-silver <-> black
-silver <-> gray
-yellow <-> gray
-white <-> gray
-gray <-> orange $ 1.5
-beige <-> gray
-gray <-> black
-yellow <-> grey
-white <-> grey
-grey <-> orange $ 1.5
-beige <-> grey
-grey <-> black
-red <-> brown
-orange <-> brown
-brown <-> beige
-beige <-> yellow
+blue <-> brown $4
+blue <-> orange $3
+blue <-> magenta $2
 blue <-> aqua
+blue <-> silver $2
+blue <-> pink $2
+blue <-> beige $3
+blue <-> yellow $2
+blue <-> black
+blue <-> gray $2
+blue <-> red $3
+black <-> white $2
+black <-> grey
+black <-> green $2
+black <-> beige $2
+black <-> yellow $2
+black <-> brown $3
+black <-> orange $2.5
+black <-> silver
+black <-> magenta $2
+black <-> gray
+black <-> red $3
+black <-> aqua $2
+black <-> purple
+black <-> pink $2
+purple <-> green $2
+purple <-> brown $3
+purple <-> orange $2.8
+purple <-> magenta
+purple <-> aqua $2
+purple <-> silver $2
+purple <-> pink
+purple <-> beige $3
+purple <-> yellow $3
+purple <-> gray $2
+purple <-> red $2
+purple <-> grey $2
+purple <-> white $3
+green <-> magenta $3
 green <-> aqua
+green <-> silver $2
+green <-> pink $3
+green <-> beige $2
+green <-> yellow
+green <-> gray $2
+green <-> red $2.8
+green <-> grey $2
+green <-> white $2
+green <-> brown $3
+green <-> orange $2
+magenta <-> pink
+magenta <-> beige $3
+magenta <-> yellow $2.8
+magenta <-> gray $3
+magenta <-> red
+magenta <-> grey $3
+magenta <-> white $3.8
+magenta <-> brown $2
+magenta <-> orange $1.8
+magenta <-> aqua $3
+magenta <-> silver $3
+pink <-> yellow $2.8
+pink <-> gray $3
+pink <-> red
+pink <-> grey $3
+pink <-> white $3.8
+pink <-> brown $2
+pink <-> orange $1.8
+pink <-> aqua $3
+pink <-> silver $3
+pink <-> beige $3
+yellow <-> gray
+yellow <-> red $1.8
+yellow <-> grey
+yellow <-> white
+yellow <-> brown $2
+yellow <-> orange
+yellow <-> beige
+yellow <-> aqua $2
+yellow <-> silver
+red <-> grey $2.3
+red <-> white $2.8
+red <-> brown
+red <-> orange $0.8
+red <-> aqua $3.8
+red <-> silver $2.3
+red <-> beige $2
+red <-> gray $2.3
+white <-> brown $3
+white <-> orange $2
+white <-> aqua $3
+white <-> silver
+white <-> beige $2
+white <-> gray
+white <-> grey
+orange <-> aqua $3
+orange <-> silver $1.5
+orange <-> beige $2
+orange <-> gray $1.5
+orange <-> grey $1.5
+orange <-> brown
+silver <-> beige
+silver <-> gray
+silver <-> grey $2
+silver <-> brown $2
+silver <-> aqua $3
+beige <-> gray
+beige <-> grey
+beige <-> brown
+beige <-> aqua $3
+gray <-> grey $2
+gray <-> brown $2
+gray <-> aqua $3
+grey <-> brown $2
+grey <-> aqua $3
+brown <-> aqua $4

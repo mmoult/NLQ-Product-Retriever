@@ -1,105 +1,1128 @@
-WA <-> OR
-WA <-> ID
-OR <-> CA
-OR <-> NV
+OR <-> OH $5
+OR <-> NE $3
+OR <-> WV $5
+OR <-> ND $3
+OR <-> FL $7
+OR <-> NM $3
+OR <-> SC $7
+OR <-> OK $4
+OR <-> MD $6
+OR <-> KS $4
+OR <-> DC $6
+OR <-> IA $4
+OR <-> PA $6
+OR <-> MN $4
+OR <-> DE $7
+OR <-> MO $4
+OR <-> NY $7
+OR <-> TX $4
+OR <-> NJ $7
+OR <-> WI $5
+OR <-> CT $8
+OR <-> IL $5
+OR <-> WA
+OR <-> MA $8
+OR <-> AR $5
 OR <-> ID
-ID <-> UT
-ID <-> NV
+OR <-> VT $8
+OR <-> TN $5
+OR <-> CA
+OR <-> RI $9
+OR <-> LA $5
+OR <-> NV
+OR <-> NH $9
+OR <-> MI $6
+OR <-> UT $2
+OR <-> ME $10
+OR <-> IN $5
+OR <-> WY $2
+OR <-> MS $6
+OR <-> MT $2
+OR <-> AL $6
+OR <-> AZ $2
+OR <-> GA $6
+OR <-> CO $3
+OR <-> NC $6
+OR <-> SD $3
+OR <-> VA $5
+WA <-> VA $5
+WA <-> SD $3
+WA <-> CT $8
+WA <-> IL $5
+WA <-> OH $5
+WA <-> NE $3
+WA <-> MA $8
+WA <-> AR $5
+WA <-> WV $5
+WA <-> NJ $7
+WA <-> ND $3
+WA <-> VT $8
+WA <-> TN $5
+WA <-> ID
+WA <-> FL $7
+WA <-> NM $4
+WA <-> RI $9
+WA <-> LA $6
+WA <-> CA $2
+WA <-> SC $7
+WA <-> OK $4
+WA <-> NH $9
+WA <-> MI $6
+WA <-> NV $2
+WA <-> MD $6
+WA <-> KS $4
+WA <-> ME $10
+WA <-> IN $5
+WA <-> UT $2
+WA <-> DC $6
+WA <-> IA $4
+WA <-> MS $6
+WA <-> WY $2
+WA <-> PA $6
+WA <-> MN $4
+WA <-> AL $6
+WA <-> MT $2
+WA <-> DE $7
+WA <-> MO $4
+WA <-> GA $6
+WA <-> AZ $3
+WA <-> NY $7
+WA <-> TX $5
+WA <-> NC $6
+WA <-> CO $3
+WA <-> WI $5
+ID <-> MS $5
 ID <-> WY
+ID <-> AL $5
 ID <-> MT
+ID <-> GA $5
+ID <-> AZ $2
+ID <-> NC $5
+ID <-> CO $2
+ID <-> VA $4
+ID <-> SD $2
+ID <-> OH $4
+ID <-> NE $2
+ID <-> WV $4
+ID <-> ND $2
+ID <-> FL $6
+ID <-> NM $3
+ID <-> SC $6
+ID <-> OK $3
+ID <-> MD $5
+ID <-> KS $3
+ID <-> DC $5
+ID <-> IA $3
+ID <-> PA $5
+ID <-> MN $3
+ID <-> DE $6
+ID <-> MO $3
+ID <-> NY $6
+ID <-> TX $4
+ID <-> NJ $6
+ID <-> WI $4
+ID <-> CT $7
+ID <-> IL $4
+ID <-> MA $7
+ID <-> AR $4
+ID <-> VT $7
+ID <-> TN $4
+ID <-> RI $8
+ID <-> LA $5
+ID <-> CA $2
+ID <-> NH $8
+ID <-> MI $5
+ID <-> NV
+ID <-> ME $9
+ID <-> IN $4
+ID <-> UT
+CA <-> VT $8
+CA <-> TN $5
+CA <-> RI $9
+CA <-> LA $4
+CA <-> NH $9
+CA <-> MI $6
 CA <-> NV
+CA <-> ME $10
+CA <-> IN $5
+CA <-> UT $2
+CA <-> MS $5
+CA <-> WY $3
+CA <-> AL $6
+CA <-> MT $3
+CA <-> GA $6
 CA <-> AZ
+CA <-> NC $6
+CA <-> CO $3
+CA <-> VA $5
+CA <-> SD $4
+CA <-> OH $5
+CA <-> NE $4
+CA <-> WV $5
+CA <-> ND $4
+CA <-> FL $7
+CA <-> NM $2
+CA <-> SC $7
+CA <-> OK $3
+CA <-> MD $6
+CA <-> KS $4
+CA <-> DC $6
+CA <-> IA $5
+CA <-> PA $6
+CA <-> MN $5
+CA <-> DE $7
+CA <-> MO $4
+CA <-> NY $7
+CA <-> TX $3
+CA <-> NJ $7
+CA <-> WI $6
+CA <-> CT $8
+CA <-> IL $5
+CA <-> MA $8
+CA <-> AR $4
+NV <-> TX $3
+NV <-> NY $6
+NV <-> WI $5
+NV <-> NJ $6
+NV <-> IL $4
+NV <-> CT $7
+NV <-> AR $4
+NV <-> MA $7
+NV <-> TN $4
+NV <-> VT $7
+NV <-> LA $4
+NV <-> RI $8
+NV <-> MI $5
+NV <-> NH $8
+NV <-> IN $4
 NV <-> UT
+NV <-> ME $9
+NV <-> MS $5
+NV <-> WY $2
+NV <-> AL $5
+NV <-> MT $2
+NV <-> GA $5
 NV <-> AZ
-UT <-> AZ
-UT <-> CO
+NV <-> NC $5
+NV <-> CO $2
+NV <-> VA $4
+NV <-> SD $3
+NV <-> OH $4
+NV <-> NE $3
+NV <-> WV $4
+NV <-> ND $3
+NV <-> FL $6
+NV <-> NM $2
+NV <-> SC $6
+NV <-> OK $3
+NV <-> MD $5
+NV <-> KS $3
+NV <-> DC $5
+NV <-> IA $4
+NV <-> PA $5
+NV <-> MN $4
+NV <-> DE $6
+NV <-> MO $4
+UT <-> SC $5
+UT <-> OK $2
+UT <-> MD $4
+UT <-> KS $2
+UT <-> DC $4
+UT <-> IA $3
+UT <-> PA $4
+UT <-> MN $3
+UT <-> DE $5
+UT <-> MO $3
+UT <-> NY $5
+UT <-> TX $3
+UT <-> NJ $5
+UT <-> WI $4
+UT <-> CT $6
+UT <-> IL $3
+UT <-> MA $6
+UT <-> AR $3
+UT <-> VT $6
+UT <-> TN $3
+UT <-> RI $7
+UT <-> LA $4
+UT <-> NH $7
+UT <-> MI $4
+UT <-> ME $8
+UT <-> IN $3
+UT <-> MS $4
 UT <-> WY
-WY <-> MT
+UT <-> AL $4
+UT <-> MT $2
+UT <-> GA $4
+UT <-> AZ
+UT <-> NC $4
+UT <-> CO
+UT <-> VA $3
+UT <-> SD $2
+UT <-> OH $3
+UT <-> NE $2
+UT <-> WV $3
+UT <-> ND $3
+UT <-> FL $5
+UT <-> NM $2
 WY <-> CO
+WY <-> VA $3
 WY <-> SD
+WY <-> OH $3
 WY <-> NE
-MT <-> ND
+WY <-> WV $3
+WY <-> ND $2
+WY <-> FL $5
+WY <-> NM $2
+WY <-> SC $5
+WY <-> OK $2
+WY <-> MD $4
+WY <-> KS $2
+WY <-> DC $4
+WY <-> IA $2
+WY <-> PA $4
+WY <-> MN $2
+WY <-> DE $5
+WY <-> MO $2
+WY <-> NY $5
+WY <-> TX $3
+WY <-> NJ $5
+WY <-> WI $3
+WY <-> CT $6
+WY <-> IL $3
+WY <-> MA $6
+WY <-> AR $3
+WY <-> VT $6
+WY <-> TN $3
+WY <-> RI $7
+WY <-> LA $4
+WY <-> NH $7
+WY <-> MI $4
+WY <-> ME $8
+WY <-> IN $3
+WY <-> MS $4
+WY <-> AL $4
+WY <-> MT
+WY <-> GA $4
+WY <-> AZ $2
+WY <-> NC $4
+MT <-> IN $4
+MT <-> MS $5
+MT <-> AL $5
+MT <-> GA $5
+MT <-> AZ $3
+MT <-> NC $5
+MT <-> CO $2
+MT <-> VA $4
 MT <-> SD
+MT <-> OH $4
+MT <-> NE $2
+MT <-> WV $4
+MT <-> ND
+MT <-> FL $6
+MT <-> NM $3
+MT <-> SC $6
+MT <-> OK $3
+MT <-> MD $5
+MT <-> KS $3
+MT <-> DC $5
+MT <-> IA $2
+MT <-> PA $5
+MT <-> MN $2
+MT <-> DE $6
+MT <-> MO $3
+MT <-> NY $6
+MT <-> TX $4
+MT <-> NJ $6
+MT <-> WI $3
+MT <-> CT $7
+MT <-> IL $3
+MT <-> MA $7
+MT <-> AR $4
+MT <-> VT $7
+MT <-> TN $4
+MT <-> RI $8
+MT <-> LA $5
+MT <-> NH $8
+MT <-> MI $4
+MT <-> ME $9
+AZ <-> MA $7
+AZ <-> AR $3
+AZ <-> VT $7
+AZ <-> TN $4
+AZ <-> RI $8
+AZ <-> LA $3
+AZ <-> NH $8
+AZ <-> MI $5
+AZ <-> ME $9
+AZ <-> IN $4
+AZ <-> MS $4
+AZ <-> AL $5
+AZ <-> GA $5
+AZ <-> CO $2
+AZ <-> NC $5
+AZ <-> SD $3
+AZ <-> VA $4
+AZ <-> NE $3
+AZ <-> OH $4
+AZ <-> ND $4
+AZ <-> WV $4
 AZ <-> NM
-CO <-> NM
-CO <-> OK
-CO <-> KS
+AZ <-> FL $6
+AZ <-> OK $2
+AZ <-> SC $6
+AZ <-> KS $3
+AZ <-> MD $5
+AZ <-> IA $4
+AZ <-> DC $5
+AZ <-> MN $4
+AZ <-> PA $5
+AZ <-> MO $3
+AZ <-> DE $6
+AZ <-> TX $2
+AZ <-> NY $6
+AZ <-> WI $5
+AZ <-> NJ $6
+AZ <-> IL $4
+AZ <-> CT $7
+CO <-> PA $3
+CO <-> MN $3
+CO <-> DE $4
+CO <-> MO $2
+CO <-> NY $4
+CO <-> TX $2
+CO <-> NJ $4
+CO <-> WI $3
+CO <-> CT $5
+CO <-> IL $2
+CO <-> MA $5
+CO <-> AR $2
+CO <-> VT $5
+CO <-> TN $2
+CO <-> RI $6
+CO <-> LA $3
+CO <-> NH $6
+CO <-> MI $3
+CO <-> ME $7
+CO <-> IN $2
+CO <-> MS $3
+CO <-> AL $3
+CO <-> GA $3
+CO <-> NC $3
+CO <-> VA $2
+CO <-> SD $2
+CO <-> OH $2
 CO <-> NE
-SD <-> NE
+CO <-> WV $2
+CO <-> ND $3
+CO <-> FL $4
+CO <-> NM
+CO <-> SC $4
+CO <-> OK
+CO <-> MD $3
+CO <-> KS
+CO <-> DC $3
+CO <-> IA $2
+SD <-> FL $5
+SD <-> NM $3
+SD <-> SC $5
+SD <-> OK $3
+SD <-> MD $4
+SD <-> KS $2
+SD <-> DC $4
 SD <-> IA
+SD <-> PA $4
 SD <-> MN
+SD <-> DE $5
+SD <-> MO $2
+SD <-> NY $5
+SD <-> TX $4
+SD <-> NJ $5
+SD <-> WI $2
+SD <-> CT $6
+SD <-> IL $2
+SD <-> MA $6
+SD <-> AR $3
+SD <-> VT $6
+SD <-> TN $3
+SD <-> RI $7
+SD <-> LA $4
+SD <-> NH $7
+SD <-> MI $3
+SD <-> ME $8
+SD <-> IN $3
+SD <-> MS $4
+SD <-> AL $4
+SD <-> GA $4
+SD <-> NC $4
+SD <-> VA $3
+SD <-> OH $3
+SD <-> NE
+SD <-> WV $3
+SD <-> ND $2
+NE <-> NC $3
+NE <-> VA $2
+NE <-> OH $2
+NE <-> WV $2
+NE <-> ND $3
+NE <-> FL $4
+NE <-> NM $2
+NE <-> SC $4
+NE <-> OK $2
+NE <-> MD $3
 NE <-> KS
+NE <-> DC $3
 NE <-> IA
+NE <-> PA $3
+NE <-> MN $2
+NE <-> DE $4
 NE <-> MO
+NE <-> NY $4
+NE <-> TX $3
+NE <-> NJ $4
+NE <-> WI $2
+NE <-> CT $5
+NE <-> IL $2
+NE <-> MA $5
+NE <-> AR $2
+NE <-> VT $5
+NE <-> TN $2
+NE <-> RI $6
+NE <-> LA $3
+NE <-> NH $6
+NE <-> MI $3
+NE <-> ME $7
+NE <-> IN $2
+NE <-> MS $3
+NE <-> AL $3
+NE <-> GA $3
+ND <-> NH $8
+ND <-> MI $3
+ND <-> ME $9
+ND <-> IN $4
+ND <-> MS $5
+ND <-> AL $5
+ND <-> VT $7
+ND <-> GA $5
+ND <-> NC $5
+ND <-> VA $5
+ND <-> OH $4
+ND <-> WV $5
+ND <-> RI $8
+ND <-> FL $6
+ND <-> NM $4
+ND <-> SC $6
+ND <-> OK $4
+ND <-> MD $6
+ND <-> KS $4
+ND <-> DC $6
+ND <-> IA $2
+ND <-> PA $5
 ND <-> MN
+ND <-> DE $7
+ND <-> MO $3
+ND <-> NY $6
+ND <-> TX $5
+ND <-> NJ $6
+ND <-> WI $2
+ND <-> CT $7
+ND <-> IL $3
+ND <-> MA $7
+ND <-> AR $4
+ND <-> TN $4
+ND <-> LA $5
+NM <-> WI $4
+NM <-> CT $6
+NM <-> IL $3
+NM <-> MA $6
+NM <-> AR $2
+NM <-> VT $6
+NM <-> TN $3
+NM <-> RI $7
+NM <-> LA $2
+NM <-> NH $7
+NM <-> MI $4
+NM <-> ME $8
+NM <-> IN $3
+NM <-> MS $3
+NM <-> AL $4
+NM <-> GA $4
+NM <-> NC $4
+NM <-> VA $3
+NM <-> OH $3
+NM <-> WV $3
+NM <-> FL $5
+NM <-> SC $5
 NM <-> OK
+NM <-> MD $4
+NM <-> KS $2
+NM <-> DC $4
+NM <-> IA $3
+NM <-> PA $4
+NM <-> MN $4
+NM <-> DE $5
+NM <-> MO $2
+NM <-> NY $5
 NM <-> TX
-KS <-> OK
-KS <-> MO
-IA <-> MN
-IA <-> MO
-IA <-> WI
-IA <-> IL
-MN <-> WI
-MO <-> OK
-MO <-> IL
-MO <-> AR
-MO <-> TN
-MO <-> KS
+NM <-> NJ $5
+OK <-> DC $3
+OK <-> IA $2
+OK <-> PA $3
+OK <-> MN $3
+OK <-> DE $4
+OK <-> MO
+OK <-> NY $4
 OK <-> TX
+OK <-> NJ $4
+OK <-> WI $3
+OK <-> CT $5
+OK <-> IL $2
+OK <-> MA $5
 OK <-> AR
+OK <-> VT $5
+OK <-> TN $2
+OK <-> RI $6
+OK <-> LA $2
+OK <-> NH $6
+OK <-> MI $3
+OK <-> ME $7
+OK <-> IN $2
+OK <-> MS $2
+OK <-> AL $3
+OK <-> GA $3
+OK <-> NC $3
+OK <-> VA $2
+OK <-> OH $2
+OK <-> WV $2
+OK <-> FL $4
+OK <-> SC $4
+OK <-> MD $3
+OK <-> KS
+KS <-> WV
+KS <-> FL $3
+KS <-> SC $3
+KS <-> MD $2
+KS <-> IA $2
+KS <-> DC $2
+KS <-> MN $3
+KS <-> PA $2
+KS <-> MO
+KS <-> DE $3
+KS <-> TX $2
+KS <-> NY $3
+KS <-> WI $2
+KS <-> NJ $3
+KS <-> IL
+KS <-> CT $4
+KS <-> AR $2
+KS <-> MA $4
+KS <-> TN
+KS <-> VT $4
+KS <-> LA $3
+KS <-> RI $5
+KS <-> MI $2
+KS <-> NH $5
+KS <-> IN
+KS <-> ME $6
+KS <-> MS $2
+KS <-> AL $2
+KS <-> GA $2
+KS <-> NC $2
+KS <-> VA
+KS <-> OH
+IA <-> AL $3
+IA <-> GA $3
+IA <-> NC $3
+IA <-> VA $3
+IA <-> OH $3
+IA <-> WV $3
+IA <-> FL $4
+IA <-> SC $4
+IA <-> MD $4
+IA <-> DC $4
+IA <-> PA $4
+IA <-> MN
+IA <-> DE $5
+IA <-> MO
+IA <-> NY $5
+IA <-> TX $3
+IA <-> NJ $5
+IA <-> WI
+IA <-> CT $6
+IA <-> IL
+IA <-> MA $6
+IA <-> AR $2
+IA <-> VT $6
+IA <-> TN $2
+IA <-> RI $7
+IA <-> LA $3
+IA <-> NH $7
+IA <-> MI $2
+IA <-> ME $8
+IA <-> IN $2
+IA <-> MS $3
+MN <-> RI $7
+MN <-> LA $4
+MN <-> NH $7
+MN <-> MI $2
+MN <-> ME $8
+MN <-> IN $3
+MN <-> MS $4
+MN <-> AL $4
+MN <-> GA $4
+MN <-> NC $4
+MN <-> VA $4
+MN <-> OH $3
+MN <-> WV $4
+MN <-> FL $5
+MN <-> SC $5
+MN <-> MD $5
+MN <-> DC $5
+MN <-> PA $4
+MN <-> DE $6
+MN <-> MO $2
+MN <-> NY $5
+MN <-> TX $4
+MN <-> NJ $5
+MN <-> WI
+MN <-> CT $6
+MN <-> IL $2
+MN <-> MA $6
+MN <-> AR $3
+MN <-> VT $6
+MN <-> TN $3
+MO <-> TX $2
+MO <-> NJ $4
+MO <-> WI $2
+MO <-> CT $5
+MO <-> IL
+MO <-> MA $5
+MO <-> AR
+MO <-> VT $5
+MO <-> TN
+MO <-> RI $6
+MO <-> LA $2
+MO <-> NH $6
+MO <-> MI $3
+MO <-> ME $7
+MO <-> IN $2
+MO <-> MS $2
+MO <-> AL $2
+MO <-> GA $2
+MO <-> NC $2
+MO <-> VA $2
+MO <-> OH $2
+MO <-> WV $2
+MO <-> FL $3
+MO <-> SC $3
+MO <-> MD $3
+MO <-> DC $3
+MO <-> PA $3
+MO <-> DE $4
+MO <-> NY $4
+TX <-> MD $4
+TX <-> DC $4
+TX <-> PA $4
+TX <-> DE $5
+TX <-> NY $5
+TX <-> NJ $5
+TX <-> WI $4
+TX <-> CT $6
+TX <-> IL $3
+TX <-> MA $6
 TX <-> AR
+TX <-> VT $6
+TX <-> TN $2
+TX <-> RI $7
 TX <-> LA
+TX <-> NH $7
+TX <-> MI $4
+TX <-> ME $8
+TX <-> IN $3
+TX <-> MS $2
+TX <-> AL $3
+TX <-> GA $3
+TX <-> NC $3
+TX <-> VA $3
+TX <-> OH $3
+TX <-> WV $3
+TX <-> FL $4
+TX <-> SC $4
+WI <-> VA $3
+WI <-> OH $2
+WI <-> WV $3
+WI <-> FL $5
+WI <-> SC $5
+WI <-> MD $4
+WI <-> DC $4
+WI <-> PA $3
+WI <-> DE $5
+WI <-> NY $4
+WI <-> NJ $4
+WI <-> CT $5
 WI <-> IL
+WI <-> MA $5
+WI <-> AR $3
+WI <-> VT $5
+WI <-> TN $3
+WI <-> RI $6
+WI <-> LA $4
+WI <-> NH $6
 WI <-> MI
-IL <-> KS
+WI <-> ME $7
+WI <-> IN $2
+WI <-> MS $4
+WI <-> AL $4
+WI <-> GA $4
+WI <-> NC $4
+IL <-> MS $3
+IL <-> AL $3
+IL <-> GA $3
+IL <-> NC $3
+IL <-> VA $2
+IL <-> OH $2
+IL <-> WV $2
+IL <-> FL $4
+IL <-> SC $4
+IL <-> MD $3
+IL <-> DC $3
+IL <-> PA $3
+IL <-> DE $4
+IL <-> NY $4
+IL <-> NJ $4
+IL <-> CT $5
+IL <-> MA $5
+IL <-> AR $2
+IL <-> VT $5
+IL <-> TN $2
+IL <-> RI $6
+IL <-> LA $3
+IL <-> NH $6
+IL <-> MI $2
+IL <-> ME $7
 IL <-> IN
-AR <-> LA
-AR <-> MS
 AR <-> TN
+AR <-> VT $6
+AR <-> LA
+AR <-> RI $7
+AR <-> MI $4
+AR <-> NH $7
+AR <-> IN $3
+AR <-> ME $8
+AR <-> MS
+AR <-> AL $2
+AR <-> GA $2
+AR <-> NC $2
+AR <-> VA $2
+AR <-> OH $3
+AR <-> WV $3
+AR <-> FL $3
+AR <-> SC $3
+AR <-> MD $3
+AR <-> DC $3
+AR <-> PA $4
+AR <-> DE $4
+AR <-> NY $5
+AR <-> NJ $5
+AR <-> CT $6
+AR <-> MA $6
+TN <-> DE $3
+TN <-> NY $4
+TN <-> NJ $4
+TN <-> CT $5
+TN <-> MA $5
+TN <-> VT $5
+TN <-> RI $6
+TN <-> LA $2
+TN <-> NH $6
+TN <-> MI $3
+TN <-> ME $7
+TN <-> IN $2
 TN <-> MS
 TN <-> AL
 TN <-> GA
 TN <-> NC
 TN <-> VA
-TN <-> KS
-KS <-> IN
-KS <-> OH
-KS <-> WV
-KS <-> VA
+TN <-> OH $2
+TN <-> WV $2
+TN <-> FL $2
+TN <-> SC $2
+TN <-> MD $2
+TN <-> DC $2
+TN <-> PA $3
+LA <-> SC $4
+LA <-> MD $4
+LA <-> DC $4
+LA <-> PA $5
+LA <-> DE $5
+LA <-> NY $6
+LA <-> NJ $6
+LA <-> CT $7
+LA <-> MA $7
+LA <-> VT $7
+LA <-> RI $8
+LA <-> NH $8
+LA <-> MI $5
+LA <-> ME $9
+LA <-> IN $4
 LA <-> MS
-MI <-> IN
+LA <-> AL $2
+LA <-> GA $3
+LA <-> NC $3
+LA <-> VA $3
+LA <-> OH $4
+LA <-> WV $4
+LA <-> FL $3
+MI <-> NC $4
+MI <-> VA $3
 MI <-> OH
+MI <-> WV $2
+MI <-> FL $5
+MI <-> SC $5
+MI <-> MD $3
+MI <-> DC $4
+MI <-> PA $2
+MI <-> DE $4
+MI <-> NY $3
+MI <-> NJ $3
+MI <-> CT $4
+MI <-> MA $4
+MI <-> VT $4
+MI <-> RI $5
+MI <-> NH $5
+MI <-> ME $6
+MI <-> IN
+MI <-> MS $4
+MI <-> AL $4
+MI <-> GA $4
+IN <-> ME $6
+IN <-> NH $5
+IN <-> MS $3
+IN <-> AL $3
+IN <-> GA $3
+IN <-> NC $3
+IN <-> VA $2
 IN <-> OH
+IN <-> WV $2
+IN <-> FL $4
+IN <-> SC $4
+IN <-> MD $3
+IN <-> DC $3
+IN <-> PA $2
+IN <-> DE $4
+IN <-> NY $3
+IN <-> NJ $3
+IN <-> RI $5
+IN <-> CT $4
+IN <-> MA $4
+IN <-> VT $4
+MS <-> CT $6
+MS <-> MA $6
+MS <-> VT $6
+MS <-> RI $7
+MS <-> NH $7
+MS <-> ME $8
 MS <-> AL
-AL <-> FL
+MS <-> GA $2
+MS <-> NC $2
+MS <-> VA $2
+MS <-> OH $3
+MS <-> WV $3
+MS <-> FL $2
+MS <-> SC $3
+MS <-> MD $3
+MS <-> DC $3
+MS <-> PA $4
+MS <-> DE $4
+MS <-> NY $5
+MS <-> NJ $5
+AL <-> PA $4
+AL <-> DE $4
+AL <-> NY $5
+AL <-> NJ $5
+AL <-> CT $6
+AL <-> MA $6
+AL <-> VT $6
+AL <-> RI $7
+AL <-> NH $7
+AL <-> ME $8
 AL <-> GA
+AL <-> NC $2
+AL <-> VA $2
+AL <-> OH $3
+AL <-> WV $3
+AL <-> FL
+AL <-> SC $2
+AL <-> MD $3
+AL <-> DC $3
 GA <-> FL
 GA <-> SC
+GA <-> MD $3
+GA <-> DC $3
+GA <-> PA $4
+GA <-> DE $4
+GA <-> NY $5
+GA <-> NJ $5
+GA <-> CT $6
+GA <-> MA $6
+GA <-> VT $6
+GA <-> RI $7
+GA <-> NH $7
+GA <-> ME $8
 GA <-> NC
-NC <-> SC
+GA <-> VA $2
+GA <-> OH $3
+GA <-> WV $3
 NC <-> VA
+NC <-> OH $3
+NC <-> WV $2
+NC <-> FL $2
+NC <-> SC
+NC <-> MD $2
+NC <-> DC $2
+NC <-> PA $3
+NC <-> DE $3
+NC <-> NY $4
+NC <-> NJ $4
+NC <-> CT $5
+NC <-> MA $5
+NC <-> VT $5
+NC <-> RI $6
+NC <-> NH $6
+NC <-> ME $7
+VA <-> NH $5
+VA <-> ME $6
+VA <-> OH $2
 VA <-> WV
+VA <-> FL $3
+VA <-> SC $2
 VA <-> MD
 VA <-> DC
+VA <-> PA $2
+VA <-> DE $2
+VA <-> NY $3
+VA <-> NJ $3
+VA <-> CT $4
+VA <-> MA $4
+VA <-> VT $4
+VA <-> RI $5
+OH <-> NJ $2
+OH <-> CT $3
+OH <-> MA $3
+OH <-> VT $3
+OH <-> RI $4
+OH <-> NH $4
+OH <-> ME $5
 OH <-> WV
+OH <-> FL $4
+OH <-> SC $4
+OH <-> MD $2
+OH <-> DC $3
 OH <-> PA
-WV <-> MD
+OH <-> DE $3
+OH <-> NY $2
+WV <-> DC $2
 WV <-> PA
+WV <-> DE $2
+WV <-> NY $2
+WV <-> NJ $2
+WV <-> CT $3
+WV <-> MA $3
+WV <-> VT $3
+WV <-> RI $4
+WV <-> NH $4
+WV <-> ME $5
+WV <-> FL $4
+WV <-> SC $3
+WV <-> MD
+FL <-> SC $2
+FL <-> MD $4
+FL <-> DC $4
+FL <-> PA $5
+FL <-> DE $5
+FL <-> NY $6
+FL <-> NJ $6
+FL <-> CT $7
+FL <-> MA $7
+FL <-> VT $7
+FL <-> RI $8
+FL <-> NH $8
+FL <-> ME $9
+SC <-> MD $3
+SC <-> DC $3
+SC <-> PA $4
+SC <-> DE $4
+SC <-> NY $5
+SC <-> NJ $5
+SC <-> CT $6
+SC <-> MA $6
+SC <-> VT $6
+SC <-> RI $7
+SC <-> NH $7
+SC <-> ME $8
+MD <-> RI $4
+MD <-> NH $4
+MD <-> ME $5
 MD <-> DC
-MD <-> DE
 MD <-> PA
+MD <-> DE
+MD <-> NY $2
+MD <-> NJ $2
+MD <-> CT $3
+MD <-> MA $3
+MD <-> VT $3
+DC <-> NY $3
+DC <-> NJ $3
+DC <-> CT $4
+DC <-> MA $4
+DC <-> VT $4
+DC <-> RI $5
+DC <-> NH $5
+DC <-> ME $6
+DC <-> PA $2
+DC <-> DE $2
+PA <-> DE $2
 PA <-> NY
 PA <-> NJ
+PA <-> CT $2
+PA <-> MA $2
+PA <-> VT $2
+PA <-> RI $3
+PA <-> NH $3
+PA <-> ME $4
+DE <-> NY $2
 DE <-> NJ
+DE <-> CT $3
+DE <-> MA $3
+DE <-> VT $3
+DE <-> RI $4
+DE <-> NH $4
+DE <-> ME $5
 NY <-> NJ
 NY <-> CT
 NY <-> MA
 NY <-> VT
-CT <-> RI
+NY <-> RI $2
+NY <-> NH $2
+NY <-> ME $3
+NJ <-> MA $2
+NJ <-> VT $2
+NJ <-> RI $3
+NJ <-> NH $3
+NJ <-> ME $4
+NJ <-> CT $2
 CT <-> MA
+CT <-> VT $2
+CT <-> RI
+CT <-> NH $2
+CT <-> ME $3
+MA <-> VT
 MA <-> RI
 MA <-> NH
-MA <-> VT
+MA <-> ME $2
+VT <-> RI $2
 VT <-> NH
+VT <-> ME $2
+RI <-> NH $2
+RI <-> ME $3
 NH <-> ME

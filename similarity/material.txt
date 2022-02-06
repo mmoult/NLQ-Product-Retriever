@@ -1,7 +1,10 @@
 diamond <-> moissanite
 diamond <-> platinum
+platinum <-> moissanite $2.0
 gold <-> silver
-lapis lazuli <-> sapphire
-amazonite <-> lapis lazuli
+sapphire <-> amazonite $2.0
+sapphire <-> lapis lazuli
+lapis lazuli <-> amazonite
+emerald <-> garnet
+emerald <-> ruby $2.0
 garnet <-> ruby
-garnet <-> emerald

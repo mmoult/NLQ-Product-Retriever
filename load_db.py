@@ -214,4 +214,3 @@ if __name__ == '__main__':
     commitAction(buildTables)
     commitAction(loadTables)
     commitAction(rectifyData)
-    pass

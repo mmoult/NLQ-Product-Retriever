@@ -1,20 +1,42 @@
-retail <-> finance
+finance <-> consumer $2
+finance <-> retail
 finance <-> accounting
-art <-> entertainment
-entertainment <-> recreation
+finance <-> real estate $2
+finance <-> insurance $2
+finance <-> business
+retail <-> insurance $3
+retail <-> accounting $2
+retail <-> business $2
+retail <-> real estate $3
+retail <-> consumer $3
+accounting <-> business $2
+accounting <-> consumer $3
+accounting <-> real estate $3
+accounting <-> insurance $3
+real estate <-> consumer $2
 real estate <-> insurance
+real estate <-> business
+insurance <-> consumer $2
 insurance <-> business
-business <-> finance
-business <-> real estate
-education <-> government
+business <-> consumer
+entertainment <-> recreation
+entertainment <-> art
+art <-> recreation $2
+government <-> energy
+government <-> defense $2
+government <-> education
+government <-> legal
+education <-> energy $2
+education <-> legal $2
 education <-> defense
-consumer <-> business
-energy <-> government
-aerospace <-> transportation
-legal <-> government
-construction <-> manufacturing
-biotech <-> health care
+defense <-> energy $3
+defense <-> legal $3
+energy <-> legal $2
+transportation <-> aerospace
+manufacturing <-> construction
+health care <-> pharmacy $2
+health care <-> biotech
+health care <-> pharmaceuticals
 biotech <-> pharmacy
 biotech <-> pharmaceuticals
-pharmaceuticals <-> health care
 pharmacy <-> pharmaceuticals

@@ -22,12 +22,12 @@ class SimilarityGraph():
         n1 = self.nodeOf(head)
         n2 = self.nodeOf(tail)
         
-        n1.connect(n2, cost)
+        n2.connect(n1, cost)
     
 def createFromStringLines(text):
     graph = SimilarityGraph()
     for line in text:
-        line = line.lower()
+        line = line.lower().strip()
         # We want to find the divider between the two nodes (if this line is not blank)
         if len(line) == 0:
             continue
@@ -59,8 +59,62 @@ def createFromStringLines(text):
             left, right, cost = splitComps(line, '->')
             graph.direction(left, right, cost)
             continue
-        raise Exception("Unexpected line '", line, '" found! Each line must list two nodes and give their relation as "<->", "<-", or "->"!')
+        # If we got here, then we did not find anything useful on this line
+        if len(line) == 0 or line[0] != '#': # if the line is not a comment or empty
+            raise Exception("Unexpected line '", line, '" found! Each line must list two nodes and give their relation as "<->", "<-", or "->"!')
     return graph
+
+'''
+Outputs the graph structure to a file. Note that this function will destroy the
+memory of the specified graph.
+'''
+def outputToFile(graph, filePath):
+    def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+        return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+    
+    from pathlib import Path
+    with open(str(Path(__file__).parent) + filePath, "w") as file:
+        def printEdge(first, edge, second, cost):
+            file.write(first + ' ' + edge + ' ' + second)
+            # If the weight is anything other than 1, we need to write it
+            if cost != 1:
+                file.write(' $' + str(connect.cost))
+            file.write('\n')
+        
+        nodes = list(graph.nodes.values())
+        for node in nodes:
+            i = 0
+            for connect in node.connections:
+                if connect.toNode is node:
+                    # A self-loop. We don't need to search for a match
+                    printEdge(node.name, '->', node.name, connect.cost)
+                else:
+                    # We found a connection that has not been printed yet
+                    #  (since we delete all that have).
+                    # Unfortunately, we need to find the other direction,
+                    #  which requires looking through all of toNode's
+                    #  connections
+                    otherCost = None
+                    connections = list(connect.toNode.connections)
+                    for back in connections:
+                        if back.toNode is node:
+                            # Great! We found the reverse direction
+                            otherCost = back.cost
+                            break
+                    if otherCost is not None:
+                        connect.toNode.connections.remove(back)
+                        # We want to print the other cost, too.
+                        # We can condense the two connections if the weight is the same
+                        if isclose(otherCost, connect.cost):
+                            printEdge(node.name, '<->', connect.toNode.name, otherCost)
+                        else:
+                            # print them separately
+                            printEdge(node.name, '->', connect.toNode.name, connect.cost)
+                            printEdge(node.name, '<-', connect.toNode.name, otherCost)
+                    else:
+                        printEdge(node.name, '->', connect.toNode.name, connect.cost)
+                i += 1
+        file.flush()
 
 
 class GraphNode():
