@@ -225,7 +225,7 @@ class RelevanceRanker(object):
         # Each type of data receives a certain weight:
         #  1: 1, 2: .5, 3:.25
         # Thus, an exact match in type III will count similarly to a bad match on type I
-        weights = [1, .5, .25]
+        weights = [1, .75, .5]
         
         # We need to score every record in results
         scores = []
@@ -239,5 +239,5 @@ class RelevanceRanker(object):
         
         scores.sort(key=lambda entry : entry[0], reverse=True)
         scores = scores[:limit]
-        return [entry[1] for entry in scores]
+        return scores#[entry[1] for entry in scores]
         

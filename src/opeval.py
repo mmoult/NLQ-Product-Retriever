@@ -30,7 +30,13 @@ class OperatorEvaluator(object):
                             # find the left and right parts
                             left = self.__findEnd(typed, i-1, -1, isOp, -1)
                             # find the type of the left so that we can try to match on the right
-                            leftType = typed[left][1]
+                            leftSearch = typed[left]
+                            while isinstance(leftSearch, OperatorRelation):
+                                if isinstance(leftSearch, NotRelation):
+                                    leftSearch = leftSearch.notted[-1]
+                                else:
+                                    leftSearch = leftSearch.right[-1] # we want to get the closest to the relation on the right (though from the left)
+                            leftType = leftSearch[1]
                             right = self.__findEnd(typed, i+1, 1, isOp, leftType)
                             if left != -1 and right != -1:
                                 lhs = []
