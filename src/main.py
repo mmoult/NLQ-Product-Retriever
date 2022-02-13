@@ -179,6 +179,19 @@ class ConstraintBuilder():
         # And with that match list, we will try to reduce terms
         matchList = self.__reduce(matchList, table)
         
+        # If we have several Type I's of the same column, then we have an implicit or
+        perColumn = dict()
+        for matchOr in matchList:
+            # We can easily get the column because it is saved as index 1 in each entry of the or
+            column = matchOr[0][1]
+            if column in perColumn:
+                perColumn[column] += matchOr
+            else:
+                perColumn[column] = matchOr
+        matchList = []
+        for value in perColumn.values():
+            matchList.append(value)
+        
         # TODO: We want to do content-based partial matching if nothing comes up... (Same for Type II.) 
             
         # At this point, we should have a finalized matchList to operate with
