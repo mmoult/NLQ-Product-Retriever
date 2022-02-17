@@ -8,7 +8,7 @@ class OperatorEvaluator(object):
 
     def __init__(self, typed, isOp):
         # To maintain precedence rules, we need to process the operators sequentially.
-        # First not, then or, then and.
+        # First and, then or, and lastly not.
         for rnd in range(3):
             i = 0
             while i < len(typed):
@@ -22,7 +22,7 @@ class OperatorEvaluator(object):
                                 ls = []
                                 for j in range(i+1, at+1):
                                     ls.append(typed.pop(j))
-                                typed[i] = NotRelation(ls)
+                                typed[i] = NotRelation(ls, isOp)
                     else: # Searching for an 'or' or 'and'
                         # And and Or have the same format, just diff comparisons and results
                         compare = 'or' if rnd == 1 else 'and'
@@ -46,7 +46,7 @@ class OperatorEvaluator(object):
                                 rhs = []
                                 for _ in range(i+1, right+1-len(lhs)):
                                     rhs.append(typed.pop(i+1))
-                                typed[i] = OrRelation(lhs, rhs) if rnd==1 else AndRelation(lhs, rhs)
+                                typed[i] = OrRelation(lhs, rhs, isOp) if rnd==1 else AndRelation(lhs, rhs, isOp)
                 i += 1
         self.result = typed
     
@@ -175,8 +175,10 @@ class OperatorRelation(ABC):
 
 class OrRelation(OperatorRelation):
     
-    def __init__(self, left, right):
+    def __init__(self, left, right, isOp):
+        OperatorEvaluator(left, isOp)
         self.left = left
+        OperatorEvaluator(right, isOp)
         self.right = right
         
     def operator(self):
@@ -188,8 +190,10 @@ class OrRelation(OperatorRelation):
 
 class AndRelation(OperatorRelation):
     
-    def __init__(self, left, right):
+    def __init__(self, left, right, isOp):
+        OperatorEvaluator(left, isOp)
         self.left = left
+        OperatorEvaluator(right, isOp)
         self.right = right
     
     def operator(self):
@@ -201,7 +205,8 @@ class AndRelation(OperatorRelation):
 
 class NotRelation(OperatorRelation):
     
-    def __init__(self, notted):
+    def __init__(self, notted, isOp):
+        OperatorEvaluator(notted, isOp)
         self.notted = notted
     
     def operator(self):
