@@ -14,7 +14,7 @@ class OperatorEvaluator(object):
             while i < len(typed):
                 if not isinstance(typed[i], OperatorRelation):
                     # Search for not
-                    if rnd == 0:
+                    if rnd == 2:
                         if typed[i][0] == 'not' or typed[i][0] == 'no' or typed[i][0] == '!=':
                             # The next token is included in the structure
                             at = self.__findEnd(typed, i+1, 1, isOp, -1)
@@ -92,10 +92,6 @@ class OperatorEvaluator(object):
                 break
             
             newFound= typed[i][1]
-            boundFound = False
-            if newFound != 3 and isOp(typed[i][0]): # correct units to be type 3
-                boundFound = True
-                newFound = 3
             
             # Now we perform a case analysis for the current type and what is found
             if currType == 1:
@@ -109,10 +105,10 @@ class OperatorEvaluator(object):
                 fine = True
                 if isNumeric(typed[i][0]) and not value:
                     value = True
+                elif isOp(typed[i][0]) and not bound:
+                    bound = True
                 elif not unit and newFound == 3:
                     unit = True
-                elif boundFound and not bound:
-                    bound = True
                 else:
                     fine = False
                 if fine:
@@ -149,11 +145,7 @@ class OperatorEvaluator(object):
                     if currType == 3:
                         value = False
                         unit = False
-                        bound = boundFound
-                        if not boundFound:
-                            # We want to analyze what this token contributes, thus we have to
-                            #  redo this index
-                            continue
+                        bound = False
                         # Otherwise, we can just continue to the next token
             else:
                 # We have no tolerance if we have nothing to match.

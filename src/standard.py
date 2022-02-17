@@ -18,6 +18,7 @@ class Standardizer(object):
                 while changes:
                     changes = False
                     unit = '' # the units found
+                    useIndicator = '' # if this must come at the end (.), or can be end or beginning (,)
                     i = 0 # the current component index to match with
                     start = 0
                     end = -1
@@ -39,19 +40,23 @@ class Standardizer(object):
                             elif comps[i] == token[0].lower(): # we need an exact match
                                 i += 1 # go to the next component to match
                                 
-                                # Check for an application next
-                                if i < len(comps) and comps[i][0] == '(' and comps[i][-1] == ')':
-                                    # we found an application. This should be saved, but then skipped over
-                                    if len(unit) > 0:
-                                        unit += ' '
-                                    
-                                    appCode = comps[i][1:-1]
-                                    if appCode in self.operatorHandler.boundApps:
-                                        # match of application definition
+                                # Check for an application next or use indicator (',' or '.')
+                                if i < len(comps):
+                                    if comps[i][0] == '(' and comps[i][-1] == ')':
+                                        # we found an application. This should be saved, but then skipped over
                                         if len(unit) > 0:
                                             unit += ' '
-                                        unit += ' '.join(self.operatorHandler.boundApps[appCode])
-                                    i += 1 # move on, since we don't actually match against an application
+                                        
+                                        appCode = comps[i][1:-1]
+                                        if appCode in self.operatorHandler.boundApps:
+                                            # match of application definition
+                                            if len(unit) > 0:
+                                                unit += ' '
+                                            unit += ' '.join(self.operatorHandler.boundApps[appCode])
+                                        i += 1 # move on, since we don't actually match against an application
+                                    elif len(comps[i]) == 1 and (comps[i] == ',' or comps[i] == '.'):
+                                        useIndicator = comps[i]
+                                        i += 1 # move on, since we don't match on the use indicator
                             else:
                                 reset = True
                             
@@ -72,7 +77,9 @@ class Standardizer(object):
                         value = sym
                         if len(unit) > 0:
                             value += " (" + unit + ")"
-                        typed = typed[0:start] + [[value, 4]] + typed[end+1:]
+                        if len(useIndicator) > 0:
+                            value += ' [' + useIndicator + ']'
+                        typed = typed[0:start] + [[value, 3]] + typed[end+1:]
                         changes = True
         
         # Check to see if the tokens match with superlatives. This algorithm closely resembles for bounding.

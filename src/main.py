@@ -297,7 +297,7 @@ class ConstraintBuilder():
                                 action = True
                             elif second[1] == '<' or second[1] == '<=' and fVal >= sVal:
                                 merge = [second, first]
-                        elif first[1] == '=' or first[1] == '!=' and second[1] == first[1] and fVal == sVal:
+                        elif (first[1] == '=' or first[1] == '!=') and second[1] == first[1] and fVal == sVal:
                             action = True
                         elif (first[1] == 'BETWEEN' or first[1] == 'NOT BETWEEN') and second[1] == first[1]:
                             if fVal <= sVal and first[3] >= second[3]:
@@ -413,7 +413,24 @@ class ConstraintBuilder():
                         elif typed[j][1] == 4 and self.operatorHandler.isBoundOperation(typed[j][0]):
                             if bound is not None:
                                 break # cannot have two bounds!
+                            # bounds each have a use direction.
+                            #  '[.]' means that the bound last in the constraint
+                            #  '[,]' means the bound could be anywhere
+                            #  no punctuation means the bound must be before the value
+                            
+                            if '[.]' in typed[j][0]:
+                                useCase = 0
+                            elif '[,]' in typed[j][0]:
+                                useCase = 2
+                            else:
+                                useCase = 1
+                            if useCase == 0 and dirr[2] < 0:
+                                break # if we are moving backward, we cannot use an ending bound
+                            if useCase == 1 and dirr[2] > 0:
+                                break # if we are moving forward, we cannot see a starting bound
+                            
                             bound = typed[j][0]
+                            
                             bb = self.operatorHandler.isBoundOperation(typed[j][0])
                             rest = bound[len(bb):]
                             bound = bb
@@ -698,7 +715,7 @@ class ConstraintBuilder():
         return tokens
     
     
-    def correctSpelling(self, tokens, domain, table):
+    def correctSpelling(self, tokens, domain, table, correctSpell=True):
         from pathlib import Path
         # We need to create a double map from abbreviations to expanded, and from expanded back to abbreviations.
         abToEx = open(str(Path(__file__).parent) + "/../abbrev.txt", encoding='utf-8')
@@ -719,6 +736,8 @@ class ConstraintBuilder():
                 abbrev, expand = text.split('->')
                 self.abbrevToExpand[abbrev] = expand
         abToEx.close()
+        if not correctSpell:
+            return tokens
         
         # To do so, we need to have a big dictionary with all three types of the correct domain
         allWords = []
@@ -856,7 +875,7 @@ class ConstraintBuilder():
         return flatten(result)
     
     
-    def fromQuery(self, query:string, log):
+    def fromQuery(self, query:string, log, correctSpelling = True):
         # Now we must categorize the query to know which domain we are searching
         log("Classifying query...")
         classified = self.classifier.classify([query])
@@ -879,13 +898,12 @@ class ConstraintBuilder():
             raise Exception("The classification of the query did not match any of the expected domains! Got: " + classified)
         table = database.getTable(domain)
         log("Identified as:", domain.name.lower())
-        
         # We want to tokenize the query
         tokens = self.tokenize(query.lower())
         
         # and then correct any misspellings
         log("Correcting spelling...")
-        tokens = self.correctSpelling(tokens, domain, table)
+        tokens = self.correctSpelling(tokens, domain, table, correctSpelling)
         print('"' + " ".join(tokens) + '"')
         
         # now we want to pull some data out (Type I, II, III)
@@ -969,6 +987,7 @@ if __name__ == '__main__':
     limit = -1
     query = ''
     exactOnly = False
+    correctSpelling = True
     
     path = True
     import sys
@@ -991,6 +1010,8 @@ if __name__ == '__main__':
                 limit = None
             elif arg == '-e' or arg == '-E':
                 exactOnly = True
+            elif arg == '-s' or arg == '-S':
+                correctSpelling = False
             else:
                 print('Unknown flag "', arg, '"!', delim='')
         else:
@@ -1016,7 +1037,7 @@ if __name__ == '__main__':
     
     
     log('"' + query + '"')
-    reqs = cb.fromQuery(query, log)
+    reqs = cb.fromQuery(query, log, correctSpelling)
     log() # get a new line
     
     if exactOnly:

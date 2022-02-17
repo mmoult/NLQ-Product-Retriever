@@ -10,18 +10,18 @@ smaller than (3)
 before (1)
 
 <=
-at most
-at maximum
+at most ,
+at maximum ,
 no more * than
 not more * than
 not as much * as
 not so much * as
-or fewer
-or less
-or cheaper (2)
-or under
-or below
-or older (1)
+or fewer .
+or less .
+or cheaper (2) .
+or under .
+or below .
+or older (1) .
 
 >
 more * than
@@ -35,17 +35,18 @@ above
 larger than (3)
 younger than (1)
 newer than (1)
+after (1)
 
 >=
-at least
-at fewest
-at minimum
+at least ,
+at fewest ,
+at minimum ,
 no fewer * than
 no less * than
-or more
-or newer (1)
-or younger (1)
-or over
+or more .
+or newer (1) .
+or younger (1) .
+or over .
 
 !=
 not equal
