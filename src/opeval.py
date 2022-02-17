@@ -175,10 +175,11 @@ class OperatorRelation(ABC):
 
 class OrRelation(OperatorRelation):
     
-    def __init__(self, left, right, isOp):
-        OperatorEvaluator(left, isOp)
+    def __init__(self, left, right, isOp = None):
+        if isOp != None:
+            OperatorEvaluator(left, isOp)
+            OperatorEvaluator(right, isOp)
         self.left = left
-        OperatorEvaluator(right, isOp)
         self.right = right
         
     def operator(self):
@@ -190,10 +191,11 @@ class OrRelation(OperatorRelation):
 
 class AndRelation(OperatorRelation):
     
-    def __init__(self, left, right, isOp):
-        OperatorEvaluator(left, isOp)
+    def __init__(self, left, right, isOp = None):
+        if isOp != None:
+            OperatorEvaluator(left, isOp)
+            OperatorEvaluator(right, isOp)
         self.left = left
-        OperatorEvaluator(right, isOp)
         self.right = right
     
     def operator(self):
@@ -205,8 +207,9 @@ class AndRelation(OperatorRelation):
 
 class NotRelation(OperatorRelation):
     
-    def __init__(self, notted, isOp):
-        OperatorEvaluator(notted, isOp)
+    def __init__(self, notted, isOp = None):
+        if isOp != None:
+            OperatorEvaluator(notted, isOp)
         self.notted = notted
     
     def operator(self):

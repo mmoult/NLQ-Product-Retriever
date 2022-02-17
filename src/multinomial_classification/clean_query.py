@@ -1,17 +1,11 @@
-import pandas as pd
-import nltk
 from nltk.stem import PorterStemmer
-import textwrap
 from spacy.lang.en import STOP_WORDS
 # from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from nltk.corpus import stopwords
 # nltk.download('stopwords')
 porter = PorterStemmer()
 stops = list(set(stopwords.words('english') + list(set(STOP_WORDS))))
-import string
-from nltk import sent_tokenize
 from nltk.tokenize import word_tokenize
-import re
 porter = PorterStemmer()
 exclude = set(",.:;'\"-?!/")
 
