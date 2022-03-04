@@ -192,8 +192,10 @@ class PartialMatcher(object):
             if len(order) > 0:
                 query += ' ORDER BY '
                 query += self.__buildOrder(order)
+            '''
             if limit >= 0:
-                query += " LIMIT " + str(limit)
+                query += " LIMIT " + str(limit * 2)
+            '''
         
             # Add from the query to the results
             res = execute(query)

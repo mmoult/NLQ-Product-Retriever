@@ -143,13 +143,15 @@ class RelevanceRanker(object):
             # regular clause to evaluate. This is the hardest part
             at = self.findEntryIndex(comp.attr)
             value = entry[at]
+            if isinstance(value, str):
+                value = value.lower()
             if comp.operation == 'LIKE':
                 if len(value) == 0: # cannot content match on nothing
                     return 0
                 exp = comp.vals[0]
                 # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
                 exp = exp[2:len(exp) - 2]
-                if exp == value:
+                if exp in value:
                     return 1
                 # otherwise, we have to perform a partial matching approach...
                 # We modify exp even further to remove the extra padding spaces

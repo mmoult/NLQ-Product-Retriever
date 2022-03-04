@@ -1690,7 +1690,6 @@ murrano
 muscle
 muskegon
 mustan
-mustang
 mv
 mx
 mxt
@@ -1710,7 +1709,6 @@ nav
 navi
 navigat
 navigation
-navigator
 Navistar
 nc
 nd
@@ -2072,7 +2070,6 @@ rio
 river
 rivera
 riviera
-RJFLG
 RK
 rl
 rlx
@@ -2141,7 +2138,6 @@ sahara
 salem
 salina
 salle
-salon
 salt
 salvage
 Samurai
@@ -2153,10 +2149,6 @@ sante
 sarasota
 satellite
 sav
-savana
-savanna
-savannah
-savavna
 save
 saver
 sb
@@ -2170,7 +2162,6 @@ SCHWABLE
 scl
 scottsbluff
 scottsdale
-Scout
 scrambler
 scranton
 scrap
@@ -2199,9 +2190,6 @@ SEMA
 sensing
 sensors
 sensory
-sentra
-sequioa
-sequoia
 sera
 Seraph
 series

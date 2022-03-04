@@ -395,22 +395,7 @@ class ConstraintBuilder():
                 for dirr in directions:
                     foundUnit = unit is not None
                     for j in dirr[0]:
-                        if typed[j][1] == 3 and not isNumeric(typed[j][0]) and not foundUnit:
-                            # We assume this is the unit. It is type 3, which is either a unit or a number.
-                            #  It is not a number. Therefore, we assume it is the unit.
-                            if unit is not None: # we found another unit, and we already have a unit
-                                # It must be consecutive to be a joint unit. Otherwise, it is an unexpected token
-                                if unitRange[1] + dirr[2] == j:
-                                    unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
-                                    # making joint units is problematic since we don't know where to stop, but necessary for units
-                                    # like "sq ft".
-                                else:
-                                    break
-                            else:
-                                unit = typed[j][0]
-                                unitRange[0] = j
-                            unitRange[1] = j # update the end of the unit range to this
-                        elif typed[j][1] == 4 and self.operatorHandler.isBoundOperation(typed[j][0]):
+                        if typed[j][1] == 3 and self.operatorHandler.isBoundOperation(typed[j][0]):
                             if bound is not None:
                                 break # cannot have two bounds!
                             # bounds each have a use direction.
@@ -442,6 +427,21 @@ class ConstraintBuilder():
                             if unit is not None:
                                 black = max(black, j)
                                 break # don't need to go back more if we have the bound and the unit
+                        elif typed[j][1] == 3 and not isNumeric(typed[j][0]) and not foundUnit:
+                            # We assume this is the unit. It is type 3, which is either a unit or a number.
+                            #  It is not a number. Therefore, we assume it is the unit.
+                            if unit is not None: # we found another unit, and we already have a unit
+                                # It must be consecutive to be a joint unit. Otherwise, it is an unexpected token
+                                if unitRange[1] + dirr[2] == j:
+                                    unit = dirr[1](unit, typed[j][0]) # create a joint unit by the direction's concat function
+                                    # making joint units is problematic since we don't know where to stop, but necessary for units
+                                    # like "sq ft".
+                                else:
+                                    break
+                            else:
+                                unit = typed[j][0]
+                                unitRange[0] = j
+                            unitRange[1] = j # update the end of the unit range to this
                         elif (bound is None or bound == '!=') and typed[j][0] == '-' and j>i: # we found a range indicator (though this can only come after and with no other bound)
                             backup = j
                             # If we find a range indicator, we need to do something special. Continue and find the next value,
@@ -502,7 +502,7 @@ class ConstraintBuilder():
                                 for tUnit in units:
                                     # Since we have joint units earlier, we have to accept the possibility that too much was amalgamated.
                                     #  Therefore, the comparison must be "in" and not "==".
-                                    if tUnit in unit:
+                                    if (' ' + tUnit) in (' ' + unit):
                                         # We don't have to match all the unit variations, only one
                                         cols.append(attr[0][0])
                                         # We want to see if any at the end was extra. If so, we may need to rewind the blacklist
