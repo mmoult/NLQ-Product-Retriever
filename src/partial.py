@@ -19,7 +19,17 @@ class PartialMatcher(object):
                 where += ' AND '
             where += ('(' + constraint + ')')
         return where
-    
+
+    def __buildWhereOr(self, constr):
+        where = ''
+        first = True
+        for constraint in constr:
+            if first:
+                first = False
+            else:
+                where += ' OR '
+            where += ('(' + constraint + ')')
+        return where
     
     def __buildOrder(self, constr):
         orderBy = ''
@@ -33,7 +43,7 @@ class PartialMatcher(object):
         return orderBy
     
     
-    def fromConstraints(self, tableName, constr, orderBy, limit) -> string:
+    def fromConstraints(self, tableName, constr, orderBy, limit=-1) -> string:
         query = 'SELECT * FROM ' + tableName.value
         if len(constr) > 0:
             query += ' WHERE '
@@ -43,6 +53,17 @@ class PartialMatcher(object):
             query += self.__buildOrder(orderBy)
         if limit >= 0:
             query += " LIMIT " + str(limit)
+        return query
+
+    def fromConstraintsSVM(self, tableName, constr, orderBy) -> string:
+        print(constr, "constr")
+        query = 'SELECT * FROM ' + tableName.value
+        if len(constr) > 0:
+            query += ' WHERE '
+            query += self.__buildWhereOr(constr)
+        if len(orderBy) > 0:
+            query += ' ORDER BY '
+            query += self.__buildOrder(orderBy)
         return query
 
 

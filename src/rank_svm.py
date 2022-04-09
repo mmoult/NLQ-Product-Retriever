@@ -1,33 +1,32 @@
 import src.opeval as opeval
 import math
 from src.content_match import Similarity
+from scipy import spatial
 
-class RelevanceRanker(object):
-    
+class RelevanceRanker_svm(object):
+
     def __init__(self, constr):
         self.rows = constr[0].dat
         self.fieldAt = dict()
-        
+
         # We should build the requirements into a more readable structure
         self.reqs = [[], [], []]
         for i in range(0, 3):
-            for strReq in constr[i+1]:
+            for strReq in constr[i + 1]:
                 self.reqs[i].append(self.__parseGroup(strReq))
-        
-        try: # Attempt to build the word similarity graphs for this table
+
+        try:  # Attempt to build the word similarity graphs for this table
             self.similarity = Similarity(constr[0].name)
-        except: # If this domain does not have word similarity matches
-            self.similarity = None # just put a placeholder so we don't crash on reference
-    
-    
+        except:  # If this domain does not have word similarity matches
+            self.similarity = None  # just put a placeholder so we don't crash on reference
+
     class Unit(object):
         def __init__(self, attr, operation, *vals):
             self.attr = attr
             self.operation = operation
             self.vals = vals
-    
-    
-    def __parseGroup(self, req): # returns a Unit or Operation composed of units
+
+    def __parseGroup(self, req):  # returns a Unit or Operation composed of units
         # each requirement is built of operators (AND, OR, and NOT) and unit primitives ("attr op val" or "attr BETWEEN val1 AND val2")
         i = 0
         temp = None
@@ -36,15 +35,15 @@ class RelevanceRanker(object):
             if req[i] == '(':
                 # We are starting some group
                 end = self.__findEnd(req, i)
-                temp = self.__parseGroup(req[i+1:end])
+                temp = self.__parseGroup(req[i + 1:end])
                 i = end
-            elif req[i:i+3] == 'NOT':
+            elif req[i:i + 3] == 'NOT':
                 currOp = opeval.NotRelation(None)
                 i += 3
-            elif req[i:i+3] == 'AND':
+            elif req[i:i + 3] == 'AND':
                 currOp = opeval.AndRelation(None, None)
                 i += 3
-            elif req[i:i+2] == 'OR':
+            elif req[i:i + 2] == 'OR':
                 currOp = opeval.OrRelation(None, None)
                 i += 2
             elif req[i] != ' ':
@@ -73,15 +72,15 @@ class RelevanceRanker(object):
                     temp = self.Unit(attr, operation, val1)
                 else:
                     # we need to find the other value
-                    space = req.find(' ', i+1) # we know that there are no strings here luckily :)
+                    space = req.find(' ', i + 1)  # we know that there are no strings here luckily :)
                     end = len(req) if space == -1 else space
                     val2 = req[i:end]
                     i = end
                     temp = self.unit(attr, operation, val1, val2)
-            else: # space
+            else:  # space
                 i += 1
-                continue # nothing changed, so we don't have to perform checks
-            
+                continue  # nothing changed, so we don't have to perform checks
+
             # at the end here, we perform some checks
             if temp is not None and currOp is not None and isinstance(currOp, opeval.NotRelation):
                 currOp.notted = temp
@@ -90,17 +89,16 @@ class RelevanceRanker(object):
             elif temp is not None and currOp is not None:
                 # we must insert temp into currOp, which is not a NOT
                 if currOp.left is None:
-                    currOp.left = temp # move the temp into the left slot of the operation
+                    currOp.left = temp  # move the temp into the left slot of the operation
                     temp = None
                 else:
                     currOp.right = temp
-                    temp = currOp # move the operation to the temporary slot
+                    temp = currOp  # move the operation to the temporary slot
                     currOp = None
             # then we move to the next index
             i += 1
         return temp
-    
-    
+
     def __findEnd(self, req, index):
         end = index + 1
         levels = 0
@@ -114,8 +112,7 @@ class RelevanceRanker(object):
                 levels -= 1
             end += 1
         return end
-    
-    
+
     def findEntryIndex(self, fieldName):
         if fieldName in self.fieldAt:
             return self.fieldAt[fieldName]
@@ -125,11 +122,9 @@ class RelevanceRanker(object):
                 self.fieldAt[fieldName] = i
                 return i
             i += 1
-        return -1 # could not be found!
-    
-    
-    def getScore(self, comp, entry):
+        return -1  # could not be found!
 
+    def getScore(self, comp, entry):
         # If we have a component that is a operator, then we can perform some simple logical operations
         if isinstance(comp, opeval.OrRelation):
             # OR returns the higher of the two scores
@@ -147,30 +142,13 @@ class RelevanceRanker(object):
             if isinstance(value, str):
                 value = value.lower()
             if comp.operation == 'LIKE':
-                if len(value) == 0: # cannot content match on nothing
+                if len(value) == 0:  # cannot content match on nothing
                     return 0
                 exp = comp.vals[0]
                 # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
                 exp = exp[2:len(exp) - 2]
                 if exp in value:
                     return 1
-                # otherwise, we have to perform a partial matching approach...
-                # We modify exp even further to remove the extra padding spaces
-                exp = exp[1:len(exp) - 1]
-                distance = -1
-                if self.similarity is not None:
-                    node = self.similarity.valueNode(comp.attr, exp)
-                    # there may be no similarity matches for either the attribute or value
-                    if node is not None:
-                        # the typical offset is related to the number of nodes in the graph. 
-                        typical = len(self.similarity.graphs[comp.attr].nodes) / 2
-                        # If there are any related, then return the similarity value
-                        for edge in node.connections:
-                            if value in (' ' + edge.toNode.name + ' '):
-                                distance = edge.cost
-                                break
-                if distance == -1:
-                    return 0 # since distance was not actually set
             else:
                 # All other operations use numbers
                 act = float(value)
@@ -182,65 +160,62 @@ class RelevanceRanker(object):
                 if comp.attr == 'year':
                     # TODO: I had to decide some value to modify years since they are disproportionately
                     # larger than their use space (which is approx from 1950 - 2022)
-                    typical = 10 
+                    typical = 10
                 else:
                     typical = exp
-                
+
                 if comp.operation == '=':
                     distance = math.fabs(exp - act)
+                    if exp == act:
+                        return 1
                 # Often with ranges, we want the extreme. There is no way to take that into account without
                 # giving some form of extra credit, which would be a controversial decision.
                 elif comp.operation == '>':
                     if act > exp:
-                        return 1 # This is where we would calculate extra credit score
-                    distance = exp - (act - 0.1)
+                        return 1  # This is where we would calculate extra credit score
                 elif comp.operation == '>=':
                     if act >= exp:
-                        return 1 
-                    distance = exp - act
+                        return 1
                 elif comp.operation == '<':
                     if act < exp:
-                        return 1 # This is where we would calculate extra credit score
-                    distance = (act + 0.1) - exp
+                        return 1  # This is where we would calculate extra credit score
                 elif comp.operation == '<=':
                     if act <= exp:
-                        return 1 # This is where we would calculate extra credit score
-                    distance = act - exp
+                        return 1  # This is where we would calculate extra credit score
                 elif comp.operation == 'BETWEEN':
                     lo = exp
                     hi = float(comp.vals[1])
                     exp = (lo + hi) / 2
                     if act >= lo and act <= hi:
                         return 1
-                    if act < lo:
-                        distance = lo - act
-                    elif act > hi:
-                        distance = act - hi
                 else:
                     raise Exception('Unknown operation "' + comp.operation + '"!')
-            
+
             # the more distant something is from the desired, the less the score decreases relatively.
             # This is not a linear model of score depreciation. Instead, we use an exponential decay.
-            return .5 ** (distance / (typical / 5))
-    
-    
+            return 0
+
     def rank(self, results, limit):
         # Each type of data receives a certain weight:
         #  1: 1, 2: .5, 3:.25
         # Thus, an exact match in type III will count similarly to a bad match on type I
-        weights = [1, .5, .25]
-        
+        # weights = [1, .5, .25]
+
         # We need to score every record in results
+
+
         scores = []
         for record in results:
-            score = 0
+            target = []
+            expected = []
             for i in range(0, 3):
                 for req in self.reqs[i]:
-                    score += weights[i] * self.getScore(req, record)
+                    target.append(1)
+                    expected.append(self.getScore(req, record))
+            cs = 1 - spatial.distance.cosine(target, expected)
             # typically we would normalize scores, but they are only used internally, compared to other records with the same reqs
-            scores.append([score, record])
-        
-        scores.sort(key=lambda entry : entry[0], reverse=True)
+            scores.append([cs,expected, record])
+
+        scores.sort(key=lambda entry: entry[0], reverse=True)
         scores = scores[:limit]
-        return [entry[1] for entry in scores]
-        
+        return [entry[2] for entry in scores]
