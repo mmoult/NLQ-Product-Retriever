@@ -206,7 +206,6 @@ class RelevanceRanker_tfidf(object):
         # weights = [1, .5, .25]
 
         # We need to score every record in results
-
         scores = []
         total_matched = len(results)
         partial_list = []
@@ -217,13 +216,15 @@ class RelevanceRanker_tfidf(object):
                     expected.append(self.getScore(req, record))
             partial_list.append(expected)
         sum_list = [sum(i) for i in zip(*partial_list)]
+        print("sum_list: ", sum_list)
         for score_record, record in zip(partial_list, results):
             score = 0
             for i, j in zip(score_record,sum_list):
                 try:
                     idf = math.log(total_matched/j, 2)
+                    print("len_sum_list: ", len(sum_list))
                     tf = i/len(sum_list)
-                    score +=tf/idf
+                    score +=tf*idf
                 except:
                     continue
             scores.append([score, record])

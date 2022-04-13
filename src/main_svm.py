@@ -9,7 +9,7 @@ from src.rank import RelevanceRanker
 from src.rank_svm import RelevanceRanker_svm
 from src.ranker_tfidf import RelevanceRanker_tfidf
 from src.ranker_query_tuple import RelevanceRanker_query_tuple
-from datetime import datetime
+import time
 import random
 class ConstraintBuilder():
 
@@ -1023,7 +1023,7 @@ if __name__ == '__main__':
     'toyota or honda odyssey' -> 'toyota or (honda odyssey)'
     'honda or red less than 3000 mi" -> '(honda or red) (< 3000 mi)' 
     '''
-    start = datetime.now()
+
     cb = ConstraintBuilder()
 
     # Get the input from the command line. We expect to see the user query, and we may see some flags
@@ -1099,10 +1099,11 @@ if __name__ == '__main__':
     log('"' + query + '"')
     reqs = cb.fromQuery(query, log, correctSpelling)
     log()  # get a new line
-    with open("compare_to_svm.txt", "a") as f:
+    with open("final_result.txt", "a") as f:
         f.write("\nQuery: "+query+"\n")
     from src.database import execute
 
+    start = time.time()
     if exactOnly:
         # from src.database import execute
         query = PartialMatcher().fromConstraints(reqs[0].name, reqs[1] + reqs[2] + reqs[3], reqs[4], limit)
@@ -1204,12 +1205,11 @@ if __name__ == '__main__':
         elif ranker == 'vsm':
             res = RelevanceRanker_svm(reqs).rank(records, limit)
         elif ranker == 'tfidf':
-
             res = RelevanceRanker_tfidf(reqs).rank(records, limit)
         elif ranker == 'query_tuple':
             res = RelevanceRanker_query_tuple(reqs).rank(target_tuple, record_tuple,records,columns, limit)
         elif ranker  == 'random':
-            sample = random.sample(range(len(records)), 4)
+            sample = random.sample(range(len(records)), limit)
             res = [records[s] for s in sample]
         print(len(res), 'Results:')
         print()
@@ -1219,30 +1219,26 @@ if __name__ == '__main__':
         print()  # go to the line after the table headings
         for result in res:
             print('', result)
-        end = now = datetime.now()
+        end = time.time()
         time_used = end - start
         print(time_used)
-        # if ranker == "vsm":
-        #     file = "compare_to_svm.txt"
-        #     title = "vsm result"
-        # elif ranker == "main":
-        #     file = "compare_to_svm.txt"
-        #     title = "our system result"
-        # elif ranker == "tfidf":
-        #     file = "compare_to_svm.txt"
-        #     title = "tfidf result"
-        # elif ranker == "query_tuple":
-        #     file = "compare_to_svm.txt"
-        #     title = "query tuple"
-        # elif ranker == "random":
-        #     file = "compare_to_svm.txt"
-        #     title = "random"
-        # with open(file, "a") as f:
-        #     # Writing data to a file
-        #     f.write(title + "\n")
-        #     for row in reqs[0].dat:
-        #         f.write(''+row[0][0].upper()+'\t')
-        #     f.write('\n')
-        #     for result in res:
-        #         f.write(''+str(result)+'\n')
-        #     f.write("Time used: " +str(time_used)+"\n")
+        file = "final_result.txt"
+        if ranker == "vsm":
+            title = "vsm result"
+        elif ranker == "main":
+            title = "our system result"
+        elif ranker == "tfidf":
+            title = "tfidf result"
+        elif ranker == "query_tuple":
+            title = "query tuple"
+        elif ranker == "random":
+            title = "random"
+        with open(file, "a") as f:
+            # Writing data to a file
+            f.write(title + "\n")
+            for row in reqs[0].dat:
+                f.write(''+row[0][0].upper()+'\t')
+            f.write('\n')
+            for result in res:
+                f.write(''+str(result)+'\n')
+            f.write("Time used: " +str(time_used)+"\n")
