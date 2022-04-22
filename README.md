@@ -1,4 +1,4 @@
-# Product-QA
+# NLQ Product Retriever
 A question answer system that spans across several product categories. Users provide some request query for a product or listing in one of the six categories. In response, the program finds matches to the query and returns results to the user. The program utilizes exact and partial matching techniques to produce as relevant an output as possible.
 
 ## Datasets 
@@ -34,6 +34,8 @@ Run the `main.py` module, and specify the user query as the first argument to th
 --------|-------------------------------:
 -v | Print verbose output for the process (defaults to non-verbose).
 -l <i>x</i> | Limit the number of products returned to no more than x (defaults to 25 for partial, no limit for exact).
--e | Returns only exact matches to the specifications extracted from the user query, skipping any partial match recommendations (defaults partial on).
--s | Disables spelling correction on the given query (defaults spelling corrected).
+-e | Returns only exact matches to the specifications extracted from the user query, skipping any partial match recommendations. This is the inverse of -p. By default, partial and exact matches are included in results.
+-p | Returns only partial matches to the specifications extracted from the user query. This is the inverse of -e. By default, exact and partial matches are included in results.
+-s | Disables spelling correction on the given query (spelling corrected by default).
+-r <i>x</i> | Specifies a ranking method. Available options for x are 'main', 'vsm', 'tfidf', 'query_tuple' and 'random'. (defaults to 'main')
 

@@ -127,19 +127,24 @@ class RelevanceRanker(object):
             i += 1
         return -1 # could not be found!
     
+
+####################################################################################
+# Begin the different ranking approaches. All the code above is shared boiler-plate.
+# The systems are given in the order: main, SVM, tf.idf, query_tuple
     
-    def getScore(self, comp, entry):
+    # Main ranking------------------------------------------------------------------
+    def getScoreMain(self, comp, entry):
 
         # If we have a component that is a operator, then we can perform some simple logical operations
         if isinstance(comp, opeval.OrRelation):
             # OR returns the higher of the two scores
-            return max(self.getScore(comp.left, entry), self.getScore(comp.right, entry))
+            return max(self.getScoreMain(comp.left, entry), self.getScoreMain(comp.right, entry))
         elif isinstance(comp, opeval.AndRelation):
             # AND returns the lower of the two scores
-            return min(self.getScore(comp.left, entry), self.getScore(comp.right, entry))
+            return min(self.getScoreMain(comp.left, entry), self.getScoreMain(comp.right, entry))
         elif isinstance(comp, opeval.NotRelation):
             # NOT can simply return 1 - score
-            return 1 - self.getScore(comp.notted, entry)
+            return 1 - self.getScoreMain(comp.notted, entry)
         else:
             # regular clause to evaluate. This is the hardest part
             at = self.findEntryIndex(comp.attr)
@@ -224,7 +229,7 @@ class RelevanceRanker(object):
             return .5 ** (distance / (typical / 5))
     
     
-    def rank(self, results, limit):
+    def rankMain(self, results, limit):
         # Each type of data receives a certain weight:
         #  1: 1, 2: .5, 3:.25
         # Thus, an exact match in type III will count similarly to a bad match on type I
@@ -236,11 +241,272 @@ class RelevanceRanker(object):
             score = 0
             for i in range(0, 3):
                 for req in self.reqs[i]:
-                    score += weights[i] * self.getScore(req, record)
+                    score += weights[i] * self.getScoreMain(req, record)
             # typically we would normalize scores, but they are only used internally, compared to other records with the same reqs
             scores.append([score, record])
         
         scores.sort(key=lambda entry : entry[0], reverse=True)
         scores = scores[:limit]
         return [entry[1] for entry in scores]
-        
+
+    # SVM ranking--------------------------------------------------------------------
+    def getScoreSVM(self, comp, entry):
+        # If we have a component that is a operator, then we can perform some simple logical operations
+        if isinstance(comp, opeval.OrRelation):
+            # OR returns the higher of the two scores
+            return max(self.getScoreSVM(comp.left, entry), self.getScoreSVM(comp.right, entry))
+        elif isinstance(comp, opeval.AndRelation):
+            # AND returns the lower of the two scores
+            return min(self.getScoreSVM(comp.left, entry), self.getScoreSVM(comp.right, entry))
+        elif isinstance(comp, opeval.NotRelation):
+            # NOT can simply return 1 - score
+            return 1 - self.getScoreSVM(comp.notted, entry)
+        else:
+            # regular clause to evaluate. This is the hardest part
+            at = self.findEntryIndex(comp.attr)
+            value = entry[at]
+            if isinstance(value, str):
+                value = value.lower()
+            if comp.operation == 'LIKE':
+                if len(value) == 0:  # cannot content match on nothing
+                    return 0
+                exp = comp.vals[0]
+                # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
+                exp = exp[2:len(exp) - 2]
+                if exp in value:
+                    return 1
+            else:
+                # All other operations use numbers
+                act = float(value)
+                exp = float(comp.vals[0])
+                # Find the divisor, which will effectively determine how much the difference between actual and
+                #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
+                #  and some other products, they are closer to a Type II than a Type III in that the exact year
+                #  may be important for the style.
+                if comp.attr == 'year':
+                    # TODO: I had to decide some value to modify years since they are disproportionately
+                    # larger than their use space (which is approx from 1950 - 2022)
+                    typical = 10
+                else:
+                    typical = exp
+
+                if comp.operation == '=':
+                    distance = math.fabs(exp - act)
+                    if exp == act:
+                        return 1
+                # Often with ranges, we want the extreme. There is no way to take that into account without
+                # giving some form of extra credit, which would be a controversial decision.
+                elif comp.operation == '>':
+                    if act > exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == '>=':
+                    if act >= exp:
+                        return 1
+                elif comp.operation == '<':
+                    if act < exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == '<=':
+                    if act <= exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == 'BETWEEN':
+                    lo = exp
+                    hi = float(comp.vals[1])
+                    exp = (lo + hi) / 2
+                    if act >= lo and act <= hi:
+                        return 1
+                else:
+                    raise Exception('Unknown operation "' + comp.operation + '"!')
+
+            # the more distant something is from the desired, the less the score decreases relatively.
+            # This is not a linear model of score depreciation. Instead, we use an exponential decay.
+            return 0
+
+    def rankSVM(self, results, limit):
+        from scipy import spatial
+        # We need to score every record in results
+        scores = []
+        for record in results:
+            target = []
+            expected = []
+            for i in range(0, 3):
+                for req in self.reqs[i]:
+                    target.append(1)
+                    expected.append(self.getScoreSVM(req, record))
+            cs = 1 - spatial.distance.cosine(target, expected)
+            # typically we would normalize scores, but they are only used internally, compared to other records with the same reqs
+            scores.append([cs,expected, record])
+
+        scores.sort(key=lambda entry: entry[0], reverse=True)
+        scores = scores[:limit]
+        return [entry[2] for entry in scores]
+
+    # tf.idf -----------------------------------------------------------------------
+    def getScoreTfIdf(self, comp, entry):
+        # print(comp, entry, "comp, entry")
+        # If we have a component that is a operator, then we can perform some simple logical operations
+        if isinstance(comp, opeval.OrRelation):
+            # OR returns the higher of the two scores
+            return max(self.getScoreTfIdf(comp.left, entry), self.getScoreTfIdf(comp.right, entry))
+        elif isinstance(comp, opeval.AndRelation):
+            # AND returns the lower of the two scores
+            return min(self.getScoreTfIdf(comp.left, entry), self.getScoreTfIdf(comp.right, entry))
+        elif isinstance(comp, opeval.NotRelation):
+            # NOT can simply return 1 - score
+            return 1 - self.getScoreTfIdf(comp.notted, entry)
+        else:
+
+            # regular clause to evaluate. This is the hardest part
+            at = self.findEntryIndex(comp.attr)
+            value = entry[at]
+            if isinstance(value, str):
+                value = value.lower()
+            if comp.operation == 'LIKE':
+
+                if len(value) == 0:  # cannot content match on nothing
+                    return 0
+                exp = comp.vals[0]
+                # We need to modify exp to be useful to us, since it currently has delimiting " and % symbols
+                exp = exp[2:len(exp) - 2]
+                if exp in value:
+                    return 1
+            else:
+                # All other operations use numbers
+                act = float(value)
+                exp = float(comp.vals[0])
+                # Find the divisor, which will effectively determine how much the difference between actual and
+                #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
+                #  and some other products, they are closer to a Type II than a Type III in that the exact year
+                #  may be important for the style.
+                if comp.attr == 'year':
+                    # TODO: I had to decide some value to modify years since they are disproportionately
+                    # larger than their use space (which is approx from 1950 - 2022)
+                    typical = 10
+                else:
+                    typical = exp
+
+                if comp.operation == '=':
+                    distance = math.fabs(exp - act)
+                    if exp == act:
+                        return 1
+                # Often with ranges, we want the extreme. There is no way to take that into account without
+                # giving some form of extra credit, which would be a controversial decision.
+                elif comp.operation == '>':
+                    if act > exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == '>=':
+                    if act >= exp:
+                        return 1
+                elif comp.operation == '<':
+                    if act < exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == '<=':
+                    if act <= exp:
+                        return 1  # This is where we would calculate extra credit score
+                elif comp.operation == 'BETWEEN':
+                    lo = exp
+                    hi = float(comp.vals[1])
+                    exp = (lo + hi) / 2
+                    if act >= lo and act <= hi:
+                        return 1
+                else:
+                    raise Exception('Unknown operation "' + comp.operation + '"!')
+
+            # the more distant something is from the desired, the less the score decreases relatively.
+            # This is not a linear model of score depreciation. Instead, we use an exponential decay.
+            return 0
+
+    def rankTfIdf(self, results, limit):
+        # We need to score every record in results
+        scores = []
+        total_matched = len(results)
+        partial_list = []
+        for record in results:
+            expected = []
+            for i in range(0, 3):
+                for req in self.reqs[i]:
+                    expected.append(self.getScoreTfIdf(req, record))
+            partial_list.append(expected)
+        sum_list = [sum(i) for i in zip(*partial_list)]
+        print("sum_list: ", sum_list)
+        for score_record, record in zip(partial_list, results):
+            score = 0
+            for i, j in zip(score_record,sum_list):
+                try:
+                    idf = math.log(total_matched/j, 2)
+                    print("len_sum_list: ", len(sum_list))
+                    tf = i/len(sum_list)
+                    score +=tf*idf
+                except:
+                    continue
+            scores.append([score, record])
+        scores.sort(key=lambda entry: entry[0], reverse=True)
+        scores = scores[:limit]
+        return [entry[1] for entry in scores]
+
+    # Query Tuple ranking ----------------------------------------------------------
+    def getScoreQTuple(self, comp, entry, target_tuple, record_tuple, columns):
+        # print(comp, entry, "comp, entry")
+        # If we have a component that is a operator, then we can perform some simple logical operations
+        if isinstance(comp, opeval.OrRelation):
+            # OR returns the higher of the two scores
+            return max(self.getScoreQTuple(comp.left, entry, target_tuple, record_tuple, columns), self.getScoreQTuple(comp.right, entry, target_tuple, record_tuple, columns))
+        elif isinstance(comp, opeval.AndRelation):
+            # AND returns the lower of the two scores
+            return min(self.getScoreQTuple(comp.left, entry, target_tuple, record_tuple, columns), self.getScoreQTuple(comp.right, entry, target_tuple, record_tuple, columns))
+        elif isinstance(comp, opeval.NotRelation):
+            # NOT can simply return 1 - score
+            return 1 - self.getScoreQTuple(comp.notted, entry, target_tuple, record_tuple, columns)
+        else:
+
+            # regular clause to evaluate. This is the hardest part
+            at = self.findEntryIndex(comp.attr)
+            value = entry[at]
+            if isinstance(value, str):
+                value = value.lower()
+            if comp.operation == 'LIKE':
+
+                target_super_tuple = target_tuple[comp.attr]
+                records_super_tuple = record_tuple[comp.attr][value.strip()]
+
+                target_set = set(target_super_tuple)
+                record_set = set(records_super_tuple)
+                n = 0
+                for key in target_set.intersection(record_set):
+                    n += min(target_super_tuple[key], records_super_tuple[key])
+                d = sum(target_super_tuple.values())+ sum(records_super_tuple.values())
+                score = n/d
+                # print(score)
+                # return score
+            else:
+                # All other operations use numbers
+                act = float(value)
+                exp = float(comp.vals[0])
+                # Find the divisor, which will effectively determine how much the difference between actual and
+                #  expected should be penalized. Years are an interesting attribute, because for cars, motorcycles,
+                #  and some other products, they are closer to a Type II than a Type III in that the exact year
+                #  may be important for the style.
+                return 1 - abs(exp - act)/exp
+            # the more distant something is from the desired, the less the score decreases relatively.
+            # This is not a linear model of score depreciation. Instead, we use an exponential decay.
+            return 0
+
+    def rankQueryTuple(self, target_tuple, record_tuple,results,columns, limit):
+        # Each type of data receives a certain weight:
+        #  1: 1, 2: .5, 3:.25
+        # Thus, an exact match in type III will count similarly to a bad match on type I
+        # weights = [1, .5, .25]
+
+        # We need to score every record in results
+
+        scores = []
+        for record in results:
+            score = 0
+            for i in range(0, 3):
+                for req in self.reqs[i]:
+                    score +=  self.getScoreQTuple(req, record,target_tuple, record_tuple, columns)
+            # typically we would normalize scores, but they are only used internally, compared to other records with the same reqs
+            scores.append([score, record])
+
+        scores.sort(key=lambda entry: entry[0], reverse=True)
+        scores = scores[:limit]
+        return [entry[1] for entry in scores]

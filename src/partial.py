@@ -9,27 +9,18 @@ class PartialMatcher(object):
     in order to get results.
     '''
     
-    def __buildWhere(self, constr):
+    def __buildWhere(self, constr, bind = 'AND'):
         where = ''
         first = True
+        combBind = ' ' + bind + ' '
         for constraint in constr:
             if first:
                 first = False
             else:
-                where += ' AND '
+                where += combBind
             where += ('(' + constraint + ')')
         return where
-
-    def __buildWhereOr(self, constr):
-        where = ''
-        first = True
-        for constraint in constr:
-            if first:
-                first = False
-            else:
-                where += ' OR '
-            where += ('(' + constraint + ')')
-        return where
+    
     
     def __buildOrder(self, constr):
         orderBy = ''
@@ -43,27 +34,16 @@ class PartialMatcher(object):
         return orderBy
     
     
-    def fromConstraints(self, tableName, constr, orderBy, limit=-1) -> string:
+    def fromConstraints(self, tableName, constr, orderBy, limit=-1, forSVM=False) -> string:
         query = 'SELECT * FROM ' + tableName.value
         if len(constr) > 0:
             query += ' WHERE '
-            query += self.__buildWhere(constr)
+            query += self.__buildWhere(constr, 'OR') if forSVM else self.__buildWhere(constr)
         if len(orderBy) > 0:
             query += ' ORDER BY '
             query += self.__buildOrder(orderBy)
-        if limit >= 0:
+        if limit >= 0 and not forSVM:
             query += " LIMIT " + str(limit)
-        return query
-
-    def fromConstraintsSVM(self, tableName, constr, orderBy) -> string:
-        print(constr, "constr")
-        query = 'SELECT * FROM ' + tableName.value
-        if len(constr) > 0:
-            query += ' WHERE '
-            query += self.__buildWhereOr(constr)
-        if len(orderBy) > 0:
-            query += ' ORDER BY '
-            query += self.__buildOrder(orderBy)
         return query
 
 
@@ -96,7 +76,18 @@ class PartialMatcher(object):
         return removals
     
     
-    def bestResults(self, requirements, log, limit):
+    '''
+    Tries to get the best results from the database to match the given requirements.
+    @param requirements: the list of requirements to match. The requirements are expected in a particular
+                         form for use, where the 0th index is the table, the 1st index is a list of Type
+                         I constraints, the 2nd index is a list of Type II constraints, the 3rd index is
+                         a list of Type III constraints, and the 4th index is the ordering constraints.
+    @param log: the log function which should print only if the user specified verbose settings.
+    @param limit: the maximum number of matches to return
+    @param rnd: the number of removals to begin with. The default start point is rnd=0, or an exact match.
+                The next round is 1, then 2, and so on.
+    '''
+    def bestResults(self, requirements, log, limit, rnd=0):
         # [table, typeIWhere, typeIIWhere, typeIIIWhere, orderByClause]
         table = requirements[0]
         type1 = requirements[1]
@@ -116,7 +107,6 @@ class PartialMatcher(object):
         
         # We want to keep searching for results until the limit is reached
         results = []
-        rnd = 0
         doPartial = True
         scheduler = [[]]
         while len(results) < limit or limit == -1:
