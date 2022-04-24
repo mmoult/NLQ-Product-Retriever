@@ -52,8 +52,8 @@ jobs = Table(Domain.JOB, 0, [1],
     [["salary_max"], "INTEGER", ['$'], 'salary_min'],
     [["size_min"], "INTEGER", ['people'], 'size_max'],
     [["size_max"], "INTEGER", ['people'], 'size_min'],
-    [["revenue_min"], "INTEGER", ['$'], 'revenue_max'],
-    [["revenue_max"], "INTEGER", ['$'], 'revenue_min']
+    [["revenue_min"], "INTEGER"],
+    [["revenue_max"], "INTEGER"]
 )
 furniture = Table(Domain.FURNITURE, 0, [2],
     [["id"], "INTEGER NOT NULL UNIQUE"],

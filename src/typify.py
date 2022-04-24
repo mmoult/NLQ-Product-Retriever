@@ -59,6 +59,11 @@ class TypeExtractor(object):
                     j += 1
                     # try to add the next token on
                     t = t + ' ' + pos_tagged[j][0].lower()
+                else:
+                    # there is no next token to append
+                    search.clear()
+                    tval = 4
+                    break
                 
                 toRemove = []
                 for typeNum in search:

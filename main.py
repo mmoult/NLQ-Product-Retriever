@@ -493,7 +493,7 @@ class ConstraintBuilder():
                     else:
                         # Find whether the unit exists in the table.
                         for attr in table.dat:
-                            if len(attr) == 3:  # if it has length three, then it is of the form: name, type, [units]
+                            if len(attr) >= 3:  # if it has length three, then it is of the form: name, type, [units]
                                 # Therefore, we try to match the found unit to the unit here
                                 units = attr[2]
                                 for tUnit in units:
@@ -1152,7 +1152,7 @@ if __name__ == '__main__':
                 # cat = r1.split(' ')[0]
                 token = r1.split(' ')
                 cats = [token[i - 1] for i, x in enumerate(r1.split(' ')) if x == "LIKE"]
-                print(cats)
+                log(cats)
                 for cat in cats:
                     q = PartialMatcher().fromConstraints(reqs[0].name, [r1], reqs[4])
                     r = execute(q)
@@ -1162,7 +1162,7 @@ if __name__ == '__main__':
                 # cat = r2.split(' ')[0]
                 token = r2.split(' ')
                 cats = [token[i-1] for i, x in enumerate(r2.split(' ')) if x == "LIKE"]
-                print(cats)
+                log(cats)
                 for cat in cats:
                     q = PartialMatcher().fromConstraints(reqs[0].name, [r2] ,reqs[4])
                     r = execute(q)
@@ -1213,11 +1213,12 @@ if __name__ == '__main__':
             res = RelevanceRanker(reqs).rankQueryTuple(target_tuple, record_tuple,records,columns, limit)
         elif ranker  == 'random':
             import random
-            sample = random.sample(range(len(records)), limit)
-            res = [records[s] for s in sample]
+            random.shuffle(records)
+            res = records[0 : limit]
         end = time.time()
+        if ranker != 'main':
+            print('Ranking by ' + ranker)
         print(len(res), 'Results:')
-        print()
         # Print the table headings
         for row in reqs[0].dat:
             print('', row[0][0].upper(), end='\t')

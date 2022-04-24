@@ -151,7 +151,7 @@ ford v8 truck tow package spray in bedliner
 ford f150 low miles
 honda 200k miles 15k
 toyota 5000
-honda 200k miles &lt;15000k
+honda 200k miles <15000k
 toyota 5k
 honda 200k miles under $15000
 honda amaze 300000  $30000
@@ -371,7 +371,7 @@ business analyst salary estimate arkansas
 senior data manager at health care sector
 computer engineer helpdesk military security online router
 software developer helpdesk
-computer science = Consultant and salary &gt; 20000€
+computer science = Consultant and salary > 20000€
 computer science = Consultant
 cybersecurity analyst high starting pay in CA
 information security high-paying jobs
@@ -440,7 +440,7 @@ what is salary for senior scientist
 what is the nature work for Data Scientist Manager
 Analyst, 50k-70k, four year degree, one years experience, New York, medium sized company, Social Sevices
 Data science manager, private company , $45K, New York, engines
-computer science = 'Consultant' and salary &gt; 20000€
+computer science = 'Consultant' and salary > 20000€
 computer science = 'Consultant'
 networking with bachlors $45k under 25,000 employees
 scientist job location is NY, salary range is $100,000-$150,000, founded in 2002
@@ -566,7 +566,7 @@ bathroom faucet silver new $100 over
 bathroom counter marble white
 brown oak desk 200 150 by 300
 white desk 200
-category = beds  and price &gt; 200$
+category = beds  and price > 200$
 category = beds
 cocobolo wood office table 3 ft by 5 ft light brown finish
 king size mattress $65
@@ -672,7 +672,7 @@ black bed twin size
 white wooden bedroom bed 110 by 220
 white bedroom bed
 Black nightstand no more than 26" W between $25 to $45
-category = 'beds'  and price &gt; 200$
+category = 'beds'  and price > 200$
 category = 'beds'
 material, durability, shape, price, dimension.
 shape, price, dimension
@@ -974,7 +974,7 @@ silver bracelet less than $500
 Rose gold Charm Bracelet with Diamonds for under $500
 $100 silver necklace
 SELECT bracelet FROM Jewelry WHERE occasion=anniversary AND gender=female AND material=gold OR material=silver AND price=100
-SELECT ring FROM Jewelry WHERE  occasion=wedding AND price&lt;1000
+SELECT ring FROM Jewelry WHERE  occasion=wedding AND price<1000
 Short diamond necklace with silver chain less than $1000 for anniversary
 Silver Wedding Ring with Diamonds for Under $1000
 Pearl earrings for less than $ 200
@@ -1052,7 +1052,7 @@ necklace greater than $1000
 bracelet for silver is less than $5000
 wedding band less than $2000
 bracelet silver or gold 100
-rings &lt;1000
+rings <1000
 cheap 24k gold diamond ring for anniversary
 cheap pink diamond earrings
 dam silver
@@ -1125,7 +1125,7 @@ gold earring for 500$ or less
 ruby gold diamond and emerald watch for him $3500 or under
 sapphire bracelet under $10000
 select type,price,color from jewelry where price=100 and color in ('silver','gold') and type='bracelet';
-select type,price,color from jewelry where price &lt; 1000 and type='ring'
+select type,price,color from jewelry where price < 1000 and type='ring'
 silver butterfly necklace for woman under 500
 gold necklace over 500
 silver cross necklace between $75 and $150
@@ -1334,7 +1334,7 @@ baja truck lifted neon green 15000
 Toyota Camry 1987
 bajaj 2017 130000
 honda 500 cc
-bajaj 2017 &lt;130k
+bajaj 2017 <130k
 bajaj dominar 2015 less than 110000 sale
 honda motorcycle 750cc
 bajaj dominar 2017 less than 100000 sale
@@ -1402,13 +1402,13 @@ ktm dominar 2020 less than 10000 sale
 ktm dominar 2020 less than 40000sale
 less than 126870 sale
 Royal enfield
-motorcycle name = yamaha and  price &lt; 200
+motorcycle name = yamaha and  price < 200
 motorcycles name = yamaha
 new model or old model is this
 what is the color of motorcycle
 nissan leaf electric 3 bar battery used less than 10000
 honda electric 1000miles new
-select name,price,year,owner,km_driven from motorcycles where name='bajaj dominar 2017' and price &lt; 130000;
+select name,price,year,owner,km_driven from motorcycles where name='bajaj dominar 2017' and price < 130000;
 select name,price from motorcycles where name='honda motorcycle 500cc';
 suzuki grand tourer 2018 less than 100000
 bmw motorcycle 1200cc
@@ -1440,6 +1440,6 @@ Used Honda motorcycle use 16,000
 ducati xdiavel 2018 less than 20,000 sale
 honda,125000,2020,120km
 honda hornet 2.0 500cc
-motorcycle name = 'yamaha' and  price &lt; 200
+motorcycle name = 'yamaha' and  price < 200
 motorcycles name = 'yamaha'
 motorcycles

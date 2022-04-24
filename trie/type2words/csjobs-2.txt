@@ -6998,7 +6998,7 @@ Emerald
 emeraldresourcegroup
 emerged
 emergencies
-emergencycare
+emergency care
 Emergent
 Emeryville
 EMI
@@ -7028,10 +7028,9 @@ empirically
 empleador
 employ
 employed
-employeeservices
-EmployeeWorker
+employee services
+Employee Worker
 employer
-EmployerAndiamo
 EmployerIt
 employers
 employing
@@ -9673,6 +9672,7 @@ heal
 healing
 healt
 Healthfirst
+health care
 Healthgrades
 HealthHelp
 healthier
