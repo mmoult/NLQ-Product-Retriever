@@ -77,7 +77,7 @@ class RelevanceRanker(object):
                     end = len(req) if space == -1 else space
                     val2 = req[i:end]
                     i = end
-                    temp = self.unit(attr, operation, val1, val2)
+                    temp = self.Unit(attr, operation, val1, val2)
             else: # space
                 i += 1
                 continue # nothing changed, so we don't have to perform checks
