@@ -267,6 +267,8 @@ class RelevanceRanker(object):
             value = entry[at]
             if isinstance(value, str):
                 value = value.lower()
+            if comp.operation == 'AND':
+                return 0 # TODO - Review why did this come here. Special case after fixing Unit class usage. 
             if comp.operation == 'LIKE':
                 if len(value) == 0:  # cannot content match on nothing
                     return 0
